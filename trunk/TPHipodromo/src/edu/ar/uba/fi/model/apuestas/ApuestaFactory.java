@@ -16,7 +16,47 @@ public class ApuestaFactory {
 		return instance;
 	}
 
-	public Apuesta crearApuesta(Participante[] participantes) {
+	public Apuesta crearApuestaGanador(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaSegundo(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaTercero(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaExacta(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaImperfecta(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaTrifecta(Participante Participante){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaDoble(Participante[] participantes){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaTriplo(Participante[] participantes){
+		// TODO: implementar logica
+		return null;
+	}
+
+	public Apuesta crearApuestaCuaterna(Participante[] participantes){
 		// TODO: implementar logica
 		return null;
 	}

@@ -3,6 +3,7 @@ package edu.ar.uba.fi.model.apuestas;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.model.Participante;
 
 /**
@@ -10,31 +11,35 @@ import edu.ar.uba.fi.model.Participante;
  */
 public abstract class Apuesta {
 	private BolsaApuestas bolsaApuestas;
-	private String estado;
+	private EstadoApuesta estado;
 	private BigDecimal montoApostado;
 	private long nroTicket;
 	private ArrayList<Participante> participantes = new ArrayList<Participante>();
 	private int diasPlazoMaxDeCobro;
 
 	/**
-	 * Este metodo debe verificar si la apuesta fue ganada. En el caso de que
-	 * asi suceda, debe retornar true, en el caso contrario false
+	 * Verifica si la apuesta fue ganada. En el caso de que asi suceda, retorna
+	 * true, en caso contrario false
 	 */
 	public abstract boolean isAcertada();
 
+	public abstract BigDecimal getValorBase();
+
 	private BigDecimal calcularMontoAPagar() {
-		// TODO: implementar logica
-		return null;
+		BigDecimal proporcion = this.getMontoApostado().divide(
+				this.getValorBase());
+		return proporcion.multiply(this.getBolsaApuestas().getDividendo());
 	}
 
-	public BigDecimal liquidar() {
-		// TODO: implementar logica
-		return null;
+	public BigDecimal liquidar() throws ApuestaPerdidaException {
+		if (!this.isAcertada()) {
+			throw new ApuestaPerdidaException();
+		}
+		return this.calcularMontoAPagar();
 	}
 
 	public boolean isPagada() {
-		// TODO: implementar logica
-		return false;
+		return (EstadoApuesta.PAGADA.equals(this.getEstado()));
 	}
 
 	public BolsaApuestas getBolsaApuestas() {
@@ -45,11 +50,11 @@ public abstract class Apuesta {
 		this.bolsaApuestas = bolsaApuestas;
 	}
 
-	public String getEstado() {
+	public EstadoApuesta getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoApuesta estado) {
 		this.estado = estado;
 	}
 

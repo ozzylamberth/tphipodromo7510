@@ -10,9 +10,9 @@ import edu.ar.uba.fi.model.Participante;
  * seleccionar 3 caballos para apostar en una misma carrera, que debera llegar
  * primero, segundo y tercero en orden exacto para ganar la apuesta
  */
-public class Trifecta extends Apuesta {
+public class ApuestaTrifecta extends Apuesta {
 
-	public Trifecta(Collection<Participante> participantes) {
+	public ApuestaTrifecta(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras
 		// correspondientes
 	}
