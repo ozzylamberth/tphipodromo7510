@@ -1,5 +1,6 @@
 package edu.ar.uba.fi.model.apuestas;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import edu.ar.uba.fi.model.Carrera;
@@ -16,9 +17,9 @@ public class BolsaApuestas {
 		this.carreras = carreras;
 	}
 
-	public double getDividendo() {
+	public BigDecimal getDividendo() {
 		// TODO: implementar logica
-		return 0;
+		return new BigDecimal(0);
 	}
 
 	public ArrayList<Carrera> getCarreras() {

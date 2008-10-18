@@ -6,19 +6,19 @@ import java.util.Collection;
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Representa las apuestas del tipo Triplo, en donde el jugador debe seleccionar
- * 3 caballos para apostar, que deberan llegar primero en 3 carreras señaladas
- * en el programa oficial para ganar la apuesta
+ * Representa las apuestas del tipo Imperfecta, en donde el jugador debe
+ * seleccionar 2 caballos para apostar en una misma carrera, que debera llegar
+ * en primero y segundo, en cualquier orden para ganar la apuesta
  */
-public class Triplo extends Apuesta {
+public class ApuestaImperfecta extends Apuesta {
 
-	public Triplo(Collection<Participante> participantes) {
+	public ApuestaImperfecta(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras
 		// correspondientes
 	}
 
 	public int getCantidadParticipantes() {
-		return 3;
+		return 2;
 	}
 
 	public boolean isAcertada() {

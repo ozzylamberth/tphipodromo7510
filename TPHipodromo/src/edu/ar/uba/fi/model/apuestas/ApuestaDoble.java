@@ -6,19 +6,19 @@ import java.util.Collection;
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Representa las apuestas del tipo Cuaterna, en donde el jugador debe
- * seleccionar 4 caballos para apostar, que deberan llegar primero en 4 carreras
- * consecutivas, señaladas en el programa oficial, para ganar la apuesta
+ * Representa las apuestas del tipo Doble, en donde el jugador debe seleccionar
+ * 2 caballos para apostar, que deberan llegar primero en 2 carreras
+ * consecutivas para ganar la apuesta
  */
-public class Cuaterna extends Apuesta {
+public class ApuestaDoble extends Apuesta {
 
-	public Cuaterna(Collection<Participante> participantes) {
+	public ApuestaDoble(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras
 		// correspondientes
 	}
 
 	public int getCantidadParticipantes() {
-		return 4;
+		return 2;
 	}
 
 	public boolean isAcertada() {

@@ -5,13 +5,13 @@ import java.math.BigDecimal;
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Representa las apuestas del tipo Tercero, en donde el jugador debe
+ * Representa las apuestas del tipo Ganador, en donde el jugador debe
  * seleccionar 1 caballo para apostar en una carrera, que debera llegar en
- * primer, segundo o tercer lugar para ganar la apuesta
+ * primer lugar para ganar la apuesta
  */
-public class Tercero extends Apuesta {
+public class ApuestaGanador extends Apuesta {
 
-	public Tercero(Participante participante) {
+	public ApuestaGanador(Participante participante) {
 		// TODO: validar que los participantes sean de las carreras
 		// correspondientes
 	}

@@ -1,23 +1,24 @@
 package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Representa las apuestas del tipo Segundo, en donde el jugador debe
- * seleccionar 1 caballo para apostar en una carrera, que debera llegar en
- * primer o segundo lugar para ganar la apuesta
+ * Representa las apuestas del tipo Triplo, en donde el jugador debe seleccionar
+ * 3 caballos para apostar, que deberan llegar primero en 3 carreras señaladas
+ * en el programa oficial para ganar la apuesta
  */
-public class Segundo extends Apuesta {
+public class ApuestaTriplo extends Apuesta {
 
-	public Segundo(Participante participante) {
+	public ApuestaTriplo(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras
 		// correspondientes
 	}
 
 	public int getCantidadParticipantes() {
-		return 1;
+		return 3;
 	}
 
 	public boolean isAcertada() {
@@ -26,7 +27,7 @@ public class Segundo extends Apuesta {
 	}
 
 	public BigDecimal getValorBase() {
-		return new BigDecimal(1);
+		return new BigDecimal(2);
 	}
 
 }
