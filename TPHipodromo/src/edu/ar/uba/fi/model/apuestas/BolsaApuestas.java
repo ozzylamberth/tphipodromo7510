@@ -82,7 +82,7 @@ public class BolsaApuestas {
 	}
 
 	public void addApuesta(Apuesta apuesta) {
-		// TODO: validar que todas las apuestas sean de un mismo tipo
+		// TODO: validar que todas las apuestas sean del tipo correspondiente
 		apuesta.setBolsaApuestas(this);
 		this.apuestas.add(apuesta);
 	}

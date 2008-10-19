@@ -1,6 +1,8 @@
 package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ar.uba.fi.model.Participante;
 
@@ -16,21 +18,26 @@ public class ApuestaTercero extends Apuesta {
 	}
 
 	public ApuestaTercero(Participante participante) {
-		// TODO: validar que los participantes sean de las carreras
-		// correspondientes
+		super();
+		ArrayList<Participante> participantes = new ArrayList<Participante>();
+		participantes.add(participante);
+		this.setParticipantes(participantes);
 	}
 
 	public int getCantidadParticipantes() {
 		return 1;
 	}
 
-	public boolean isAcertada() {
-		// TODO: implementar logica
-		return false;
-	}
-
 	public BigDecimal getValorBase() {
 		return new BigDecimal(1);
+	}
+
+	public List<Integer> getPosiblesOrdenesLLegada() {
+		ArrayList<Integer> ordenesLlegada = new ArrayList<Integer>();
+		ordenesLlegada.add(new Integer(1));
+		ordenesLlegada.add(new Integer(2));
+		ordenesLlegada.add(new Integer(3));
+		return ordenesLlegada;
 	}
 
 }
