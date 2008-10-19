@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
+import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
@@ -53,6 +54,9 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoApuestaException e) {
 			fail("No se pudo realizar la transicion de estado a liquidada");
+			e.printStackTrace();
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no esta en estado finalizada");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
