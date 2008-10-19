@@ -61,7 +61,7 @@ public class Participante {
 	}
 
 	public Carrera getCarrera() {
-		return carrera;
+		return this.carrera;
 	}
 
 	public void setCarrera(Carrera carrera) {
