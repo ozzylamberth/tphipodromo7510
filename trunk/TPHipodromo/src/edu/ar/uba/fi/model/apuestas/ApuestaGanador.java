@@ -22,7 +22,7 @@ public class ApuestaGanador extends Apuesta {
 
 	public boolean isAcertada() {
 		// TODO: implementar logica
-		return false;
+		return true;
 	}
 
 	public BigDecimal getValorBase() {

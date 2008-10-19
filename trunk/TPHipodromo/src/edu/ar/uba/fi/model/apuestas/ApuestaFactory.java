@@ -18,7 +18,7 @@ public class ApuestaFactory {
 
 	public Apuesta crearApuestaGanador(Participante Participante){
 		// TODO: implementar logica
-		return null;
+		return new ApuestaGanador(Participante);
 	}
 
 	public Apuesta crearApuestaSegundo(Participante Participante){
