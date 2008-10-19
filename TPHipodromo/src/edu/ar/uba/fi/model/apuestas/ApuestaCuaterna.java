@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * consecutivas, señaladas en el programa oficial, para ganar la apuesta
  */
 public class ApuestaCuaterna extends Apuesta {
+	
+	public ApuestaCuaterna() {
+		super();
+	}
 
 	public ApuestaCuaterna(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras

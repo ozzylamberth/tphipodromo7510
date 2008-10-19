@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * consecutivas para ganar la apuesta
  */
 public class ApuestaDoble extends Apuesta {
+	
+	public ApuestaDoble() {
+		super();
+	}
 
 	public ApuestaDoble(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras

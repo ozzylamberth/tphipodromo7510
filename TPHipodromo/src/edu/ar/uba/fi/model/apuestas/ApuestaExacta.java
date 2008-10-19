@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * segundo en orden exacto para ganar la apuesta
  */
 public class ApuestaExacta extends Apuesta {
+	
+	public ApuestaExacta() {
+		super();
+	}
 
 	public ApuestaExacta(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras
