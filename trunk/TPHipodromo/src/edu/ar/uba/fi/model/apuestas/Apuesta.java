@@ -12,7 +12,7 @@ import edu.ar.uba.fi.model.Participante;
  */
 public abstract class Apuesta {
 	private BolsaApuestas bolsaApuestas;
-	private EstadoApuesta estado;
+	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
 	private long nroTicket;
 	private List<Participante> participantes = new ArrayList<Participante>();
@@ -40,7 +40,7 @@ public abstract class Apuesta {
 	}
 
 	public boolean isPagada() {
-		return (EstadoApuesta.PAGADA.equals(this.getEstado()));
+		return (EstadoApuesta.PAGADA.equals(this.getEstadoApuesta()));
 	}
 
 	public BolsaApuestas getBolsaApuestas() {
@@ -51,12 +51,12 @@ public abstract class Apuesta {
 		this.bolsaApuestas = bolsaApuestas;
 	}
 
-	public EstadoApuesta getEstado() {
-		return this.estado;
+	public EstadoApuesta getEstadoApuesta() {
+		return this.estadoApuesta;
 	}
 
-	public void setEstado(EstadoApuesta estado) {
-		this.estado = estado;
+	public void setEstadoApuesta(EstadoApuesta estado) {
+		this.estadoApuesta = estado;
 	}
 
 	public BigDecimal getMontoApostado() {

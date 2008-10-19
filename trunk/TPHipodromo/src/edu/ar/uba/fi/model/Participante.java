@@ -16,10 +16,6 @@ public class Participante {
 		this.carrera = carrera;
 	}
 
-	private void validarHandicap() {
-		// TODO: validar si hay que hacerlo
-	}
-
 	public int getNroParticipante() {
 		return this.nroParticipante;
 	}

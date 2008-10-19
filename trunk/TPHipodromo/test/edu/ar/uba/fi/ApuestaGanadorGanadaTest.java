@@ -45,14 +45,14 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 
 	public void testLiquidar() {
 		apuestaGanador.setMontoApostado(new BigDecimal("0"));
-		assertEquals(apuestaGanador.getEstado(), EstadoApuesta.CREADA);
+		assertEquals(apuestaGanador.getEstadoApuesta(), EstadoApuesta.CREADA);
 		try {
 			assertEquals(apuestaGanador.liquidar(), new BigDecimal("10"));
 		} catch (ApuestaPerdidaException e) {
 			fail("La apuesta esta perdida cuando debería estar ganada");
 			e.printStackTrace();
 		}
-		assertEquals(apuestaGanador.getEstado(), EstadoApuesta.LIQUIDADA);
+		assertEquals(apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
 

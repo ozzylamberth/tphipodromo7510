@@ -6,36 +6,58 @@ import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
+
 public class Carrera {
 	private BigDecimal distancia;
 	private Date fechaYHora;
 	private String nombre;
 	private int numero;
-	private String estado;
+	private EstadoCarrera estadoCarrera;
 	private List<Participante> participantes;
 
-	public ResultadoCarrera getResultado(Participante Participante) {
-		// TODO: implementar logica
-		return null;
+	public void cerrarApuestas() throws TransicionInvalidaEstadoCarreraException {
+		this.cambiarEstado(EstadoCarrera.ABIERTA_A_APUESTAS, EstadoCarrera.CERRADA_A_APUESTAS);
 	}
 
-	public void cerrarApuestas() {
-		// TODO: implementar logica
+	public void comenzar() throws TransicionInvalidaEstadoCarreraException {
+		this.cambiarEstado(EstadoCarrera.CERRADA_A_APUESTAS, EstadoCarrera.EN_CURSO);
 	}
 
-	public void comenzar() {
-		// TODO: implementar logica
+	public void finalizar(List<ResultadoCarrera> Resultado) throws TransicionInvalidaEstadoCarreraException {
+		this.cambiarEstado(EstadoCarrera.A_AUDITAR, EstadoCarrera.FINALIZADA);
 	}
 
+	public void cancelar() throws TransicionInvalidaEstadoCarreraException {
+		ArrayList<EstadoCarrera> estadosAnteriores = new ArrayList<EstadoCarrera>();
+		estadosAnteriores.add(EstadoCarrera.ABIERTA_A_APUESTAS);
+		estadosAnteriores.add(EstadoCarrera.CERRADA_A_APUESTAS);
+		estadosAnteriores.add(EstadoCarrera.EN_CURSO);
+		estadosAnteriores.add(EstadoCarrera.A_AUDITAR);
+		this.cambiarEstado(estadosAnteriores, EstadoCarrera.CANCELADA);
+	}
+	
+	private void cambiarEstado(EstadoCarrera estadoAnterior, EstadoCarrera nuevoEstado) throws TransicionInvalidaEstadoCarreraException {
+		if (!estadoAnterior.equals(this.getEstadoCarrera())) {
+			throw new TransicionInvalidaEstadoCarreraException();
+		}
+		this.setEstadoCarrera(nuevoEstado);
+	}
+	
+	private void cambiarEstado(List<EstadoCarrera> estadosAnteriores, EstadoCarrera nuevoEstado) throws TransicionInvalidaEstadoCarreraException {
+		Iterator<EstadoCarrera> it = estadosAnteriores.iterator();
+		while (it.hasNext()) {
+			EstadoCarrera estadoAnterior = (EstadoCarrera) it.next();
+			if (this.getEstadoCarrera().equals(estadoAnterior)) {
+				this.setEstadoCarrera(nuevoEstado);
+				return;
+			}
+		}
+		// si no esta en niguno de los estados anteriores
+		throw new TransicionInvalidaEstadoCarreraException();
+	}
+	
 	public void aprobarResultados() {
-		// TODO: implementar logica
-	}
-
-	public void finalizar(List<ResultadoCarrera> Resultado) {
-		// TODO: implementar logica
-	}
-
-	public void cancelar() {
 		// TODO: implementar logica
 	}
 
@@ -71,12 +93,12 @@ public class Carrera {
 		this.numero = numero;
 	}
 
-	public String getEstado() {
-		return this.estado;
+	public EstadoCarrera getEstadoCarrera() {
+		return this.estadoCarrera;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstadoCarrera(EstadoCarrera estadoCarrera) {
+		this.estadoCarrera = estadoCarrera;
 	}
 
 	public List<Participante> getParticipantes() {
