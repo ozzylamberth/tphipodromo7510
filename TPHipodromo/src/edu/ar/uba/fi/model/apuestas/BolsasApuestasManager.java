@@ -1,7 +1,8 @@
 package edu.ar.uba.fi.model.apuestas;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import edu.ar.uba.fi.model.Carrera;
 
@@ -26,9 +27,22 @@ public class BolsasApuestasManager {
 	 * Si hay una bolsa abierta, retorna esa misma, y en caso contrario
 	 * crea una nueva bolsa de apuestas para retornar
 	 */
-	public BolsaApuestas getBolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas, Collection<Carrera> carreras) {
-		// TODO: implementar
-		return null;
+	public BolsaApuestas getBolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas, List<Carrera> carreras) {
+		Iterator<BolsaApuestas> it = this.bolsasApuestas.iterator();
+		while (it.hasNext()) {
+			BolsaApuestas bolsaApuestas = (BolsaApuestas) it.next();
+			if ((bolsaApuestas.getTipoBolsaApuestas().equals(tipoBolsaApuestas)) &&
+					(bolsaApuestas.correspondeACarreras(carreras))) {
+				return bolsaApuestas;
+			}
+		}
+		return this.crearBolsaApuestas(tipoBolsaApuestas, carreras);
+	}
+	
+	private BolsaApuestas crearBolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas, List<Carrera> carreras) {
+		BolsaApuestas bolsaApuestas = new BolsaApuestas(tipoBolsaApuestas, carreras);
+		this.bolsasApuestas.add(bolsaApuestas);
+		return bolsaApuestas;
 	}
 
 }

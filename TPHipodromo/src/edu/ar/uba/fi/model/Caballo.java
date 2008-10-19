@@ -6,17 +6,12 @@ public class Caballo {
 	private String caballeriza;
 	private String criador;
 	private int edad;
-	private int handicap;
 	private String nombre;
 	private String pelaje;
 	private BigDecimal peso;
 	private boolean puraSangre;
 	private Caballo padre;
 	private Caballo madre;
-
-	public void actualizarHandicap(int posicion) {
-		// TODO: verificar si hay que hacerlo
-	}
 
 	public String getCaballeriza() {
 		return this.caballeriza;
@@ -40,14 +35,6 @@ public class Caballo {
 
 	public void setEdad(int edad) {
 		this.edad = edad;
-	}
-
-	public int getHandicap() {
-		return this.handicap;
-	}
-
-	public void setHandicap(int handicap) {
-		this.handicap = handicap;
 	}
 
 	public String getNombre() {
