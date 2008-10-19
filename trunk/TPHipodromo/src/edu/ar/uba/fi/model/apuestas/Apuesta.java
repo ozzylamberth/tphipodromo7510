@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.model.Participante;
 
 /**
@@ -18,6 +19,11 @@ public abstract class Apuesta {
 	private List<Participante> participantes = new ArrayList<Participante>();
 	private int diasPlazoMaxDeCobro;
 
+	public Apuesta() {
+		// TODO: terminar de implementar logica estados
+		this.setEstadoApuesta(EstadoApuesta.CREADA);
+	}
+
 	/**
 	 * Verifica si la apuesta fue ganada. En el caso de que asi suceda, retorna
 	 * true, en caso contrario false
@@ -27,20 +33,28 @@ public abstract class Apuesta {
 	public abstract BigDecimal getValorBase();
 
 	private BigDecimal calcularMontoAPagar() {
-		BigDecimal proporcion = this.getMontoApostado().divide(
-				this.getValorBase());
+		BigDecimal proporcion = this.getMontoApostado().divide(this.getValorBase());
 		return proporcion.multiply(this.getBolsaApuestas().getDividendo());
 	}
 
-	public BigDecimal liquidar() throws ApuestaPerdidaException {
+	public BigDecimal liquidar() throws ApuestaPerdidaException, TransicionInvalidaEstadoApuestaException {
 		if (!this.isAcertada()) {
 			throw new ApuestaPerdidaException();
 		}
-		return this.calcularMontoAPagar();
+		BigDecimal montoAPagar = this.calcularMontoAPagar();
+		this.cambiarEstado(EstadoApuesta.CREADA, EstadoApuesta.LIQUIDADA);
+		return montoAPagar;
 	}
 
 	public boolean isPagada() {
 		return (EstadoApuesta.PAGADA.equals(this.getEstadoApuesta()));
+	}
+	
+	private void cambiarEstado(EstadoApuesta estadoAnterior, EstadoApuesta nuevoEstado) throws TransicionInvalidaEstadoApuestaException {
+		if (!estadoAnterior.equals(this.getEstadoApuesta())) {
+			throw new TransicionInvalidaEstadoApuestaException();
+		}
+		this.setEstadoApuesta(nuevoEstado);
 	}
 
 	public BolsaApuestas getBolsaApuestas() {

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.ar.uba.fi.exceptions.CarreraException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
@@ -31,7 +30,7 @@ public class Carrera {
 		this.cambiarEstado(EstadoCarrera.CERRADA_A_APUESTAS, EstadoCarrera.EN_CURSO);
 	}
 
-	public void terminar(List<ResultadoCarrera> resultados) throws CarreraException {
+	public void terminar(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption, TransicionInvalidaEstadoCarreraException {
 		this.setResultadosPendienteAprobacion(resultados);
 		this.cambiarEstado(EstadoCarrera.EN_CURSO, EstadoCarrera.A_AUDITAR);
 	}

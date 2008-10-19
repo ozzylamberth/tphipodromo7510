@@ -1,5 +1,6 @@
 package edu.ar.uba.fi.model.apuestas;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,8 @@ import edu.ar.uba.fi.model.Carrera;
  */
 public class BolsasApuestasManager {
 	private static final BolsasApuestasManager instance = new BolsasApuestasManager();
+	// reveer si hay que hacerlo variable
+	public static BigDecimal porcentajeComisionHipodromo = new BigDecimal("0.1");
 
 	private ArrayList<BolsaApuestas> bolsasApuestas = new ArrayList<BolsaApuestas>();
 
@@ -41,6 +44,7 @@ public class BolsasApuestasManager {
 	
 	private BolsaApuestas crearBolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas, List<Carrera> carreras) {
 		BolsaApuestas bolsaApuestas = new BolsaApuestas(tipoBolsaApuestas, carreras);
+		bolsaApuestas.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
 		this.bolsasApuestas.add(bolsaApuestas);
 		return bolsaApuestas;
 	}

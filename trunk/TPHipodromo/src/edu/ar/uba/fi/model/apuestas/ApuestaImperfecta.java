@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * en primero y segundo, en cualquier orden para ganar la apuesta
  */
 public class ApuestaImperfecta extends Apuesta {
+	
+	public ApuestaImperfecta() {
+		super();
+	}
 
 	public ApuestaImperfecta(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras

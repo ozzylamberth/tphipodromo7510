@@ -10,6 +10,10 @@ import edu.ar.uba.fi.model.Participante;
  * primer o segundo lugar para ganar la apuesta
  */
 public class ApuestaSegundo extends Apuesta {
+	
+	public ApuestaSegundo() {
+		super();
+	}
 
 	public ApuestaSegundo(Participante participante) {
 		// TODO: validar que los participantes sean de las carreras

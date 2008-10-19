@@ -1,5 +1,6 @@
 package edu.ar.uba.fi.model.apuestas;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,56 +22,65 @@ public class ApuestaFactory {
 		return instance;
 	}
 
-	public Apuesta crearApuestaGanador(Participante participante){
+	public Apuesta crearApuestaGanador(Participante participante, BigDecimal montoApostado){
 		ApuestaGanador apuestaGanador = new ApuestaGanador(participante);
+		apuestaGanador.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaGanador, TipoBolsaApuestas.BOLSA_APUESTAS_GANADOR, this.getCarrera(participante));
 		return apuestaGanador;
 	}
 
-	public Apuesta crearApuestaSegundo(Participante participante){
+	public Apuesta crearApuestaSegundo(Participante participante, BigDecimal montoApostado){
 		ApuestaSegundo apuestaSegundo = new ApuestaSegundo(participante);
+		apuestaSegundo.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaSegundo, TipoBolsaApuestas.BOLSA_APUESTAS_SEGUNDO, this.getCarrera(participante));
 		return apuestaSegundo;
 	}
 
-	public Apuesta crearApuestaTercero(Participante participante){
+	public Apuesta crearApuestaTercero(Participante participante, BigDecimal montoApostado){
 		ApuestaTercero apuestaTercero = new ApuestaTercero(participante);
+		apuestaTercero.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaTercero, TipoBolsaApuestas.BOLSA_APUESTAS_TERCERO, this.getCarrera(participante));
 		return apuestaTercero;
 	}
 
-	public Apuesta crearApuestaExacta(List<Participante> participantes){
+	public Apuesta crearApuestaExacta(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaExacta apuestaExacta = new ApuestaExacta(participantes);
+		apuestaExacta.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaExacta, TipoBolsaApuestas.BOLSA_APUESTAS_EXACTA, this.getCarreras(participantes));
 		return apuestaExacta;
 	}
 
-	public Apuesta crearApuestaImperfecta(List<Participante> participantes){
+	public Apuesta crearApuestaImperfecta(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaImperfecta apuestaImperfecta = new ApuestaImperfecta(participantes);
+		apuestaImperfecta.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaImperfecta, TipoBolsaApuestas.BOLSA_APUESTAS_IMPERFECTA, this.getCarreras(participantes));
 		return apuestaImperfecta;
 	}
 
-	public Apuesta crearApuestaTrifecta(List<Participante> participantes){
+	public Apuesta crearApuestaTrifecta(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaTrifecta apuestaTrifecta = new ApuestaTrifecta(participantes);
+		apuestaTrifecta.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaTrifecta, TipoBolsaApuestas.BOLSA_APUESTAS_TRIFECTA, this.getCarreras(participantes));
 		return apuestaTrifecta;
 	}
 
-	public Apuesta crearApuestaDoble(List<Participante> participantes){
+	public Apuesta crearApuestaDoble(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaDoble apuestaDoble = new ApuestaDoble(participantes);
+		apuestaDoble.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaDoble, TipoBolsaApuestas.BOLSA_APUESTAS_DOBLE, this.getCarreras(participantes));
 		return apuestaDoble;
 	}
 
-	public Apuesta crearApuestaTriplo(List<Participante> participantes){
+	public Apuesta crearApuestaTriplo(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaTriplo apuestaTriplo = new ApuestaTriplo(participantes);
+		apuestaTriplo.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaTriplo, TipoBolsaApuestas.BOLSA_APUESTAS_TRIPLO, this.getCarreras(participantes));
 		return apuestaTriplo;
 	}
 
-	public Apuesta crearApuestaCuaterna(List<Participante> participantes){
+	public Apuesta crearApuestaCuaterna(List<Participante> participantes, BigDecimal montoApostado){
 		ApuestaCuaterna apuestaCuaterna = new ApuestaCuaterna(participantes);
+		apuestaCuaterna.setMontoApostado(montoApostado);
 		this.addApuestaToBolsaApuestas(apuestaCuaterna, TipoBolsaApuestas.BOLSA_APUESTAS_CUATERNA, this.getCarreras(participantes));
 		return apuestaCuaterna;
 	}

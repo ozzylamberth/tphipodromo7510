@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * en el programa oficial para ganar la apuesta
  */
 public class ApuestaTriplo extends Apuesta {
+	
+	public ApuestaTriplo() {
+		super();
+	}
 
 	public ApuestaTriplo(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras

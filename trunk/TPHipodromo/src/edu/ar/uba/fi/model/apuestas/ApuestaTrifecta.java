@@ -11,6 +11,10 @@ import edu.ar.uba.fi.model.Participante;
  * primero, segundo y tercero en orden exacto para ganar la apuesta
  */
 public class ApuestaTrifecta extends Apuesta {
+	
+	public ApuestaTrifecta() {
+		super();
+	}
 
 	public ApuestaTrifecta(Collection<Participante> participantes) {
 		// TODO: validar que los participantes sean de las carreras

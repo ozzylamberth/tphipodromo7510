@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Jinete;
@@ -28,7 +29,7 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 		Carrera carrera = new Carrera();
 		Participante participante = new Participante(caballo, jinete, carrera);
 		carrera.addParticipante(participante);
-		apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante);
+		apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
 		ResultadoCarrera resultado = new ResultadoCarrera(participante);
 		resultado.setOrdenLlegada(1);
 		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
@@ -40,19 +41,21 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 	}
 
 	public void testIsAcertada() {
-		assertTrue(apuestaGanador.isAcertada());
+		assertTrue(this.apuestaGanador.isAcertada());
 	}
 
 	public void testLiquidar() {
-		apuestaGanador.setMontoApostado(new BigDecimal("0"));
-		assertEquals(apuestaGanador.getEstadoApuesta(), EstadoApuesta.CREADA);
+		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.CREADA);
 		try {
-			assertEquals(apuestaGanador.liquidar(), new BigDecimal("10"));
+			assertEquals(this.apuestaGanador.liquidar(), this.apuestaGanador.getMontoApostado());
 		} catch (ApuestaPerdidaException e) {
 			fail("La apuesta esta perdida cuando debería estar ganada");
 			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("No se pudo realizar la transicion de estado a liquidada");
+			e.printStackTrace();
 		}
-		assertEquals(apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
 
