@@ -89,9 +89,9 @@ public abstract class Apuesta {
 	}
 	
 	/**
-	 * Valida si esta en el estado correcto para liquidar
+	 * Valida si esta en el estado correcto para liquidar 
 	 */
-	private void validarEstadoLiquidacion() throws CarreraNoFinalizadaException, ApuestaPerdidaException, ApuestaVencidaException {
+	private void validarEstadoLiquidacion() throws CarreraNoFinalizadaException, ApuestaPerdidaException, ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
 		this.validarApuestaGanada();
 		this.validarCarrerasFinalizadas();
 		this.validarFechaVencimiento();
@@ -117,10 +117,11 @@ public abstract class Apuesta {
 		}
 	}
 	
-	private void validarFechaVencimiento() throws ApuestaVencidaException {
+	private void validarFechaVencimiento() throws ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
 		long milisegundos = new Date().getTime() - this.getFechaCreacion().getTime();
 		long dias = milisegundos / (1000 * 60 * 60 * 24);
 		if (dias > this.getDiasPlazoMaxDeCobro()) {
+			this.cambiarEstado(EstadoApuesta.CREADA, EstadoApuesta.VENCIDA);
 			throw new ApuestaVencidaException();
 		}
 	}
