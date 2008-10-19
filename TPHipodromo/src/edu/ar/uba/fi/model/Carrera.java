@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Iterator;
 
 public class Carrera {
 	private BigDecimal distancia;
@@ -83,7 +84,16 @@ public class Carrera {
 	}
 
 	public void setParticipantes(ArrayList<Participante> participantes) {
-		this.participantes = participantes;
+		Iterator<Participante> it = participantes.iterator();
+		while (it.hasNext()) {
+			Participante participante = (Participante) it.next();
+			this.addParticipante(participante);
+		}
+	}
+	
+	public void addParticipante(Participante participante) {
+		participante.setCarrera(this);
+		this.participantes.add(participante);
 	}
 
 }
