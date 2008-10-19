@@ -3,6 +3,7 @@ package edu.ar.uba.fi.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Carrera {
 	private BigDecimal distancia;
@@ -10,7 +11,7 @@ public class Carrera {
 	private String nombre;
 	private int numero;
 	private String estado;
-	private ArrayList<Participante> participantes;
+	private List<Participante> participantes;
 
 	public ResultadoCarrera getResultado(Participante Participante) {
 		// TODO: implementar logica
@@ -29,7 +30,7 @@ public class Carrera {
 		// TODO: implementar logica
 	}
 
-	public void finalizar(ResultadoCarrera[] Resultado) {
+	public void finalizar(List<ResultadoCarrera> Resultado) {
 		// TODO: implementar logica
 	}
 
@@ -77,7 +78,7 @@ public class Carrera {
 		this.estado = estado;
 	}
 
-	public ArrayList<Participante> getParticipantes() {
+	public List<Participante> getParticipantes() {
 		return this.participantes;
 	}
 

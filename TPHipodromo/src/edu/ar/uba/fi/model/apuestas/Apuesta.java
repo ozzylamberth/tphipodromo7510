@@ -2,6 +2,7 @@ package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.model.Participante;
@@ -14,7 +15,7 @@ public abstract class Apuesta {
 	private EstadoApuesta estado;
 	private BigDecimal montoApostado;
 	private long nroTicket;
-	private ArrayList<Participante> participantes = new ArrayList<Participante>();
+	private List<Participante> participantes = new ArrayList<Participante>();
 	private int diasPlazoMaxDeCobro;
 
 	/**
@@ -74,11 +75,11 @@ public abstract class Apuesta {
 		this.nroTicket = nroTicket;
 	}
 
-	public ArrayList<Participante> getParticipantes() {
+	public List<Participante> getParticipantes() {
 		return this.participantes;
 	}
 
-	public void setParticipantes(ArrayList<Participante> participantes) {
+	public void setParticipantes(List<Participante> participantes) {
 		this.participantes = participantes;
 	}
 
