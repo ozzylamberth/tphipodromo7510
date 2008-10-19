@@ -3,9 +3,11 @@ package edu.ar.uba.fi.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
+import edu.ar.uba.fi.exceptions.CarreraException;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
 public class Carrera {
@@ -14,7 +16,12 @@ public class Carrera {
 	private String nombre;
 	private int numero;
 	private EstadoCarrera estadoCarrera;
-	private List<Participante> participantes;
+	private List<Participante> participantes = new ArrayList<Participante>();
+	private List<ResultadoCarrera> resultadosPendienteAprobacion;
+	
+	public Carrera() {
+		this.setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
+	}
 
 	public void cerrarApuestas() throws TransicionInvalidaEstadoCarreraException {
 		this.cambiarEstado(EstadoCarrera.ABIERTA_A_APUESTAS, EstadoCarrera.CERRADA_A_APUESTAS);
@@ -24,8 +31,9 @@ public class Carrera {
 		this.cambiarEstado(EstadoCarrera.CERRADA_A_APUESTAS, EstadoCarrera.EN_CURSO);
 	}
 
-	public void finalizar(List<ResultadoCarrera> Resultado) throws TransicionInvalidaEstadoCarreraException {
-		this.cambiarEstado(EstadoCarrera.A_AUDITAR, EstadoCarrera.FINALIZADA);
+	public void terminar(List<ResultadoCarrera> resultados) throws CarreraException {
+		this.setResultadosPendienteAprobacion(resultados);
+		this.cambiarEstado(EstadoCarrera.EN_CURSO, EstadoCarrera.A_AUDITAR);
 	}
 
 	public void cancelar() throws TransicionInvalidaEstadoCarreraException {
@@ -35,6 +43,11 @@ public class Carrera {
 		estadosAnteriores.add(EstadoCarrera.EN_CURSO);
 		estadosAnteriores.add(EstadoCarrera.A_AUDITAR);
 		this.cambiarEstado(estadosAnteriores, EstadoCarrera.CANCELADA);
+	}
+	
+	public void aprobarResultados() throws TransicionInvalidaEstadoCarreraException {
+		this.cambiarEstado(EstadoCarrera.A_AUDITAR, EstadoCarrera.FINALIZADA);
+		this.asignarResultadosAParticipantes();
 	}
 	
 	private void cambiarEstado(EstadoCarrera estadoAnterior, EstadoCarrera nuevoEstado) throws TransicionInvalidaEstadoCarreraException {
@@ -55,10 +68,6 @@ public class Carrera {
 		}
 		// si no esta en niguno de los estados anteriores
 		throw new TransicionInvalidaEstadoCarreraException();
-	}
-	
-	public void aprobarResultados() {
-		// TODO: implementar logica
 	}
 
 	public BigDecimal getDistancia() {
@@ -116,6 +125,36 @@ public class Carrera {
 	public void addParticipante(Participante participante) {
 		participante.setCarrera(this);
 		this.participantes.add(participante);
+	}
+	
+	public void setResultadosPendienteAprobacion(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption {
+		if (resultados.size() != this.getParticipantes().size()) {
+			throw new ResultadosCarreraInvalidosExeption();
+		}
+		this.validarMismosParticipantes(resultados);
+		this.resultadosPendienteAprobacion = resultados;
+	}
+	
+	private void validarMismosParticipantes(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption {
+		Iterator<ResultadoCarrera> it = resultados.iterator();
+		while (it.hasNext()) {
+			ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
+			if (!this.getParticipantes().contains(resultadoCarrera.getParticipante())) {
+				throw new ResultadosCarreraInvalidosExeption();
+			}
+		}
+	}
+	
+	private void asignarResultadosAParticipantes() {
+		Iterator<ResultadoCarrera> it = this.resultadosPendienteAprobacion.iterator();
+		while (it.hasNext()) {
+			ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
+			resultadoCarrera.getParticipante().setResultado(resultadoCarrera);
+		}
+	}
+	
+	public List<ResultadoCarrera> getResultadosPendienteAprobacion() {
+		return this.resultadosPendienteAprobacion;
 	}
 
 }

@@ -27,15 +27,15 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 		Jinete jinete = new Jinete();
 		Carrera carrera = new Carrera();
 		Participante participante = new Participante(caballo, jinete, carrera);
+		carrera.addParticipante(participante);
 		apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante);
-		ResultadoCarrera resultado = new ResultadoCarrera();
+		ResultadoCarrera resultado = new ResultadoCarrera(participante);
 		resultado.setOrdenLlegada(1);
-		participante.setResultado(resultado);
 		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
 		listaResultados.add(resultado);
 		carrera.cerrarApuestas();
 		carrera.comenzar();
-		carrera.finalizar(listaResultados);
+		carrera.terminar(listaResultados);
 		carrera.aprobarResultados();
 	}
 

@@ -7,6 +7,11 @@ public class ResultadoCarrera {
 	private int ordenLlegada;
 	private int tiempo;
 	private String estado;
+	private Participante participante;
+	
+	public ResultadoCarrera(Participante participante) {
+		this.setParticipante(participante);
+	}
 
 	public int getOrdenLlegada() {
 		return this.ordenLlegada;
@@ -30,6 +35,14 @@ public class ResultadoCarrera {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Participante getParticipante() {
+		return this.participante;
+	}
+
+	public void setParticipante(Participante participante) {
+		this.participante = participante;
 	}
 
 }
