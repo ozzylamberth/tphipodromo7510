@@ -8,6 +8,13 @@ public class Participante {
 	private ResultadoCarrera resultado;
 	private Caballo caballo;
 	private Jinete jinete;
+	private Carrera carrera;
+	
+	public Participante(Caballo caballo, Jinete jinete, Carrera carrera) {
+		this.caballo = caballo;
+		this.jinete = jinete;
+		this.carrera = carrera;
+	}
 
 	private void validarHandicap() {
 		// TODO: validar si hay que hacerlo
@@ -51,6 +58,14 @@ public class Participante {
 
 	public void setJinete(Jinete jinete) {
 		this.jinete = jinete;
+	}
+
+	public Carrera getCarrera() {
+		return carrera;
+	}
+
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
 	}
 
 }
