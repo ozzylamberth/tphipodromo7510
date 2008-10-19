@@ -68,6 +68,10 @@ public class Carrera {
 		// si no esta en niguno de los estados anteriores
 		throw new TransicionInvalidaEstadoCarreraException();
 	}
+	
+	public boolean isFinalizada() {
+		return (EstadoCarrera.FINALIZADA.equals(this.getEstadoCarrera()));
+	}
 
 	public BigDecimal getDistancia() {
 		return this.distancia;
