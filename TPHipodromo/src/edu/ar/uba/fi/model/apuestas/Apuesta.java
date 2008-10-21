@@ -33,8 +33,8 @@ public abstract class Apuesta {
 	}
 	
 	public Apuesta(List<Participante> participantes) throws CantidadParticipantesInvalidaException, CarreraCerradaAApuestasException {
+		this();
 		this.validarCantidadParticipantes(participantes);
-		this.setEstadoApuesta(EstadoApuesta.CREADA);
 		this.setParticipantes(participantes);
 	}
 	
