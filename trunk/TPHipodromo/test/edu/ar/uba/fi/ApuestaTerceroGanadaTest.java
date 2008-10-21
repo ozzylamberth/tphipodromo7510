@@ -20,12 +20,12 @@ import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
 /**
- * Caso de Prueba 2: Liquidacion Apuesta a Segundo Ganada.
+ * Caso de Prueba 3: Liquidacion Apuesta a Tercero Ganada.
  *
  */
-public class ApuestaSegundoGanadaTest extends TestCase {
+public class ApuestaTerceroGanadaTest extends TestCase {
 
-	private Apuesta apuestaSegundo;
+	private Apuesta apuestaTercera;
 	
 	private Caballo caballo;
 	private Jinete jinete;
@@ -38,13 +38,14 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 		carrera = new Carrera();
 		participante = new Participante(caballo, jinete, carrera);
 		carrera.addParticipante(participante);
-		apuestaSegundo = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
+		apuestaTercera = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
 	}
 
 	public void testIsAcertada() {
+
 		
 		int i = 1;
-		while ( i <= 2 )
+		while ( i <= 3 )
 		{
 			carrera = new Carrera();	
 			carrera.addParticipante(participante);
@@ -64,7 +65,7 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 				fail("El Estado de la carrera no es válido");	
 				e.printStackTrace();
 			}
-			assertTrue(this.apuestaSegundo.isAcertada());
+			assertTrue(this.apuestaTercera.isAcertada());
 		}
 	}
 
@@ -86,9 +87,9 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 			fail("El Estado de la carrera no es válido");	
 			e.printStackTrace();
 		}	
-		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.CREADA);
+		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.CREADA);
 		try {
-			assertEquals(this.apuestaSegundo.liquidar(), this.apuestaSegundo.getMontoApostado());
+			assertEquals(this.apuestaTercera.liquidar(), this.apuestaTercera.getMontoApostado());
 		} catch (ApuestaPerdidaException e) {
 			fail("La apuesta esta perdida cuando debería estar ganada");
 			e.printStackTrace();
@@ -102,7 +103,7 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 			fail("La apuesta esta vencida");
 			e.printStackTrace();
 		}
-		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
 	public void testLiquidarSiEsSegundo() {
@@ -123,9 +124,9 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 			fail("El Estado de la carrera no es válido");	
 			e.printStackTrace();
 		}	
-		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.CREADA);
+		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.CREADA);
 		try {
-			assertEquals(this.apuestaSegundo.liquidar(), this.apuestaSegundo.getMontoApostado());
+			assertEquals(this.apuestaTercera.liquidar(), this.apuestaTercera.getMontoApostado());
 		} catch (ApuestaPerdidaException e) {
 			fail("La apuesta esta perdida cuando debería estar ganada");
 			e.printStackTrace();
@@ -139,7 +140,42 @@ public class ApuestaSegundoGanadaTest extends TestCase {
 			fail("La apuesta esta vencida");
 			e.printStackTrace();
 		}
-		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
+	public void testLiquidarSiEsTercero() {
+		
+		ResultadoCarrera resultado = new ResultadoCarrera(participante);
+		resultado.setOrdenLlegada(3);
+		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+		listaResultados.add(resultado);
+		try {
+			carrera.cerrarApuestas();
+			carrera.comenzar();
+			carrera.terminar(listaResultados);
+			carrera.aprobarResultados();
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Los resultados de la carrera no son válidos");	
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("El Estado de la carrera no es válido");	
+			e.printStackTrace();
+		}		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.CREADA);
+		try {
+			assertEquals(this.apuestaTercera.liquidar(), this.apuestaTercera.getMontoApostado());
+		} catch (ApuestaPerdidaException e) {
+			fail("La apuesta esta perdida cuando debería estar ganada");
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("No se pudo realizar la transicion de estado a liquidada");
+			e.printStackTrace();
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no esta en estado finalizada");
+			e.printStackTrace();
+		} catch (ApuestaVencidaException e) {
+			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		}
+		assertEquals(this.apuestaTercera.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+	}
 }
