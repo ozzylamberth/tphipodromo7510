@@ -19,7 +19,6 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
-
 import junit.framework.TestCase;
 
 public class ExcepcionesCarreraTest extends TestCase {
@@ -57,7 +56,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cerrarApuestas();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");	
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");	
 		}
 		
 		assertEquals(this.apuestaGanador.getParticipantes().get(0).getCarrera().getEstadoCarrera(), EstadoCarrera.CERRADA_A_APUESTAS);	
@@ -65,7 +64,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.comenzar();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		}
 		
 		assertEquals(this.apuestaGanador.getParticipantes().get(0).getCarrera().getEstadoCarrera(), EstadoCarrera.EN_CURSO);
@@ -73,9 +72,9 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.terminar(resultados);
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		} catch (ResultadosCarreraInvalidosExeption e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		}
 		
 		assertEquals(this.apuestaGanador.getParticipantes().get(0).getCarrera().getEstadoCarrera(), EstadoCarrera.A_AUDITAR);
@@ -83,7 +82,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.aprobarResultados();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		}
 		
 		assertEquals(this.apuestaGanador.getParticipantes().get(0).getCarrera().getEstadoCarrera(), EstadoCarrera.FINALIZADA);
@@ -95,7 +94,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cancelar();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		}
 		
 		assertEquals(this.apuestaGanador.getParticipantes().get(0).getCarrera().getEstadoCarrera(), EstadoCarrera.CANCELADA);
@@ -106,12 +105,12 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cerrarApuestas();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");	
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");	
 		}
 		
 		try {
 			Apuesta apuesta = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (CarreraCerradaAApuestasException e) {
 		}
 	}
@@ -122,19 +121,19 @@ public class ExcepcionesCarreraTest extends TestCase {
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Esta excepción no se debería haber lanzado");	
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");	
 		}
 		
 		try {
 			apuestaGanador.liquidar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (CarreraNoFinalizadaException e) {
 		} catch (ApuestaPerdidaException e) {
-			fail("Esta excepción no se debería haber lanzado");	
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");	
 		} catch (TransicionInvalidaEstadoApuestaException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		} catch (ApuestaVencidaException e) {
-			fail("Esta excepción no se debería haber lanzado");
+			fail("Esta excepciï¿½n no se deberï¿½a haber lanzado");
 		}	
 	}
 	
@@ -147,7 +146,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		
 		try {
 			carrera.comenzar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -156,7 +155,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 				
 		try {
 			carrera.terminar(resultados);
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -166,7 +165,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		
 		try {
 			carrera.aprobarResultados();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -176,7 +175,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cerrarApuestas();
 			carrera.terminar(resultados);
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -187,7 +186,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cerrarApuestas();
 			carrera.aprobarResultados();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -197,7 +196,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.comenzar();
 			carrera.cerrarApuestas();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -207,7 +206,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.comenzar();
 			carrera.aprobarResultados();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -217,7 +216,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.terminar(resultados);
 			carrera.cerrarApuestas();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -228,7 +227,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.terminar(resultados);
 			carrera.comenzar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -239,7 +238,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.aprobarResultados();
 			carrera.cerrarApuestas();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -249,7 +248,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.aprobarResultados();
 			carrera.comenzar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -259,7 +258,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.aprobarResultados();
 			carrera.terminar(resultados);
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -270,7 +269,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.aprobarResultados();
 			carrera.cancelar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -280,7 +279,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cancelar();
 			carrera.cerrarApuestas();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -290,7 +289,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cancelar();
 			carrera.comenzar();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}
@@ -300,7 +299,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cancelar();
 			carrera.terminar(resultados);
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		} catch (ResultadosCarreraInvalidosExeption e) {
 		}
@@ -311,7 +310,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		try {
 			carrera.cancelar();
 			carrera.aprobarResultados();
-			fail("El método debería haber lanzado una excepción");
+			fail("El mï¿½todo deberï¿½a haber lanzado una excepciï¿½n");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 		}
 	}

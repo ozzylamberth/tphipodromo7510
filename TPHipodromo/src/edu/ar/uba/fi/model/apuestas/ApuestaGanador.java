@@ -12,34 +12,28 @@ import edu.ar.uba.fi.model.Participante;
  * seleccionar 1 caballo para apostar en una carrera, que debera llegar en
  * primer lugar para ganar la apuesta
  */
-public class ApuestaGanador extends Apuesta
-{
-
-	public ApuestaGanador()
-	{
+public class ApuestaGanador extends Apuesta {
+	
+	public ApuestaGanador() {
 		super();
 	}
 
-	public ApuestaGanador(Participante participante) throws CarreraCerradaAApuestasException
-	{
+	public ApuestaGanador(Participante participante) throws CarreraCerradaAApuestasException {
 		super();
 		ArrayList<Participante> participantes = new ArrayList<Participante>();
 		participantes.add(participante);
 		this.setParticipantes(participantes);
 	}
 
-	public int getCantidadParticipantes()
-	{
+	public int getCantidadParticipantes() {
 		return 1;
 	}
 
-	public BigDecimal getValorBase()
-	{
+	public BigDecimal getValorBase() {
 		return new BigDecimal(1);
 	}
 
-	public List<Integer> getPosiblesOrdenesLLegada()
-	{
+	public List<Integer> getPosiblesOrdenesLLegada() {
 		ArrayList<Integer> ordenesLlegada = new ArrayList<Integer>();
 		ordenesLlegada.add(new Integer(1));
 		return ordenesLlegada;

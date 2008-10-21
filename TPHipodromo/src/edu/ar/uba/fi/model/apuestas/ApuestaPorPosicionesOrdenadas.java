@@ -14,41 +14,34 @@ import edu.ar.uba.fi.model.Participante;
  * primera posicion determinada, el segundo en la segunda, y asi
  * sucesivamente
  */
-public abstract class ApuestaPorPosicionesOrdenadas extends Apuesta
-{
-
-	public ApuestaPorPosicionesOrdenadas()
-	{
+public abstract class ApuestaPorPosicionesOrdenadas extends Apuesta {
+	
+	public ApuestaPorPosicionesOrdenadas() {
 	}
-
-	public ApuestaPorPosicionesOrdenadas(List<Participante> participantes) throws CantidadParticipantesInvalidaException, CarreraCerradaAApuestasException
-	{
+	
+	public ApuestaPorPosicionesOrdenadas(List<Participante> participantes) throws CantidadParticipantesInvalidaException, CarreraCerradaAApuestasException {
 		super(participantes);
-		if (participantes.size() != this.getCantidadParticipantes())
-		{
+		if (participantes.size() != this.getCantidadParticipantes()) {
 			throw new CantidadParticipantesInvalidaException();
 		}
 	}
-
+	
 	/**
 	 * Se sobreescribe el metodo isAcertada de la clase Apuesta para que
 	 * se consideren los posibles ordenes de llegada en el orden exacto
 	 */
-	public boolean isAcertada()
-	{
+	public boolean isAcertada() {
 		int ordenLLegadaIndex = 0;
 		Iterator<Participante> it = this.getParticipantes().iterator();
-		while (it.hasNext())
-		{
-			Participante participante = (Participante)it.next();
-			int ordenLLegada = participante.getResultado().getOrdenLlegada();
-			if (!this.getPosiblesOrdenesLLegada().get(ordenLLegadaIndex).equals(new Integer(ordenLLegada)))
-			{
+		while (it.hasNext()) {
+			Participante participante = (Participante) it.next();
+			int ordenLLegada = participante.getResultado().getOrdenLlegada(); 
+			if (!this.getPosiblesOrdenesLLegada().get(ordenLLegadaIndex).equals(new Integer(ordenLLegada))) {
 				return false;
 			}
 			ordenLLegadaIndex++;
 		}
 		return true;
 	}
-
+	
 }
