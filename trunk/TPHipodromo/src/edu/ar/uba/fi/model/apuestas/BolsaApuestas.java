@@ -1,6 +1,7 @@
 package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,9 @@ import edu.ar.uba.fi.model.Carrera;
  * carrera o conjunto de carreras
  */
 public class BolsaApuestas {
+	private static final int DECIMALES = 2;
+	private static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
+	
 	private TipoBolsaApuestas tipoBolsaApuestas;
 	private List<Carrera> carreras = new ArrayList<Carrera>();
 	private ArrayList<Apuesta> apuestas = new ArrayList<Apuesta>();
@@ -35,7 +39,7 @@ public class BolsaApuestas {
 		}
 		BigDecimal porcentajeARepartir = new BigDecimal(1).subtract(this.getPorcentajeComisionHipodromo());
 		BigDecimal totalARepartir = totalApostado.multiply(porcentajeARepartir);
-		BigDecimal dividendo = totalARepartir.divide(totalGanadores);
+		BigDecimal dividendo = totalARepartir.divide(totalGanadores, DECIMALES, ROUNDING_MODE);
 		if (new BigDecimal(1).compareTo(dividendo) > 0) {
 			return new BigDecimal(1);
 		} else {
