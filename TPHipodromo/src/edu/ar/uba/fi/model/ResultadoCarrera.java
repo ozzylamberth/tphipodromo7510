@@ -12,6 +12,11 @@ public class ResultadoCarrera {
 	public ResultadoCarrera(Participante participante) {
 		this.setParticipante(participante);
 	}
+	
+	public ResultadoCarrera(Participante participante, Integer ordenLlegada) {
+		this(participante);
+		this.setOrdenLlegada(ordenLlegada);
+	}
 
 	public int getOrdenLlegada() {
 		return this.ordenLlegada;
