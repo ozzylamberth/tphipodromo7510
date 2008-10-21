@@ -109,7 +109,7 @@ public class ExcepcionesCarreraTest extends TestCase {
 		}
 		
 		try {
-			Apuesta apuesta = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+			ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
 			fail("El m�todo deber�a haber lanzado una excepci�n");
 		} catch (CarreraCerradaAApuestasException e) {
 		}
