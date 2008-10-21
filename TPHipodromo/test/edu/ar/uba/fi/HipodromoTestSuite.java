@@ -10,6 +10,7 @@ public class HipodromoTestSuite extends TestCase {
 		suite.addTestSuite(ApuestaGanadorGanadaTest.class);
 		suite.addTestSuite(ApuestaSegundoGanadaTest.class);
 		suite.addTestSuite(ApuestaTerceroGanadaTest.class);
+		suite.addTestSuite(ApuestaExactaTest.class);
 		suite.addTestSuite(ExcepcionesCarreraTest.class);
 		return suite;
 	}
