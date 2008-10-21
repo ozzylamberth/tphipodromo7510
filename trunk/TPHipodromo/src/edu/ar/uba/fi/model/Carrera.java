@@ -68,6 +68,10 @@ public class Carrera {
 		// si no esta en niguno de los estados anteriores
 		throw new TransicionInvalidaEstadoCarreraException();
 	}
+
+	public boolean isCerradaAApuestas() {
+		return (EstadoCarrera.CERRADA_A_APUESTAS.equals(this.getEstadoCarrera()));
+	}
 	
 	public boolean isFinalizada() {
 		return (EstadoCarrera.FINALIZADA.equals(this.getEstadoCarrera()));
