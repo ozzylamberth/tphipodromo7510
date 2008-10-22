@@ -1,6 +1,7 @@
 package edu.ar.uba.fi.exceptions;
 
-
+//Suppress warnings about missing serialVersionUID
+@SuppressWarnings("serial")
 public abstract class HipodromoException extends Exception {
 	private ImportanciaExceptions importancia;
 

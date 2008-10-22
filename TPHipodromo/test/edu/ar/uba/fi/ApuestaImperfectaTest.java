@@ -20,6 +20,7 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.BolsaApuestas;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
 /**
@@ -135,25 +136,65 @@ public class ApuestaImperfectaTest extends TestCase {
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[4].isAcertada());
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[5].isAcertada());
 	}
-		
+	
+	private BigDecimal getTotalApostado() {
+		BigDecimal totalApostado = new BigDecimal(0);
+		for (int i = 0; i < this.apuesta.length; i++) {
+			totalApostado = totalApostado.add(apuesta[i].getMontoApostado());
+		}
+		return totalApostado;
+	}
+	
+	private BigDecimal getTotalGanadores() {
+		BigDecimal totalGanadores = new BigDecimal(0);
+		for (int i = 0; i < 4; i++) { // hay 4 ganadores
+			totalGanadores = totalGanadores.add(apuesta[i].getMontoApostado());
+		}
+		return totalGanadores;
+	}
+	
+	private BigDecimal calcularDividendo() {
+		BigDecimal totalApostado = this.getTotalApostado();
+		BigDecimal totalGanadores = this.getTotalGanadores();
+		BigDecimal porcentaje = new BigDecimal(1).subtract(BolsasApuestasManager.porcentajeComisionHipodromo);
+		BigDecimal totalARepartir = totalApostado.multiply(porcentaje);
+		BigDecimal dividendo = totalARepartir.divide(totalGanadores, BolsaApuestas.DECIMALES, BolsaApuestas.ROUNDING_MODE);
+		// si el dividendo de menor que uno, se retorna 1
+		if (new BigDecimal(1).compareTo(dividendo) > 0) {
+			return new BigDecimal(1);
+		} else {
+			return dividendo;
+		}
+	}
+	
+	private BigDecimal calcularGanancia(Apuesta apuesta) {
+		BigDecimal dividendo = this.calcularDividendo();
+		BigDecimal ganancia = dividendo.multiply(apuesta.getMontoApostado().divide(apuesta.getValorBase())).setScale(2, RoundingMode.CEILING);
+		// si la ganancia de la apuesta es menor al monto apostado
+		if (apuesta.getMontoApostado().compareTo(ganancia) > 0) {
+			return apuesta.getMontoApostado();
+		} else {
+			return ganancia;
+		}
+	}
+	
 	public void testLiquidar() {
-		BigDecimal dividendo = new BigDecimal(210).multiply(new BigDecimal(1).subtract(BolsasApuestasManager.porcentajeComisionHipodromo)).divide(new BigDecimal(100)).divide(new BigDecimal(2));
 		
 		try {
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[0].getMontoApostado()).setScale(2, RoundingMode.CEILING), 
+					this.calcularGanancia(apuesta[0]), 
 					apuesta[0].liquidar());
 			
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[1].getMontoApostado()).setScale(2, RoundingMode.CEILING), 
+					this.calcularGanancia(apuesta[1]), 
 					apuesta[1].liquidar());
 			
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[2].getMontoApostado()).setScale(2, RoundingMode.CEILING), 
+					this.calcularGanancia(apuesta[2]), 
 					apuesta[2].liquidar());
 			
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[3].getMontoApostado()).setScale(2, RoundingMode.CEILING), 
+					this.calcularGanancia(apuesta[3]), 
 					apuesta[3].liquidar());
 		} catch (CarreraNoFinalizadaException e) {
 			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
@@ -171,11 +212,11 @@ public class ApuestaImperfectaTest extends TestCase {
 		
 		try {
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[2].getMontoApostado()), 
+					this.calcularGanancia(apuesta[2]), 
 					apuesta[4].liquidar());
 			
 			assertEquals("El monto de la liquidación es incorrecto.",
-					dividendo.multiply(apuesta[3].getMontoApostado()), 
+					this.calcularGanancia(apuesta[3]), 
 					apuesta[5].liquidar());
 		} catch (CarreraNoFinalizadaException e) {
 			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");

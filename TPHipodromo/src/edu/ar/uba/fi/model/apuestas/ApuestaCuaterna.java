@@ -11,7 +11,7 @@ import edu.ar.uba.fi.model.Participante;
 /**
  * Representa las apuestas del tipo Cuaterna, en donde el jugador debe
  * seleccionar 4 caballos para apostar, que deberan llegar primero en 4 carreras
- * consecutivas, seï¿½aladas en el programa oficial, para ganar la apuesta
+ * consecutivas, señaladas en el programa oficial, para ganar la apuesta
  */
 public class ApuestaCuaterna extends Apuesta {
 	

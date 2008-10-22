@@ -75,7 +75,13 @@ public abstract class Apuesta {
 
 	private BigDecimal calcularMontoAPagar() {
 		BigDecimal proporcion = this.getMontoApostado().divide(this.getValorBase());
-		return proporcion.multiply(this.getBolsaApuestas().getDividendo());
+		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas().getDividendo());
+		// si el monto a pagar es menor al monto apostado
+		if (this.getMontoApostado().compareTo(montoAPagar) > 0) {
+			return this.getMontoApostado();
+		} else {
+			return montoAPagar;
+		}
 	}
 
 	public BigDecimal liquidar() throws CarreraNoFinalizadaException, ApuestaPerdidaException, TransicionInvalidaEstadoApuestaException, ApuestaVencidaException {
