@@ -18,10 +18,10 @@ import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 /**
  * @author Fernando E. Mansilla - 84567
  */
-public class ApuestaCuaternaTest extends TestCase {
+public class ApuestaDobleTest extends TestCase {
 
 	private final int CANTIDAD_PARTICIPANTES = 3;
-	private final int CANTIDAD_CARRERAS = 4;
+	private final int CANTIDAD_CARRERAS = 2;
 
 	private LinkedList<Carrera> carreras;
 	private Apuesta apuesta;
@@ -42,10 +42,8 @@ public class ApuestaCuaternaTest extends TestCase {
 		LinkedList<Participante> participantesApostados = new LinkedList<Participante>(); 
 		participantesApostados.addLast(carreras.get(0).getParticipantes().get(0));
 		participantesApostados.addLast(carreras.get(1).getParticipantes().get(0));
-		participantesApostados.addLast(carreras.get(2).getParticipantes().get(0));
-		participantesApostados.addLast(carreras.get(3).getParticipantes().get(0));
 		
-		apuesta = ApuestaFactory.getInstance().crearApuestaCuaterna(
+		apuesta = ApuestaFactory.getInstance().crearApuestaDoble(
 				participantesApostados, new BigDecimal(25));
 	}
 
@@ -72,8 +70,6 @@ public class ApuestaCuaternaTest extends TestCase {
 		try {
 			simularCarrera(carreras.get(0),new int[]{ 1, 2, 3});
 			simularCarrera(carreras.get(1),new int[]{ 1, 2, 3 });
-			simularCarrera(carreras.get(2),new int[]{ 1, 2, 3 });
-			simularCarrera(carreras.get(3),new int[]{ 1, 2, 3 });
 			
 			assertTrue(apuesta.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -89,8 +85,6 @@ public class ApuestaCuaternaTest extends TestCase {
 		try {
 			simularCarrera(carreras.get(0),new int[]{ 1, 2, 3});
 			simularCarrera(carreras.get(1),new int[]{ 2, 1, 3 });
-			simularCarrera(carreras.get(2),new int[]{ 1, 2, 3 });
-			simularCarrera(carreras.get(3),new int[]{ 1, 2, 3 });
 
 			assertFalse(apuesta.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -104,10 +98,8 @@ public class ApuestaCuaternaTest extends TestCase {
 
 	public void testPerdedor2() {
 		try {
-			simularCarrera(carreras.get(0),new int[]{ 1, 2, 3});
+			simularCarrera(carreras.get(0),new int[]{ 2, 1, 3});
 			simularCarrera(carreras.get(1),new int[]{ 2, 1, 3 });
-			simularCarrera(carreras.get(2),new int[]{ 1, 2, 3 });
-			simularCarrera(carreras.get(3),new int[]{ 1, 2, 3 });
 
 			assertFalse(apuesta.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -123,8 +115,6 @@ public class ApuestaCuaternaTest extends TestCase {
 		try {
 			simularCarrera(carreras.get(0),new int[]{ 2, 1, 3});
 			simularCarrera(carreras.get(1),new int[]{ 1, 3, 2 });
-			simularCarrera(carreras.get(2),new int[]{ 3, 1, 2 });
-			simularCarrera(carreras.get(3),new int[]{ 1, 2, 3 });
 
 			assertFalse(apuesta.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
