@@ -13,8 +13,8 @@ import edu.ar.uba.fi.model.Carrera;
  * carrera o conjunto de carreras
  */
 public class BolsaApuestas {
-	private static final int DECIMALES = 2;
-	private static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
+	public static final int DECIMALES = 2;
+	public static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
 	
 	private TipoBolsaApuestas tipoBolsaApuestas;
 	private List<Carrera> carreras = new ArrayList<Carrera>();
@@ -40,6 +40,7 @@ public class BolsaApuestas {
 		BigDecimal porcentajeARepartir = new BigDecimal(1).subtract(this.getPorcentajeComisionHipodromo());
 		BigDecimal totalARepartir = totalApostado.multiply(porcentajeARepartir);
 		BigDecimal dividendo = totalARepartir.divide(totalGanadores, DECIMALES, ROUNDING_MODE);
+		// si el dividendo de menor que uno, se retorna 1
 		if (new BigDecimal(1).compareTo(dividendo) > 0) {
 			return new BigDecimal(1);
 		} else {

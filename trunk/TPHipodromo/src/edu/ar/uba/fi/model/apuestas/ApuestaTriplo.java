@@ -10,7 +10,7 @@ import edu.ar.uba.fi.model.Participante;
 
 /**
  * Representa las apuestas del tipo Triplo, en donde el jugador debe seleccionar
- * 3 caballos para apostar, que deberan llegar primero en 3 carreras seï¿½aladas
+ * 3 caballos para apostar, que deberan llegar primero en 3 carreras señaladas
  * en el programa oficial para ganar la apuesta
  */
 public class ApuestaTriplo extends Apuesta {
