@@ -18,6 +18,12 @@ import edu.ar.uba.fi.model.Participante;
  * Representa la logica general de los distintos tipos de apuestas
  */
 public abstract class Apuesta {
+	/**
+	 * Representa la cantidad de decimales con la que se estará realizando los cálculos
+	 * de dinero en las apuestas.
+	 */
+	private final static int CANT_DECIMALES = 2;
+	
 	private BolsaApuestas bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
@@ -74,7 +80,7 @@ public abstract class Apuesta {
 	}
 
 	private BigDecimal calcularMontoAPagar() {
-		BigDecimal proporcion = this.getMontoApostado().divide(this.getValorBase());
+		BigDecimal proporcion = this.getMontoApostado().divide(this.getValorBase(), CANT_DECIMALES	, BigDecimal.ROUND_HALF_UP);
 		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas().getDividendo());
 		// si el monto a pagar es menor al monto apostado
 		if (this.getMontoApostado().compareTo(montoAPagar) > 0) {
