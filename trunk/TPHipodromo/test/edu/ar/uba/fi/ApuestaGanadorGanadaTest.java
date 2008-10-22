@@ -49,9 +49,9 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 	public void testLiquidar() {
 		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.CREADA);
 		try {
-			assertEquals(this.apuestaGanador.liquidar(), this.apuestaGanador.getMontoApostado());
+			assertEquals(this.apuestaGanador.liquidar().compareTo(this.apuestaGanador.getMontoApostado()) == 0, true);
 		} catch (ApuestaPerdidaException e) {
-			fail("La apuesta esta perdida cuando debería estar ganada");
+			fail("La apuesta esta perdida cuando deberï¿½a estar ganada");
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoApuestaException e) {
 			fail("No se pudo realizar la transicion de estado a liquidada");
