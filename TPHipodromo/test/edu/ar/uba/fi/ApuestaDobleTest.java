@@ -144,8 +144,8 @@ public class ApuestaDobleTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-
-	public void testLiquidar() {
+	
+	private BigDecimal calcularDividendo() {
 		// Dos apuestas de MONTO_APUESTA donde solo 1 es acertada.
 		BigDecimal montoApostado = MONTO_APUESTA.multiply(new BigDecimal(2));
 		BigDecimal porcentajeARepartir = BigDecimal.ONE
@@ -155,37 +155,50 @@ public class ApuestaDobleTest extends TestCase {
 				BigDecimal.ROUND_CEILING);
 		if (BigDecimal.ONE.compareTo(dividendo) > 0) {
 			dividendo = BigDecimal.ONE.setScale(2);
-
 		}
+		return dividendo;
+	}
+	
+	private BigDecimal calcularValorACobrar(Apuesta apuesta) {
+		BigDecimal valorACobrar = this.calcularDividendo().multiply(apuesta
+				.getMontoApostado().divide(apuesta.getValorBase()));
+		// si valor a cobrar es menor al monto apostado
+		if (apuesta.getMontoApostado().compareTo(valorACobrar) > 0) {
+			return apuesta.getMontoApostado();
+		} else {
+			return valorACobrar;
+		}
+	}
+
+	public void testLiquidar() {
 
 		try {
 
 			simularCarrera(carreras.get(0), new int[] { 1, 2, 3 });
 			simularCarrera(carreras.get(1), new int[] { 1, 3, 2 });
 		} catch (TransicionInvalidaEstadoCarreraException e) {
-			fail("Falló la Simulación de la carrera.");
+			fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 			e.printStackTrace();
 		} catch (ResultadosCarreraInvalidosExeption e) {
-			fail("Falló la Simulación de la carrera.");
+			fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 			e.printStackTrace();
 		}
 
 		try {
-			BigDecimal valorACobrar = dividendo.multiply(apuesta1
-					.getMontoApostado().divide(apuesta1.getValorBase()));
+			BigDecimal valorACobrar = this.calcularValorACobrar(apuesta1);
 
-			assertEquals("El monto de la liquidación es incorrecto.",
-					valorACobrar.setScale(2, RoundingMode.CEILING), apuesta1
-							.liquidar().setScale(2));
+			assertEquals("El monto de la liquidaciï¿½n es incorrecto.",
+					valorACobrar.setScale(2, RoundingMode.CEILING).compareTo(apuesta1
+							.liquidar().setScale(2)) == 0, true);
 
 		} catch (CarreraNoFinalizadaException e) {
-			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
+			fail("La carrera no habï¿½a terminado cuando se intentï¿½ liquidar la apuesta.");
 			e.printStackTrace();
 		} catch (ApuestaPerdidaException e) {
-			fail("Se intentó liquidar una apuesta perdida.");
+			fail("Se intentï¿½ liquidar una apuesta perdida.");
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoApuestaException e) {
-			fail("Transición de estado inválida al querer liquidar la apuesta.");
+			fail("Transiciï¿½n de estado invï¿½lida al querer liquidar la apuesta.");
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
@@ -193,21 +206,20 @@ public class ApuestaDobleTest extends TestCase {
 		}
 
 		try {
-			BigDecimal valorACobrar = dividendo.multiply(apuesta2
-					.getMontoApostado().divide(apuesta2.getValorBase()));
+			BigDecimal valorACobrar = this.calcularValorACobrar(apuesta2);
 
-			assertEquals("El monto de la liquidación es incorrecto.",
+			assertEquals("El monto de la liquidaciï¿½n es incorrecto.",
 					valorACobrar.setScale(2, RoundingMode.CEILING), apuesta2
 							.liquidar().setScale(2));
 
 		} catch (CarreraNoFinalizadaException e) {
-			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
+			fail("La carrera no habï¿½a terminado cuando se intentï¿½ liquidar la apuesta.");
 			e.printStackTrace();
 		} catch (ApuestaPerdidaException e) {
 			assertTrue(true);
 			// e.printStackTrace();
 		} catch (TransicionInvalidaEstadoApuestaException e) {
-			fail("Transición de estado inválida al querer liquidar la apuesta.");
+			fail("Transiciï¿½n de estado invï¿½lida al querer liquidar la apuesta.");
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
