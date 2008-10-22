@@ -1,12 +1,16 @@
 package edu.ar.uba.fi;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
+import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
@@ -15,124 +19,178 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
 /**
  * @author Fernando E. Mansilla - 84567
  */
 public class ApuestaTrifectaTest extends TestCase {
-	
-	private Participante participante1;	
+
+	private Participante participante1;
 	private Participante participante2;
 	private Participante participante3;
 	private Carrera carrera;
-	private Apuesta apuesta;
-	
-	
+
+	private BigDecimal MONTO_APUESTA = new BigDecimal(50);
+
+	private Apuesta apuesta1;
+	private Apuesta apuesta2;
+
 	protected void setUp() throws Exception {
 		carrera = new Carrera();
-		
+
 		participante1 = new Participante(new Caballo(), new Jinete(), carrera);
 		participante1.getCarrera().addParticipante(participante1);
-		
+
 		participante2 = new Participante(new Caballo(), new Jinete(), carrera);
 		participante2.getCarrera().addParticipante(participante2);
 
 		participante3 = new Participante(new Caballo(), new Jinete(), carrera);
 		participante3.getCarrera().addParticipante(participante3);
-		
-		List<Participante> listaPart = new ArrayList<Participante>(2);
+
+		List<Participante> listaPart = new LinkedList<Participante>();
 		listaPart.add(participante1);
 		listaPart.add(participante2);
 		listaPart.add(participante3);
 
-		apuesta = ApuestaFactory.getInstance().crearApuestaTrifecta(listaPart, new BigDecimal(25));
+		apuesta1 = ApuestaFactory.getInstance().crearApuestaTrifecta(listaPart,
+				MONTO_APUESTA);
+
+		listaPart = new LinkedList<Participante>();
+		listaPart.add(participante1);
+		listaPart.add(participante3);
+		listaPart.add(participante2);
+		apuesta2 = ApuestaFactory.getInstance().crearApuestaTrifecta(listaPart,
+				MONTO_APUESTA);
 	}
-	
-	protected void simularCarrera(int[] ordenes) throws TransicionInvalidaEstadoCarreraException, ResultadosCarreraInvalidosExeption{
+
+	protected void simularCarrera(int[] ordenes)
+			throws TransicionInvalidaEstadoCarreraException,
+			ResultadosCarreraInvalidosExeption {
 		carrera.cerrarApuestas();
-		carrera.comenzar();	
-		
+		carrera.comenzar();
+
 		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
-		int i=0;
-		for(Participante p : carrera.getParticipantes()){
+		int i = 0;
+		for (Participante p : carrera.getParticipantes()) {
 			ResultadoCarrera resultado = new ResultadoCarrera(p);
 			resultado.setOrdenLlegada(ordenes[i]);
 			listaResultados.add(resultado);
-			i++;			
+			i++;
 		}
-		
+
 		carrera.terminar(listaResultados);
 		carrera.aprobarResultados();
 	}
-	
-	public void testGanador1(){		
+
+	public void testGanador1() {
 		try {
-			int[] ordenes = {1, 2, 3};		
-			simularCarrera(ordenes);	
-			assertTrue(apuesta.isAcertada());
+			int[] ordenes = { 1, 2, 3 };
+			simularCarrera(ordenes);
+			assertTrue(apuesta1.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		} catch (ResultadosCarreraInvalidosExeption e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		}		
+		}
 	}
-	
-	public void testPerdedor1(){		
+
+	public void testPerdedor1() {
 		try {
-			int[] ordenes = {2, 1, 3};		
-			simularCarrera(ordenes);	
-			assertFalse(apuesta.isAcertada());
+			int[] ordenes = { 2, 1, 3 };
+			simularCarrera(ordenes);
+			assertFalse(apuesta1.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		} catch (ResultadosCarreraInvalidosExeption e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		}		
+		}
 	}
-	
-	public void testPerdedor2(){		
+
+	public void testPerdedor2() {
 		try {
-			int[] ordenes = {3, 1, 2};		
-			simularCarrera(ordenes);	
-			assertFalse(apuesta.isAcertada());
+			int[] ordenes = { 3, 1, 2 };
+			simularCarrera(ordenes);
+			assertFalse(apuesta1.isAcertada());
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		} catch (ResultadosCarreraInvalidosExeption e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		}		
+		}
 	}
-	
-//	public void testLiquidar(){		
-//		try {
-//			int[] ordenes = {1, 2, 3};		
-//			simularCarrera(ordenes);
-//			assertEquals(apuesta.getEstadoApuesta(), EstadoApuesta.CREADA);
-//			assertEquals(apuesta.liquidar(), apuesta.getMontoApostado());
-//			assertEquals(apuesta.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
-//		} catch (ApuestaPerdidaException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		} catch (TransicionInvalidaEstadoApuestaException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		} catch (CarreraNoFinalizadaException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		} catch (ApuestaVencidaException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		} catch (TransicionInvalidaEstadoCarreraException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		} catch (ResultadosCarreraInvalidosExeption e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		}
-//
-//	}
+
+	public void testLiquidar() {
+		// Dos apuestas de MONTO_APUESTA donde solo 1 es acertada.
+		BigDecimal montoApostado = MONTO_APUESTA.multiply(new BigDecimal(2));
+		BigDecimal porcentajeARepartir = BigDecimal.ONE
+				.subtract(BolsasApuestasManager.porcentajeComisionHipodromo);
+		BigDecimal totalARepartir = montoApostado.multiply(porcentajeARepartir);
+		BigDecimal dividendo = totalARepartir.divide(MONTO_APUESTA, 2,
+				BigDecimal.ROUND_CEILING);
+		if (BigDecimal.ONE.compareTo(dividendo) > 0) {
+			dividendo = BigDecimal.ONE.setScale(2);
+
+		}
+
+		try {
+
+			simularCarrera(new int[] { 1, 2, 3 });
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("Falló la Simulación de la carrera.");
+			e.printStackTrace();
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Falló la Simulación de la carrera.");
+			e.printStackTrace();
+		}
+
+		try {
+			BigDecimal valorACobrar = dividendo.multiply(apuesta1
+					.getMontoApostado().divide(apuesta1.getValorBase()));
+
+			assertEquals("El monto de la liquidación es incorrecto.",
+					valorACobrar.setScale(2, RoundingMode.CEILING), apuesta1
+							.liquidar().setScale(2));
+
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
+			e.printStackTrace();
+		} catch (ApuestaPerdidaException e) {
+			fail("Se intentó liquidar una apuesta perdida.");
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Transición de estado inválida al querer liquidar la apuesta.");
+			e.printStackTrace();
+		} catch (ApuestaVencidaException e) {
+			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
+			e.printStackTrace();
+		}
+
+		try {
+			BigDecimal valorACobrar = dividendo.multiply(apuesta2
+					.getMontoApostado().divide(apuesta2.getValorBase()));
+
+			assertEquals("El monto de la liquidación es incorrecto.",
+					valorACobrar.setScale(2, RoundingMode.CEILING), apuesta2
+							.liquidar().setScale(2));
+
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
+			e.printStackTrace();
+		} catch (ApuestaPerdidaException e) {
+			assertTrue(true);
+			// e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Transición de estado inválida al querer liquidar la apuesta.");
+			e.printStackTrace();
+		} catch (ApuestaVencidaException e) {
+			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
+			e.printStackTrace();
+		}
+	}
 }
