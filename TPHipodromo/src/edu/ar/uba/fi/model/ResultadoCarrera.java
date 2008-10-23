@@ -1,6 +1,6 @@
 package edu.ar.uba.fi.model;
 
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoResultadoCarreraException;
 
 /**
@@ -24,11 +24,11 @@ public class ResultadoCarrera {
 		this.setOrdenLlegada(ordenLlegada);
 	}
 
-	public int getOrdenLlegada() throws ResultadosCarreraInvalidosExeption {
+	public int getOrdenLlegada() throws ResultadosCarreraInvalidosException {
 		if (estado.equals(EstadoResultadoCarrera.FINALIZADO)) {
 			return this.ordenLlegada;
 		} else {
-			throw new ResultadosCarreraInvalidosExeption();
+			throw new ResultadosCarreraInvalidosException();
 		}
 	}
 

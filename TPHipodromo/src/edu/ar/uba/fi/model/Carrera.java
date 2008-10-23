@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
 /**
@@ -40,7 +40,7 @@ public class Carrera {
 	}
 
 	public void terminar(List<ResultadoCarrera> resultados)
-			throws ResultadosCarreraInvalidosExeption,
+			throws ResultadosCarreraInvalidosException,
 			TransicionInvalidaEstadoCarreraException {
 		this.setResultadosPendienteAprobacion(resultados);
 		cambiarEstado(EstadoCarrera.A_AUDITAR);
@@ -131,22 +131,22 @@ public class Carrera {
 
 	public void setResultadosPendienteAprobacion(
 			List<ResultadoCarrera> resultados)
-			throws ResultadosCarreraInvalidosExeption {
+			throws ResultadosCarreraInvalidosException {
 		if (resultados.size() != this.getParticipantes().size()) {
-			throw new ResultadosCarreraInvalidosExeption();
+			throw new ResultadosCarreraInvalidosException();
 		}
 		this.validarMismosParticipantes(resultados);
 		this.resultadosPendienteAprobacion = resultados;
 	}
 
 	private void validarMismosParticipantes(List<ResultadoCarrera> resultados)
-			throws ResultadosCarreraInvalidosExeption {
+			throws ResultadosCarreraInvalidosException {
 		Iterator<ResultadoCarrera> it = resultados.iterator();
 		while (it.hasNext()) {
 			ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
 			if (!this.getParticipantes().contains(
 					resultadoCarrera.getParticipante())) {
-				throw new ResultadosCarreraInvalidosExeption();
+				throw new ResultadosCarreraInvalidosException();
 			}
 		}
 	}

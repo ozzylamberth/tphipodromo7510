@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.model.Participante;
 
 /**
@@ -45,7 +45,7 @@ public abstract class ApuestaPorPosicionesOrdenadas extends Apuesta {
 						.equals(new Integer(ordenLLegada))) {
 					return false;
 				}
-			} catch (ResultadosCarreraInvalidosExeption e) {
+			} catch (ResultadosCarreraInvalidosException e) {
 				return false;
 			}
 
