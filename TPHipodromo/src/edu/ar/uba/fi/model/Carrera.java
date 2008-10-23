@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
+/**
+ * 
+ * @versión 1.0 Nahuel  
+ * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de controlar los cambios de estados 
+ * se la pasé al enumerado EstadoCarrera y Eliminé el setter de EstadoCarrera. 
+ */
 public class Carrera {
 	private BigDecimal distancia;
 	private Date fechaYHora;
@@ -19,56 +24,31 @@ public class Carrera {
 	private List<ResultadoCarrera> resultadosPendienteAprobacion;
 	
 	public Carrera() {
-		this.setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
+		this.estadoCarrera = EstadoCarrera.ABIERTA_A_APUESTAS;
 	}
 
 	public void cerrarApuestas() throws TransicionInvalidaEstadoCarreraException {
-		this.cambiarEstado(EstadoCarrera.ABIERTA_A_APUESTAS, EstadoCarrera.CERRADA_A_APUESTAS);
+		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
 	}
 
 	public void comenzar() throws TransicionInvalidaEstadoCarreraException {
-		this.cambiarEstado(EstadoCarrera.CERRADA_A_APUESTAS, EstadoCarrera.EN_CURSO);
+		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
 	}
 
 	public void terminar(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption, TransicionInvalidaEstadoCarreraException {
 		this.setResultadosPendienteAprobacion(resultados);
-		this.cambiarEstado(EstadoCarrera.EN_CURSO, EstadoCarrera.A_AUDITAR);
+		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
 	}
 
 	public void cancelar() throws TransicionInvalidaEstadoCarreraException {
-		ArrayList<EstadoCarrera> estadosAnteriores = new ArrayList<EstadoCarrera>();
-		estadosAnteriores.add(EstadoCarrera.ABIERTA_A_APUESTAS);
-		estadosAnteriores.add(EstadoCarrera.CERRADA_A_APUESTAS);
-		estadosAnteriores.add(EstadoCarrera.EN_CURSO);
-		estadosAnteriores.add(EstadoCarrera.A_AUDITAR);
-		this.cambiarEstado(estadosAnteriores, EstadoCarrera.CANCELADA);
+		this.estadoCarrera = this.estadoCarrera.cancelar();
 	}
 	
 	public void aprobarResultados() throws TransicionInvalidaEstadoCarreraException {
-		this.cambiarEstado(EstadoCarrera.A_AUDITAR, EstadoCarrera.FINALIZADA);
+		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
 		this.asignarResultadosAParticipantes();
 	}
 	
-	private void cambiarEstado(EstadoCarrera estadoAnterior, EstadoCarrera nuevoEstado) throws TransicionInvalidaEstadoCarreraException {
-		if (!estadoAnterior.equals(this.getEstadoCarrera())) {
-			throw new TransicionInvalidaEstadoCarreraException();
-		}
-		this.setEstadoCarrera(nuevoEstado);
-	}
-	
-	private void cambiarEstado(List<EstadoCarrera> estadosAnteriores, EstadoCarrera nuevoEstado) throws TransicionInvalidaEstadoCarreraException {
-		Iterator<EstadoCarrera> it = estadosAnteriores.iterator();
-		while (it.hasNext()) {
-			EstadoCarrera estadoAnterior = (EstadoCarrera) it.next();
-			if (this.getEstadoCarrera().equals(estadoAnterior)) {
-				this.setEstadoCarrera(nuevoEstado);
-				return;
-			}
-		}
-		// si no esta en niguno de los estados anteriores
-		throw new TransicionInvalidaEstadoCarreraException();
-	}
-
 	public boolean isCerradaAApuestas() {
 		return (EstadoCarrera.CERRADA_A_APUESTAS.equals(this.getEstadoCarrera()));
 	}
@@ -111,10 +91,6 @@ public class Carrera {
 
 	public EstadoCarrera getEstadoCarrera() {
 		return this.estadoCarrera;
-	}
-
-	public void setEstadoCarrera(EstadoCarrera estadoCarrera) {
-		this.estadoCarrera = estadoCarrera;
 	}
 
 	public List<Participante> getParticipantes() {
