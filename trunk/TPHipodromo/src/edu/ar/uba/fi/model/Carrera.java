@@ -10,9 +10,10 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
 /**
  * 
- * @versión 1.0 Nahuel  
- * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de controlar los cambios de estados 
- * se la pasé al enumerado EstadoCarrera y Eliminé el setter de EstadoCarrera. 
+ * @versión 1.0 Nahuel
+ * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
+ *          controlar los cambios de estados se la pasé al enumerado
+ *          EstadoCarrera y Eliminé el setter de EstadoCarrera.
  */
 public class Carrera {
 	private BigDecimal distancia;
@@ -22,37 +23,46 @@ public class Carrera {
 	private EstadoCarrera estadoCarrera;
 	private List<Participante> participantes = new ArrayList<Participante>();
 	private List<ResultadoCarrera> resultadosPendienteAprobacion;
-	
+
 	public Carrera() {
 		this.estadoCarrera = EstadoCarrera.ABIERTA_A_APUESTAS;
 	}
 
-	public void cerrarApuestas() throws TransicionInvalidaEstadoCarreraException {
-		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
+	// Cambios de estado
+	// ------------------------------------------
+	public void cerrarApuestas()
+			throws TransicionInvalidaEstadoCarreraException {
+		cambiarEstado(EstadoCarrera.CERRADA_A_APUESTAS);
 	}
 
 	public void comenzar() throws TransicionInvalidaEstadoCarreraException {
-		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
+		cambiarEstado(EstadoCarrera.EN_CURSO);
 	}
 
-	public void terminar(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption, TransicionInvalidaEstadoCarreraException {
+	public void terminar(List<ResultadoCarrera> resultados)
+			throws ResultadosCarreraInvalidosExeption,
+			TransicionInvalidaEstadoCarreraException {
 		this.setResultadosPendienteAprobacion(resultados);
-		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
+		cambiarEstado(EstadoCarrera.A_AUDITAR);
+	}
+
+	public void aprobarResultados()
+			throws TransicionInvalidaEstadoCarreraException {
+		cambiarEstado(EstadoCarrera.FINALIZADA);
+		this.asignarResultadosAParticipantes();
 	}
 
 	public void cancelar() throws TransicionInvalidaEstadoCarreraException {
 		this.estadoCarrera = this.estadoCarrera.cancelar();
 	}
-	
-	public void aprobarResultados() throws TransicionInvalidaEstadoCarreraException {
-		this.estadoCarrera = this.estadoCarrera.siguienteEstadoFlujoNormal();
-		this.asignarResultadosAParticipantes();
-	}
-	
+
+	// ------------------------------------------
+
 	public boolean isCerradaAApuestas() {
-		return (EstadoCarrera.CERRADA_A_APUESTAS.equals(this.getEstadoCarrera()));
+		return (EstadoCarrera.CERRADA_A_APUESTAS
+				.equals(this.getEstadoCarrera()));
 	}
-	
+
 	public boolean isFinalizada() {
 		return (EstadoCarrera.FINALIZADA.equals(this.getEstadoCarrera()));
 	}
@@ -104,40 +114,55 @@ public class Carrera {
 			this.addParticipante(participante);
 		}
 	}
-	
+
 	public void addParticipante(Participante participante) {
 		participante.setCarrera(this);
 		this.participantes.add(participante);
 	}
-	
-	public void setResultadosPendienteAprobacion(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption {
+
+	public void setResultadosPendienteAprobacion(
+			List<ResultadoCarrera> resultados)
+			throws ResultadosCarreraInvalidosExeption {
 		if (resultados.size() != this.getParticipantes().size()) {
 			throw new ResultadosCarreraInvalidosExeption();
 		}
 		this.validarMismosParticipantes(resultados);
 		this.resultadosPendienteAprobacion = resultados;
 	}
-	
-	private void validarMismosParticipantes(List<ResultadoCarrera> resultados) throws ResultadosCarreraInvalidosExeption {
+
+	private void validarMismosParticipantes(List<ResultadoCarrera> resultados)
+			throws ResultadosCarreraInvalidosExeption {
 		Iterator<ResultadoCarrera> it = resultados.iterator();
 		while (it.hasNext()) {
 			ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
-			if (!this.getParticipantes().contains(resultadoCarrera.getParticipante())) {
+			if (!this.getParticipantes().contains(
+					resultadoCarrera.getParticipante())) {
 				throw new ResultadosCarreraInvalidosExeption();
 			}
 		}
 	}
-	
+
 	private void asignarResultadosAParticipantes() {
-		Iterator<ResultadoCarrera> it = this.resultadosPendienteAprobacion.iterator();
+		Iterator<ResultadoCarrera> it = this.resultadosPendienteAprobacion
+				.iterator();
 		while (it.hasNext()) {
 			ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
 			resultadoCarrera.getParticipante().setResultado(resultadoCarrera);
 		}
 	}
-	
+
 	public List<ResultadoCarrera> getResultadosPendienteAprobacion() {
 		return this.resultadosPendienteAprobacion;
+	}
+
+	
+	private void cambiarEstado(EstadoCarrera nuevoEstado)
+			throws TransicionInvalidaEstadoCarreraException {
+		if (this.estadoCarrera.esSiguienteEstadoValido(nuevoEstado)) {
+			this.estadoCarrera = nuevoEstado;
+		} else {
+			throw new TransicionInvalidaEstadoCarreraException();
+		}
 	}
 
 }
