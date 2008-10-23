@@ -44,7 +44,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -60,7 +60,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaImperfecta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -76,7 +76,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaTrifecta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -92,7 +92,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaDoble(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -106,7 +106,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaTriplo(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -120,7 +120,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaCuaterna(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -136,7 +136,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
@@ -153,7 +153,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaImperfecta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
@@ -171,7 +171,7 @@ public class ExcepcionesApuestaTest extends TestCase {
 		
 		try {
 			ApuestaFactory.getInstance().crearApuestaTrifecta(participantes, new BigDecimal(10));
-			fail("El método debería haber lanzado una excepción");
+			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
