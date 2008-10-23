@@ -12,7 +12,7 @@ import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -120,7 +120,7 @@ public class ApuestaImperfectaTest extends TestCase {
 		} catch(TransicionInvalidaEstadoCarreraException ex) {
 			fail("Cuando se quizo simular la carrera hubo error de transición de estados.");
 			ex.printStackTrace();
-		} catch(ResultadosCarreraInvalidosExeption ex) {
+		} catch(ResultadosCarreraInvalidosException ex) {
 			fail("Cuando se quizo simular la carrera se pusieron resultados inválidos.");
 			ex.printStackTrace();
 		}

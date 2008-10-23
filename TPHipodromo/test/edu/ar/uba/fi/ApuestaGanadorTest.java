@@ -9,7 +9,7 @@ import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -101,7 +101,7 @@ public class ApuestaGanadorTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail("Esta excepción no se debería haber lanzado");
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");

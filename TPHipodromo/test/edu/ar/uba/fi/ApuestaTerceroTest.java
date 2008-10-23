@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -59,7 +59,7 @@ public class ApuestaTerceroTest extends TestCase {
 				carrera.comenzar();
 				carrera.terminar(listaResultados);
 				carrera.aprobarResultados();
-			} catch (ResultadosCarreraInvalidosExeption e) {
+			} catch (ResultadosCarreraInvalidosException e) {
 				fail("Los resultados de la carrera no son vï¿½lidos");	
 				e.printStackTrace();
 			} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -83,7 +83,7 @@ public class ApuestaTerceroTest extends TestCase {
 				carrera.comenzar();
 				carrera.terminar(listaResultados);
 				carrera.aprobarResultados();
-			} catch (ResultadosCarreraInvalidosExeption e) {
+			} catch (ResultadosCarreraInvalidosException e) {
 				fail("Los resultados de la carrera no son vï¿½lidos");	
 				e.printStackTrace();
 			} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -104,7 +104,7 @@ public class ApuestaTerceroTest extends TestCase {
 			carrera.comenzar();
 			carrera.terminar(listaResultados);
 			carrera.aprobarResultados();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Los resultados de la carrera no son vï¿½lidos");	
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -141,7 +141,7 @@ public class ApuestaTerceroTest extends TestCase {
 			carrera.comenzar();
 			carrera.terminar(listaResultados);
 			carrera.aprobarResultados();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Los resultados de la carrera no son vï¿½lidos");	
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -178,7 +178,7 @@ public class ApuestaTerceroTest extends TestCase {
 			carrera.comenzar();
 			carrera.terminar(listaResultados);
 			carrera.aprobarResultados();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Los resultados de la carrera no son vï¿½lidos");	
 			e.printStackTrace();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -232,7 +232,7 @@ public class ApuestaTerceroTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail("Esta excepción no se debería haber lanzado");
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 

@@ -8,7 +8,7 @@ import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -73,7 +73,7 @@ public class CarreraTest extends TestCase {
 			carrera.terminar(resultados);
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail("Esta excepción no se debería haber lanzado");
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 		
@@ -147,7 +147,7 @@ public class CarreraTest extends TestCase {
 			carrera.comenzar();
 			carrera.terminar(resultados);
 			fail("El método debería haber lanzado excepción ResultadosCarreraInvalidosExeption");
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}

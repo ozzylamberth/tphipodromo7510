@@ -11,7 +11,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
-import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -68,7 +68,7 @@ public class ApuestaTriploTest extends TestCase {
 
 	protected void simularCarrera(Carrera carreraSimulada, int[] ordenes)
 			throws TransicionInvalidaEstadoCarreraException,
-			ResultadosCarreraInvalidosExeption {
+			ResultadosCarreraInvalidosException {
 		carreraSimulada.cerrarApuestas();
 		carreraSimulada.comenzar();
 
@@ -95,7 +95,7 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -111,7 +111,7 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -127,7 +127,7 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -143,7 +143,7 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (TransicionInvalidaEstadoCarreraException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
-		} catch (ResultadosCarreraInvalidosExeption e) {
+		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -183,7 +183,7 @@ public class ApuestaTriploTest extends TestCase {
 				} catch (TransicionInvalidaEstadoCarreraException e) {
 					fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 					e.printStackTrace();
-				} catch (ResultadosCarreraInvalidosExeption e) {
+				} catch (ResultadosCarreraInvalidosException e) {
 					fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 					e.printStackTrace();
 				}
@@ -264,7 +264,7 @@ public class ApuestaTriploTest extends TestCase {
 				fail("Esta excepción no se debería haber lanzado");
 			} catch (TransicionInvalidaEstadoCarreraException e) {
 				fail("Esta excepción no se debería haber lanzado");
-			} catch (ResultadosCarreraInvalidosExeption e) {
+			} catch (ResultadosCarreraInvalidosException e) {
 				fail("Esta excepción no se debería haber lanzado");
 			}
 
