@@ -13,7 +13,6 @@ import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
-import edu.ar.uba.fi.model.EstadoResultadoCarrera;
 import edu.ar.uba.fi.model.Participante;
 
 /**
