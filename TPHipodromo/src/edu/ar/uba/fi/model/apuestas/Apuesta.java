@@ -11,14 +11,17 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
+import edu.ar.uba.fi.model.EstadoResultadoCarrera;
 import edu.ar.uba.fi.model.Participante;
 
 /**
  * Representa la logica general de los distintos tipos de apuestas
+ * 
  * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
- *    controlar los cambios de estados se la pasé al enumerado
- *    EstadoApuesta.
+ *          controlar los cambios de estados se la pasé al enumerado
+ *          EstadoApuesta.
  */
 public abstract class Apuesta {
 	/**
@@ -76,9 +79,15 @@ public abstract class Apuesta {
 		Iterator<Participante> it = this.getParticipantes().iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
-			int ordenLLegada = participante.getResultado().getOrdenLlegada();
-			if (!this.getPosiblesOrdenesLLegada().contains(
-					new Integer(ordenLLegada))) {
+			try {
+				int ordenLLegada = participante.getResultado()
+						.getOrdenLlegada();
+
+				if (!this.getPosiblesOrdenesLLegada().contains(
+						new Integer(ordenLLegada))) {
+					return false;
+				}
+			} catch (ResultadosCarreraInvalidosExeption e) {
 				return false;
 			}
 		}
