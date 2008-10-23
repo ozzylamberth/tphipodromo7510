@@ -13,7 +13,7 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
  * @versión 1.0 Nahuel
  * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
  *          controlar los cambios de estados se la pasé al enumerado
- *          EstadoCarrera y Eliminé el setter de EstadoCarrera.
+ *          EstadoCarrera.
  */
 public class Carrera {
 	private BigDecimal distancia;
@@ -25,7 +25,7 @@ public class Carrera {
 	private List<ResultadoCarrera> resultadosPendienteAprobacion;
 
 	public Carrera() {
-		this.estadoCarrera = EstadoCarrera.ABIERTA_A_APUESTAS;
+		setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
 	}
 
 	// Cambios de estado
@@ -53,7 +53,16 @@ public class Carrera {
 	}
 
 	public void cancelar() throws TransicionInvalidaEstadoCarreraException {
-		this.estadoCarrera = this.estadoCarrera.cancelar();
+		setEstadoCarrera(this.estadoCarrera.cancelar());
+	}
+
+	private void cambiarEstado(EstadoCarrera nuevoEstado)
+			throws TransicionInvalidaEstadoCarreraException {
+		if (this.estadoCarrera.esSiguienteEstadoValido(nuevoEstado)) {
+			setEstadoCarrera(nuevoEstado);
+		} else {
+			throw new TransicionInvalidaEstadoCarreraException();
+		}
 	}
 
 	// ------------------------------------------
@@ -155,14 +164,8 @@ public class Carrera {
 		return this.resultadosPendienteAprobacion;
 	}
 
-	
-	private void cambiarEstado(EstadoCarrera nuevoEstado)
-			throws TransicionInvalidaEstadoCarreraException {
-		if (this.estadoCarrera.esSiguienteEstadoValido(nuevoEstado)) {
-			this.estadoCarrera = nuevoEstado;
-		} else {
-			throw new TransicionInvalidaEstadoCarreraException();
-		}
+	public void setEstadoCarrera(EstadoCarrera estadoCarrera) {
+		this.estadoCarrera = estadoCarrera;
 	}
 
 }
