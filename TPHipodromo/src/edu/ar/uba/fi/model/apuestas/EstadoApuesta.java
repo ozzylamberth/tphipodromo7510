@@ -7,10 +7,10 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
  */
 public enum EstadoApuesta {
 
-	VENCIDA(new EstadoApuesta[] {}),
-	PAGADA(new EstadoApuesta[] {}),
+	VENCIDA(new EstadoApuesta[] {}), 
+	PAGADA(new EstadoApuesta[] {}), 
 	LIQUIDADA(new EstadoApuesta[] { PAGADA, VENCIDA }),
-	CREADA(new EstadoApuesta[] { LIQUIDADA });
+	CREADA(new EstadoApuesta[] { LIQUIDADA, VENCIDA });
 
 	private EstadoApuesta[] estadosValidos;
 
