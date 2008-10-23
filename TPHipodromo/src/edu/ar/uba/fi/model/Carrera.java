@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
@@ -23,8 +25,10 @@ public class Carrera {
 	private EstadoCarrera estadoCarrera;
 	private List<Participante> participantes = new ArrayList<Participante>();
 	private List<ResultadoCarrera> resultadosPendienteAprobacion;
+	private final ReglamentoParticipanteCarrera reglamentoParticipantes;
 
-	public Carrera() {
+	public Carrera(ReglamentoParticipanteCarrera reglamentoParticipantes) {
+		this.reglamentoParticipantes = reglamentoParticipantes;
 		setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
 	}
 
@@ -116,7 +120,8 @@ public class Carrera {
 		return this.participantes;
 	}
 
-	public void setParticipantes(ArrayList<Participante> participantes) {
+	public void setParticipantes(ArrayList<Participante> participantes)
+			throws ParticipanteNoCalificadoException {
 		Iterator<Participante> it = participantes.iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
@@ -124,9 +129,14 @@ public class Carrera {
 		}
 	}
 
-	public void addParticipante(Participante participante) {
-		participante.setCarrera(this);
-		this.participantes.add(participante);
+	public void addParticipante(Participante participante)
+			throws ParticipanteNoCalificadoException {
+		if (reglamentoParticipantes.validarRequisitos(participante)) {
+			participante.setCarrera(this);
+			this.participantes.add(participante);
+		} else {
+			throw new ParticipanteNoCalificadoException();
+		}
 	}
 
 	public void setResultadosPendienteAprobacion(
