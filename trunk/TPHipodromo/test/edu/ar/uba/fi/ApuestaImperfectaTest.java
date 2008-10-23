@@ -213,13 +213,11 @@ public class ApuestaImperfectaTest extends TestCase {
 		}
 		
 		try {
-			assertEquals("El monto de la liquidación es incorrecto.",
-					this.calcularGanancia(apuesta[2]), 
-					apuesta[4].liquidar());
+			apuesta[4].liquidar();
+			fail("Se intentó liquidar una apuesta perdida y no lanzó excepción.");
 			
-			assertEquals("El monto de la liquidación es incorrecto.",
-					this.calcularGanancia(apuesta[3]), 
-					apuesta[5].liquidar());
+			apuesta[5].liquidar();
+			fail("Se intentó liquidar una apuesta perdida y no lanzó excepción.");
 		} catch (CarreraNoFinalizadaException e) {
 			fail("La carrera no había terminado cuando se intentó liquidar la apuesta.");
 			e.printStackTrace();
