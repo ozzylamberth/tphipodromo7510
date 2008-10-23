@@ -7,7 +7,10 @@ import java.util.List;
 
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
+import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -115,5 +118,65 @@ public class ApuestaExactaTest extends TestCase {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void testCantidadParticipantesInvalidaException() {
+
+		List<Participante> participantes = new LinkedList<Participante>();
+		Participante participante = new Participante(new Caballo(), new Jinete(), carrera);
+		participantes.add(participante);
+		
+		try {
+			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
+		} catch (CantidadParticipantesInvalidaException e) {
+		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+	}
+	
+	public void testApuestaPerdidaException() {
+
+		try {
+			simularCarrera(new int[] { 2, 1, 3 });
+			
+			apuesta.liquidar();
+			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
+		} catch (ApuestaPerdidaException e) {
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CarreraNoFinalizadaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ApuestaVencidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+
+	}
+	
+	public void testParticipantesEnDistintasCarrerasException() {
+
+		List<Participante> participantes = new LinkedList<Participante>();
+		participantes.add(participante1);
+		
+		Carrera carrera2 = new Carrera();
+		participante2 = new Participante(new Caballo(), new Jinete(), carrera2);
+		
+		participantes.add(participante2);
+		
+		try {
+			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
+			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
+		} catch (CantidadParticipantesInvalidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ParticipantesEnDistintasCarrerasException e) {
+		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
 	}
 }

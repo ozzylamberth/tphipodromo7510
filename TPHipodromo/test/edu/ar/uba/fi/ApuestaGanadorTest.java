@@ -7,8 +7,11 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Jinete;
@@ -21,7 +24,7 @@ import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
  * Caso de Prueba 1: Liquidacion Apuesta a Ganador Ganada.
  *
  */
-public class ApuestaGanadorGanadaTest extends TestCase {
+public class ApuestaGanadorTest extends TestCase {
 
 	private Apuesta apuestaGanador;
 	
@@ -64,6 +67,46 @@ public class ApuestaGanadorGanadaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+	}
+	
+	public void testApuestaPerdidaException() {
+		
+		Carrera carrera = new Carrera();
+		Participante participante = new Participante(new Caballo(), new Jinete(), carrera);
+		carrera.addParticipante(participante);
+		
+		ResultadoCarrera resultado = new ResultadoCarrera(participante);
+		resultado.setOrdenLlegada(2);
+		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+		listaResultados.add(resultado);
+
+		
+		try {
+			
+			apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+			
+			carrera.cerrarApuestas();
+			carrera.comenzar();
+			carrera.terminar(listaResultados);
+			carrera.aprobarResultados();
+			
+			apuestaGanador.liquidar();
+			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
+		} catch (ApuestaPerdidaException e) {
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CarreraNoFinalizadaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ApuestaVencidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+
 	}
 	
 

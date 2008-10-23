@@ -8,6 +8,8 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
+import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
@@ -225,6 +227,44 @@ public class ApuestaDobleTest extends TestCase {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
 		}
+	}
+	
+	public void testCantidadParticipantesInvalidaException() {
+
+		List<Participante> participantes = new LinkedList<Participante>();
+		Participante participante = new Participante(new Caballo(), new Jinete(), carreras.get(0));
+		participantes.add(participante);
+		
+		try {
+			ApuestaFactory.getInstance().crearApuestaDoble(participantes, new BigDecimal(10));
+			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
+		} catch (CantidadParticipantesInvalidaException e) {
+		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+	}
+	
+	public void testApuestaPerdidaException() {
+
+		try {
+			simularCarrera(carreras.get(0), new int[] { 2, 1, 3 });
+			simularCarrera(carreras.get(1), new int[] { 1, 3, 2 });
+			
+			apuesta1.liquidar();
+			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
+		} catch (ApuestaPerdidaException e) {
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CarreraNoFinalizadaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ApuestaVencidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+
 	}
 
 }
