@@ -16,14 +16,17 @@ import edu.ar.uba.fi.model.Participante;
 
 /**
  * Representa la logica general de los distintos tipos de apuestas
+ * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
+ *    controlar los cambios de estados se la pasé al enumerado
+ *    EstadoApuesta.
  */
 public abstract class Apuesta {
 	/**
-	 * Representa la cantidad de decimales con la que se estará realizando los cálculos
-	 * de dinero en las apuestas.
+	 * Representa la cantidad de decimales con la que se estará realizando los
+	 * cálculos de dinero en las apuestas.
 	 */
 	private final static int CANT_DECIMALES = 2;
-	
+
 	private BolsaApuestas bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
@@ -33,36 +36,38 @@ public abstract class Apuesta {
 	private int diasPlazoMaxDeCobro;
 
 	public Apuesta() {
-		this.setEstadoApuesta(EstadoApuesta.CREADA);
-		this.setFechaCreacion(new Date());
-		
+		setEstadoApuesta(EstadoApuesta.CREADA);
+		setFechaCreacion(new Date());
 	}
-	
-	public Apuesta(List<Participante> participantes) throws CantidadParticipantesInvalidaException, CarreraCerradaAApuestasException {
+
+	public Apuesta(List<Participante> participantes)
+			throws CantidadParticipantesInvalidaException,
+			CarreraCerradaAApuestasException {
 		this();
 		this.validarCantidadParticipantes(participantes);
 		this.setParticipantes(participantes);
 	}
-	
-	private void validarCantidadParticipantes(List<Participante> participantes) throws CantidadParticipantesInvalidaException {
+
+	private void validarCantidadParticipantes(List<Participante> participantes)
+			throws CantidadParticipantesInvalidaException {
 		if (participantes.size() != this.getCantidadParticipantes()) {
 			throw new CantidadParticipantesInvalidaException();
 		}
 	}
 
 	public abstract BigDecimal getValorBase();
-	
+
 	/**
 	 * Retorna la cantidad de participantes permitidas para el tipo de apuesta
 	 */
 	public abstract int getCantidadParticipantes();
-	
+
 	/**
-	 * Retorna las posiciones en las cuales deben salir los participantes
-	 * para que la apuesta se considere como ganada
+	 * Retorna las posiciones en las cuales deben salir los participantes para
+	 * que la apuesta se considere como ganada
 	 */
 	public abstract List<Integer> getPosiblesOrdenesLLegada();
-	
+
 	/**
 	 * Verifica si la apuesta fue ganada. En el caso de que asi suceda, retorna
 	 * true, en caso contrario false
@@ -71,8 +76,9 @@ public abstract class Apuesta {
 		Iterator<Participante> it = this.getParticipantes().iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
-			int ordenLLegada = participante.getResultado().getOrdenLlegada(); 
-			if (!this.getPosiblesOrdenesLLegada().contains(new Integer(ordenLLegada))) {
+			int ordenLLegada = participante.getResultado().getOrdenLlegada();
+			if (!this.getPosiblesOrdenesLLegada().contains(
+					new Integer(ordenLLegada))) {
 				return false;
 			}
 		}
@@ -80,8 +86,10 @@ public abstract class Apuesta {
 	}
 
 	private BigDecimal calcularMontoAPagar() {
-		BigDecimal proporcion = this.getMontoApostado().divide(this.getValorBase(), CANT_DECIMALES	, BigDecimal.ROUND_HALF_UP);
-		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas().getDividendo());
+		BigDecimal proporcion = this.getMontoApostado().divide(
+				this.getValorBase(), CANT_DECIMALES, BigDecimal.ROUND_HALF_UP);
+		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas()
+				.getDividendo());
 		// si el monto a pagar es menor al monto apostado
 		if (this.getMontoApostado().compareTo(montoAPagar) > 0) {
 			return this.getMontoApostado();
@@ -90,37 +98,42 @@ public abstract class Apuesta {
 		}
 	}
 
-	public BigDecimal liquidar() throws CarreraNoFinalizadaException, ApuestaPerdidaException, TransicionInvalidaEstadoApuestaException, ApuestaVencidaException {
+	public BigDecimal liquidar() throws CarreraNoFinalizadaException,
+			ApuestaPerdidaException, TransicionInvalidaEstadoApuestaException,
+			ApuestaVencidaException {
 		this.validarEstadoLiquidacion();
 		BigDecimal montoAPagar = this.calcularMontoAPagar();
-		this.cambiarEstado(EstadoApuesta.CREADA, EstadoApuesta.LIQUIDADA);
+		this.cambiarEstado(EstadoApuesta.LIQUIDADA);
 		return montoAPagar;
 	}
-	
+
 	public void pagar() throws TransicionInvalidaEstadoApuestaException {
-		this.cambiarEstado(EstadoApuesta.LIQUIDADA, EstadoApuesta.PAGADA);
+		this.cambiarEstado(EstadoApuesta.PAGADA);
 	}
-	
+
 	/**
-	 * Valida si esta en el estado correcto para liquidar 
+	 * Valida si esta en el estado correcto para liquidar
 	 */
-	private void validarEstadoLiquidacion() throws CarreraNoFinalizadaException, ApuestaPerdidaException, ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
+	private void validarEstadoLiquidacion()
+			throws CarreraNoFinalizadaException, ApuestaPerdidaException,
+			ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
 		this.validarCarrerasFinalizadas();
 		this.validarApuestaGanada();
 		this.validarFechaVencimiento();
 	}
-	
+
 	private void validarApuestaGanada() throws ApuestaPerdidaException {
 		if (!this.isAcertada()) {
 			throw new ApuestaPerdidaException();
 		}
 	}
-	
+
 	/**
-	 * Valida que todas las carreras correspondientes a los participantes
-	 * se encuentren finalizadas
+	 * Valida que todas las carreras correspondientes a los participantes se
+	 * encuentren finalizadas
 	 */
-	private void validarCarrerasFinalizadas() throws CarreraNoFinalizadaException {
+	private void validarCarrerasFinalizadas()
+			throws CarreraNoFinalizadaException {
 		Iterator<Participante> it = this.getParticipantes().iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
@@ -129,12 +142,14 @@ public abstract class Apuesta {
 			}
 		}
 	}
-	
-	private void validarFechaVencimiento() throws ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
-		long milisegundos = new Date().getTime() - this.getFechaCreacion().getTime();
+
+	private void validarFechaVencimiento() throws ApuestaVencidaException,
+			TransicionInvalidaEstadoApuestaException {
+		long milisegundos = new Date().getTime()
+				- this.getFechaCreacion().getTime();
 		long dias = milisegundos / (1000 * 60 * 60 * 24);
 		if (dias > this.getDiasPlazoMaxDeCobro()) {
-			this.cambiarEstado(EstadoApuesta.CREADA, EstadoApuesta.VENCIDA);
+			this.cambiarEstado(EstadoApuesta.VENCIDA);
 			throw new ApuestaVencidaException();
 		}
 	}
@@ -142,12 +157,18 @@ public abstract class Apuesta {
 	public boolean isPagada() {
 		return (EstadoApuesta.PAGADA.equals(this.getEstadoApuesta()));
 	}
-	
-	private void cambiarEstado(EstadoApuesta estadoAnterior, EstadoApuesta nuevoEstado) throws TransicionInvalidaEstadoApuestaException {
-		if (!estadoAnterior.equals(this.getEstadoApuesta())) {
+
+	/**
+	 * @param nuevoEstado
+	 * @throws TransicionInvalidaEstadoApuestaException
+	 */
+	private void cambiarEstado(EstadoApuesta nuevoEstado)
+			throws TransicionInvalidaEstadoApuestaException {
+		if (this.estadoApuesta.esSiguienteEstadoValido(nuevoEstado)) {
+			setEstadoApuesta(nuevoEstado);
+		} else {
 			throw new TransicionInvalidaEstadoApuestaException();
 		}
-		this.setEstadoApuesta(nuevoEstado);
 	}
 
 	public BolsaApuestas getBolsaApuestas() {
@@ -162,8 +183,8 @@ public abstract class Apuesta {
 		return this.estadoApuesta;
 	}
 
-	public void setEstadoApuesta(EstadoApuesta estado) {
-		this.estadoApuesta = estado;
+	public void setEstadoApuesta(EstadoApuesta estadoApuesta) {
+		this.estadoApuesta = estadoApuesta;
 	}
 
 	public BigDecimal getMontoApostado() {
@@ -186,7 +207,8 @@ public abstract class Apuesta {
 		return this.participantes;
 	}
 
-	public void setParticipantes(List<Participante> participantes) throws CarreraCerradaAApuestasException {
+	public void setParticipantes(List<Participante> participantes)
+			throws CarreraCerradaAApuestasException {
 		Iterator<Participante> it = participantes.iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
