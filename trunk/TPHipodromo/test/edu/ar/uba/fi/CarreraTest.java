@@ -8,6 +8,7 @@ import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -16,6 +17,7 @@ import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.EstadoCarrera;
 import edu.ar.uba.fi.model.Jinete;
 import edu.ar.uba.fi.model.Participante;
+import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
@@ -36,7 +38,7 @@ public class CarreraTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		
-		carrera = new Carrera();
+		carrera = new Carrera(new ReglamentoValeTodo());
 		participante = new Participante(new Caballo(), new Jinete(), carrera);
 		carrera.addParticipante(participante);
 		
@@ -137,7 +139,7 @@ public class CarreraTest extends TestCase {
 		}	
 	}
 	
-	public void testResultadosCarreraInvalidos() {
+	public void testResultadosCarreraInvalidos() throws ParticipanteNoCalificadoException {
 		
 		participante = new Participante(new Caballo(), new Jinete(), carrera);
 		carrera.addParticipante(participante);

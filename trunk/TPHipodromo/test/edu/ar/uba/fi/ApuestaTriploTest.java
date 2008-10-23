@@ -18,6 +18,7 @@ import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Jinete;
 import edu.ar.uba.fi.model.Participante;
+import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
@@ -39,7 +40,7 @@ public class ApuestaTriploTest extends TestCase {
 	protected void setUp() throws Exception {
 		carreras = new LinkedList<Carrera>();
 		for (int j = 0; j < CANTIDAD_CARRERAS; j++) {
-			Carrera carrera = new Carrera();
+			Carrera carrera = new Carrera(new ReglamentoValeTodo());
 			for (int i = 0; i < CANTIDAD_PARTICIPANTES; i++) {
 				
 				Participante participante = new Participante(new Caballo(),

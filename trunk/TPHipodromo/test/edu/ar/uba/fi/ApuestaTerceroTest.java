@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -15,6 +16,7 @@ import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Jinete;
 import edu.ar.uba.fi.model.Participante;
+import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
@@ -36,19 +38,19 @@ public class ApuestaTerceroTest extends TestCase {
 	protected void setUp() throws Exception {
 		caballo = new Caballo();
 		jinete = new Jinete();
-		carrera = new Carrera();
+		carrera = new Carrera(new ReglamentoValeTodo());
 		participante = new Participante(caballo, jinete, carrera);
 		carrera.addParticipante(participante);
 		apuestaTerceraGanada = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
 		apuestaTerceraPerdida = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
 	}
 
-	public void testIsAcertada() {
+	public void testIsAcertada() throws ParticipanteNoCalificadoException {
 	
 		int i = 1;
 		while ( i <= 3 )
 		{
-			carrera = new Carrera();	
+			carrera = new Carrera(new ReglamentoValeTodo());	
 			carrera.addParticipante(participante);
 			ResultadoCarrera resultado = new ResultadoCarrera(participante);
 			resultado.setOrdenLlegada(i++);
@@ -70,9 +72,9 @@ public class ApuestaTerceroTest extends TestCase {
 		}
 	}
 	
-	public void testIsNotAcertada() {
+	public void testIsNotAcertada() throws ParticipanteNoCalificadoException {
 		
-			carrera = new Carrera();	
+			carrera = new Carrera(new ReglamentoValeTodo());	
 			carrera.addParticipante(participante);
 			ResultadoCarrera resultado = new ResultadoCarrera(participante);
 			resultado.setOrdenLlegada(4);
@@ -203,12 +205,12 @@ public class ApuestaTerceroTest extends TestCase {
 		assertEquals(this.apuestaTerceraGanada.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
-	public void testApuestaPerdidaException() {
+	public void testApuestaPerdidaException() throws ParticipanteNoCalificadoException {
 		
 		List<ResultadoCarrera> listaResultados;
 		ResultadoCarrera resultado;
 		
-		carrera = new Carrera();	
+		carrera = new Carrera(new ReglamentoValeTodo());	
 		carrera.addParticipante(participante);
 		resultado = new ResultadoCarrera(participante);
 		resultado.setOrdenLlegada(5);

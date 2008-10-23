@@ -19,6 +19,7 @@ import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Jinete;
 import edu.ar.uba.fi.model.Participante;
+import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
@@ -40,7 +41,7 @@ public class ApuestaTrifectaTest extends TestCase {
 	private Apuesta apuesta2;
 
 	protected void setUp() throws Exception {
-		carrera = new Carrera();
+		carrera = new Carrera(new ReglamentoValeTodo());
 
 		participante1 = new Participante(new Caballo(), new Jinete(), carrera);
 		participante1.getCarrera().addParticipante(participante1);
@@ -242,7 +243,7 @@ public class ApuestaTrifectaTest extends TestCase {
 		List<Participante> participantes = new LinkedList<Participante>();
 		participantes.add(participante1);
 		
-		Carrera carrera2 = new Carrera();
+		Carrera carrera2 = new Carrera(new ReglamentoValeTodo());
 		participante2 = new Participante(new Caballo(), new Jinete(), carrera2);
 		
 		participantes.add(participante2);
