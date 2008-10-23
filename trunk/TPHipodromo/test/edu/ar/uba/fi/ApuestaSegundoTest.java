@@ -173,4 +173,39 @@ public class ApuestaSegundoTest extends TestCase {
 		assertEquals(this.apuestaSegundoGanada.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
 	}
 	
+	public void testApuestaPerdidaException() {
+		
+		List<ResultadoCarrera> listaResultados;
+		ResultadoCarrera resultado;
+		
+		carrera = new Carrera();	
+		carrera.addParticipante(participante);
+		resultado = new ResultadoCarrera(participante);
+		resultado.setOrdenLlegada(5);
+		listaResultados = new LinkedList<ResultadoCarrera>();
+		listaResultados.add(resultado);
+		
+		try {
+			carrera.cerrarApuestas();
+			carrera.comenzar();
+			carrera.terminar(listaResultados);
+			carrera.aprobarResultados();
+			
+			apuestaSegundoPerdida.liquidar();
+			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
+		} catch (ApuestaPerdidaException e) {
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CarreraNoFinalizadaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ApuestaVencidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
+
+	}
+	
 }
