@@ -3,8 +3,9 @@ package edu.ar.uba.fi.model.apuestas;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 import edu.ar.uba.fi.model.Carrera;
 
@@ -16,12 +17,12 @@ public class BolsaApuestas {
 	public static final int DECIMALES = 2;
 	public static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
 	
-	private TipoBolsaApuestas tipoBolsaApuestas;
-	private List<Carrera> carreras = new ArrayList<Carrera>();
+	private Class<? extends Apuesta> tipoBolsaApuestas;
+	private Set<Carrera> carreras = new HashSet<Carrera>();
 	private ArrayList<Apuesta> apuestas = new ArrayList<Apuesta>();
 	private BigDecimal porcentajeComisionHipodromo = new BigDecimal(0);
 
-	public BolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas, List<Carrera> carreras) {
+	public BolsaApuestas(Class<? extends Apuesta> tipoBolsaApuestas, Set<Carrera> carreras) {
 		this.setTipoBolsaApuestas(tipoBolsaApuestas);
 		this.setCarreras(carreras);
 	}
@@ -48,33 +49,23 @@ public class BolsaApuestas {
 		}
 	}
 	
-	public boolean correspondeACarreras(List<Carrera> carreras) {
-		if (this.getCarreras().size() != carreras.size()) {
-			return false;
-		}
-		Iterator<Carrera> it = carreras.iterator();
-		while (it.hasNext()) {
-			Carrera carrera = (Carrera) it.next();
-			if (!this.getCarreras().contains(carrera)) {
-				return false;
-			}
-		}
-		return true;
+	public boolean correspondeACarreras(Set<Carrera> carreras) {
+		return carreras.equals(getCarreras());
 	}
 
-	public TipoBolsaApuestas getTipoBolsaApuestas() {
-		return this.tipoBolsaApuestas;
+	public Class<? extends Apuesta> getTipoBolsaApuestas() {
+		return tipoBolsaApuestas;
 	}
 
-	public void setTipoBolsaApuestas(TipoBolsaApuestas tipoBolsaApuestas) {
+	public void setTipoBolsaApuestas(Class<? extends Apuesta> tipoBolsaApuestas) {
 		this.tipoBolsaApuestas = tipoBolsaApuestas;
 	}
 
-	public List<Carrera> getCarreras() {
-		return this.carreras;
+	public Set<Carrera> getCarreras() {
+		return carreras;
 	}
 
-	public void setCarreras(List<Carrera> carreras) {
+	public void setCarreras(Set<Carrera> carreras) {
 		this.carreras = carreras;
 	}
 
@@ -100,5 +91,5 @@ public class BolsaApuestas {
 			BigDecimal porcentajeComisionHipodromo) {
 		this.porcentajeComisionHipodromo = porcentajeComisionHipodromo;
 	}
-
+	
 }

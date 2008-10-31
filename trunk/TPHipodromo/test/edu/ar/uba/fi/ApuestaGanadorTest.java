@@ -7,9 +7,12 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -21,6 +24,7 @@ import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.ApuestaGanador;
 import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
 /**
  * Caso de Prueba 1: Liquidacion Apuesta a Ganador Ganada.
@@ -36,7 +40,8 @@ public class ApuestaGanadorTest extends TestCase {
 		Carrera carrera = new Carrera(new ReglamentoValeTodo());
 		Participante participante = new Participante(caballo, jinete, carrera);
 		carrera.addParticipante(participante);
-		apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+		apuestaGanador = ApuestaFactory.getInstance().crear(
+				ApuestaGanador.class, participante, new BigDecimal(10));
 		ResultadoCarrera resultado = new ResultadoCarrera(participante);
 		resultado.setOrdenLlegada(1);
 		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
@@ -85,7 +90,8 @@ public class ApuestaGanadorTest extends TestCase {
 		
 		try {
 			
-			apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+			apuestaGanador = ApuestaFactory.getInstance().crear(
+					ApuestaGanador.class, participante, new BigDecimal(10));
 			
 			carrera.cerrarApuestas();
 			carrera.comenzar();
@@ -106,6 +112,12 @@ public class ApuestaGanadorTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (CantidadParticipantesInvalidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 

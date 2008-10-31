@@ -2,11 +2,14 @@ package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
+import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Participante;
 
 /**
@@ -16,18 +19,23 @@ import edu.ar.uba.fi.model.Participante;
  */
 public class ApuestaImperfecta extends Apuesta {
 	
-	public ApuestaImperfecta() {
-		super();
-	}
-
-	public ApuestaImperfecta(List<Participante> participantes) throws CantidadParticipantesInvalidaException, ParticipantesEnDistintasCarrerasException, CarreraCerradaAApuestasException {
-		super(participantes);
-		this.validarMismaCarrera(participantes);
-	}
-	
-	private void validarMismaCarrera(List<Participante> participantes) throws ParticipantesEnDistintasCarrerasException {
-		if (!participantes.get(0).getCarrera().equals(participantes.get(1).getCarrera())) {
-			throw new ParticipantesEnDistintasCarrerasException();
+	/** TODO Eliminar este código duplicado en ApuestaExacta, ApuestaTrifecta y ApuestaImperfecta */
+	private void validarMismaCarrera(Collection<Participante> participantes) throws ParticipantesEnDistintasCarrerasException {
+		Carrera anterior = null;
+		Iterator<Participante> it = participantes.iterator();
+		
+		if(it.hasNext()) {
+			anterior = it.next().getCarrera();
+		}
+		
+		while(it.hasNext()) {
+			Participante participante = it.next();
+			
+			if( !participante.getCarrera().equals(anterior)) {
+				throw new ParticipantesEnDistintasCarrerasException();
+			}
+			
+			anterior = participante.getCarrera();
 		}
 	}
 
@@ -46,4 +54,12 @@ public class ApuestaImperfecta extends Apuesta {
 		return ordenesLlegada;
 	}
 
+	@Override
+	public void setParticipantes(Collection<Participante> participantes)
+			throws CantidadParticipantesInvalidaException,
+			CarreraCerradaAApuestasException,
+			ParticipantesEnDistintasCarrerasException {
+		this.validarMismaCarrera(participantes);
+		super.setParticipantes(participantes);
+	}
 }

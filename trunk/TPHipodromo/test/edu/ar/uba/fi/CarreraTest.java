@@ -6,9 +6,12 @@ import java.util.List;
 
 import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
 import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -21,6 +24,7 @@ import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.ApuestaGanador;
 import junit.framework.TestCase;
 
 /**
@@ -42,7 +46,8 @@ public class CarreraTest extends TestCase {
 		participante = new Participante(new Caballo(), new Jinete(), carrera);
 		carrera.addParticipante(participante);
 		
-		apuestaGanador = ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+		apuestaGanador = ApuestaFactory.getInstance().crear(
+				ApuestaGanador.class, participante, new BigDecimal(10));
 		
 		resultado = new ResultadoCarrera(participante);
 		resultado.setOrdenLlegada(1);
@@ -111,9 +116,16 @@ public class CarreraTest extends TestCase {
 		}
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaGanador(participante, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaGanador.class, participante, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CarreraCerradaAApuestasException");
 		} catch (CarreraCerradaAApuestasException e) {
+		} catch (CantidadParticipantesInvalidaException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
+			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
 	

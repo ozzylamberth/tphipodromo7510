@@ -11,6 +11,8 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -21,6 +23,7 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
+import edu.ar.uba.fi.model.apuestas.ApuestaCuaterna;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
@@ -56,8 +59,8 @@ public class ApuestaCuaternaTest extends TestCase {
 		participantesApostados.addLast(carreras.get(2).getParticipantes().get(0));
 		participantesApostados.addLast(carreras.get(3).getParticipantes().get(0));
 		
-		apuesta1 = ApuestaFactory.getInstance().crearApuestaCuaterna(
-				participantesApostados, MONTO_APUESTA);
+		apuesta1 = ApuestaFactory.getInstance().crear(
+				ApuestaCuaterna.class, participantesApostados, MONTO_APUESTA);
 		
 		
 		 participantesApostados = new LinkedList<Participante>(); 
@@ -65,8 +68,8 @@ public class ApuestaCuaternaTest extends TestCase {
 			participantesApostados.addLast(carreras.get(1).getParticipantes().get(2));
 			participantesApostados.addLast(carreras.get(2).getParticipantes().get(0));
 			participantesApostados.addLast(carreras.get(3).getParticipantes().get(1));
-		apuesta2 = ApuestaFactory.getInstance().crearApuestaCuaterna(
-				participantesApostados, MONTO_APUESTA);
+		apuesta2 = ApuestaFactory.getInstance().crear(
+				ApuestaCuaterna.class, participantesApostados, MONTO_APUESTA);
 	}
 
 	protected void simularCarrera(Carrera carreraSimulada, int[] ordenes)
@@ -247,10 +250,15 @@ public class ApuestaCuaternaTest extends TestCase {
 			participantes.add(participante);
 			
 			try {
-				ApuestaFactory.getInstance().crearApuestaCuaterna(participantes, new BigDecimal(10));
+				ApuestaFactory.getInstance().crear(
+						ApuestaCuaterna.class, participantes, new BigDecimal(10));
 				fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 			} catch (CantidadParticipantesInvalidaException e) {
 			} catch (CarreraCerradaAApuestasException e) {
+				fail("Esta excepción no se debería haber lanzado");
+			} catch (ParticipantesEnDistintasCarrerasException e) {
+				fail("Esta excepción no se debería haber lanzado");
+			} catch (ImposibleFabricarApuestaException e) {
 				fail("Esta excepción no se debería haber lanzado");
 			}
 		}

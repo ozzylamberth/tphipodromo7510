@@ -1,10 +1,7 @@
 package edu.ar.uba.fi.model.apuestas;
 
 import java.util.Iterator;
-import java.util.List;
 
-import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
-import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.model.Participante;
 
@@ -15,18 +12,6 @@ import edu.ar.uba.fi.model.Participante;
  * segundo en la segunda, y asi sucesivamente
  */
 public abstract class ApuestaPorPosicionesOrdenadas extends Apuesta {
-
-	public ApuestaPorPosicionesOrdenadas() {
-	}
-
-	public ApuestaPorPosicionesOrdenadas(List<Participante> participantes)
-			throws CantidadParticipantesInvalidaException,
-			CarreraCerradaAApuestasException {
-		super(participantes);
-		if (participantes.size() != this.getCantidadParticipantes()) {
-			throw new CantidadParticipantesInvalidaException();
-		}
-	}
 
 	/**
 	 * Se sobreescribe el metodo isAcertada de la clase Apuesta para que se

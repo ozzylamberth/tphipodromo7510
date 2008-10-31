@@ -11,6 +11,8 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
@@ -21,6 +23,7 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
+import edu.ar.uba.fi.model.apuestas.ApuestaDoble;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
@@ -56,16 +59,16 @@ public class ApuestaDobleTest extends TestCase {
 		participantesApostados.addLast(carreras.get(1).getParticipantes()
 				.get(0));
 
-		apuesta1 = ApuestaFactory.getInstance().crearApuestaDoble(
-				participantesApostados, MONTO_APUESTA);
+		apuesta1 = ApuestaFactory.getInstance().crear(
+				ApuestaDoble.class, participantesApostados, MONTO_APUESTA);
 
 		participantesApostados = new LinkedList<Participante>();
 		participantesApostados.addLast(carreras.get(0).getParticipantes()
 				.get(2));
 		participantesApostados.addLast(carreras.get(1).getParticipantes()
 				.get(1));
-		apuesta2 = ApuestaFactory.getInstance().crearApuestaDoble(
-				participantesApostados, MONTO_APUESTA);
+		apuesta2 = ApuestaFactory.getInstance().crear(
+				ApuestaDoble.class, participantesApostados, MONTO_APUESTA);
 
 	}
 
@@ -237,10 +240,15 @@ public class ApuestaDobleTest extends TestCase {
 		participantes.add(participante);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaDoble(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaDoble.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}

@@ -11,6 +11,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
@@ -23,6 +24,7 @@ import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.ApuestaImperfecta;
 import edu.ar.uba.fi.model.apuestas.BolsaApuestas;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
@@ -37,6 +39,8 @@ import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
  * (distintas combinaciones de los participantes 0, 1 y 2)
  * y las dos últimas son erradas (distintas combinaciones
  * de los participantes 2 y 3). 
+ * 
+ * @author jgrande
  * 
  */
 public class ApuestaImperfectaTest extends TestCase {
@@ -68,38 +72,38 @@ public class ApuestaImperfectaTest extends TestCase {
 			List<Participante> list = new LinkedList<Participante>();
 			list.add(participante[0]);
 			list.add(participante[1]);
-			apuesta[0] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(10));
+			apuesta[0] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(10));
 			
 			list = new LinkedList<Participante>();
 			list.add(participante[1]);
 			list.add(participante[0]);
-			apuesta[1] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(20));
+			apuesta[1] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(20));
 			
 			list = new LinkedList<Participante>();
 			list.add(participante[1]);
 			list.add(participante[2]);
-			apuesta[2] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(30));
+			apuesta[2] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(30));
 			
 			list = new LinkedList<Participante>();
 			list.add(participante[2]);
 			list.add(participante[1]);
-			apuesta[3] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(40));
+			apuesta[3] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(40));
 			
 			list = new LinkedList<Participante>();
 			list.add(participante[2]);
 			list.add(participante[3]);
-			apuesta[4] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(50));
+			apuesta[4] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(50));
 			
 			list = new LinkedList<Participante>();
 			list.add(participante[3]);
 			list.add(participante[2]);
-			apuesta[5] = ApuestaFactory.getInstance().crearApuestaImperfecta(
-					list, new BigDecimal(60));
+			apuesta[5] = ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, list, new BigDecimal(60));
 			
 		} catch(CarreraCerradaAApuestasException ex) {
 			fail("Cuando se quizo apostar la carrera estaba cerrada a apuestas.");
@@ -241,12 +245,15 @@ public class ApuestaImperfectaTest extends TestCase {
 		participantes.add(participante);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaImperfecta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
@@ -280,12 +287,15 @@ public class ApuestaImperfectaTest extends TestCase {
 		participantes.add(participante2);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaImperfecta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
