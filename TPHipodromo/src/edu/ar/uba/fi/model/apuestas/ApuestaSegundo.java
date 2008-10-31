@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
-import edu.ar.uba.fi.model.Participante;
-
 /**
  * Representa las apuestas del tipo Segundo, en donde el jugador debe
  * seleccionar 1 caballo para apostar en una carrera, que debera llegar en
@@ -14,17 +11,6 @@ import edu.ar.uba.fi.model.Participante;
  */
 public class ApuestaSegundo extends Apuesta {
 	
-	public ApuestaSegundo() {
-		super();
-	}
-
-	public ApuestaSegundo(Participante participante) throws CarreraCerradaAApuestasException {
-		super();
-		ArrayList<Participante> participantes = new ArrayList<Participante>();
-		participantes.add(participante);
-		this.setParticipantes(participantes);
-	}
-
 	public int getCantidadParticipantes() {
 		return 1;
 	}

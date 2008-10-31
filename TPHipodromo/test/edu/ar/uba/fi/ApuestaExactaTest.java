@@ -10,6 +10,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
@@ -21,6 +22,7 @@ import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
+import edu.ar.uba.fi.model.apuestas.ApuestaExacta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
 import junit.framework.TestCase;
@@ -44,7 +46,8 @@ public class ApuestaExactaTest extends TestCase {
 		List<Participante> listaPart = new ArrayList<Participante>(2);
 		listaPart.add(participante1);
 		listaPart.add(participante2);		
-		apuesta = ApuestaFactory.getInstance().crearApuestaExacta(listaPart, new BigDecimal(10));
+		apuesta = ApuestaFactory.getInstance().crear(
+				ApuestaExacta.class, listaPart, new BigDecimal(10));
 	}
 	
 	protected void simularCarrera(int[] ordenes) throws TransicionInvalidaEstadoCarreraException, ResultadosCarreraInvalidosException{
@@ -128,12 +131,15 @@ public class ApuestaExactaTest extends TestCase {
 		participantes.add(participante);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaExacta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
@@ -171,12 +177,15 @@ public class ApuestaExactaTest extends TestCase {
 		participantes.add(participante2);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaExacta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaExacta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}

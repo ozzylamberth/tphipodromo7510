@@ -4,10 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
-import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
-import edu.ar.uba.fi.model.Participante;
-
 /**
  * Representa las apuestas del tipo Triplo, en donde el jugador debe seleccionar
  * 3 caballos para apostar, que deberan llegar primero en 3 carreras señaladas
@@ -15,14 +11,6 @@ import edu.ar.uba.fi.model.Participante;
  */
 public class ApuestaTriplo extends Apuesta {
 	
-	public ApuestaTriplo() {
-		super();
-	}
-
-	public ApuestaTriplo(List<Participante> participantes) throws CantidadParticipantesInvalidaException, CarreraCerradaAApuestasException {
-		super(participantes);
-	}
-
 	public int getCantidadParticipantes() {
 		return 3;
 	}

@@ -2,6 +2,7 @@ package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.model.Participante;
@@ -33,28 +35,13 @@ public abstract class Apuesta {
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
 	private long nroTicket;
-	private List<Participante> participantes = new ArrayList<Participante>();
+	private Collection<Participante> participantes = new ArrayList<Participante>();
 	private Date fechaCreacion;
 	private int diasPlazoMaxDeCobro;
 
 	public Apuesta() {
 		setEstadoApuesta(EstadoApuesta.CREADA);
 		setFechaCreacion(new Date());
-	}
-
-	public Apuesta(List<Participante> participantes)
-			throws CantidadParticipantesInvalidaException,
-			CarreraCerradaAApuestasException {
-		this();
-		this.validarCantidadParticipantes(participantes);
-		this.setParticipantes(participantes);
-	}
-
-	private void validarCantidadParticipantes(List<Participante> participantes)
-			throws CantidadParticipantesInvalidaException {
-		if (participantes.size() != this.getCantidadParticipantes()) {
-			throw new CantidadParticipantesInvalidaException();
-		}
 	}
 
 	public abstract BigDecimal getValorBase();
@@ -211,19 +198,32 @@ public abstract class Apuesta {
 		this.nroTicket = nroTicket;
 	}
 
-	public List<Participante> getParticipantes() {
+	public Collection<Participante> getParticipantes() {
 		return this.participantes;
 	}
-
-	public void setParticipantes(List<Participante> participantes)
+	
+	private void validarCantidadParticipantes(Collection<Participante> participantes)
+			throws CantidadParticipantesInvalidaException {
+		if (participantes.size() != this.getCantidadParticipantes()) {
+			throw new CantidadParticipantesInvalidaException();
+		}
+	}
+	
+	public void validarCarreraCerradaAApuestas(Collection<Participante> participantes)
 			throws CarreraCerradaAApuestasException {
-		Iterator<Participante> it = participantes.iterator();
-		while (it.hasNext()) {
-			Participante participante = (Participante) it.next();
+		for(Participante participante: participantes) {
 			if (participante.getCarrera().isCerradaAApuestas()) {
 				throw new CarreraCerradaAApuestasException();
 			}
 		}
+	}
+
+	public void setParticipantes(Collection<Participante> participantes)
+			throws CantidadParticipantesInvalidaException, 
+			CarreraCerradaAApuestasException, 
+			ParticipantesEnDistintasCarrerasException {
+		this.validarCarreraCerradaAApuestas(participantes);
+		this.validarCantidadParticipantes(participantes);
 		this.participantes = participantes;
 	}
 

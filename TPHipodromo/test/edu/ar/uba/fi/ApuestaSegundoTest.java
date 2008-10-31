@@ -20,6 +20,7 @@ import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.ApuestaSegundo;
 import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
 /**
  *  Test de Apuesta a Segundo Ganada.
@@ -42,8 +43,10 @@ public class ApuestaSegundoTest extends TestCase {
 		carrera = new Carrera(new ReglamentoValeTodo());
 		participante = new Participante(caballo, jinete, carrera);
 		carrera.addParticipante(participante);
-		apuestaSegundoGanada = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
-		apuestaSegundoPerdida = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(40));
+		apuestaSegundoGanada = ApuestaFactory.getInstance().crear(
+				ApuestaSegundo.class, participante, new BigDecimal(30));
+		apuestaSegundoPerdida = ApuestaFactory.getInstance().crear(
+				ApuestaSegundo.class, participante, new BigDecimal(40));
 	}
 
 	public void testIsAcertada() throws ParticipanteNoCalificadoException {

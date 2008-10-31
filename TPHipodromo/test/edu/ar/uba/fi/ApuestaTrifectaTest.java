@@ -11,6 +11,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
@@ -23,6 +24,7 @@ import edu.ar.uba.fi.model.ReglamentoValeTodo;
 import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.ApuestaTrifecta;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
 /**
@@ -57,15 +59,15 @@ public class ApuestaTrifectaTest extends TestCase {
 		listaPart.add(participante2);
 		listaPart.add(participante3);
 
-		apuesta1 = ApuestaFactory.getInstance().crearApuestaTrifecta(listaPart,
-				MONTO_APUESTA);
+		apuesta1 = ApuestaFactory.getInstance().crear(
+				ApuestaTrifecta.class, listaPart, MONTO_APUESTA);
 
 		listaPart = new LinkedList<Participante>();
 		listaPart.add(participante1);
 		listaPart.add(participante3);
 		listaPart.add(participante2);
-		apuesta2 = ApuestaFactory.getInstance().crearApuestaTrifecta(listaPart,
-				MONTO_APUESTA);
+		apuesta2 = ApuestaFactory.getInstance().crear(
+				ApuestaTrifecta.class, listaPart, MONTO_APUESTA);
 	}
 
 	protected void simularCarrera(int[] ordenes)
@@ -205,12 +207,15 @@ public class ApuestaTrifectaTest extends TestCase {
 		participantes.add(participante);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaTrifecta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaTrifecta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
@@ -250,12 +255,15 @@ public class ApuestaTrifectaTest extends TestCase {
 		participantes.add(participante3);
 		
 		try {
-			ApuestaFactory.getInstance().crearApuestaTrifecta(participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(
+					ApuestaTrifecta.class, participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción ParticipantesEnDistintasCarrerasException");
 		} catch (CantidadParticipantesInvalidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ParticipantesEnDistintasCarrerasException e) {
 		} catch (CarreraCerradaAApuestasException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
