@@ -1,0 +1,145 @@
+package edu.ar.uba.fi;
+
+import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
+
+import junit.framework.TestCase;
+import edu.ar.uba.fi.exceptions.ApuestaPerdidaException;
+import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
+import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosExeption;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
+import edu.ar.uba.fi.model.Caballo;
+import edu.ar.uba.fi.model.Carrera;
+import edu.ar.uba.fi.model.Jinete;
+import edu.ar.uba.fi.model.Participante;
+import edu.ar.uba.fi.model.ResultadoCarrera;
+import edu.ar.uba.fi.model.apuestas.Apuesta;
+import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
+import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
+/**
+ * Caso de Prueba 2: Liquidacion Apuesta a Segundo Ganada.
+ *
+ */
+public class ApuestaSegundoGanadaTest extends TestCase {
+
+	private Apuesta apuestaSegundo;
+	
+	private Caballo caballo;
+	private Jinete jinete;
+	private Carrera carrera;
+	private Participante participante;
+	
+	protected void setUp() throws Exception {
+		caballo = new Caballo();
+		jinete = new Jinete();
+		carrera = new Carrera();
+		participante = new Participante(caballo, jinete, carrera);
+		carrera.addParticipante(participante);
+		apuestaSegundo = ApuestaFactory.getInstance().crearApuestaTercero(participante, new BigDecimal(30));
+	}
+
+	public void testIsAcertada() {
+		
+		int i = 1;
+		while ( i <= 2 )
+		{
+			carrera = new Carrera();	
+			carrera.addParticipante(participante);
+			ResultadoCarrera resultado = new ResultadoCarrera(participante);
+			resultado.setOrdenLlegada(i++);
+			List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+			listaResultados.add(resultado);
+			try {
+				carrera.cerrarApuestas();
+				carrera.comenzar();
+				carrera.terminar(listaResultados);
+				carrera.aprobarResultados();
+			} catch (ResultadosCarreraInvalidosExeption e) {
+				fail("Los resultados de la carrera no son válidos");	
+				e.printStackTrace();
+			} catch (TransicionInvalidaEstadoCarreraException e) {
+				fail("El Estado de la carrera no es válido");	
+				e.printStackTrace();
+			}
+			assertTrue(this.apuestaSegundo.isAcertada());
+		}
+	}
+
+	public void testLiquidarSiEsPrimero() {
+		
+		ResultadoCarrera resultado = new ResultadoCarrera(participante);
+		resultado.setOrdenLlegada(1);
+		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+		listaResultados.add(resultado);	
+		try {
+			carrera.cerrarApuestas();
+			carrera.comenzar();
+			carrera.terminar(listaResultados);
+			carrera.aprobarResultados();
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Los resultados de la carrera no son válidos");	
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("El Estado de la carrera no es válido");	
+			e.printStackTrace();
+		}	
+		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.CREADA);
+		try {
+			assertEquals(this.apuestaSegundo.liquidar(), this.apuestaSegundo.getMontoApostado());
+		} catch (ApuestaPerdidaException e) {
+			fail("La apuesta esta perdida cuando debería estar ganada");
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("No se pudo realizar la transicion de estado a liquidada");
+			e.printStackTrace();
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no esta en estado finalizada");
+			e.printStackTrace();
+		} catch (ApuestaVencidaException e) {
+			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		}
+		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+	}
+	
+	public void testLiquidarSiEsSegundo() {
+			
+		ResultadoCarrera resultado = new ResultadoCarrera(participante);
+		resultado.setOrdenLlegada(2);
+		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+		listaResultados.add(resultado);
+		try {
+			carrera.cerrarApuestas();
+			carrera.comenzar();
+			carrera.terminar(listaResultados);
+			carrera.aprobarResultados();
+		} catch (ResultadosCarreraInvalidosExeption e) {
+			fail("Los resultados de la carrera no son válidos");	
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			fail("El Estado de la carrera no es válido");	
+			e.printStackTrace();
+		}	
+		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.CREADA);
+		try {
+			assertEquals(this.apuestaSegundo.liquidar(), this.apuestaSegundo.getMontoApostado());
+		} catch (ApuestaPerdidaException e) {
+			fail("La apuesta esta perdida cuando debería estar ganada");
+			e.printStackTrace();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			fail("No se pudo realizar la transicion de estado a liquidada");
+			e.printStackTrace();
+		} catch (CarreraNoFinalizadaException e) {
+			fail("La carrera no esta en estado finalizada");
+			e.printStackTrace();
+		} catch (ApuestaVencidaException e) {
+			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		}
+		assertEquals(this.apuestaSegundo.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+	}
+	
+}
