@@ -1,17 +1,22 @@
 package edu.ar.uba.fi.model.apuestas;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
+import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Participante;
 
@@ -36,7 +41,7 @@ public class ApuestaFactory {
 			throws ImposibleFabricarApuestaException, 
 			CantidadParticipantesInvalidaException, 
 			CarreraCerradaAApuestasException, 
-			ParticipantesEnDistintasCarrerasException {
+			ParticipantesEnDistintasCarrerasException, TipoApuestaInvalidoException {
 		
 		Collection<Participante> participantes = new LinkedList<Participante>();
 		
@@ -49,7 +54,7 @@ public class ApuestaFactory {
 			throws ImposibleFabricarApuestaException,
 			CantidadParticipantesInvalidaException, 
 			CarreraCerradaAApuestasException, 
-			ParticipantesEnDistintasCarrerasException {
+			ParticipantesEnDistintasCarrerasException, TipoApuestaInvalidoException {
 		
 		try {
 			
@@ -89,9 +94,10 @@ public class ApuestaFactory {
 		return carreras;
 	}
 	
-	private void addApuestaToBolsaApuestas(Apuesta apuesta, Class<? extends Apuesta> tipoBolsaApuestas, Set<Carrera> carreras) {
-		BolsaApuestas bolsaApuestas = BolsasApuestasManager.getInstance().getBolsaApuestas(tipoBolsaApuestas, carreras);
+	private void addApuestaToBolsaApuestas(Apuesta apuesta, Class<? extends Apuesta> tipoBolsaApuestas, Set<Carrera> carreras) throws TipoApuestaInvalidoException {
+		BolsaApuestasAbstracta bolsaApuestas = BolsasApuestasManager.getInstance().getBolsaApuestas(tipoBolsaApuestas, carreras);
 		bolsaApuestas.addApuesta(apuesta);
 	}
+	
 
 }

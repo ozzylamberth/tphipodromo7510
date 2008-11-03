@@ -25,9 +25,9 @@ public class Carrera {
 	private EstadoCarrera estadoCarrera;
 	private List<Participante> participantes = new ArrayList<Participante>();
 	private List<ResultadoCarrera> resultadosPendienteAprobacion;
-	private final ReglamentoParticipanteCarrera reglamentoParticipantes;
+	private final ReglamentoCarrera reglamentoParticipantes;
 
-	public Carrera(ReglamentoParticipanteCarrera reglamentoParticipantes) {
+	public Carrera(ReglamentoCarrera reglamentoParticipantes) {
 		this.reglamentoParticipantes = reglamentoParticipantes;
 		setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
 	}

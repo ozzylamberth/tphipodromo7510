@@ -14,6 +14,7 @@ import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
+import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -25,7 +26,7 @@ import edu.ar.uba.fi.model.ResultadoCarrera;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.ApuestaImperfecta;
-import edu.ar.uba.fi.model.apuestas.BolsaApuestas;
+import edu.ar.uba.fi.model.apuestas.BolsaApuestasAbstracta;
 import edu.ar.uba.fi.model.apuestas.BolsasApuestasManager;
 
 /**
@@ -165,7 +166,7 @@ public class ApuestaImperfectaTest extends TestCase {
 		BigDecimal totalGanadores = this.getTotalGanadores();
 		BigDecimal porcentaje = new BigDecimal(1).subtract(BolsasApuestasManager.porcentajeComisionHipodromo);
 		BigDecimal totalARepartir = totalApostado.multiply(porcentaje);
-		BigDecimal dividendo = totalARepartir.divide(totalGanadores, BolsaApuestas.DECIMALES, BolsaApuestas.ROUNDING_MODE);
+		BigDecimal dividendo = totalARepartir.divide(totalGanadores, BolsaApuestasAbstracta.DECIMALES, BolsaApuestasAbstracta.ROUNDING_MODE);
 		// si el dividendo de menor que uno, se retorna 1
 		if (new BigDecimal(1).compareTo(dividendo) > 0) {
 			return new BigDecimal(1);
@@ -255,7 +256,8 @@ public class ApuestaImperfectaTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
-		}
+		} catch (TipoApuestaInvalidoException e) {
+			fail("Esta excepción no se debería haber lanzado");		}
 	}
 	
 	public void testApuestaPerdidaException() {
@@ -297,7 +299,8 @@ public class ApuestaImperfectaTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
-		}
+		} catch (TipoApuestaInvalidoException e) {
+			fail("Esta excepción no se debería haber lanzado");		}
 	}
 
 }
