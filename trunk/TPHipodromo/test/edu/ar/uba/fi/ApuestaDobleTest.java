@@ -14,6 +14,7 @@ import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
+import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.model.Caballo;
@@ -59,16 +60,16 @@ public class ApuestaDobleTest extends TestCase {
 		participantesApostados.addLast(carreras.get(1).getParticipantes()
 				.get(0));
 
-		apuesta1 = ApuestaFactory.getInstance().crear(
-				ApuestaDoble.class, participantesApostados, MONTO_APUESTA);
+		apuesta1 = ApuestaFactory.getInstance().crear(ApuestaDoble.class,
+				participantesApostados, MONTO_APUESTA);
 
 		participantesApostados = new LinkedList<Participante>();
 		participantesApostados.addLast(carreras.get(0).getParticipantes()
 				.get(2));
 		participantesApostados.addLast(carreras.get(1).getParticipantes()
 				.get(1));
-		apuesta2 = ApuestaFactory.getInstance().crear(
-				ApuestaDoble.class, participantesApostados, MONTO_APUESTA);
+		apuesta2 = ApuestaFactory.getInstance().crear(ApuestaDoble.class,
+				participantesApostados, MONTO_APUESTA);
 
 	}
 
@@ -150,7 +151,7 @@ public class ApuestaDobleTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private BigDecimal calcularDividendo() {
 		// Dos apuestas de MONTO_APUESTA donde solo 1 es acertada.
 		BigDecimal montoApostado = MONTO_APUESTA.multiply(new BigDecimal(2));
@@ -164,10 +165,10 @@ public class ApuestaDobleTest extends TestCase {
 		}
 		return dividendo;
 	}
-	
+
 	private BigDecimal calcularValorACobrar(Apuesta apuesta) {
-		BigDecimal valorACobrar = this.calcularDividendo().multiply(apuesta
-				.getMontoApostado().divide(apuesta.getValorBase()));
+		BigDecimal valorACobrar = this.calcularDividendo().multiply(
+				apuesta.getMontoApostado().divide(apuesta.getValorBase()));
 		// si valor a cobrar es menor al monto apostado
 		if (apuesta.getMontoApostado().compareTo(valorACobrar) > 0) {
 			return apuesta.getMontoApostado();
@@ -194,8 +195,8 @@ public class ApuestaDobleTest extends TestCase {
 			BigDecimal valorACobrar = this.calcularValorACobrar(apuesta1);
 
 			assertEquals("El monto de la liquidaciï¿½n es incorrecto.",
-					valorACobrar.setScale(2, RoundingMode.CEILING).compareTo(apuesta1
-							.liquidar().setScale(2)) == 0, true);
+					valorACobrar.setScale(2, RoundingMode.CEILING).compareTo(
+							apuesta1.liquidar().setScale(2)) == 0, true);
 
 		} catch (CarreraNoFinalizadaException e) {
 			fail("La carrera no habï¿½a terminado cuando se intentï¿½ liquidar la apuesta.");
@@ -232,16 +233,17 @@ public class ApuestaDobleTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void testCantidadParticipantesInvalidaException() {
 
 		List<Participante> participantes = new LinkedList<Participante>();
-		Participante participante = new Participante(new Caballo(), new Jinete(), carreras.get(0));
+		Participante participante = new Participante(new Caballo(),
+				new Jinete(), carreras.get(0));
 		participantes.add(participante);
-		
+
 		try {
-			ApuestaFactory.getInstance().crear(
-					ApuestaDoble.class, participantes, new BigDecimal(10));
+			ApuestaFactory.getInstance().crear(ApuestaDoble.class,
+					participantes, new BigDecimal(10));
 			fail("El método debería haber lanzado la excepción CantidadParticipantesInvalidaException");
 		} catch (CantidadParticipantesInvalidaException e) {
 		} catch (CarreraCerradaAApuestasException e) {
@@ -250,15 +252,17 @@ public class ApuestaDobleTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
+		} catch (TipoApuestaInvalidoException e) {
+			fail("Esta excepción no se debería haber lanzado");
 		}
 	}
-	
+
 	public void testApuestaPerdidaException() {
 
 		try {
 			simularCarrera(carreras.get(0), new int[] { 2, 1, 3 });
 			simularCarrera(carreras.get(1), new int[] { 1, 3, 2 });
-			
+
 			apuesta1.liquidar();
 			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
 		} catch (ApuestaPerdidaException e) {

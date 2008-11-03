@@ -3,7 +3,7 @@ package edu.ar.uba.fi.model;
 /**
  * @author Fernando E. Mansilla - 84567
  */
-public interface ReglamentoParticipanteCarrera {
+public interface ReglamentoCarrera {
 
 	/**
 	 * @param participante
@@ -11,4 +11,8 @@ public interface ReglamentoParticipanteCarrera {
 	 * false en caso contrario.
 	 */
 	public boolean validarRequisitos(Participante participante);
+	
+	public int getCantidadParticipantesMinima();
+	
+	public int getCantidadParticipantesMaxima();
 }

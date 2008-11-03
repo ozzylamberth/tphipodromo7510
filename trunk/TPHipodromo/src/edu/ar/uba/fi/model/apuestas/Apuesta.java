@@ -31,7 +31,7 @@ public abstract class Apuesta {
 	 */
 	private final static int CANT_DECIMALES = 2;
 
-	private BolsaApuestas bolsaApuestas;
+	private BolsaApuestasAbstracta bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
 	private long nroTicket;
@@ -166,11 +166,11 @@ public abstract class Apuesta {
 		}
 	}
 
-	public BolsaApuestas getBolsaApuestas() {
+	public BolsaApuestasAbstracta getBolsaApuestas() {
 		return this.bolsaApuestas;
 	}
 
-	public void setBolsaApuestas(BolsaApuestas bolsaApuestas) {
+	public void setBolsaApuestas(BolsaApuestasAbstracta bolsaApuestas) {
 		this.bolsaApuestas = bolsaApuestas;
 	}
 
