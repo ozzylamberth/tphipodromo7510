@@ -1,15 +1,11 @@
 package edu.ar.uba.fi.model.apuestas;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;

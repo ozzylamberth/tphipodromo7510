@@ -1,6 +1,5 @@
 package edu.ar.uba.fi.model.apuestas;
 
-import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 
 /**
  * @author Fernando E. Mansilla - 84567
@@ -16,21 +15,6 @@ public enum EstadoApuesta {
 
 	private EstadoApuesta(EstadoApuesta e[]) {
 		this.estadosValidos = e;
-	}
-
-	/**
-	 * @return Devuelve el siguiente estado siguiendo el flujo normal.
-	 * @throws TransicionInvalidaEstadoApuestaException
-	 *             Excepcion lanzada si no existe un estado hacia el cual hacer
-	 *             la transición.
-	 */
-	public EstadoApuesta siguienteEstadoFlujoNormal()
-			throws TransicionInvalidaEstadoApuestaException {
-		if (estadosValidos.length > 0) {
-			return estadosValidos[0];
-		} else {
-			throw new TransicionInvalidaEstadoApuestaException();
-		}
 	}
 
 	/**

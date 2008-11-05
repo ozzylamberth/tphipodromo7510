@@ -2,18 +2,23 @@ package edu.ar.uba.fi.model;
 
 import java.math.BigDecimal;
 
+import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
+
 public class Participante {
 	private int nroParticipante;
 	private BigDecimal peso;
-	private ResultadoCarrera resultado;
+	private Resultado resultado = null;
 	private Caballo caballo;
-	private Jinete jinete;
+	private Jockey jockey;
 	private Carrera carrera;
-	
-	public Participante(Caballo caballo, Jinete jinete, Carrera carrera) {
+	private EstadoParticipante estado;
+
+	public Participante(Caballo caballo, Jockey jockey, Carrera carrera) {
 		this.caballo = caballo;
-		this.jinete = jinete;
+		this.jockey = jockey;
 		this.carrera = carrera;
+		this.estado = EstadoParticipante.LARGADA_PENDIENTE;
 	}
 
 	public int getNroParticipante() {
@@ -32,12 +37,20 @@ public class Participante {
 		this.peso = peso;
 	}
 
-	public ResultadoCarrera getResultado() {
-		return this.resultado;
+	public Resultado getResultado()
+			throws ResultadosCarreraInvalidosException {
+		if (this.estado.equals(EstadoParticipante.A_AUDITAR)
+				|| this.estado.equals(EstadoParticipante.FINALIZADO)) {
+			return this.resultado;
+		} else {
+			throw new ResultadosCarreraInvalidosException();
+		}
 	}
 
-	public void setResultado(ResultadoCarrera resultado) {
+	public void setResultado(Resultado resultado)
+			throws TransicionInvalidaEstadoParticipanteException {
 		this.resultado = resultado;
+		setEstado(EstadoParticipante.A_AUDITAR);
 	}
 
 	public Caballo getCaballo() {
@@ -48,12 +61,12 @@ public class Participante {
 		this.caballo = caballo;
 	}
 
-	public Jinete getJinete() {
-		return this.jinete;
+	public Jockey getJinete() {
+		return this.jockey;
 	}
 
-	public void setJinete(Jinete jinete) {
-		this.jinete = jinete;
+	public void setJinete(Jockey jockey) {
+		this.jockey = jockey;
 	}
 
 	public Carrera getCarrera() {
@@ -64,4 +77,25 @@ public class Participante {
 		this.carrera = carrera;
 	}
 
+	public void setEstado(EstadoParticipante nuevoEstado)
+			throws TransicionInvalidaEstadoParticipanteException {
+		if (!estado.equals(nuevoEstado)) {
+			if (estado.esSiguienteEstadoValido(nuevoEstado)) {
+				if (!(nuevoEstado.equals(EstadoParticipante.A_AUDITAR) && resultado == null)) {
+					this.estado = nuevoEstado;
+				} else {
+					// TODO lanzada si se intenta pasar a A_AUDITAR y no hay
+					// resultado.
+					throw new TransicionInvalidaEstadoParticipanteException();
+				}
+			} else {
+				throw new TransicionInvalidaEstadoParticipanteException(estado,
+						nuevoEstado);
+			}
+		}
+	}
+
+	public EstadoParticipante getEstado() {
+		return this.estado;
+	}
 }

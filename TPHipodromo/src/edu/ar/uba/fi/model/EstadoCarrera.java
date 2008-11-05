@@ -19,21 +19,6 @@ public enum EstadoCarrera {
 	}
 
 	/**
-	 * @return Devuelve el siguiente estado siguiendo el flujo normal.
-	 * @throws TransicionInvalidaEstadoCarreraException
-	 *             Excepcion lanzada si no existe un estado hacia el cual hacer
-	 *             la transición.
-	 */
-	public EstadoCarrera siguienteEstadoFlujoNormal()
-			throws TransicionInvalidaEstadoCarreraException {
-		if (estadosValidos.length > 0) {
-			return estadosValidos[0];
-		} else {
-			throw new TransicionInvalidaEstadoCarreraException();
-		}
-	}
-
-	/**
 	 * @return Devuelve el estado asociado a la cancelación de carrera.
 	 * @throws TransicionInvalidaEstadoCarreraException
 	 *             Excepcion lanzada si no es posible la transición hacia el

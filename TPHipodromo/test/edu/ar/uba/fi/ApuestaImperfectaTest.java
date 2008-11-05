@@ -2,6 +2,7 @@ package edu.ar.uba.fi;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,18 +12,21 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.HipodromoException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
-import edu.ar.uba.fi.model.Jinete;
+import edu.ar.uba.fi.model.EstadoParticipante;
+import edu.ar.uba.fi.model.Jockey;
 import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
-import edu.ar.uba.fi.model.ResultadoCarrera;
+import edu.ar.uba.fi.model.Resultado;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.ApuestaImperfecta;
@@ -58,10 +62,10 @@ public class ApuestaImperfectaTest extends TestCase {
 		carrera = new Carrera(new ReglamentoValeTodo());
 		
 		participante = new Participante[4];
-		participante[0] = new Participante(new Caballo(), new Jinete(), carrera);
-		participante[1] = new Participante(new Caballo(), new Jinete(), carrera);
-		participante[2] = new Participante(new Caballo(), new Jinete(), carrera);
-		participante[3] = new Participante(new Caballo(), new Jinete(), carrera);
+		participante[0] = new Participante(new Caballo(), new Jockey(), carrera);
+		participante[1] = new Participante(new Caballo(), new Jockey(), carrera);
+		participante[2] = new Participante(new Caballo(), new Jockey(), carrera);
+		participante[3] = new Participante(new Caballo(), new Jockey(), carrera);
 		carrera.addParticipante(participante[0]);
 		carrera.addParticipante(participante[1]);
 		carrera.addParticipante(participante[2]);
@@ -111,17 +115,24 @@ public class ApuestaImperfectaTest extends TestCase {
 			ex.printStackTrace();
 		}
 		
-		List<ResultadoCarrera> resultados = new LinkedList<ResultadoCarrera>();
+		List<Resultado> resultados = new LinkedList<Resultado>();
 		
-		resultados.add(new ResultadoCarrera(participante[0], 1));
-		resultados.add(new ResultadoCarrera(participante[1], 2));
-		resultados.add(new ResultadoCarrera(participante[2], 2));
-		resultados.add(new ResultadoCarrera(participante[3], 3));
+		resultados.add(new Resultado(1, 10));
+		resultados.add(new Resultado(2, 11));
+		resultados.add(new Resultado(2, 12));
+		resultados.add(new Resultado(3, 13));
 		
 		try {
 			carrera.cerrarApuestas();
 			carrera.comenzar();
-			carrera.terminar(resultados);
+			// --Asignacion de resultados
+			List<Participante> participantes = carrera.getParticipantes();
+			for (int j = 0; j < participantes.size(); j++) {
+				participantes.get(j).setResultado(resultados.get(j));
+			}
+			//
+			carrera.terminar();
+			aprobarResultados(carrera);
 			carrera.aprobarResultados();
 		} catch(TransicionInvalidaEstadoCarreraException ex) {
 			fail("Cuando se quizo simular la carrera hubo error de transición de estados.");
@@ -129,8 +140,21 @@ public class ApuestaImperfectaTest extends TestCase {
 		} catch(ResultadosCarreraInvalidosException ex) {
 			fail("Cuando se quizo simular la carrera se pusieron resultados inválidos.");
 			ex.printStackTrace();
+		} catch(HipodromoException ex) {
+			fail("Cuando se quizo simular la carrera se pusieron resultados inválidos.");
+			ex.printStackTrace();
 		}
 	}
+	private void aprobarResultados(Carrera carrera)
+	throws TransicionInvalidaEstadoParticipanteException {
+Iterator<Participante> it = carrera.getParticipantes().iterator();
+while (it.hasNext()) {
+	Participante participante = it.next();
+	if (participante.getEstado().equals(EstadoParticipante.A_AUDITAR)) {
+		participante.setEstado(EstadoParticipante.FINALIZADO);
+	}
+}
+}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
@@ -242,7 +266,7 @@ public class ApuestaImperfectaTest extends TestCase {
 	public void testCantidadParticipantesInvalidaException() {
 
 		List<Participante> participantes = new LinkedList<Participante>();
-		Participante participante = new Participante(new Caballo(), new Jinete(), carrera);
+		Participante participante = new Participante(new Caballo(), new Jockey(), carrera);
 		participantes.add(participante);
 		
 		try {
@@ -280,12 +304,12 @@ public class ApuestaImperfectaTest extends TestCase {
 
 		List<Participante> participantes = new LinkedList<Participante>();
 		
-		Participante participante1 = new Participante(new Caballo(), new Jinete(), carrera);
+		Participante participante1 = new Participante(new Caballo(), new Jockey(), carrera);
 		participantes.add(participante1);
 		
 		Carrera carrera2 = new Carrera(new ReglamentoValeTodo());
 		
-		Participante participante2 = new Participante(new Caballo(), new Jinete(), carrera2);
+		Participante participante2 = new Participante(new Caballo(), new Jockey(), carrera2);
 		participantes.add(participante2);
 		
 		try {
