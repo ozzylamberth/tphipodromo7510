@@ -74,6 +74,7 @@ public abstract class Apuesta {
 					return false;
 				}
 			} catch (ResultadosCarreraInvalidosException e) {
+				System.out.println("invalidos!!!!");
 				return false;
 			}
 		}

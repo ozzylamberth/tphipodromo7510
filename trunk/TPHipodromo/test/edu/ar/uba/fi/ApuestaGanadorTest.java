@@ -1,6 +1,7 @@
 package edu.ar.uba.fi;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.HipodromoException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
@@ -17,40 +19,59 @@ import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
-import edu.ar.uba.fi.model.Jinete;
+import edu.ar.uba.fi.model.EstadoParticipante;
+import edu.ar.uba.fi.model.Jockey;
 import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
-import edu.ar.uba.fi.model.ResultadoCarrera;
+import edu.ar.uba.fi.model.Resultado;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.ApuestaGanador;
 import edu.ar.uba.fi.model.apuestas.EstadoApuesta;
+
 /**
  * Caso de Prueba 1: Liquidacion Apuesta a Ganador Ganada.
- *
+ * 
  */
 public class ApuestaGanadorTest extends TestCase {
 
 	private Apuesta apuestaGanador;
-	
+
 	protected void setUp() throws Exception {
 		Caballo caballo = new Caballo();
-		Jinete jinete = new Jinete();
+		Jockey jockey = new Jockey();
 		Carrera carrera = new Carrera(new ReglamentoValeTodo());
-		Participante participante = new Participante(caballo, jinete, carrera);
+		Participante participante = new Participante(caballo, jockey, carrera);
 		carrera.addParticipante(participante);
 		apuestaGanador = ApuestaFactory.getInstance().crear(
 				ApuestaGanador.class, participante, new BigDecimal(10));
-		ResultadoCarrera resultado = new ResultadoCarrera(participante);
-		resultado.setOrdenLlegada(1);
-		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
-		listaResultados.add(resultado);
+
 		carrera.cerrarApuestas();
 		carrera.comenzar();
-		carrera.terminar(listaResultados);
+		// --Asignacion de resultados
+		Iterator<Participante> itParticipantes = carrera.getParticipantes()
+				.iterator();
+		while (itParticipantes.hasNext()) {
+			itParticipantes.next().setResultado(new Resultado(1, 10));
+		}
+		//
+		carrera.terminar();
+		aprobarResultados(carrera);
 		carrera.aprobarResultados();
+	}
+
+	private void aprobarResultados(Carrera carrera)
+			throws TransicionInvalidaEstadoParticipanteException {
+		Iterator<Participante> it = carrera.getParticipantes().iterator();
+		while (it.hasNext()) {
+			Participante participante = it.next();
+			if (participante.getEstado().equals(EstadoParticipante.A_AUDITAR)) {
+				participante.setEstado(EstadoParticipante.FINALIZADO);
+			}
+		}
 	}
 
 	public void testIsAcertada() {
@@ -58,9 +79,11 @@ public class ApuestaGanadorTest extends TestCase {
 	}
 
 	public void testLiquidar() {
-		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.CREADA);
+		assertEquals(this.apuestaGanador.getEstadoApuesta(),
+				EstadoApuesta.CREADA);
 		try {
-			assertEquals(this.apuestaGanador.liquidar().compareTo(this.apuestaGanador.getMontoApostado()) == 0, true);
+			assertEquals(this.apuestaGanador.liquidar().compareTo(
+					this.apuestaGanador.getMontoApostado()) == 0, true);
 		} catch (ApuestaPerdidaException e) {
 			fail("La apuesta esta perdida cuando deberï¿½a estar ganada");
 			e.printStackTrace();
@@ -74,31 +97,39 @@ public class ApuestaGanadorTest extends TestCase {
 			fail("La apuesta esta vencida");
 			e.printStackTrace();
 		}
-		assertEquals(this.apuestaGanador.getEstadoApuesta(), EstadoApuesta.LIQUIDADA);
+		assertEquals(this.apuestaGanador.getEstadoApuesta(),
+				EstadoApuesta.LIQUIDADA);
 	}
-	
-	public void testApuestaPerdidaException() throws ParticipanteNoCalificadoException {
-		
+
+	public void testApuestaPerdidaException()
+			throws ParticipanteNoCalificadoException {
+
 		Carrera carrera = new Carrera(new ReglamentoValeTodo());
-		Participante participante = new Participante(new Caballo(), new Jinete(), carrera);
+		Participante participante = new Participante(new Caballo(),
+				new Jockey(), carrera);
 		carrera.addParticipante(participante);
-		
-		ResultadoCarrera resultado = new ResultadoCarrera(participante);
-		resultado.setOrdenLlegada(2);
-		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+
+		Resultado resultado = new Resultado(2, 10);
+		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 
-		
 		try {
-			
+
 			apuestaGanador = ApuestaFactory.getInstance().crear(
 					ApuestaGanador.class, participante, new BigDecimal(10));
-			
+
 			carrera.cerrarApuestas();
 			carrera.comenzar();
-			carrera.terminar(listaResultados);
+			// --Asignacion de resultados
+			List<Participante> participantes = carrera.getParticipantes();
+			for (int i = 0; i < participantes.size(); i++) {
+				participantes.get(i).setResultado(listaResultados.get(i));
+			}
+			//
+			carrera.terminar();
+			aprobarResultados(carrera);
 			carrera.aprobarResultados();
-			
+
 			apuestaGanador.liquidar();
 			fail("El método debería haber lanzado la excepción ApuestaPerdidaException");
 		} catch (ApuestaPerdidaException e) {
@@ -121,9 +152,15 @@ public class ApuestaGanadorTest extends TestCase {
 		} catch (ImposibleFabricarApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (TipoApuestaInvalidoException e) {
-			fail("Esta excepción no se debería haber lanzado");		}
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (TransicionInvalidaEstadoParticipanteException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		} catch (HipodromoException e) {
+
+			e.printStackTrace();
+			fail("Esta excepción no se debería haber lanzado");
+		}
 
 	}
-	
 
 }

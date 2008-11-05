@@ -2,6 +2,7 @@ package edu.ar.uba.fi;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,18 +12,21 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.HipodromoException;
 import edu.ar.uba.fi.exceptions.ImposibleFabricarApuestaException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
+import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 import edu.ar.uba.fi.model.Caballo;
 import edu.ar.uba.fi.model.Carrera;
-import edu.ar.uba.fi.model.Jinete;
+import edu.ar.uba.fi.model.EstadoParticipante;
+import edu.ar.uba.fi.model.Jockey;
 import edu.ar.uba.fi.model.Participante;
 import edu.ar.uba.fi.model.ReglamentoValeTodo;
-import edu.ar.uba.fi.model.ResultadoCarrera;
+import edu.ar.uba.fi.model.Resultado;
 import edu.ar.uba.fi.model.apuestas.Apuesta;
 import edu.ar.uba.fi.model.apuestas.ApuestaFactory;
 import edu.ar.uba.fi.model.apuestas.ApuestaTriplo;
@@ -48,7 +52,7 @@ public class ApuestaTriploTest extends TestCase {
 			for (int i = 0; i < CANTIDAD_PARTICIPANTES; i++) {
 
 				Participante participante = new Participante(new Caballo(),
-						new Jinete(), carrera);
+						new Jockey(), carrera);
 				carrera.addParticipante(participante);
 			}
 			carreras.add(carrera);
@@ -77,22 +81,39 @@ public class ApuestaTriploTest extends TestCase {
 				participantesApostados, MONTO_APUESTA);
 	}
 
+	private void aprobarResultados(Carrera carrera)
+			throws TransicionInvalidaEstadoParticipanteException {
+		Iterator<Participante> it = carrera.getParticipantes().iterator();
+		while (it.hasNext()) {
+			Participante participante = it.next();
+			if (participante.getEstado().equals(EstadoParticipante.A_AUDITAR)) {
+				participante.setEstado(EstadoParticipante.FINALIZADO);
+			}
+		}
+	}
+
 	protected void simularCarrera(Carrera carreraSimulada, int[] ordenes)
-			throws TransicionInvalidaEstadoCarreraException,
-			ResultadosCarreraInvalidosException {
+			throws HipodromoException {
 		carreraSimulada.cerrarApuestas();
 		carreraSimulada.comenzar();
 
-		List<ResultadoCarrera> listaResultados = new LinkedList<ResultadoCarrera>();
+		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		int i = 0;
-		for (Participante p : carreraSimulada.getParticipantes()) {
-			ResultadoCarrera resultado = new ResultadoCarrera(p);
+		for (@SuppressWarnings("unused")
+		Participante p : carreraSimulada.getParticipantes()) {
+			Resultado resultado = new Resultado();
 			resultado.setOrdenLlegada(ordenes[i]);
 			listaResultados.add(resultado);
 			i++;
 		}
-
-		carreraSimulada.terminar(listaResultados);
+		// --Asignacion de resultados
+		List<Participante> participantes = carreraSimulada.getParticipantes();
+		for (int j = 0; j < participantes.size(); j++) {
+			participantes.get(j).setResultado(listaResultados.get(j));
+		}
+		//
+		carreraSimulada.terminar();
+		aprobarResultados(carreraSimulada);
 		carreraSimulada.aprobarResultados();
 	}
 
@@ -109,6 +130,9 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
@@ -125,6 +149,9 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
@@ -141,6 +168,9 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
@@ -157,6 +187,9 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
@@ -197,6 +230,9 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 
 		try {
@@ -246,7 +282,7 @@ public class ApuestaTriploTest extends TestCase {
 
 		List<Participante> participantes = new LinkedList<Participante>();
 		Participante participante = new Participante(new Caballo(),
-				new Jinete(), carreras.get(0));
+				new Jockey(), carreras.get(0));
 		participantes.add(participante);
 
 		try {
@@ -285,6 +321,9 @@ public class ApuestaTriploTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
 		}
 
 	}

@@ -2,7 +2,7 @@ package edu.ar.uba.fi.model;
 
 import java.math.BigDecimal;
 
-public class Jinete {
+public class Jockey {
 	private String apellido;
 	private String nombre;
 	private BigDecimal peso;

@@ -21,7 +21,7 @@ public class ReglamentoValeTodo implements ReglamentoCarrera {
 	@Override
 	public int getCantidadParticipantesMinima() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 0;
 	}
 
 }
