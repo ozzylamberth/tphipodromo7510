@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 
+/**
+ * @author Fernando E. Mansilla - 84567
+ */
 public class Participante {
 	private int nroParticipante;
 	private BigDecimal peso;
@@ -37,8 +40,7 @@ public class Participante {
 		this.peso = peso;
 	}
 
-	public Resultado getResultado()
-			throws ResultadosCarreraInvalidosException {
+	public Resultado getResultado() throws ResultadosCarreraInvalidosException {
 		if (this.estado.equals(EstadoParticipante.A_AUDITAR)
 				|| this.estado.equals(EstadoParticipante.FINALIZADO)) {
 			return this.resultado;
@@ -77,16 +79,23 @@ public class Participante {
 		this.carrera = carrera;
 	}
 
+	/**
+	 * @param nuevoEstado
+	 * @throws TransicionInvalidaEstadoParticipanteException
+	 *             Lanzada si el siguiente estado no es valido segun las reglas
+	 *             en EStadoParticipante. Un caso particular de error es cuando
+	 *             se intenta pasar a estado A_AUDITAR y no se asocio ningún
+	 *             resultado.
+	 */
 	public void setEstado(EstadoParticipante nuevoEstado)
 			throws TransicionInvalidaEstadoParticipanteException {
 		if (!estado.equals(nuevoEstado)) {
 			if (estado.esSiguienteEstadoValido(nuevoEstado)) {
-				if (!(nuevoEstado.equals(EstadoParticipante.A_AUDITAR) && resultado == null)) {
-					this.estado = nuevoEstado;
-				} else {
-					// TODO lanzada si se intenta pasar a A_AUDITAR y no hay
-					// resultado.
+				if (nuevoEstado.equals(EstadoParticipante.A_AUDITAR)
+						&& resultado == null) {
 					throw new TransicionInvalidaEstadoParticipanteException();
+				} else {
+					this.estado = nuevoEstado;
 				}
 			} else {
 				throw new TransicionInvalidaEstadoParticipanteException(estado,

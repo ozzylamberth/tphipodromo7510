@@ -9,7 +9,9 @@ import java.util.List;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.HipodromoComposedException;
 import edu.ar.uba.fi.exceptions.HipodromoException;
+import edu.ar.uba.fi.exceptions.InscripcionCarreraCerradaException;
 import edu.ar.uba.fi.exceptions.ParticipanteNoCalificadoException;
+import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
@@ -240,8 +242,13 @@ public class Carrera {
 		}
 	}
 
+	/**
+	 * Cancela la carrera, dejandola en tal estado definitivamente.
+	 * 
+	 * @throws HipodromoException
+	 */
 	public void cancelar() throws HipodromoException {
-		setEstadoCarrera(this.estadoCarrera.cancelar());
+		cambiarEstado(this.estadoCarrera.cancelar());
 	}
 
 	private void cambiarEstado(EstadoCarrera nuevoEstado)
@@ -296,6 +303,10 @@ public class Carrera {
 		this.numero = numero;
 	}
 
+	public void setEstadoCarrera(EstadoCarrera estadoCarrera) {
+		this.estadoCarrera = estadoCarrera;
+	}
+
 	public EstadoCarrera getEstadoCarrera() {
 		return this.estadoCarrera;
 	}
@@ -304,59 +315,72 @@ public class Carrera {
 		return this.participantes;
 	}
 
+	/**
+	 * Setea el conjunto de participantes a la carrera
+	 * 
+	 * @param participantes
+	 *            Participantes a vincular a la carrera.
+	 * @throws HipodromoException
+	 *             Excepcion compuesta por todos las excepciones ocurridas en el
+	 *             proceso.
+	 */
 	public void setParticipantes(ArrayList<Participante> participantes)
-			throws ParticipanteNoCalificadoException {
+			throws HipodromoException {
+
+		HipodromoComposedException exception = new HipodromoComposedException();
 		Iterator<Participante> it = participantes.iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
-			this.addParticipante(participante);
+
+			try {
+				this.addParticipante(participante);
+			} catch (ParticipanteNoCalificadoException e) {
+				exception.add(e);
+			}
+		}
+
+		if (exception.hasExceptions()) {
+			throw exception;
 		}
 	}
 
+	/**
+	 * @param participante
+	 * @throws ParticipanteNoCalificadoException
+	 *             Si no cumple con el reglamento o bien su estado no es
+	 *             Pendiente de Largada.
+	 * @throws ParticipantesEnDistintasCarrerasException
+	 *             Si ya tiene asignada una Carrera distinta a la actual.
+	 * @throws InscripcionCarreraCerradaException
+	 *             Si la carrera ya no puede aceptar nuevos participantes, ya
+	 *             sea por su estado o porque se alcanzo el máximo.
+	 */
 	public void addParticipante(Participante participante)
-			throws ParticipanteNoCalificadoException {
+			throws ParticipanteNoCalificadoException,
+			ParticipantesEnDistintasCarrerasException,
+			InscripcionCarreraCerradaException {
+
+		if (!participante.getEstado().equals(
+				EstadoParticipante.LARGADA_PENDIENTE)) {
+			throw new ParticipanteNoCalificadoException();
+		}
+
+		if (!this.estadoCarrera.equals(EstadoCarrera.ABIERTA_A_APUESTAS)
+				|| participantes.size() > reglamentoParticipantes
+						.getCantidadParticipantesMaxima()) {
+			throw new InscripcionCarreraCerradaException();
+		}
+
+		if (!this.equals(participante.getCarrera())) {
+			throw new ParticipantesEnDistintasCarrerasException();
+		}
+
 		if (reglamentoParticipantes.validarRequisitos(participante)) {
 			participante.setCarrera(this);
 			this.participantes.add(participante);
 		} else {
 			throw new ParticipanteNoCalificadoException();
 		}
-	}
-
-	// private void setResultadosPendienteAprobacion(
-	// List<ResultadoCarrera> resultados)
-	// throws ResultadosCarreraInvalidosException {
-	// if (resultados.size() != this.getParticipantes().size()) {
-	// throw new ResultadosCarreraInvalidosException();
-	// }
-	// this.validarMismosParticipantes(resultados);
-	// this.resultadosPendienteAprobacion = resultados;
-	// }
-	//
-	// private void validarMismosParticipantes(List<ResultadoCarrera>
-	// resultados)
-	// throws ResultadosCarreraInvalidosException {
-	// Iterator<ResultadoCarrera> it = resultados.iterator();
-	// while (it.hasNext()) {
-	// ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
-	// if (!this.getParticipantes().contains(
-	// resultadoCarrera.getParticipante())) {
-	// throw new ResultadosCarreraInvalidosException();
-	// }
-	// }
-	// }
-
-	// private void asignarResultadosAParticipantes() {
-	// Iterator<ResultadoCarrera> it = this.resultadosPendienteAprobacion
-	// .iterator();
-	// while (it.hasNext()) {
-	// ResultadoCarrera resultadoCarrera = (ResultadoCarrera) it.next();
-	// resultadoCarrera.getParticipante().setResultado(resultadoCarrera);
-	// }
-	// }
-
-	public void setEstadoCarrera(EstadoCarrera estadoCarrera) {
-		this.estadoCarrera = estadoCarrera;
 	}
 
 }

@@ -192,10 +192,10 @@ public class CarreraTest extends TestCase {
 	public void testResultadosCarreraInvalidos()
 			throws ParticipanteNoCalificadoException {
 
-		participante = new Participante(new Caballo(), new Jockey(), carrera);
-		carrera.addParticipante(participante);
-
 		try {
+			participante = new Participante(new Caballo(), new Jockey(),
+					carrera);
+			carrera.addParticipante(participante);
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			carrera.terminar();
