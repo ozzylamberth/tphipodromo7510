@@ -94,12 +94,13 @@ public class ApuestaTerceroTest extends TestCase {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			carrera.addParticipante(participante);
-			Resultado resultado = new Resultado();
-			resultado.setOrdenLlegada(i++);
-			List<Resultado> listaResultados = new LinkedList<Resultado>();
-			listaResultados.add(resultado);
+
 			try {
+				carrera.addParticipante(participante);
+				Resultado resultado = new Resultado();
+				resultado.setOrdenLlegada(i++);
+				List<Resultado> listaResultados = new LinkedList<Resultado>();
+				listaResultados.add(resultado);
 				carrera.cerrarApuestas();
 				carrera.comenzar();
 				// --Asignacion de resultados
@@ -127,13 +128,15 @@ public class ApuestaTerceroTest extends TestCase {
 
 	public void testIsNotAcertada() throws ParticipanteNoCalificadoException {
 
-		carrera = new Carrera(new ReglamentoValeTodo());
-		carrera.addParticipante(participante);
-		Resultado resultado = new Resultado();
-		resultado.setOrdenLlegada(4);
-		List<Resultado> listaResultados = new LinkedList<Resultado>();
-		listaResultados.add(resultado);
 		try {
+			
+			carrera = new Carrera(new ReglamentoValeTodo());
+			Participante participante =  new Participante(caballo, jockey, carrera);
+			carrera.addParticipante(participante);
+			Resultado resultado = new Resultado();
+			resultado.setOrdenLlegada(4);
+			List<Resultado> listaResultados = new LinkedList<Resultado>();
+			listaResultados.add(resultado);
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -311,18 +314,23 @@ public class ApuestaTerceroTest extends TestCase {
 	public void testApuestaPerdidaException()
 			throws ParticipanteNoCalificadoException {
 
-		List<Resultado> listaResultados;
-		Resultado resultado;
-
-		carrera = new Carrera(new ReglamentoValeTodo());
-		carrera.addParticipante(participante);
-		resultado = new Resultado();
-		resultado.setOrdenLlegada(5);
-		listaResultados = new LinkedList<Resultado>();
-		listaResultados.add(resultado);
-
 		try {
+
+			List<Resultado> listaResultados;
+			Resultado resultado;
+
+			carrera = new Carrera(new ReglamentoValeTodo());
+			Participante participante =  new Participante(caballo, jockey, carrera);
+			carrera.addParticipante(participante);
+			resultado = new Resultado();
+			resultado.setOrdenLlegada(5);
+			listaResultados = new LinkedList<Resultado>();
+			listaResultados.add(resultado);
+			Apuesta apuestaTerceraPerdida = ApuestaFactory.getInstance().crear(
+					ApuestaTercero.class, participante, new BigDecimal(30));			
+
 			carrera.cerrarApuestas();
+
 			carrera.comenzar();
 			// --Asignacion de resultados
 			List<Participante> participantes = carrera.getParticipantes();

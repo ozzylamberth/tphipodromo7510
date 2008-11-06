@@ -104,16 +104,15 @@ public class ApuestaGanadorTest extends TestCase {
 	public void testApuestaPerdidaException()
 			throws ParticipanteNoCalificadoException {
 
-		Carrera carrera = new Carrera(new ReglamentoValeTodo());
-		Participante participante = new Participante(new Caballo(),
-				new Jockey(), carrera);
-		carrera.addParticipante(participante);
-
-		Resultado resultado = new Resultado(2, 10);
-		List<Resultado> listaResultados = new LinkedList<Resultado>();
-		listaResultados.add(resultado);
-
 		try {
+			Carrera carrera = new Carrera(new ReglamentoValeTodo());
+			Participante participante = new Participante(new Caballo(),
+					new Jockey(), carrera);
+			carrera.addParticipante(participante);
+
+			Resultado resultado = new Resultado(2, 10);
+			List<Resultado> listaResultados = new LinkedList<Resultado>();
+			listaResultados.add(resultado);
 
 			apuestaGanador = ApuestaFactory.getInstance().crear(
 					ApuestaGanador.class, participante, new BigDecimal(10));

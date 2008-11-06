@@ -1,8 +1,9 @@
 package edu.ar.uba.fi.model;
 
-
 /**
  * Representa el Resultado de un Participante dentro de una carrera
+ * 
+ * @author Fernando E. Mansilla - 84567
  * 
  * @version 1.1 Fernando E. Mansilla - 84567 Se introdujo un enum de estados.
  */
@@ -35,6 +36,5 @@ public class Resultado {
 	public void setTiempo(long tiempoMilis) {
 		this.tiempo = tiempoMilis;
 	}
-
 
 }

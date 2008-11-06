@@ -1,25 +1,24 @@
 package edu.ar.uba.fi.model;
 
-
 /**
+ * Enumerado con los estados posibles para un participante. Se encarga de
+ * controlar secuencias de estados válidas.
+ * 
  * @author Fernando E. Mansilla - 84567
  */
 public enum EstadoParticipante {
 
-	DESCALIFICADO(new EstadoParticipante[] {}), 
-	FINALIZADO(new EstadoParticipante[] {}),
-	A_AUDITAR(new EstadoParticipante[] {FINALIZADO, DESCALIFICADO}), 
-	ABANDONO(new EstadoParticipante[] {}),
-	EN_CURSO(new EstadoParticipante[] { A_AUDITAR, ABANDONO}),
-	LARGADA_PENDIENTE(new EstadoParticipante[] {EN_CURSO, ABANDONO});
-
+	DESCALIFICADO(new EstadoParticipante[] {}), FINALIZADO(
+			new EstadoParticipante[] {}), A_AUDITAR(new EstadoParticipante[] {
+			FINALIZADO, DESCALIFICADO }), ABANDONO(new EstadoParticipante[] {}), EN_CURSO(
+			new EstadoParticipante[] { A_AUDITAR, ABANDONO }), LARGADA_PENDIENTE(
+			new EstadoParticipante[] { EN_CURSO, ABANDONO });
 
 	private EstadoParticipante[] estadosValidos;
 
 	private EstadoParticipante(EstadoParticipante e[]) {
 		this.estadosValidos = e;
 	}
-
 
 	/**
 	 * @param nuevoEstado

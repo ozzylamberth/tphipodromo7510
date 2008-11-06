@@ -2,6 +2,11 @@ package edu.ar.uba.fi.model;
 
 import java.math.BigDecimal;
 
+/**
+ * Clase que modela un Caballo.
+ * 
+ * @author Fernando E. Mansilla - 84567
+ */
 public class Caballo {
 	private String caballeriza;
 	private String criador;

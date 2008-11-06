@@ -3,14 +3,19 @@ package edu.ar.uba.fi.model;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
 /**
+ * Enumerado con los estados posibles para una Carrera.
+ * Se encarga de controlar secuencias de estados válidas.
+ * 
  * @author Fernando E. Mansilla - 84567
  */
 public enum EstadoCarrera {
-	CANCELADA(new EstadoCarrera[] {}), FINALIZADA(new EstadoCarrera[] {}), A_AUDITAR(
-			new EstadoCarrera[] { FINALIZADA }), EN_CURSO(
-			new EstadoCarrera[] { A_AUDITAR }), CERRADA_A_APUESTAS(
-			new EstadoCarrera[] { EN_CURSO }), ABIERTA_A_APUESTAS(
-			new EstadoCarrera[] { CERRADA_A_APUESTAS });
+	CANCELADA(new EstadoCarrera[] {}), 
+	FINALIZADA(new EstadoCarrera[] {}), 
+	A_AUDITAR(			new EstadoCarrera[] { FINALIZADA }), 
+	EN_CURSO(			new EstadoCarrera[] { A_AUDITAR, CANCELADA }), 
+	CERRADA_A_APUESTAS(	new EstadoCarrera[] { EN_CURSO, CANCELADA }), 
+	ABIERTA_A_APUESTAS(	new EstadoCarrera[] { CERRADA_A_APUESTAS, CANCELADA }), 
+	INSCRIPCION_PARTICIPANTES(	new EstadoCarrera[] { ABIERTA_A_APUESTAS, CANCELADA });
 
 	private EstadoCarrera[] estadosValidos;
 
@@ -26,7 +31,7 @@ public enum EstadoCarrera {
 	 */
 	public EstadoCarrera cancelar()
 			throws TransicionInvalidaEstadoCarreraException {
-		if (!this.equals(FINALIZADA) && !this.equals(CANCELADA)) {
+		if (esSiguienteEstadoValido(CANCELADA)) {
 			return CANCELADA;
 		} else {
 			throw new TransicionInvalidaEstadoCarreraException();
@@ -46,12 +51,6 @@ public enum EstadoCarrera {
 				return true;
 			}
 		}
-
-		if (CANCELADA.equals(nuevoEstado) && !this.equals(FINALIZADA)
-				&& !this.equals(CANCELADA)) {
-			return true;
-		}
-
 		return false;
 	}
 }

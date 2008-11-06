@@ -97,12 +97,13 @@ public class ApuestaSegundoTest extends TestCase {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			carrera.addParticipante(participante);
-			resultado = new Resultado();
-			resultado.setOrdenLlegada(i++);
-			listaResultados = new LinkedList<Resultado>();
-			listaResultados.add(resultado);
+	
 			try {
+				carrera.addParticipante(participante);
+				resultado = new Resultado();
+				resultado.setOrdenLlegada(i++);
+				listaResultados = new LinkedList<Resultado>();
+				listaResultados.add(resultado);
 				carrera.cerrarApuestas();
 				carrera.comenzar();
 				// --Asignacion de resultados
@@ -130,16 +131,17 @@ public class ApuestaSegundoTest extends TestCase {
 
 	public void testIsNotAcertada() throws ParticipanteNoCalificadoException {
 
-		List<Resultado> listaResultados;
-		Resultado resultado;
 
-		carrera = new Carrera(new ReglamentoValeTodo());
-		carrera.addParticipante(participante);
-		resultado = new Resultado();
-		resultado.setOrdenLlegada(5);
-		listaResultados = new LinkedList<Resultado>();
-		listaResultados.add(resultado);
 		try {
+			List<Resultado> listaResultados;
+			Resultado resultado;
+
+			carrera = new Carrera(new ReglamentoValeTodo());
+			carrera.addParticipante(new Participante(caballo, jockey, carrera));
+			resultado = new Resultado();
+			resultado.setOrdenLlegada(5);
+			listaResultados = new LinkedList<Resultado>();
+			listaResultados.add(resultado);
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -268,17 +270,23 @@ public class ApuestaSegundoTest extends TestCase {
 	public void testApuestaPerdidaException()
 			throws ParticipanteNoCalificadoException {
 
-		List<Resultado> listaResultados;
-		Resultado resultado;
 
-		carrera = new Carrera(new ReglamentoValeTodo());
-		carrera.addParticipante(participante);
-		resultado = new Resultado();
-		resultado.setOrdenLlegada(5);
-		listaResultados = new LinkedList<Resultado>();
-		listaResultados.add(resultado);
 
 		try {
+			List<Resultado> listaResultados;
+			Resultado resultado;
+
+			carrera = new Carrera(new ReglamentoValeTodo());
+			Participante participante = new Participante(caballo, jockey, carrera);
+			carrera.addParticipante(participante);
+			resultado = new Resultado();
+			resultado.setOrdenLlegada(5);
+			listaResultados = new LinkedList<Resultado>();
+			listaResultados.add(resultado);
+			
+			Apuesta apuestaSegundoPerdida = ApuestaFactory.getInstance().crear(
+					ApuestaSegundo.class, participante, new BigDecimal(40));
+			
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -297,7 +305,9 @@ public class ApuestaSegundoTest extends TestCase {
 		} catch (TransicionInvalidaEstadoApuestaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (CarreraNoFinalizadaException e) {
+			e.printStackTrace();
 			fail("Esta excepción no se debería haber lanzado");
+			
 		} catch (ApuestaVencidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (TransicionInvalidaEstadoCarreraException e) {

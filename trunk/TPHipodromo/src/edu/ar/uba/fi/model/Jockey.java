@@ -2,6 +2,11 @@ package edu.ar.uba.fi.model;
 
 import java.math.BigDecimal;
 
+/**
+ * Clase que modela un Jinete de un Caballo.
+ * 
+ * @author Fernando E. Mansilla - 84567
+ */
 public class Jockey {
 	private String apellido;
 	private String nombre;
@@ -30,5 +35,4 @@ public class Jockey {
 	public void setPeso(BigDecimal peso) {
 		this.peso = peso;
 	}
-
 }
