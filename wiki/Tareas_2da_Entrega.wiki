@@ -16,3 +16,8 @@ Correcciones en modelo de Dominio y su documentación correcta, Definición e im
 Web Services
 === Responsables ===
   * Campo, Nahuel
+
+== Tarea ==
+Diagramas de clases y secuencia del MVC.
+=== Responsables ===
+  * Grande, Juan
