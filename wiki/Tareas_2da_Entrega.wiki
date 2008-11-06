@@ -18,6 +18,6 @@ Web Services
   * Campo, Nahuel
 
 == Tarea ==
-Diagramas de clases y secuencia del MVC. Agregar el diagrama de casos de uso.
+Diagramas de clases y secuencia del MVC. Corregir diagrama de componentes para considerar el Controlador.
 === Responsables ===
   * Grande, Juan
