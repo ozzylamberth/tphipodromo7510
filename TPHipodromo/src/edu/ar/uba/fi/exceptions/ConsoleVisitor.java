@@ -5,7 +5,7 @@ package edu.ar.uba.fi.exceptions;
  * @author Fernando E. Mansilla - 84567
  *
  */
-public class ConsoleVisitor implements VisitorException {
+public class ConsoleVisitor implements ExceptionVisitor {
 
 	@Override
 	public void visit(HipodromoException exception) {
