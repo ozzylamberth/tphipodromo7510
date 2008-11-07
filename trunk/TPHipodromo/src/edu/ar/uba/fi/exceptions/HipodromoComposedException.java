@@ -24,7 +24,7 @@ public class HipodromoComposedException extends HipodromoException {
 	}
 
 	@Override
-	public void visit(VisitorException visitor) {
+	public void visit(ExceptionVisitor visitor) {
 		Iterator<HipodromoException> it = excepciones.iterator();
 		while (it.hasNext()) {
 			it.next().visit(visitor);

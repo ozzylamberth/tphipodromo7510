@@ -14,7 +14,7 @@ public abstract class HipodromoException extends Exception {
 		this.importancia = importancia;
 	}
 
-	public void visit(VisitorException visitor){
+	public void visit(ExceptionVisitor visitor){
 		visitor.visit(this);
 	}
 	
