@@ -90,6 +90,7 @@ public class ApuestaDobleTest extends TestCase {
 
 	protected void simularCarrera(Carrera carreraSimulada, int[] ordenes)
 			throws HipodromoException {
+		carreraSimulada.abrirApuestas();
 		carreraSimulada.cerrarApuestas();
 		carreraSimulada.comenzar();
 
@@ -246,6 +247,9 @@ public class ApuestaDobleTest extends TestCase {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail("Error al liquidar.");
 		}
 
 		try {
@@ -267,6 +271,9 @@ public class ApuestaDobleTest extends TestCase {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail("Error al liquidar.");
 		}
 	}
 

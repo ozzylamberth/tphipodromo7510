@@ -74,7 +74,14 @@ public class CarreraTest extends TestCase {
 	}
 
 	public void testEstadosCarrera() {
+		assertEquals(carrera.getEstadoCarrera(),
+				EstadoCarrera.INSCRIPCION_PARTICIPANTES);
 
+		try {
+			carrera.abrirApuestas();
+		} catch (HipodromoException e) {
+			fail("Esta excepción no se debería haber lanzado");
+		}
 		assertEquals(carrera.getEstadoCarrera(),
 				EstadoCarrera.ABIERTA_A_APUESTAS);
 
@@ -143,6 +150,7 @@ public class CarreraTest extends TestCase {
 	public void testApostarACarreraCerradaAApuestas() {
 
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 		} catch (HipodromoException e) {
 			fail("Esta excepción no se debería haber lanzado");
@@ -167,6 +175,7 @@ public class CarreraTest extends TestCase {
 	public void testLiquidarApuestaCarreraNoFinalizada() {
 
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 		} catch (TransicionInvalidaEstadoCarreraException e) {
@@ -186,6 +195,9 @@ public class CarreraTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ApuestaVencidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
+			e.printStackTrace();
 		}
 	}
 
@@ -196,6 +208,7 @@ public class CarreraTest extends TestCase {
 			participante = new Participante(new Caballo(), new Jockey(),
 					carrera);
 			carrera.addParticipante(participante);
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			carrera.terminar();

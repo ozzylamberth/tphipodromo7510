@@ -2,9 +2,8 @@ package edu.ar.uba.fi.model.apuestas;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.Set;
 
-import edu.ar.uba.fi.model.Carrera;
+import edu.ar.uba.fi.exceptions.HipodromoException;
 
 public class BolsaApuestasConcreta extends BolsaApuestasAbstracta {
 
@@ -13,7 +12,7 @@ public class BolsaApuestasConcreta extends BolsaApuestasAbstracta {
 	public BolsaApuestasConcreta() {
 	}
 
-	public BigDecimal getDividendo() {
+	public BigDecimal getDividendo() throws HipodromoException {
 		BigDecimal totalApostado = new BigDecimal(0);
 		BigDecimal totalGanadores = new BigDecimal(0);
 		Iterator<Apuesta> it = this.apuestas.iterator();

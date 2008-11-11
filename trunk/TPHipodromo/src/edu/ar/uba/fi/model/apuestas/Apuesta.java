@@ -12,6 +12,8 @@ import edu.ar.uba.fi.exceptions.ApuestaVencidaException;
 import edu.ar.uba.fi.exceptions.CantidadParticipantesInvalidaException;
 import edu.ar.uba.fi.exceptions.CarreraCerradaAApuestasException;
 import edu.ar.uba.fi.exceptions.CarreraNoFinalizadaException;
+import edu.ar.uba.fi.exceptions.HipodromoComposedException;
+import edu.ar.uba.fi.exceptions.HipodromoException;
 import edu.ar.uba.fi.exceptions.ParticipantesEnDistintasCarrerasException;
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
@@ -60,28 +62,37 @@ public abstract class Apuesta {
 	/**
 	 * Verifica si la apuesta fue ganada. En el caso de que asi suceda, retorna
 	 * true, en caso contrario false
+	 * @throws HipodromoException 
 	 */
-	public boolean isAcertada() {
+	public boolean isAcertada() throws HipodromoException {
 		Iterator<Participante> it = this.getParticipantes().iterator();
+		HipodromoComposedException composedException = new HipodromoComposedException();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
 			try {
 				int ordenLLegada = participante.getResultado()
 						.getOrdenLlegada();
-
+//TODO comtemplar que si abandono para que no sea un error
 				if (!this.getPosiblesOrdenesLLegada().contains(
 						new Integer(ordenLLegada))) {
 					return false;
 				}
 			} catch (ResultadosCarreraInvalidosException e) {
-				System.out.println("invalidos!!!!");
-				return false;
+				composedException.add(e);
+				//				
+				// System.out.println("invalidos!!!!");
+				// return false;
 			}
 		}
-		return true;
+
+		if (composedException.hasExceptions()) {
+			throw composedException;
+		} else {
+			return true;
+		}
 	}
 
-	private BigDecimal calcularMontoAPagar() {
+	private BigDecimal calcularMontoAPagar() throws HipodromoException {
 		BigDecimal proporcion = this.getMontoApostado().divide(
 				this.getValorBase(), CANT_DECIMALES, BigDecimal.ROUND_HALF_UP);
 		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas()
@@ -94,9 +105,7 @@ public abstract class Apuesta {
 		}
 	}
 
-	public BigDecimal liquidar() throws CarreraNoFinalizadaException,
-			ApuestaPerdidaException, TransicionInvalidaEstadoApuestaException,
-			ApuestaVencidaException {
+	public BigDecimal liquidar() throws HipodromoException {
 		this.validarEstadoLiquidacion();
 		BigDecimal montoAPagar = this.calcularMontoAPagar();
 		this.cambiarEstado(EstadoApuesta.LIQUIDADA);
@@ -109,16 +118,16 @@ public abstract class Apuesta {
 
 	/**
 	 * Valida si esta en el estado correcto para liquidar
+	 * @throws HipodromoException 
 	 */
 	private void validarEstadoLiquidacion()
-			throws CarreraNoFinalizadaException, ApuestaPerdidaException,
-			ApuestaVencidaException, TransicionInvalidaEstadoApuestaException {
+			throws HipodromoException {
 		this.validarCarrerasFinalizadas();
 		this.validarApuestaGanada();
 		this.validarFechaVencimiento();
 	}
 
-	private void validarApuestaGanada() throws ApuestaPerdidaException {
+	private void validarApuestaGanada() throws HipodromoException {
 		if (!this.isAcertada()) {
 			throw new ApuestaPerdidaException();
 		}
@@ -202,17 +211,19 @@ public abstract class Apuesta {
 	public Collection<Participante> getParticipantes() {
 		return this.participantes;
 	}
-	
-	private void validarCantidadParticipantes(Collection<Participante> participantes)
+
+	private void validarCantidadParticipantes(
+			Collection<Participante> participantes)
 			throws CantidadParticipantesInvalidaException {
 		if (participantes.size() != this.getCantidadParticipantes()) {
 			throw new CantidadParticipantesInvalidaException();
 		}
 	}
-	
-	public void validarCarreraCerradaAApuestas(Collection<Participante> participantes)
+
+	public void validarCarreraCerradaAApuestas(
+			Collection<Participante> participantes)
 			throws CarreraCerradaAApuestasException {
-		for(Participante participante: participantes) {
+		for (Participante participante : participantes) {
 			if (participante.getCarrera().isCerradaAApuestas()) {
 				throw new CarreraCerradaAApuestasException();
 			}
@@ -220,8 +231,8 @@ public abstract class Apuesta {
 	}
 
 	public void setParticipantes(Collection<Participante> participantes)
-			throws CantidadParticipantesInvalidaException, 
-			CarreraCerradaAApuestasException, 
+			throws CantidadParticipantesInvalidaException,
+			CarreraCerradaAApuestasException,
 			ParticipantesEnDistintasCarrerasException {
 		this.validarCarreraCerradaAApuestas(participantes);
 		this.validarCantidadParticipantes(participantes);

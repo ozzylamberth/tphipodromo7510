@@ -123,6 +123,7 @@ public class ApuestaImperfectaTest extends TestCase {
 		resultados.add(new Resultado(3, 13));
 		
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -161,12 +162,16 @@ while (it.hasNext()) {
 	}
 	
 	public void testIsAcertada() {
+		try{
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[0].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[1].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[2].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[3].isAcertada());
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[4].isAcertada());
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[5].isAcertada());
+		}catch(HipodromoException e){
+			fail("ERROR");
+		}
 	}
 	
 	private BigDecimal getTotalApostado() {
@@ -240,6 +245,9 @@ while (it.hasNext()) {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar.");
+			e.printStackTrace();
 		}
 		
 		try {
@@ -259,6 +267,9 @@ while (it.hasNext()) {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail("Error al liquidar.");
 		}
 		
 	}
@@ -296,6 +307,9 @@ while (it.hasNext()) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (ApuestaVencidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail("Error al liquidar.");
 		}
 
 	}

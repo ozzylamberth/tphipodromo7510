@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.ar.uba.fi.exceptions.HipodromoException;
 import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.model.Carrera;
 
@@ -24,7 +25,7 @@ public abstract class BolsaApuestasAbstracta {
 	public BolsaApuestasAbstracta() {
 	}
 
-	public abstract BigDecimal getDividendo();
+	public abstract BigDecimal getDividendo() throws HipodromoException;
 	
 	public boolean correspondeACarreras(Set<Carrera> carreras) {
 		return carreras.equals(getCarreras());

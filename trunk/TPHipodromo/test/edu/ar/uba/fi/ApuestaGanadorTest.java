@@ -48,7 +48,7 @@ public class ApuestaGanadorTest extends TestCase {
 		carrera.addParticipante(participante);
 		apuestaGanador = ApuestaFactory.getInstance().crear(
 				ApuestaGanador.class, participante, new BigDecimal(10));
-
+		carrera.abrirApuestas();
 		carrera.cerrarApuestas();
 		carrera.comenzar();
 		// --Asignacion de resultados
@@ -74,7 +74,7 @@ public class ApuestaGanadorTest extends TestCase {
 		}
 	}
 
-	public void testIsAcertada() {
+	public void testIsAcertada() throws HipodromoException {
 		assertTrue(this.apuestaGanador.isAcertada());
 	}
 
@@ -96,6 +96,9 @@ public class ApuestaGanadorTest extends TestCase {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			e.printStackTrace();
+			fail("Error al liquidar.");
 		}
 		assertEquals(this.apuestaGanador.getEstadoApuesta(),
 				EstadoApuesta.LIQUIDADA);
@@ -116,7 +119,7 @@ public class ApuestaGanadorTest extends TestCase {
 
 			apuestaGanador = ApuestaFactory.getInstance().crear(
 					ApuestaGanador.class, participante, new BigDecimal(10));
-
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
