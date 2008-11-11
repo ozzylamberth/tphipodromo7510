@@ -224,8 +224,6 @@ public class ApuestaDobleTest extends TestCase {
 			fail("Fallï¿½ la Simulaciï¿½n de la carrera.");
 			e.printStackTrace();
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail(e.getMessage());
 		}
 
 		try {
@@ -272,8 +270,6 @@ public class ApuestaDobleTest extends TestCase {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail("Error al liquidar.");
 		}
 	}
 
@@ -320,8 +316,6 @@ public class ApuestaDobleTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail(e.getMessage());
 		}
 
 	}

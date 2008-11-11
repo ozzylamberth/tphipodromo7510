@@ -196,8 +196,6 @@ public class CarreraTest extends TestCase {
 		} catch (ApuestaVencidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			fail("Error al liquidar");
-			e.printStackTrace();
 		}
 	}
 

@@ -162,16 +162,12 @@ while (it.hasNext()) {
 	}
 	
 	public void testIsAcertada() {
-		try{
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[0].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[1].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[2].isAcertada());
 		assertTrue("isAcertada dio false para la primera apuesta acertada", apuesta[3].isAcertada());
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[4].isAcertada());
 		assertFalse("isAcertada dio true para la primera apuesta no acertada", apuesta[5].isAcertada());
-		}catch(HipodromoException e){
-			fail("ERROR");
-		}
 	}
 	
 	private BigDecimal getTotalApostado() {
@@ -268,8 +264,6 @@ while (it.hasNext()) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail("Error al liquidar.");
 		}
 		
 	}
@@ -308,8 +302,6 @@ while (it.hasNext()) {
 		} catch (ApuestaVencidaException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail("Error al liquidar.");
 		}
 
 	}

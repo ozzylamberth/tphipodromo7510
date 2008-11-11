@@ -159,8 +159,6 @@ public class ApuestaGanadorTest extends TestCase {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
 
-			e.printStackTrace();
-			fail("Esta excepción no se debería haber lanzado");
 		}
 
 	}
