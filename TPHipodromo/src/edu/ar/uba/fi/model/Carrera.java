@@ -36,11 +36,61 @@ public class Carrera {
 
 	public Carrera(ReglamentoCarrera reglamentoParticipantes) {
 		this.reglamentoParticipantes = reglamentoParticipantes;
-		setEstadoCarrera(EstadoCarrera.ABIERTA_A_APUESTAS);
+		setEstadoCarrera(EstadoCarrera.INSCRIPCION_PARTICIPANTES);
 	}
 
 	// Cambios de estado
 	// ------------------------------------------
+	/**
+	 * Cierra la etapa de inscripción de participantes y comienza la toma de
+	 * apuestas.<br>
+	 * <p>
+	 * <b>Se controla que:</b>
+	 * <ul>
+	 * <li>Se cumpla con la cantidad minima y máxima de participantes
+	 * habilitados para correr (Que están en estado PENDIENTE_LARGADA)</li>
+	 * <li>La carrera este en un estado que permita Iniciar la toma de
+	 * Apuestas.</li>
+	 * </ul>
+	 * </p>
+	 * <p>
+	 * <b>Post Condiciones:</b>
+	 * <ul>
+	 * <li> Se cambia el estado de la carrera a ABIERTA_A_APUESTAS.</li>
+	 * </ul>
+	 * </p>
+	 * 
+	 * @throws HipodromoException
+	 */
+	public void abrirApuestas() throws HipodromoException {
+
+		HipodromoComposedException exception = new HipodromoComposedException();
+		Iterator<Participante> it = participantes.iterator();
+		int conteoParticipantesHabilitados = 0;
+
+		while (it.hasNext()) {
+			Participante participante = it.next();
+			if (participante.getEstado().equals(
+					EstadoParticipante.LARGADA_PENDIENTE)) {
+				conteoParticipantesHabilitados++;
+			}
+		}
+		if (conteoParticipantesHabilitados < reglamentoParticipantes
+				.getCantidadParticipantesMinima()
+				|| conteoParticipantesHabilitados > reglamentoParticipantes
+						.getCantidadParticipantesMaxima()) {
+			exception.add(new CantidadParticipantesInvalidaException());
+		}
+		try {
+			cambiarEstado(EstadoCarrera.ABIERTA_A_APUESTAS);
+		} catch (TransicionInvalidaEstadoCarreraException e) {
+			exception.add(e);
+		}
+		if (exception.hasExceptions()) {
+			throw exception;
+		}
+	}
+
 	/**
 	 * Cierra la etapa de recepcion de apuestas para la carrera. <br>
 	 * <p>
@@ -48,8 +98,7 @@ public class Carrera {
 	 * <ul>
 	 * <li>Se cumpla con la cantidad minima y máxima de participantes
 	 * habilitados para correr (Que están en estado PENDIENTE_LARGADA)</li>
-	 * <li>La carrera este en un estado que permita dar Cerrar la toma de
-	 * Apuestas.</li>
+	 * <li>La carrera este en un estado que permita Cerrar la toma de Apuestas.</li>
 	 * </ul>
 	 * </p>
 	 * <p>
@@ -61,8 +110,7 @@ public class Carrera {
 	 * 
 	 * @throws HipodromoException
 	 */
-	public void cerrarApuestas()
-			throws TransicionInvalidaEstadoCarreraException, HipodromoException {
+	public void cerrarApuestas() throws HipodromoException {
 
 		HipodromoComposedException exception = new HipodromoComposedException();
 		Iterator<Participante> it = participantes.iterator();
@@ -365,7 +413,7 @@ public class Carrera {
 			throw new ParticipanteNoCalificadoException();
 		}
 
-		if (!this.estadoCarrera.equals(EstadoCarrera.ABIERTA_A_APUESTAS)
+		if (!this.estadoCarrera.equals(EstadoCarrera.INSCRIPCION_PARTICIPANTES)
 				|| participantes.size() > reglamentoParticipantes
 						.getCantidadParticipantesMaxima()) {
 			throw new InscripcionCarreraCerradaException();

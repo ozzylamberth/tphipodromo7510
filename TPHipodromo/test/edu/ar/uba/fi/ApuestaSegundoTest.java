@@ -104,6 +104,7 @@ public class ApuestaSegundoTest extends TestCase {
 				resultado.setOrdenLlegada(i++);
 				listaResultados = new LinkedList<Resultado>();
 				listaResultados.add(resultado);
+				carrera.abrirApuestas();
 				carrera.cerrarApuestas();
 				carrera.comenzar();
 				// --Asignacion de resultados
@@ -115,6 +116,9 @@ public class ApuestaSegundoTest extends TestCase {
 				carrera.terminar();
 				aprobarResultados(carrera);
 				carrera.aprobarResultados();
+				
+				assertTrue(apuestaSegundoGanada.isAcertada());
+				
 			} catch (ResultadosCarreraInvalidosException e) {
 				fail("Los resultados de la carrera no son vï¿½lidos");
 				e.printStackTrace();
@@ -125,7 +129,7 @@ public class ApuestaSegundoTest extends TestCase {
 				e.printStackTrace();
 				fail("El Estado de la carrera no es válido");
 			}
-			assertTrue(apuestaSegundoGanada.isAcertada());
+			
 		}
 	}
 
@@ -142,6 +146,7 @@ public class ApuestaSegundoTest extends TestCase {
 			resultado.setOrdenLlegada(5);
 			listaResultados = new LinkedList<Resultado>();
 			listaResultados.add(resultado);
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -153,6 +158,8 @@ public class ApuestaSegundoTest extends TestCase {
 			carrera.terminar();
 			aprobarResultados(carrera);
 			carrera.aprobarResultados();
+			
+			assertFalse(this.apuestaSegundoPerdida.isAcertada());
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Los resultados de la carrera no son vï¿½lidos");
 			e.printStackTrace();
@@ -164,7 +171,7 @@ public class ApuestaSegundoTest extends TestCase {
 			e.printStackTrace();
 			fail("El Estado de la carrera no es vï¿½lido");
 		}
-		assertFalse(this.apuestaSegundoPerdida.isAcertada());
+		
 	}
 
 	public void testLiquidarSiEsPrimero() {
@@ -174,6 +181,7 @@ public class ApuestaSegundoTest extends TestCase {
 		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -211,6 +219,9 @@ public class ApuestaSegundoTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaSegundoGanada.getEstadoApuesta(),
@@ -224,6 +235,7 @@ public class ApuestaSegundoTest extends TestCase {
 		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -261,6 +273,9 @@ public class ApuestaSegundoTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaSegundoGanada.getEstadoApuesta(),
@@ -286,7 +301,7 @@ public class ApuestaSegundoTest extends TestCase {
 			
 			Apuesta apuestaSegundoPerdida = ApuestaFactory.getInstance().crear(
 					ApuestaSegundo.class, participante, new BigDecimal(40));
-			
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados

@@ -101,6 +101,7 @@ public class ApuestaTerceroTest extends TestCase {
 				resultado.setOrdenLlegada(i++);
 				List<Resultado> listaResultados = new LinkedList<Resultado>();
 				listaResultados.add(resultado);
+				carrera.abrirApuestas();
 				carrera.cerrarApuestas();
 				carrera.comenzar();
 				// --Asignacion de resultados
@@ -112,6 +113,8 @@ public class ApuestaTerceroTest extends TestCase {
 				carrera.terminar();
 				aprobarResultados(carrera);
 				carrera.aprobarResultados();
+				assertTrue(apuestaTerceraGanada.isAcertada());
+
 			} catch (ResultadosCarreraInvalidosException e) {
 				fail("Los resultados de la carrera no son v�lidos");
 				e.printStackTrace();
@@ -122,21 +125,23 @@ public class ApuestaTerceroTest extends TestCase {
 				e.printStackTrace();
 				fail("El Estado de la carrera no es v�lido");
 			}
-			assertTrue(apuestaTerceraGanada.isAcertada());
+
 		}
 	}
 
 	public void testIsNotAcertada() throws ParticipanteNoCalificadoException {
 
 		try {
-			
+
 			carrera = new Carrera(new ReglamentoValeTodo());
-			Participante participante =  new Participante(caballo, jockey, carrera);
+			Participante participante = new Participante(caballo, jockey,
+					carrera);
 			carrera.addParticipante(participante);
 			Resultado resultado = new Resultado();
 			resultado.setOrdenLlegada(4);
 			List<Resultado> listaResultados = new LinkedList<Resultado>();
 			listaResultados.add(resultado);
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -148,6 +153,9 @@ public class ApuestaTerceroTest extends TestCase {
 			carrera.terminar();
 			aprobarResultados(carrera);
 			carrera.aprobarResultados();
+
+			assertFalse(this.apuestaTerceraPerdida.isAcertada());
+
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Los resultados de la carrera no son v�lidos");
 			e.printStackTrace();
@@ -158,7 +166,7 @@ public class ApuestaTerceroTest extends TestCase {
 			e.printStackTrace();
 			fail("El Estado de la carrera no es v�lido");
 		}
-		assertFalse(this.apuestaTerceraPerdida.isAcertada());
+
 	}
 
 	public void testLiquidarSiEsPrimero() {
@@ -168,6 +176,7 @@ public class ApuestaTerceroTest extends TestCase {
 		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -205,6 +214,9 @@ public class ApuestaTerceroTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaTerceraGanada.getEstadoApuesta(),
@@ -218,6 +230,7 @@ public class ApuestaTerceroTest extends TestCase {
 		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -255,6 +268,9 @@ public class ApuestaTerceroTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaTerceraGanada.getEstadoApuesta(),
@@ -268,6 +284,7 @@ public class ApuestaTerceroTest extends TestCase {
 		List<Resultado> listaResultados = new LinkedList<Resultado>();
 		listaResultados.add(resultado);
 		try {
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 			carrera.comenzar();
 			// --Asignacion de resultados
@@ -305,6 +322,9 @@ public class ApuestaTerceroTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta esta vencida");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 		assertEquals(this.apuestaTerceraGanada.getEstadoApuesta(),
@@ -320,15 +340,17 @@ public class ApuestaTerceroTest extends TestCase {
 			Resultado resultado;
 
 			carrera = new Carrera(new ReglamentoValeTodo());
-			Participante participante =  new Participante(caballo, jockey, carrera);
+			Participante participante = new Participante(caballo, jockey,
+					carrera);
 			carrera.addParticipante(participante);
 			resultado = new Resultado();
 			resultado.setOrdenLlegada(5);
 			listaResultados = new LinkedList<Resultado>();
 			listaResultados.add(resultado);
 			Apuesta apuestaTerceraPerdida = ApuestaFactory.getInstance().crear(
-					ApuestaTercero.class, participante, new BigDecimal(30));			
+					ApuestaTercero.class, participante, new BigDecimal(30));
 
+			carrera.abrirApuestas();
 			carrera.cerrarApuestas();
 
 			carrera.comenzar();

@@ -66,6 +66,7 @@ while (it.hasNext()) {
 }
 
 	protected void simularCarrera(int[] ordenes) throws HipodromoException{
+		carrera.abrirApuestas();
 		carrera.cerrarApuestas();
 		carrera.comenzar();	
 		

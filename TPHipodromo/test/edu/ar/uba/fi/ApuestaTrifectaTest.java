@@ -87,6 +87,7 @@ public class ApuestaTrifectaTest extends TestCase {
 	}
 
 	protected void simularCarrera(int[] ordenes) throws HipodromoException {
+		carrera.abrirApuestas();
 		carrera.cerrarApuestas();
 		carrera.comenzar();
 
@@ -208,6 +209,9 @@ public class ApuestaTrifectaTest extends TestCase {
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
+			e.printStackTrace();
 		}
 
 		try {
@@ -229,6 +233,9 @@ public class ApuestaTrifectaTest extends TestCase {
 			e.printStackTrace();
 		} catch (ApuestaVencidaException e) {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
+			e.printStackTrace();
+		} catch (HipodromoException e) {
+			fail("Error al liquidar");
 			e.printStackTrace();
 		}
 	}
