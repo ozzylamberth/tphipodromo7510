@@ -284,9 +284,6 @@ public class ApuestaSegundoTest extends TestCase {
 
 	public void testApuestaPerdidaException()
 			throws ParticipanteNoCalificadoException {
-
-
-
 		try {
 			List<Resultado> listaResultados;
 			Resultado resultado;
@@ -330,8 +327,6 @@ public class ApuestaSegundoTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail("Esta excepción no se debería haber lanzado");
 		}
 
 	}

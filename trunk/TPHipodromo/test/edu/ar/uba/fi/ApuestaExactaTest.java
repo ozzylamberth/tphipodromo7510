@@ -199,8 +199,6 @@ while (it.hasNext()) {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
 		}
 
 	}

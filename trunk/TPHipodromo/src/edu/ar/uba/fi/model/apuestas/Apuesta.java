@@ -49,62 +49,48 @@ public abstract class Apuesta {
 	public abstract BigDecimal getValorBase();
 
 	/**
-	 * Retorna la cantidad de participantes permitidas para el tipo de apuesta
+	 * @return Cantidad de participantes permitidas para el tipo de Apuesta.
 	 */
 	public abstract int getCantidadParticipantes();
 
 	/**
-	 * Retorna las posiciones en las cuales deben salir los participantes para
-	 * que la apuesta se considere como ganada
+	 * @return Posiciones en las cuales deben salir los participantes para que
+	 *         la apuesta se considere como ganada.
 	 */
 	public abstract List<Integer> getPosiblesOrdenesLLegada();
 
 	/**
-	 * Verifica si la apuesta fue ganada. En el caso de que asi suceda, retorna
-	 * true, en caso contrario false
-	 * @throws HipodromoException 
+	 * Verifica si la apuesta fue ganada.
+	 * 
+	 * @return true si la Apuesta esta acertada, false en caso contrario.
 	 */
-	public boolean isAcertada() throws HipodromoException {
+	public boolean isAcertada() {
 		Iterator<Participante> it = this.getParticipantes().iterator();
-		HipodromoComposedException composedException = new HipodromoComposedException();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
 			try {
+
 				int ordenLLegada = participante.getResultado()
 						.getOrdenLlegada();
-//TODO comtemplar que si abandono para que no sea un error
 				if (!this.getPosiblesOrdenesLLegada().contains(
 						new Integer(ordenLLegada))) {
 					return false;
 				}
 			} catch (ResultadosCarreraInvalidosException e) {
-				composedException.add(e);
-				//				
-				// System.out.println("invalidos!!!!");
-				// return false;
+				System.out.println("invalidos!!!!");
+				return false;
 			}
 		}
 
-		if (composedException.hasExceptions()) {
-			throw composedException;
-		} else {
-			return true;
-		}
+		return true;
 	}
 
-	private BigDecimal calcularMontoAPagar() throws HipodromoException {
-		BigDecimal proporcion = this.getMontoApostado().divide(
-				this.getValorBase(), CANT_DECIMALES, BigDecimal.ROUND_HALF_UP);
-		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas()
-				.getDividendo());
-		// si el monto a pagar es menor al monto apostado
-		if (this.getMontoApostado().compareTo(montoAPagar) > 0) {
-			return this.getMontoApostado();
-		} else {
-			return montoAPagar;
-		}
-	}
-
+	/**
+	 * @return Monto a pagar por la apuesta Ganada.
+	 * @throws HipodromoException
+	 *             Lanzada en caso de que no se pueda realizar la liquidación o
+	 *             bien no se pueda realizar el cambio de estado de la apuesta.
+	 */
 	public BigDecimal liquidar() throws HipodromoException {
 		this.validarEstadoLiquidacion();
 		BigDecimal montoAPagar = this.calcularMontoAPagar();
@@ -112,68 +98,20 @@ public abstract class Apuesta {
 		return montoAPagar;
 	}
 
+	/**
+	 * Cambia el estado de la apuesta a pagada.
+	 * 
+	 * @throws TransicionInvalidaEstadoApuestaException
+	 */
 	public void pagar() throws TransicionInvalidaEstadoApuestaException {
 		this.cambiarEstado(EstadoApuesta.PAGADA);
 	}
 
 	/**
-	 * Valida si esta en el estado correcto para liquidar
-	 * @throws HipodromoException 
+	 * @return true si la Apuesta ya fue pagada, false en caso contrario.
 	 */
-	private void validarEstadoLiquidacion()
-			throws HipodromoException {
-		this.validarCarrerasFinalizadas();
-		this.validarApuestaGanada();
-		this.validarFechaVencimiento();
-	}
-
-	private void validarApuestaGanada() throws HipodromoException {
-		if (!this.isAcertada()) {
-			throw new ApuestaPerdidaException();
-		}
-	}
-
-	/**
-	 * Valida que todas las carreras correspondientes a los participantes se
-	 * encuentren finalizadas
-	 */
-	private void validarCarrerasFinalizadas()
-			throws CarreraNoFinalizadaException {
-		Iterator<Participante> it = this.getParticipantes().iterator();
-		while (it.hasNext()) {
-			Participante participante = (Participante) it.next();
-			if (!participante.getCarrera().isFinalizada()) {
-				throw new CarreraNoFinalizadaException();
-			}
-		}
-	}
-
-	private void validarFechaVencimiento() throws ApuestaVencidaException,
-			TransicionInvalidaEstadoApuestaException {
-		long milisegundos = new Date().getTime()
-				- this.getFechaCreacion().getTime();
-		long dias = milisegundos / (1000 * 60 * 60 * 24);
-		if (dias > this.getDiasPlazoMaxDeCobro()) {
-			this.cambiarEstado(EstadoApuesta.VENCIDA);
-			throw new ApuestaVencidaException();
-		}
-	}
-
 	public boolean isPagada() {
 		return (EstadoApuesta.PAGADA.equals(this.getEstadoApuesta()));
-	}
-
-	/**
-	 * @param nuevoEstado
-	 * @throws TransicionInvalidaEstadoApuestaException
-	 */
-	private void cambiarEstado(EstadoApuesta nuevoEstado)
-			throws TransicionInvalidaEstadoApuestaException {
-		if (this.estadoApuesta.esSiguienteEstadoValido(nuevoEstado)) {
-			setEstadoApuesta(nuevoEstado);
-		} else {
-			throw new TransicionInvalidaEstadoApuestaException();
-		}
 	}
 
 	public BolsaApuestasAbstracta getBolsaApuestas() {
@@ -212,14 +150,6 @@ public abstract class Apuesta {
 		return this.participantes;
 	}
 
-	private void validarCantidadParticipantes(
-			Collection<Participante> participantes)
-			throws CantidadParticipantesInvalidaException {
-		if (participantes.size() != this.getCantidadParticipantes()) {
-			throw new CantidadParticipantesInvalidaException();
-		}
-	}
-
 	public void validarCarreraCerradaAApuestas(
 			Collection<Participante> participantes)
 			throws CarreraCerradaAApuestasException {
@@ -247,16 +177,118 @@ public abstract class Apuesta {
 		return this.fechaCreacion;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
 	public int getDiasPlazoMaxDeCobro() {
 		return this.diasPlazoMaxDeCobro;
 	}
 
 	public void setDiasPlazoMaxDeCobro(int diasPlazoMaxDeCobro) {
 		this.diasPlazoMaxDeCobro = diasPlazoMaxDeCobro;
+	}
+
+	protected void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	// -----------------------------------------------------------------------------
+	/**
+	 * @return Monto a pagar por la Apuesta, suponiendo que es Ganadora. Si
+	 *         valor calculado es menor al apostado, se paga el último.
+	 * @throws HipodromoException
+	 */
+	private BigDecimal calcularMontoAPagar() throws HipodromoException {
+		BigDecimal proporcion = this.getMontoApostado().divide(
+				this.getValorBase(), CANT_DECIMALES, BigDecimal.ROUND_HALF_UP);
+		BigDecimal montoAPagar = proporcion.multiply(this.getBolsaApuestas()
+				.getDividendo());
+
+		if (this.getMontoApostado().compareTo(montoAPagar) > 0) {
+			return this.getMontoApostado();
+		} else {
+			return montoAPagar;
+		}
+	}
+
+	/**
+	 * Valida si esta en el estado correcto para liquidar
+	 * 
+	 * @throws HipodromoException
+	 *             Errores que impiden la liquidación.
+	 */
+	private void validarEstadoLiquidacion() throws HipodromoException {
+
+		HipodromoComposedException composedException = new HipodromoComposedException();
+		try {
+			this.validarCarrerasFinalizadas();
+		} catch (HipodromoException ex) {
+			composedException.add(ex);
+		}
+		try {
+			this.validarApuestaGanada();
+		} catch (HipodromoException ex) {
+			composedException.add(ex);
+		}
+		try {
+			this.validarFechaVencimiento();
+		} catch (HipodromoException ex) {
+			composedException.add(ex);
+		}
+
+		if (composedException.hasExceptions()) {
+			throw composedException;
+		}
+	}
+
+	private void validarApuestaGanada() throws HipodromoException {
+		if (!this.isAcertada()) {
+			throw new ApuestaPerdidaException();
+		}
+	}
+
+	/**
+	 * Valida que todas las carreras correspondientes a los participantes se
+	 * encuentren finalizadas
+	 */
+	private void validarCarrerasFinalizadas()
+			throws CarreraNoFinalizadaException {
+		Iterator<Participante> it = this.getParticipantes().iterator();
+		while (it.hasNext()) {
+			Participante participante = (Participante) it.next();
+			if (!participante.getCarrera().isFinalizada()) {
+				throw new CarreraNoFinalizadaException();
+			}
+		}
+	}
+
+	private void validarFechaVencimiento() throws ApuestaVencidaException,
+			TransicionInvalidaEstadoApuestaException {
+		long milisegundos = new Date().getTime()
+				- this.getFechaCreacion().getTime();
+		long dias = milisegundos / (1000 * 60 * 60 * 24);
+		if (dias > this.getDiasPlazoMaxDeCobro()) {
+			this.cambiarEstado(EstadoApuesta.VENCIDA);
+			throw new ApuestaVencidaException();
+		}
+	}
+
+	/**
+	 * @param nuevoEstado
+	 * @throws TransicionInvalidaEstadoApuestaException
+	 */
+	private void cambiarEstado(EstadoApuesta nuevoEstado)
+			throws TransicionInvalidaEstadoApuestaException {
+		if (this.estadoApuesta.esSiguienteEstadoValido(nuevoEstado)) {
+			setEstadoApuesta(nuevoEstado);
+		} else {
+			throw new TransicionInvalidaEstadoApuestaException();
+		}
+	}
+
+	private void validarCantidadParticipantes(
+			Collection<Participante> participantes)
+			throws CantidadParticipantesInvalidaException {
+		if (participantes.size() != this.getCantidadParticipantes()) {
+			throw new CantidadParticipantesInvalidaException();
+		}
 	}
 
 }

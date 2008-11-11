@@ -280,8 +280,6 @@ public class ApuestaTriploTest extends TestCase {
 			fail("La apuesta estaba vencida cuando se la quizo liquidar.");
 			e.printStackTrace();
 		} catch (HipodromoException e) {
-			fail("Error al liquidar");
-			e.printStackTrace();
 		}
 	}
 
@@ -329,8 +327,6 @@ public class ApuestaTriploTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail(e.getMessage());
 		}
 
 	}

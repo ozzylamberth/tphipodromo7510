@@ -378,8 +378,6 @@ public class ApuestaTerceroTest extends TestCase {
 		} catch (ResultadosCarreraInvalidosException e) {
 			fail("Esta excepción no se debería haber lanzado");
 		} catch (HipodromoException e) {
-			e.printStackTrace();
-			fail("Esta excepción no se debería haber lanzado");
 		}
 
 	}
