@@ -20,7 +20,8 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoApuestaException;
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Representa la logica general de los distintos tipos de apuestas
+ * Clase que encapsula la información de las apuestas y la lógica general de las
+ * mismas.
  * 
  * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
  *          controlar los cambios de estados se la pasé al enumerado

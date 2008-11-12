@@ -20,8 +20,11 @@ import edu.ar.uba.fi.model.ConfiguracionManager;
 import edu.ar.uba.fi.model.Participante;
 
 /**
- * Se encarga de la creacion de los distintos tipos de apuestas. Antes de
- * retornar una Apuesta, le asigna su correspondiente Bolsa de Apuestas
+ * Es la clase encargada de crear las apuestas a partir de un listado de
+ * participantes y el tipo de apuesta. Utiliza la BolsaApuestaManager, para
+ * crear una Bolsa de Apuestas para este tipo de apuesta y carrera. Mediante el
+ * ConfiguracionManager se determina si la creación de la apuesta es factible
+ * para la configuración de carreras dada.
  * 
  * @author ncampos
  * @author jgrande
@@ -85,7 +88,8 @@ public class ApuestaFactory {
 				apuesta.setMontoApostado(montoApostado);
 
 				BolsaApuestasAbstracta bolsaApuestas = BolsasApuestasManager
-						.getInstance().getBolsaApuestas(clazz, carreras, configuracion);
+						.getInstance().getBolsaApuestas(clazz, carreras,
+								configuracion);
 				bolsaApuestas.addApuesta(apuesta);
 
 				return apuesta;

@@ -1,15 +1,16 @@
 package edu.ar.uba.fi.model.apuestas;
 
-
 /**
+ * Enumerado en donde se definen los estados posibles de una apuesta y las
+ * reglas que rigen las secuencias de transiciones.
+ * 
  * @author Fernando E. Mansilla - 84567
  */
 public enum EstadoApuesta {
 
-	VENCIDA(new EstadoApuesta[] {}), 
-	PAGADA(new EstadoApuesta[] {}), 
-	LIQUIDADA(new EstadoApuesta[] { PAGADA, VENCIDA }),
-	CREADA(new EstadoApuesta[] { LIQUIDADA, VENCIDA });
+	VENCIDA(new EstadoApuesta[] {}), PAGADA(new EstadoApuesta[] {}), LIQUIDADA(
+			new EstadoApuesta[] { PAGADA, VENCIDA }), CREADA(
+			new EstadoApuesta[] { LIQUIDADA, VENCIDA });
 
 	private EstadoApuesta[] estadosValidos;
 

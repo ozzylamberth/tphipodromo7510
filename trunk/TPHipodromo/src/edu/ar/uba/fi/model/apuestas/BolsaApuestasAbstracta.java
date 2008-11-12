@@ -10,8 +10,12 @@ import edu.ar.uba.fi.exceptions.TipoApuestaInvalidoException;
 import edu.ar.uba.fi.model.Carrera;
 
 /**
- * Contiene todas las apuestas del mismo tipo que se realizaron sobre una
- * carrera o conjunto de carreras
+ * Una Bolsa de Apuestas contiene todas las apuestas del mismo tipo que se realizaron sobre una
+ * carrera o conjunto de carreras. Es una clase abstracta que define la interfaz
+ * de las BolsaApuestas y su funcionalidad básica.Permite que se pueda cambiar la forma de calcular los
+ * dividendos simplemente heredando de ella y redefiniendo el método en cada
+ * clase. Es utilizada por la Clase BolsaApuestasManager para crear las
+ * distintas Bolsas de apuestas según el tipo de apuesta.
  */
 public abstract class BolsaApuestasAbstracta {
 	public static final int DECIMALES = 2;

@@ -6,6 +6,8 @@ import java.util.Iterator;
 import edu.ar.uba.fi.exceptions.HipodromoException;
 
 /**
+ * Implementación de una Bolsa de Apuestas con un algoritmo de cálculo de
+ * dividendos particular.
  * 
  * @author Fernando E. Mansilla - 84567
  */
