@@ -16,17 +16,19 @@ import edu.ar.uba.fi.model.Carrera;
 public abstract class BolsaApuestasAbstracta {
 	public static final int DECIMALES = 2;
 	public static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
-	
+
 	protected Class<? extends Apuesta> tipoApuestas;
 	protected Set<Carrera> carreras = new HashSet<Carrera>();
 	protected Set<Apuesta> apuestas = new HashSet<Apuesta>();
 	protected BigDecimal porcentajeComisionHipodromo;
+	protected BigDecimal incrementoPozo;
+	protected BigDecimal pozoMinimo;
 
 	public BolsaApuestasAbstracta() {
 	}
 
 	public abstract BigDecimal getDividendo() throws HipodromoException;
-	
+
 	public boolean correspondeACarreras(Set<Carrera> carreras) {
 		return carreras.equals(getCarreras());
 	}
@@ -35,7 +37,8 @@ public abstract class BolsaApuestasAbstracta {
 		return tipoApuestas;
 	}
 
-	protected void setTipoBolsaApuestas(Class<? extends Apuesta> tipoBolsaApuestas) {
+	protected void setTipoBolsaApuestas(
+			Class<? extends Apuesta> tipoBolsaApuestas) {
 		this.tipoApuestas = tipoBolsaApuestas;
 	}
 
@@ -55,11 +58,16 @@ public abstract class BolsaApuestasAbstracta {
 		this.apuestas = apuestas;
 	}
 
+	/**
+	 * 
+	 * @param apuesta
+	 * @throws TipoApuestaInvalidoException
+	 */
 	public void addApuesta(Apuesta apuesta) throws TipoApuestaInvalidoException {
-		if(apuesta.getClass().equals(tipoApuestas)){
+		if (apuesta.getClass().equals(tipoApuestas)) {
 			apuesta.setBolsaApuestas(this);
 			this.apuestas.add(apuesta);
-		}else{
+		} else {
 			throw new TipoApuestaInvalidoException();
 		}
 
@@ -73,5 +81,21 @@ public abstract class BolsaApuestasAbstracta {
 			BigDecimal porcentajeComisionHipodromo) {
 		this.porcentajeComisionHipodromo = porcentajeComisionHipodromo;
 	}
-	
+
+	public void setPozoMinimo(BigDecimal pozoMinimo) {
+		this.pozoMinimo = pozoMinimo;
+	}
+
+	public void setIncrementoPozo(BigDecimal incrementoPozo) {
+		this.incrementoPozo = incrementoPozo;
+	}
+
+	public BigDecimal getIncrementoPozo() {
+		return incrementoPozo;
+	}
+
+	public BigDecimal getPozoMinimo() {
+		return pozoMinimo;
+	}
+
 }

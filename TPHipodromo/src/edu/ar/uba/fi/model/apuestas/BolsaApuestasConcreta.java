@@ -5,15 +5,22 @@ import java.util.Iterator;
 
 import edu.ar.uba.fi.exceptions.HipodromoException;
 
+/**
+ * 
+ * @author Fernando E. Mansilla - 84567
+ */
 public class BolsaApuestasConcreta extends BolsaApuestasAbstracta {
 
-
-	
 	public BolsaApuestasConcreta() {
 	}
 
+	/**
+	 * @return Valor del dividendo. Se tiene en cuenta el pozo mínimo y el
+	 *         incremento.
+	 * @throws HipodromoException
+	 */
 	public BigDecimal getDividendo() throws HipodromoException {
-		BigDecimal totalApostado = new BigDecimal(0);
+		BigDecimal totalApostado = getIncrementoPozo();
 		BigDecimal totalGanadores = new BigDecimal(0);
 		Iterator<Apuesta> it = this.apuestas.iterator();
 		while (it.hasNext()) {
@@ -23,9 +30,16 @@ public class BolsaApuestasConcreta extends BolsaApuestasAbstracta {
 				totalGanadores = totalGanadores.add(apuesta.getMontoApostado());
 			}
 		}
-		BigDecimal porcentajeARepartir = new BigDecimal(1).subtract(this.getPorcentajeComisionHipodromo());
+
+		if (totalApostado.compareTo(getPozoMinimo()) < 0) {
+			totalApostado = getPozoMinimo();
+		}
+
+		BigDecimal porcentajeARepartir = new BigDecimal(1).subtract(this
+				.getPorcentajeComisionHipodromo());
 		BigDecimal totalARepartir = totalApostado.multiply(porcentajeARepartir);
-		BigDecimal dividendo = totalARepartir.divide(totalGanadores, DECIMALES, ROUNDING_MODE);
+		BigDecimal dividendo = totalARepartir.divide(totalGanadores, DECIMALES,
+				ROUNDING_MODE);
 		// si el dividendo de menor que uno, se retorna 1
 		if (new BigDecimal(1).compareTo(dividendo) > 0) {
 			return new BigDecimal(1);

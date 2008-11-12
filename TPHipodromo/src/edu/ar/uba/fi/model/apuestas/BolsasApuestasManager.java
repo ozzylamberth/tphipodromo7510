@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import edu.ar.uba.fi.model.Carrera;
+import edu.ar.uba.fi.model.Configuracion;
 
 /**
  * Se encarga de manejar todas las bolsas de apuestas, organizandolas por tipo
@@ -48,7 +49,8 @@ public class BolsasApuestasManager {
 	 * bolsa de apuestas para retornar
 	 */
 	public BolsaApuestasAbstracta getBolsaApuestas(
-			Class<? extends Apuesta> tipoApuestas, Set<Carrera> carreras) {
+			Class<? extends Apuesta> tipoApuestas, Set<Carrera> carreras,
+			Configuracion configuración) {
 		Map<Set<Carrera>, BolsaApuestasAbstracta> bolsasPorCarrera = bolsasApuestas
 				.get(tipoApuestas);
 
@@ -60,16 +62,25 @@ public class BolsasApuestasManager {
 		BolsaApuestasAbstracta bolsa = bolsasPorCarrera.get(carreras);
 
 		if (bolsa == null) {
-			
-			
+
 			try {
 				Class<? extends BolsaApuestasAbstracta> tipoBolsaSegunTipoApuesta = getTipoBolsaSegunTipoApuesta(tipoApuestas);
-				Constructor<?> constructor = tipoBolsaSegunTipoApuesta.getConstructor();
+				Constructor<?> constructor = tipoBolsaSegunTipoApuesta
+						.getConstructor();
 				bolsa = (BolsaApuestasAbstracta) constructor.newInstance();
 
 				bolsa.setTipoBolsaApuestas(tipoApuestas);
 				bolsa.setCarreras(carreras);
-				bolsa.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
+				bolsa
+						.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
+
+				if (configuración != null) {
+					bolsa.setIncrementoPozo(configuración.getIncrementoPozo());
+					bolsa.setPozoMinimo(configuración.getPozoMinimo());
+				} else {
+					bolsa.setIncrementoPozo(BigDecimal.ZERO);
+					bolsa.setPozoMinimo(BigDecimal.ZERO);
+				}
 
 				bolsasPorCarrera.put(carreras, bolsa);
 			} catch (IllegalArgumentException e) {
@@ -102,23 +113,25 @@ public class BolsasApuestasManager {
 	@SuppressWarnings("unchecked")
 	public Class<? extends BolsaApuestasAbstracta> getTipoBolsaSegunTipoApuesta(
 			Class<? extends Apuesta> tipoApuesta) throws ClassNotFoundException {
-		
-		String className = (String) properties.get(tipoApuesta.getCanonicalName());
-		System.out.println("1) "+className);
+
+		String className = (String) properties.get(tipoApuesta
+				.getCanonicalName());
+		System.out.println("1) " + className);
 		if (className == null) {
 			try {
 				properties.load(new FileInputStream(
 						"TipoBolsaXTipoApuesta.properties"));
-				className = (String) properties
-						.get(tipoApuesta.getCanonicalName());
-				System.out.println("2) "+className);
+				className = (String) properties.get(tipoApuesta
+						.getCanonicalName());
+				System.out.println("2) " + className);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
 		if (className != null) {
-			return  (Class<? extends BolsaApuestasAbstracta>) ClassLoader.getSystemClassLoader().loadClass(className);
+			return (Class<? extends BolsaApuestasAbstracta>) ClassLoader
+					.getSystemClassLoader().loadClass(className);
 		}
 		return null;
 
