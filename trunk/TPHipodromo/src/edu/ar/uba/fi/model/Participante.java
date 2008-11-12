@@ -1,16 +1,17 @@
 package edu.ar.uba.fi.model;
 
-import java.math.BigDecimal;
-
 import edu.ar.uba.fi.exceptions.ResultadosCarreraInvalidosException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 
 /**
+ * 
+ * Clase que modela un Participante de una Carrera. Esta clase asocia a un
+ * Caballo con un Jockey.
+ * 
  * @author Fernando E. Mansilla - 84567
  */
 public class Participante {
 	private int nroParticipante;
-	private BigDecimal peso;
 	private Resultado resultado = null;
 	private Caballo caballo;
 	private Jockey jockey;
@@ -30,14 +31,6 @@ public class Participante {
 
 	public void setNroParticipante(int nroParticipante) {
 		this.nroParticipante = nroParticipante;
-	}
-
-	public BigDecimal getPeso() {
-		return this.peso;
-	}
-
-	public void setPeso(BigDecimal peso) {
-		this.peso = peso;
 	}
 
 	public Resultado getResultado() throws ResultadosCarreraInvalidosException {
@@ -96,6 +89,13 @@ public class Participante {
 					throw new TransicionInvalidaEstadoParticipanteException();
 				} else {
 					this.estado = nuevoEstado;
+					if (this.estado.equals(EstadoParticipante.FINALIZADO)) {
+						try {
+							getCaballo().getEstadisticas().agregarResultado(
+									getResultado().getOrdenLlegada());
+						} catch (ResultadosCarreraInvalidosException e) {
+						}
+					}
 				}
 			} else {
 				throw new TransicionInvalidaEstadoParticipanteException(estado,

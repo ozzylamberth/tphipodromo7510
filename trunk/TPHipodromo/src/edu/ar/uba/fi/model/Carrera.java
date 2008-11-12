@@ -25,7 +25,7 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
  * @version 2.0 Fernando E. Mansilla - 84567 Nueva estructura de manejo de
  *          cambio de estados.
  */
-public class Carrera {
+public class Carrera implements Comparable<Carrera> {
 	private BigDecimal distancia;
 	private Date fechaYHora;
 	private String nombre;
@@ -429,6 +429,11 @@ public class Carrera {
 		} else {
 			throw new ParticipanteNoCalificadoException();
 		}
+	}
+
+	@Override
+	public int compareTo(Carrera o) {
+		return this.getNumero() - o.getNumero();
 	}
 
 }

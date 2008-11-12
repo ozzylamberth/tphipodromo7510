@@ -17,7 +17,16 @@ public class Caballo {
 	private boolean puraSangre;
 	private Caballo padre;
 	private Caballo madre;
+	private final Estadisticas estadisticas;
 
+	public Caballo() {
+		estadisticas = new Estadisticas();
+	}
+
+	public Estadisticas getEstadisticas(){
+		return estadisticas;
+	}
+		
 	public String getCaballeriza() {
 		return this.caballeriza;
 	}
