@@ -2,7 +2,8 @@ package edu.ar.uba.fi.model;
 
 /**
  * Reglamento que habilita a cualquier tipo de participante a correr en
- * cualquier carrera. El mínimo y máximo de participantes son muy flexibles.
+ * cualquier carrera. El mínimo y máximo de participantes son muy flexibles (de
+ * 0 a 1000).
  * 
  * @author Fernando E. Mansilla - 84567
  */

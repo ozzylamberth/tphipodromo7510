@@ -3,19 +3,18 @@ package edu.ar.uba.fi.model;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 
 /**
- * Enumerado con los estados posibles para una Carrera.
- * Se encarga de controlar secuencias de estados válidas.
+ * Enumerado en donde se definen los estados posibles de una carrera y las
+ * reglas que rigen las secuencias de transiciones.
  * 
  * @author Fernando E. Mansilla - 84567
  */
 public enum EstadoCarrera {
-	CANCELADA(new EstadoCarrera[] {}), 
-	FINALIZADA(new EstadoCarrera[] {}), 
-	A_AUDITAR(			new EstadoCarrera[] { FINALIZADA }), 
-	EN_CURSO(			new EstadoCarrera[] { A_AUDITAR, CANCELADA }), 
-	CERRADA_A_APUESTAS(	new EstadoCarrera[] { EN_CURSO, CANCELADA }), 
-	ABIERTA_A_APUESTAS(	new EstadoCarrera[] { CERRADA_A_APUESTAS, CANCELADA }), 
-	INSCRIPCION_PARTICIPANTES(	new EstadoCarrera[] { ABIERTA_A_APUESTAS, CANCELADA });
+	CANCELADA(new EstadoCarrera[] {}), FINALIZADA(new EstadoCarrera[] {}), A_AUDITAR(
+			new EstadoCarrera[] { FINALIZADA }), EN_CURSO(new EstadoCarrera[] {
+			A_AUDITAR, CANCELADA }), CERRADA_A_APUESTAS(new EstadoCarrera[] {
+			EN_CURSO, CANCELADA }), ABIERTA_A_APUESTAS(new EstadoCarrera[] {
+			CERRADA_A_APUESTAS, CANCELADA }), INSCRIPCION_PARTICIPANTES(
+			new EstadoCarrera[] { ABIERTA_A_APUESTAS, CANCELADA });
 
 	private EstadoCarrera[] estadosValidos;
 

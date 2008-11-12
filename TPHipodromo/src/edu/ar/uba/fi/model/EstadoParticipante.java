@@ -1,8 +1,8 @@
 package edu.ar.uba.fi.model;
 
 /**
- * Enumerado con los estados posibles para un participante. Se encarga de
- * controlar secuencias de estados válidas.
+ * Enumerado en donde se definen los estados posibles del participante de la
+ * carrera y las reglas que rigen las secuencias de transiciones.
  * 
  * @author Fernando E. Mansilla - 84567
  */

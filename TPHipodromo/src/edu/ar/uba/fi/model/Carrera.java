@@ -17,6 +17,8 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoCarreraException;
 import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 
 /**
+ * Clase que encapsula la información de la carrera y contiene la lógica que
+ * rige los cambios de estado.
  * 
  * @versión 1.0 Nahuel
  * @version 1.1 Fernando E. Mansilla - 84567 La funcionalidad encargada de
@@ -25,7 +27,8 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
  * @version 2.0 Fernando E. Mansilla - 84567 Nueva estructura de manejo de
  *          cambio de estados.
  */
-public class Carrera implements Comparable<Carrera> {
+public class Carrera implements Comparable<Carrera>, InterfaceAuditor,
+		InterfaceDetectorLlegada {
 	private BigDecimal distancia;
 	private Date fechaYHora;
 	private String nombre;

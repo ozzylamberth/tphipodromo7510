@@ -4,8 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Clase que maneja las estaditicas y permite calcular el handicap asociado a
- * las mismas.
+ * Clase que maneja las estadísticas y permite calcular el Handicap asociado a
+ * las mismas. Por el momento solo los caballos son factibles de tener
+ * estadísticas. Se registran las cantidades de veces que se obtuvo un cierto
+ * resultado. Esto además de permitir calcular el Handicap permite evaluar
+ * reglas de inscripción complejas encontradas en casos reales. Como por ejemplo
+ * que solo puedan inscribirse a una carrera todos los participantes con
+ * caballos de edad mayos a 4 años y que hayan ganado al menos 1 vez.
  * 
  * @author Fernando E. Mansilla - 84567
  */

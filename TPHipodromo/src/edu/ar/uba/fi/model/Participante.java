@@ -5,8 +5,8 @@ import edu.ar.uba.fi.exceptions.TransicionInvalidaEstadoParticipanteException;
 
 /**
  * 
- * Clase que modela un Participante de una Carrera. Esta clase asocia a un
- * Caballo con un Jockey.
+ * Clase que asocia un Caballo y un Jockey. Como adicional se
+ * encarga de actualizar los resultados en la estadística asociada al caballo.
  * 
  * @author Fernando E. Mansilla - 84567
  */

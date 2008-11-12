@@ -14,21 +14,30 @@ import edu.ar.uba.fi.model.Carrera;
 import edu.ar.uba.fi.model.Configuracion;
 
 /**
- * Se encarga de manejar todas las bolsas de apuestas, organizandolas por tipo
- * de apuestas y por carreras
+ * Clase encargada de administrar una bolsa por carrera y por tipo de Apuesta.
+ * Conoce la correspondencia entre tipo de apuestas y tipo de bolsa. Esta clase
+ * hace uso de la clase ConfiguracionManager para obtener la configuración de la
+ * carrera y de acuerdo con esta conoce el pozo mínimo e incremento del Pozo que
+ * va a asignar a la bolsa de apuesta recién creada. LA relación entre tipo de
+ * apuesta y tipo de bolsa que debe manejarla se implementa mediante un archivo
+ * de configuración que indica la correspondencia de tipos.
  * 
  * @author ncampos
  * @author jgrande
- * 
+ * @author Fernando E. Mansilla - 84567
  */
 public class BolsasApuestasManager {
 	private static final BolsasApuestasManager instance = new BolsasApuestasManager();
-	// reveer si hay que hacerlo variable
+	// TODO reveer si hay que hacerlo variable
 	public static BigDecimal porcentajeComisionHipodromo = new BigDecimal("0.1");
 
 	private Map<Class<? extends Apuesta>, Map<Set<Carrera>, BolsaApuestasAbstracta>> bolsasApuestas = new HashMap<Class<? extends Apuesta>, Map<Set<Carrera>, BolsaApuestasAbstracta>>();
 	private Properties properties;
 
+	/**
+	 * Carga la configuración de correspondencias entre tipos de apuestas y
+	 * tipos de bolsas.
+	 */
 	private BolsasApuestasManager() {
 		properties = new Properties();
 		try {
@@ -44,9 +53,17 @@ public class BolsasApuestasManager {
 	}
 
 	/**
-	 * Retorna la Bolsa de Apuestas correspondiente a esas carreras. Si hay una
-	 * bolsa abierta, retorna esa misma, y en caso contrario crea una nueva
-	 * bolsa de apuestas para retornar
+	 * @param tipoApuestas
+	 *            Tipo de apuesta que se desea administrar.
+	 * @param carreras
+	 *            Carreras sobre las que se aplica la apuesta.
+	 * @param configuración
+	 *            Configuración asociada a la creación de la bolsa, indica el
+	 *            incremento y el pozo minimo. En caso de ser null, ambos
+	 *            valores se consideran igual a cero.
+	 * @return la Bolsa de Apuestas correspondiente a esas carreras. Si hay una
+	 *         bolsa abierta, retorna esa misma, y en caso contrario crea una
+	 *         nueva bolsa de apuestas para retornar
 	 */
 	public BolsaApuestasAbstracta getBolsaApuestas(
 			Class<? extends Apuesta> tipoApuestas, Set<Carrera> carreras,
@@ -110,6 +127,11 @@ public class BolsasApuestasManager {
 		return bolsa;
 	}
 
+	/**
+	 * @param tipoApuesta
+	 * @return tipo de Bolsa a crear según el tupo de apuesta indicado.
+	 * @throws ClassNotFoundException
+	 */
 	@SuppressWarnings("unchecked")
 	public Class<? extends BolsaApuestasAbstracta> getTipoBolsaSegunTipoApuesta(
 			Class<? extends Apuesta> tipoApuesta) throws ClassNotFoundException {
