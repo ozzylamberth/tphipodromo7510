@@ -1,10 +1,14 @@
 package ar.com.jgrande.client.vista.impl;
 
+import ar.com.jgrande.client.controlador.ControladorBienvenida;
 import ar.com.jgrande.client.vista.VistaBienvenida;
 
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Implementación en GWT de <code>VistaBienvenida</code>
@@ -18,11 +22,13 @@ public class VistaBienvenidaGWT extends VistaGWT implements
 	
 	/** Panel principal de la vista. */
 	private VerticalPanel pnlRaiz = new VerticalPanel();
-
+	
+	private ToggleButton buttonIngresar = new ToggleButton("Ingresar");
+	
 	/**
 	 * Constructor público. Crea los controles y paneles.
 	 */
-	public VistaBienvenidaGWT() {
+	public VistaBienvenidaGWT(final ControladorBienvenida controladorBienvenida) {
 	    Label lblTitulo = new Label(ctes.bienvenido());
 	    lblTitulo.addStyleName("lbl-large");
 	    
@@ -35,6 +41,14 @@ public class VistaBienvenidaGWT extends VistaGWT implements
 	    pnlRaiz.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 	    pnlRaiz.setSpacing(20);
 	    pnlRaiz.add(pnlTitulo);
+	    
+	    pnlRaiz.add(buttonIngresar);
+	    buttonIngresar.addClickListener(new ClickListener() {
+		    	public void onClick(Widget sender) {
+		    		controladorBienvenida.onIniciar();
+		    	}
+		    }
+	    );
 	}
 	
 	public void onBienvenida() {
@@ -42,5 +56,9 @@ public class VistaBienvenidaGWT extends VistaGWT implements
 		// getRoot().clear();
 		getRoot().add(pnlRaiz);
 	}
-	
+
+	public void onIniciar() {
+		getRoot().remove(pnlRaiz);
+	}
+
 }

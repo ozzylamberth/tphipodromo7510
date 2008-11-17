@@ -11,4 +11,6 @@ public interface VistaBienvenida extends Vista {
 	/** Evento disparado cuando se quiere mostrar la pantalla de bienvenida. */
 	public void onBienvenida();
 
+	public void onIniciar();
+
 }
