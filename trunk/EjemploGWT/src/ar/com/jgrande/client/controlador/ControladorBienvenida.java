@@ -13,6 +13,12 @@ import com.google.gwt.user.client.HistoryListener;
  */
 public class ControladorBienvenida extends Controlador<VistaBienvenida, EventoBienvenida> implements HistoryListener {
 	
+	private ControladorPrincipal ctrlPrincipal;
+	
+	public ControladorBienvenida(ControladorPrincipal ctrlPrincipal) {
+		this.ctrlPrincipal = ctrlPrincipal;
+	}
+	
 	/**
 	 * Informa a todas las vistas que deben mostrar la pantalla de bienvenida.
 	 * 
@@ -32,5 +38,9 @@ public class ControladorBienvenida extends Controlador<VistaBienvenida, EventoBi
 			doBienvenida();
 		 */
 	}
-
+	
+	public void onIniciar() {
+		notifyObservers(EventoBienvenida.INICIAR);
+		ctrlPrincipal.doPrincipal();
+	}
 }

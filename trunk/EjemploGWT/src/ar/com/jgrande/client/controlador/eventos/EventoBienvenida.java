@@ -14,5 +14,6 @@ public enum EventoBienvenida implements Evento<VistaBienvenida> {
 	
 	/** @see VistaBienvenida.onBienvenida */
 	BIENVENIDA { public void resolver(VistaBienvenida v, Object[] args) { v.onBienvenida(); } },
+	INICIAR {public void resolver(VistaBienvenida v, Object[] args) { v.onIniciar(); }}
 
 }
