@@ -1,7 +1,0 @@
-<beans>
-  <service xmlns="http://xfire.codehaus.org/config/1.0">
-    <name>apuestaService</name>
-    <serviceClass>edu.ar.uba.fi.services.ApuestaService</serviceClass>
-    <implementationClass>edu.ar.uba.fi.services.ApuestaServiceImpl</implementationClass>
-  </service>
-</beans>
