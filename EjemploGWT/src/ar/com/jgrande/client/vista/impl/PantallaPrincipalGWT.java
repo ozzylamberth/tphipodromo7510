@@ -3,21 +3,23 @@ package ar.com.jgrande.client.vista.impl;
 import ar.com.jgrande.client.controlador.ControladorPrincipal;
 import ar.com.jgrande.client.vista.PantallaPrincipal;
 
-import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class PantallaPrincipalGWT extends VistaGWT implements PantallaPrincipal {
 
+	private ControladorPrincipal controlador;
 	private VerticalPanel panelContendor = new VerticalPanel();
+	private PanelPrincipal panelPrincipal;
+	private PanelApuestasABM panelApuestasABM;
+	private PanelCobrarApuestas panelCobrarApuestas;
 	
 	public PantallaPrincipalGWT(ControladorPrincipal controlador) {
+		super();
+		this.controlador = controlador;
 		panelContendor.add(getPanelTop());
 		panelContendor.add(getPanelSecundario());
 		panelContendor.add(getPanelPie());
@@ -25,9 +27,7 @@ public class PantallaPrincipalGWT extends VistaGWT implements PantallaPrincipal 
 	}
 	
 	private Panel getPanelPie() {
-		Panel panel =new SimplePanel();
-		panel.setSize("100%", "5%");
-		return panel;
+		return new PanelPie();
 	}
 
 	private Panel getPanelSecundario() {
@@ -41,55 +41,36 @@ public class PantallaPrincipalGWT extends VistaGWT implements PantallaPrincipal 
 	}
 
 	private Widget getPanelPrincipal() {
-		Panel panel =new SimplePanel();
-		panel.setSize("100%", "100%");
+		panelPrincipal = new PanelPrincipal();
 		DecoratorPanel decorator = new DecoratorPanel();
-		decorator.setWidget(panel);
-		panel.add(new Label("Esta es la pantalla principal"));
+		decorator.setWidget(panelPrincipal);
 		return decorator;
 	}
 
 	private Widget getPanelIzquierda() {
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setSpacing(3);
-		verticalPanel.add(new Label("Apostar"));
-		verticalPanel.add(new Label("Cobrar Apuesta"));
-		DecoratedStackPanel panel = new DecoratedStackPanel();
-	    panel.setSize("30%", "100%");
-	    panel.add(verticalPanel, "Apuestas");
-	    VerticalPanel verticalPanelAdmin = new VerticalPanel();
-	    verticalPanelAdmin.setSpacing(3);
-	    verticalPanelAdmin.add(new Label("Administrar Carreras"));
-	    verticalPanelAdmin.add(new Label("Administrar Caballos"));
-	    verticalPanelAdmin.add(new Label("Administrar Apuestas"));
-	    panel.add(verticalPanelAdmin, "Administracion");
-		
-		return panel;
+		return new PanelMenu(controlador);
 	}
 
 	private Panel getPanelTop() {
-		HorizontalPanel panelTop = new HorizontalPanel();
-		HorizontalPanel auxPanel1 = new HorizontalPanel();
-		HorizontalPanel auxPanel2 = new HorizontalPanel();
-		panelTop.setSpacing(1);
-		auxPanel1.setSize("100%", "5%");
-		auxPanel2.setSpacing(5);
-		panelTop.setTitle("panelTop");
-		panelTop.setSize("100%", "5%");
-		panelTop.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-		panelTop.add(auxPanel1);
-		panelTop.add(auxPanel2);
-		
-		Hyperlink home = new Hyperlink("home", false, "home");
-		auxPanel2.add(home);
-		
-		Hyperlink logOut = new Hyperlink("log Out", false, "logOut");
-		auxPanel2.add(logOut);//TODO deslogear
-		
-		return panelTop;
+		return new PanelTop();
 	}
 
 	public void onMostrar() {
 		getRoot().add(panelContendor);
 	}
+	
+	public void onMostrarApuestasAbm() {
+		if(panelApuestasABM == null) {
+			panelApuestasABM = new PanelApuestasABM();
+		}
+		panelPrincipal.mostrarPanel(panelApuestasABM);
+	}
+	
+	public void onMostrarCobrarApuestas() {
+		if(panelCobrarApuestas == null) {
+			panelCobrarApuestas = new PanelCobrarApuestas();
+		}
+		panelPrincipal.mostrarPanel(panelCobrarApuestas);
+	}
+	
 }

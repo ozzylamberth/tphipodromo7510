@@ -13,4 +13,12 @@ public class ControladorPrincipal extends Controlador<PantallaPrincipal, EventoP
 		this.notifyObservers(EventoPrincipal.MOSTRAR);
 	}
 	
+	public void doMostrarApuestasABM() {
+		this.notifyObservers(EventoPrincipal.APUESTAS_ABM);
+	}
+	
+	public void doMostrarCobrarApuestas() {
+		this.notifyObservers(EventoPrincipal.COBRAR_APUESTAS);
+	}
+	
 }
