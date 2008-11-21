@@ -1,0 +1,30 @@
+/** Add css rules here for your application. */
+
+
+.lbl-large {
+	font-size: large;
+}
+
+.listado {
+	border-collapse: collapse;
+}
+
+td.listado-encabezado {
+	border-bottom: 1px solid;
+	font-weight: bold;
+	padding: 2px 10px;
+	background-color: #f6de95;
+}
+
+td.listado-cuerpo {
+	background-color: #f6ebcb;
+}
+
+.gwt-Hyperlink {
+	cursor: pointer;
+}
+
+.detalle-clave {
+	padding-right: 5px;
+	font-weight: bold;
+}
