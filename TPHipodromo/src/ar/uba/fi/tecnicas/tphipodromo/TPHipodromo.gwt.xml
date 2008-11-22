@@ -21,6 +21,9 @@
       
       <!-- clases de los sercivios -->
       <source path="client" />
-      <source path="servicios" excludes="impl/**" />
+      <source path="servicios">
+          <exclude name="impl/**"/>
+          <exclude name="transformers/**"/>
+      </source>
 	
 </module>

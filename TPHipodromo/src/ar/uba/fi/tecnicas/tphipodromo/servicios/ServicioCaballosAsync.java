@@ -13,4 +13,6 @@ public interface ServicioCaballosAsync {
 	
 	public void buscarPorId(Long id, AsyncCallback<DetalleCaballoDTO> callback);
 	
+	public void guardar(DetalleCaballoDTO detalleCaballoDTO, AsyncCallback<Void> callback);
+	
 }
