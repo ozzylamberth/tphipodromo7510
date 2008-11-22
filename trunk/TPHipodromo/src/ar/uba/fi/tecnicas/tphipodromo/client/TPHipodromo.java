@@ -33,7 +33,7 @@ public class TPHipodromo implements EntryPoint {
 	  VistaPrincipalGWT vistaPrincipal = new VistaPrincipalGWT();
 	  VistaMenuGWT vistaMenu = new VistaMenuGWT(vistaPrincipal.getPanelIzquierda(), ctrlMenu);
 	  VistaHomeGWT vistaHome = new VistaHomeGWT(vistaPrincipal.getPanelCentro());
-	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT(vistaPrincipal.getPanelCentro());
+	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT(vistaPrincipal.getPanelCentro(), ctrlABMCaballos);
 	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT(vistaPrincipal.getPanelCentro());
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
@@ -42,6 +42,7 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaHome);
 	  ctrlMenu.addObserver(vistaABMCaballos);
 	  ctrlMenu.addObserver(vistaABMApuestas);
+	  ctrlABMCaballos.addObserver(vistaABMCaballos);
 	  
 	  ctrlPrincipal.doMostrarPrincipal();
   }
