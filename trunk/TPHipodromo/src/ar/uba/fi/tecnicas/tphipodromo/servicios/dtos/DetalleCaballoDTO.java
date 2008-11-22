@@ -1,25 +1,26 @@
-package ar.uba.fi.tecnicas.tphipodromo.servicios.dto;
+package ar.uba.fi.tecnicas.tphipodromo.servicios.dtos;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class DetalleCaballoDTO implements IsSerializable {
-	private String caballeriza;
 	
-	private String criador;
+	private String caballeriza = "";
 	
-	private int edad;
+	private String criador = "";
 	
-	private String nombre;
+	private Integer edad = new Integer(0);
 	
-	private String pelaje;
+	private String nombre = "";
 	
-	private double peso;
+	private String pelaje = "";
 	
-	private boolean puraSangre;
+	private Double peso = new Double(0);
 	
-	private String padre;
+	private boolean puraSangre = false;
 	
-	private String madre;
+	private String padre = "";
+	
+	private String madre = "";
 
 	public String getCaballeriza() {
 		return caballeriza;
@@ -37,11 +38,11 @@ public class DetalleCaballoDTO implements IsSerializable {
 		this.criador = criador;
 	}
 
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 
@@ -61,11 +62,11 @@ public class DetalleCaballoDTO implements IsSerializable {
 		this.pelaje = pelaje;
 	}
 
-	public double getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
 
-	public void setPeso(double peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 

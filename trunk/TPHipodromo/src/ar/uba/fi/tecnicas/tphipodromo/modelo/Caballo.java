@@ -7,7 +7,8 @@ import java.math.BigDecimal;
  * 
  * @author Fernando E. Mansilla - 84567
  */
-public class Caballo {
+public class Caballo implements Identificable {
+	private Long id;
 	private String caballeriza;
 	private String criador;
 	private int edad;
@@ -21,6 +22,14 @@ public class Caballo {
 
 	public Caballo() {
 		estadisticas = new Estadisticas();
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Estadisticas getEstadisticas(){
