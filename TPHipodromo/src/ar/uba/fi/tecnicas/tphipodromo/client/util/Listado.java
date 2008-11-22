@@ -26,7 +26,7 @@ public abstract class Listado<T> extends FlexTable {
 		this.getRowFormatter().setStyleName(0, "listado-encabezado");
 	}
 	
-	private void limpiar() {
+	public void limpiar() {
 		for(int i=1; i<this.getRowCount(); i++) {
 			this.removeRow(i);
 		}

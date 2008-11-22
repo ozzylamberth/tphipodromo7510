@@ -1,9 +1,20 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento;
 
+import java.util.Collection;
+
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
-
+@SuppressWarnings("unchecked")
 public class EventoFactory {
+	
+	public static Evento getErrorRPC() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onErrorRPC((Throwable)args[0]); 
+			}
+		};
+	}
 	
 	public static Evento getMostrarPrincipal() {
 		return new Evento() {
@@ -17,6 +28,14 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onMostrarABMCaballos(); 
+			}
+		};
+	}
+	
+	public static Evento getListarCaballos() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onListarCaballos((Collection<CaballoDTO>)args[0]); 
 			}
 		};
 	}

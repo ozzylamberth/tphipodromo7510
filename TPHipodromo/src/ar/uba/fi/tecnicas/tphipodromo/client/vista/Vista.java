@@ -1,5 +1,9 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista;
 
+import java.util.Collection;
+
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+
 /**
  * Todas las vistas deben implementar esta interfaz. Por cada
  * vista en el sistema debe haber una interfaz que defina los 
@@ -29,9 +33,13 @@ public abstract class Vista {
 	 */
 	public void ocultar() {};
 	
+	public void onErrorRPC(Throwable e) {};
+	
 	public void onMostrarPrincipal() {};
 	
 	public void onMostrarABMCaballos() {};
+	
+	public void onListarCaballos(Collection<CaballoDTO> lista) {};
 	
 	public void onMostrarABMApuestas() {};
 	

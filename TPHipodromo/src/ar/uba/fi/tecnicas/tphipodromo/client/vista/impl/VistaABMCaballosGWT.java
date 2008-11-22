@@ -1,27 +1,25 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
+import java.util.Collection;
+
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.util.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
-public class VistaABMCaballosGWT extends VistaGWT {
+public class VistaABMCaballosGWT extends VistaDefaultGWT {
 
-	VerticalPanel panelPrincipal;
+	private Listado<CaballoDTO> listado;
+	
+	private ControladorABMCaballos ctrlABMCaballos;
 
-	public VistaABMCaballosGWT(HasWidgets padre) {
-		super(padre);
+	public VistaABMCaballosGWT(HasWidgets padre, ControladorABMCaballos ctrlABMCaballos) {
+		super(padre, "Caballos");
 		
-		panelPrincipal = new VerticalPanel();
+		this.ctrlABMCaballos = ctrlABMCaballos;
 		
-		Label lblTitulo = new Label("Caballos");
-
-		panelPrincipal.add(lblTitulo);
-		
-		Listado<CaballoDTO> listado = new Listado<CaballoDTO>() {
+		listado = new Listado<CaballoDTO>() {
 			public String[] getAtributos(CaballoDTO obj) {
 				return new String[] {
 						obj.getNombre(),
@@ -34,16 +32,20 @@ public class VistaABMCaballosGWT extends VistaGWT {
 				return new String[] {"Nombre", "Edad", "Peso"};
 			}
 		};
-		panelPrincipal.add(listado);
-	}
-	
-	public Widget toWidget() {
-		return panelPrincipal;
+		getCuerpo().add(listado);
 	}
 	
 	@Override
 	public void onMostrarABMCaballos() {
+		this.listado.limpiar();
+		ctrlABMCaballos.doBuscarTodos();
 		super.onMostrarABMCaballos();
 		this.mostrar();
+	}
+	
+	@Override
+	public void onListarCaballos(Collection<CaballoDTO> lista) {
+		super.onListarCaballos(lista);
+		this.listado.update(lista);
 	}
 }

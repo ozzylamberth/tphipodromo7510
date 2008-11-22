@@ -5,7 +5,7 @@
 	font-size: large;
 }
 
-.seccion-titulo {
+.titulo {
 	font-size: large;
 }
 
@@ -25,7 +25,11 @@ tr.listado-cuerpo-par {
 }
 
 tr.listado-cuerpo-impar {
-	background-color: #f6ebcb;
+	background-color: #f6f2e8;
+}
+
+td.listado-cuerpo {
+	text-align: center;
 }
 
 .gwt-Hyperlink {

@@ -1,7 +1,9 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -46,5 +48,17 @@ public class VistaPrincipalGWT extends VistaGWT {
 	public void onMostrarPrincipal() {
 		super.onMostrarPrincipal();
 		this.mostrar();
+	}
+	
+	@Override
+	public void onErrorRPC(Throwable e) {
+		DialogBox dialog = new DialogBox(true);
+		
+		dialog.setText("Error!");
+		dialog.add(new Label(e.getLocalizedMessage()));
+		dialog.center();
+		dialog.show();
+		
+		super.onErrorRPC(e);
 	}
 }
