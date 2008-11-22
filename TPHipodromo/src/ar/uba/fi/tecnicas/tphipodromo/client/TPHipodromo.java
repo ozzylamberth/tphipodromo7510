@@ -1,33 +1,51 @@
 package ar.uba.fi.tecnicas.tphipodromo.client;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMApuestas;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorLogin;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.PantallaPrincipalGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMApuestasGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCaballosGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaHomeGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaLoginGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaMenuGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaPrincipalGWT;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class TPHipodromo implements EntryPoint {
 	
-	private Mensajes mensajes = GWT.create(Mensajes.class);
-
   /**
    * This is the entry point method.
    */
   public void onModuleLoad() {
-		ControladorPrincipal ctrlPrincipal = new ControladorPrincipal();
-		ControladorLogin ctrlLogin = new ControladorLogin(ctrlPrincipal);
-		
-		ctrlLogin.addObserver(new VistaLoginGWT(ctrlLogin));
-		//History.addHistoryListener(ctrlLogin);
-		
-		ctrlPrincipal.addObserver(new PantallaPrincipalGWT(ctrlPrincipal));
-		
-		ctrlLogin.doPedirDatos();
-//		ctrlBienvenida.onIniciar();
+	  ControladorPrincipal ctrlPrincipal = new ControladorPrincipal();
+	  ControladorMenu ctrlMenu = new ControladorMenu();
+	  ControladorLogin ctrlLogin = new ControladorLogin(ctrlPrincipal);
+	  ControladorABMCaballos ctrlABMCaballos = new ControladorABMCaballos();
+	  ControladorABMApuestas ctrlABMApuestas = new ControladorABMApuestas();
+	  
+	  VistaMenuGWT vistaMenu = new VistaMenuGWT(ctrlMenu);
+	  VistaHomeGWT vistaHome = new VistaHomeGWT();
+	  VistaLoginGWT vistaLogin = new VistaLoginGWT(ctrlLogin);
+	  VistaPrincipalGWT vistaPrincipal = new VistaPrincipalGWT(vistaMenu);
+	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT();
+	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT();
+	  
+	  ctrlPrincipal.setVistaHome(vistaHome);
+	  ctrlMenu.setVistaABMCaballos(vistaABMCaballos);
+	  ctrlMenu.setVistaABMApuestas(vistaABMApuestas);
+	  
+	  ctrlLogin.addObserver(vistaLogin);
+	  ctrlPrincipal.addObserver(vistaPrincipal);
+	  ctrlMenu.addObserver(vistaPrincipal);
+	  ctrlABMCaballos.addObserver(vistaABMCaballos);
+	  ctrlABMApuestas.addObserver(vistaABMApuestas);
+	  
+	  ctrlPrincipal.doMostrarPrincipal();
   }
 }

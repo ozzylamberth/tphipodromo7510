@@ -1,6 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
-import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.VistaMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.AApuestasABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACaballosABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACobrarApuestasListener;
@@ -9,31 +10,41 @@ import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-public class PanelMenu extends DecoratedStackPanel {
+public class VistaMenuGWT extends VistaGWT implements VistaMenu {
 	
-	private ControladorPrincipal controlador;
+	private ControladorMenu controlador;
+	
+	private DecoratedStackPanel panelMenu;
 
-	public PanelMenu(ControladorPrincipal controlador) {
+	public VistaMenuGWT(ControladorMenu controlador) {
 		super();
 		this.controlador = controlador;
 		this.init();
 	}
 
 	private void init() {
+		panelMenu = new DecoratedStackPanel();
+		panelMenu.setWidth("100%");
+		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(3);
 		verticalPanel.add(crearLinkApostar());
 		verticalPanel.add(crearLinkCobrar());
-	    this.setSize("30%", "100%");
-	    this.add(verticalPanel, "Apuestas");
+	    panelMenu.add(verticalPanel, "Apuestas");
+	    
 	    VerticalPanel verticalPanelAdmin = new VerticalPanel();
 	    verticalPanelAdmin.setSpacing(3);
 	    verticalPanelAdmin.add(new Label("Administrar Carreras"));
 	    verticalPanelAdmin.add(crearLinkCaballosABM());
 	    verticalPanelAdmin.add(new Label("Administrar Apuestas"));
-	    this.add(verticalPanelAdmin, "Administracion");
+	    panelMenu.add(verticalPanelAdmin, "Administracion");
 		
+	}
+	
+	public Widget getWidgetPrincipal() {
+		return panelMenu;
 	}
 	
 	private Hyperlink crearLinkCobrar() {
@@ -53,4 +64,5 @@ public class PanelMenu extends DecoratedStackPanel {
 		link.addClickListener(new ACaballosABMListener(controlador));
 		return link;
 	}
+	
 }
