@@ -15,7 +15,7 @@ public interface ServicioCaballos extends RemoteService {
 	
 	public CaballoDTO buscarPorId(Long id) throws EntidadInexistenteException;
 	
-	public void guardar(CaballoDTO caballoDTO);
+	public Long guardar(CaballoDTO caballoDTO);
 	
 	public void borrar(Long id) throws EntidadInexistenteException;
 	

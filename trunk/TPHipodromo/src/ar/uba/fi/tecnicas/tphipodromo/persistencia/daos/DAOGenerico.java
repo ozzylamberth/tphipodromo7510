@@ -22,9 +22,9 @@ public interface DAOGenerico<T extends Identificable> {
 	public T buscarPorId(Long id) throws ObjetoInexistenteException;
 	
 	/**
-	 * Persiste un objeto en la base de datos.
+	 * Persiste un objeto en la base de datos y retorna el id del mismo
 	 */
-	public void guardar(T obj);
+	public Long guardar(T obj);
 	
 	/**
 	 * Elimina un objeto de la base de datos
