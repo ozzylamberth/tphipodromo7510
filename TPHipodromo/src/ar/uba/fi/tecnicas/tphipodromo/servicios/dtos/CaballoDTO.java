@@ -4,19 +4,17 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class CaballoDTO implements IsSerializable {
 	
+	private Long id;
 	private String nombre = "";
-	
 	private Integer edad = new Integer(0);
-	
 	private Double peso = new Double(0);
-	
-	public CaballoDTO() {
+
+	public Long getId() {
+		return this.id;
 	}
-	
-	public CaballoDTO(String nombre, Integer edad, Double peso) {
-		this.nombre = nombre;
-		this.edad = edad;
-		this.peso = peso;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {

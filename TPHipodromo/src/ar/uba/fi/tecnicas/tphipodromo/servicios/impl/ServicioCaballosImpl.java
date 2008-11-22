@@ -10,6 +10,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.CaballoDaoMock
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.DetalleCaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.CaballoInexistenteException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -29,14 +30,13 @@ public class ServicioCaballosImpl extends RemoteServiceServlet implements Servic
 		return caballosDTO;
 	}
 	
-	public DetalleCaballoDTO buscarCaballoPorNombre(String nombre) {
-		Caballo caballo;
+	public DetalleCaballoDTO buscarPorId(Long id) throws CaballoInexistenteException {
 		try {
-			caballo = this.caballoDao.buscarPorNombre(nombre);
+			Caballo caballo = this.caballoDao.buscarPorId(id);
+			return GeneradorDTO.getInstance().convertToDetalleCaballoDTO(caballo);
 		} catch (ObjetoInexistenteException e) {
-			return null;
+			throw new CaballoInexistenteException();
 		}
-		return GeneradorDTO.getInstance().convertToDetalleCaballoDTO(caballo);
 	}
 
 }

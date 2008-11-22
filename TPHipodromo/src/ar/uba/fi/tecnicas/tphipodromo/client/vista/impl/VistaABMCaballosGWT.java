@@ -71,6 +71,7 @@ public class VistaABMCaballosGWT extends VistaGWT implements VistaABMCaballos {
 					Hyperlink link = new Hyperlink();
 
 					link.addClickListener(new ClickListener() {
+						private CaballoDTO caballoDTO = caballo;
 
 						public void onClick(Widget sender) {
 							final DialogBox dialog = new DialogBox();
@@ -94,7 +95,7 @@ public class VistaABMCaballosGWT extends VistaGWT implements VistaABMCaballos {
 								}
 							});
 
-							servicioCaballos.buscarCaballoPorNombre(((Hyperlink) sender).getText(), new AsyncCallback<DetalleCaballoDTO>() {
+							servicioCaballos.buscarPorId(this.caballoDTO.getId(), new AsyncCallback<DetalleCaballoDTO>() {
 								public void onFailure(Throwable caught) {};
 
 								public void onSuccess(DetalleCaballoDTO result) {
