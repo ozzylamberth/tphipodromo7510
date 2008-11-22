@@ -47,4 +47,8 @@ public abstract class Vista {
 	
 	public void onMostrarLogin() {};
 	
+	public void onCaballoBorrado() {};
+	
+	public void onMostrarDatosCaballo(CaballoDTO caballo, Boolean editable) {};
+	
 }
