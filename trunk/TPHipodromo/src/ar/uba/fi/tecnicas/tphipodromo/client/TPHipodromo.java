@@ -7,6 +7,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMApuestasGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCaballosGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCaballo;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaHomeGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaLoginGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaMenuGWT;
@@ -34,6 +35,7 @@ public class TPHipodromo implements EntryPoint {
 	  VistaMenuGWT vistaMenu = new VistaMenuGWT(vistaPrincipal.getPanelIzquierda(), ctrlMenu);
 	  VistaHomeGWT vistaHome = new VistaHomeGWT(vistaPrincipal.getPanelCentro());
 	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT(vistaPrincipal.getPanelCentro(), ctrlABMCaballos);
+	  VistaCaballo vistaCaballo = new VistaCaballo();
 	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT(vistaPrincipal.getPanelCentro());
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
@@ -43,6 +45,7 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaABMCaballos);
 	  ctrlMenu.addObserver(vistaABMApuestas);
 	  ctrlABMCaballos.addObserver(vistaABMCaballos);
+	  ctrlABMCaballos.addObserver(vistaCaballo);
 	  
 	  ctrlPrincipal.doMostrarPrincipal();
   }

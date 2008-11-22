@@ -8,6 +8,22 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 @SuppressWarnings("unchecked")
 public class EventoFactory {
 	
+	public static Evento getCaballoBorrado() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCaballoBorrado(); 
+			}
+		};
+	}
+	
+	public static Evento getMostrarDatosCaballo() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarDatosCaballo((CaballoDTO)args[0], (Boolean)args[1]); 
+			}
+		};
+	}
+	
 	public static Evento getErrorRPC() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 

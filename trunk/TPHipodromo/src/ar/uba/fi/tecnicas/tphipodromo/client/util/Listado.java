@@ -2,7 +2,9 @@ package ar.uba.fi.tecnicas.tphipodromo.client.util;
 
 import java.util.Collection;
 
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Widget;
 
 public abstract class Listado<T> extends FlexTable {
 	
@@ -39,11 +41,13 @@ public abstract class Listado<T> extends FlexTable {
 		
 		for(T obj: lista) {
 			int j= 0;
-			for( String s: getAtributos(obj)) {
-				this.setText(i, j, s);
+			
+			for( Widget s: getAtributos(obj)) {
+				this.setWidget(i, j, s);
 				this.getCellFormatter().setStyleName(i, j, "listado-cuerpo");
 				j++;
 			}
+			
 			this.getRowFormatter().setStyleName(i, "listado-cuerpo-" + ( i%2==0 ? "par" : "impar"));
 			i++;
 		}
@@ -51,6 +55,6 @@ public abstract class Listado<T> extends FlexTable {
 	
 	public abstract String[] getTitulos();
 	
-	public abstract String[] getAtributos(T obj);
+	public abstract Widget[] getAtributos(T obj);
 
 }

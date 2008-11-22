@@ -40,3 +40,9 @@ td.listado-cuerpo {
 	padding-right: 5px;
 	font-weight: bold;
 }
+
+.boton-chico {
+	background: none;
+	border: none;
+	font-size: small;
+}

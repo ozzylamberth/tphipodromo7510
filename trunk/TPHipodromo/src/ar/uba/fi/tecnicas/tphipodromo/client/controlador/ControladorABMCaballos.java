@@ -26,5 +26,17 @@ public class ControladorABMCaballos extends Controlador {
 			}
 		});
 	}
+	
+	public void doEditarCaballo(CaballoDTO caballo) {
+		notifyObservers(EventoFactory.getMostrarDatosCaballo(), caballo, Boolean.TRUE);
+	}
+	
+	public void doMostrarCaballo(CaballoDTO caballo) {
+		notifyObservers(EventoFactory.getMostrarDatosCaballo(), caballo, Boolean.FALSE);
+	}
+	
+	public void doBorrarCaballo(CaballoDTO caballo) {
+		notifyObservers(EventoFactory.getCaballoBorrado());
+	}
 
 }
