@@ -1,25 +1,25 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.VistaMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.AApuestasABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACaballosABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACobrarApuestasListener;
 
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class VistaMenuGWT extends VistaGWT implements VistaMenu {
+public class VistaMenuGWT extends VistaGWT {
 	
 	private ControladorMenu controlador;
 	
 	private DecoratedStackPanel panelMenu;
 
-	public VistaMenuGWT(ControladorMenu controlador) {
-		super();
+	public VistaMenuGWT(HasWidgets padre, ControladorMenu controlador) {
+		super(padre);
 		this.controlador = controlador;
 		this.init();
 	}
@@ -43,7 +43,7 @@ public class VistaMenuGWT extends VistaGWT implements VistaMenu {
 		
 	}
 	
-	public Widget getWidgetPrincipal() {
+	public Widget toWidget() {
 		return panelMenu;
 	}
 	
@@ -65,4 +65,9 @@ public class VistaMenuGWT extends VistaGWT implements VistaMenu {
 		return link;
 	}
 	
+	@Override
+	public void onMostrarPrincipal() {
+		super.onMostrarPrincipal();
+		this.mostrar();
+	}
 }

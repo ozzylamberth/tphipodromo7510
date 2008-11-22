@@ -13,20 +13,30 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista;
  * @author Juan Grande
  *
  */
-public interface Vista {
+public abstract class Vista {
 	
 	/**
 	 * Muestra la vista.
 	 * 
 	 * @author Juan
 	 */
-	public void mostrar();
+	public void mostrar() {};
 	
 	/**
 	 * Oculta la vista.
 	 * 
 	 * @author Juan
 	 */
-	public void ocultar();
+	public void ocultar() {};
+	
+	public void onMostrarPrincipal() {};
+	
+	public void onMostrarABMCaballos() {};
+	
+	public void onMostrarABMApuestas() {};
+	
+	public void onMostrarHome() {};
+	
+	public void onMostrarLogin() {};
 	
 }

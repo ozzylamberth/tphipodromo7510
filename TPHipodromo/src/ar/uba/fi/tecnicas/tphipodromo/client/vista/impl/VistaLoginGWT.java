@@ -1,7 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorLogin;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.VistaLogin;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
@@ -25,8 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author Juan
  *
  */
-public class VistaLoginGWT extends VistaGWT implements
-		VistaLogin {
+public class VistaLoginGWT extends VistaGWT {
 	
 	/** Textbox donde se guarda el nombre de usuario. */
 	private TextBox txtUsuario = new TextBox();
@@ -43,6 +41,7 @@ public class VistaLoginGWT extends VistaGWT implements
 	 * @param ctrlLogin Controlador de eventos de login.
 	 */
 	public VistaLoginGWT(final ControladorLogin ctrlLogin) {
+		super(null);
 	    Image imgTitulo = new Image("lock_48.png");
 	    
 	    Label lblTitulo = new Label("Login");
@@ -113,7 +112,7 @@ public class VistaLoginGWT extends VistaGWT implements
 		pnlRaiz.removeFromParent();
 	}
 	
-	public Widget getWidgetPrincipal() {
+	public Widget toWidget() {
 		return null;
 	}
 }

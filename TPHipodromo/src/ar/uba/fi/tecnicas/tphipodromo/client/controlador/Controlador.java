@@ -14,17 +14,17 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
  * @param <T> Tipo de vista que responde a los eventos que dispara el controlador.
  * @param <E> Enumerado con los eventos que dispara el controlador.
  */
-public class Controlador<T extends Vista> {
+public class Controlador {
 	
 	/** Colección de vistas que observan los eventos disparados por el controlador. */
-	private Collection<T> observadores;
+	private Collection<Vista> observadores;
 
 	/**
 	 * Constructor público.
 	 * 
 	 */
 	public Controlador() {
-		observadores = new LinkedList<T>();
+		observadores = new LinkedList<Vista>();
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class Controlador<T extends Vista> {
 	 * 
 	 * @param obs Vista a agregar como observadora del controlador.
 	 */
-	public void addObserver(T obs) {
+	public void addObserver(Vista obs) {
 		observadores.add(obs);
 	}
 	
@@ -44,8 +44,8 @@ public class Controlador<T extends Vista> {
 	 * @param evento Evento a disparar.
 	 * @param args Argumentos que se pasarán a la vista.
 	 */
-	protected void notifyObservers(Evento<T> evento, Object... args) {
-		for(T obs: observadores) {
+	protected void notifyObservers(Evento evento, Object... args) {
+		for(Vista obs: observadores) {
 			evento.resolver(obs, args);
 		}
 	}

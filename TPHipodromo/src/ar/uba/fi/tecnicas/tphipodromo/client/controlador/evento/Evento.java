@@ -13,7 +13,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
  *
  * @param <V> Vista que recibe los eventos.
  */
-public interface Evento<V extends Vista> {
+public interface Evento {
 	
 	/**
 	 * Relaciona un evento con un método en la vista.
@@ -26,6 +26,6 @@ public interface Evento<V extends Vista> {
 	 * @param v Vista que recibe el evento.
 	 * @param args Argumentos que deben mapearse a los parámetros de la vista.
 	 */
-	public void resolver(V v, Object[] args);
+	public void resolver(Vista v, Object[] args);
 
 }
