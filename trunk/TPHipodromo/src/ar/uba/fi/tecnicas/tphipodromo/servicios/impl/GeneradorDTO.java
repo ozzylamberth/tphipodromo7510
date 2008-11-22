@@ -17,6 +17,7 @@ public class GeneradorDTO {
 	
 	public CaballoDTO convertToCaballoDTO(Caballo caballo) {
 		CaballoDTO caballoDTO = new CaballoDTO();
+		caballoDTO.setId(caballo.getId());
 		caballoDTO.setNombre(caballo.getNombre());
 		caballoDTO.setEdad(caballo.getEdad());
 		caballoDTO.setPeso(new Double(caballo.getPeso().toString()));
@@ -25,6 +26,7 @@ public class GeneradorDTO {
 	
 	public DetalleCaballoDTO convertToDetalleCaballoDTO(Caballo caballo) {
 		DetalleCaballoDTO detalleCaballoDTO = new DetalleCaballoDTO();
+		detalleCaballoDTO.setId(caballo.getId());
 		detalleCaballoDTO.setCaballeriza(caballo.getCaballeriza());
 		detalleCaballoDTO.setCriador(caballo.getCriador());
 		detalleCaballoDTO.setEdad(caballo.getEdad());

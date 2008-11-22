@@ -4,23 +4,24 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class DetalleCaballoDTO implements IsSerializable {
 	
+	private Long id;
 	private String caballeriza = "";
-	
 	private String criador = "";
-	
 	private Integer edad = new Integer(0);
-	
 	private String nombre = "";
-	
 	private String pelaje = "";
-	
 	private Double peso = new Double(0);
-	
 	private boolean puraSangre = false;
-	
 	private String padre = "";
-	
 	private String madre = "";
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCaballeriza() {
 		return caballeriza;
