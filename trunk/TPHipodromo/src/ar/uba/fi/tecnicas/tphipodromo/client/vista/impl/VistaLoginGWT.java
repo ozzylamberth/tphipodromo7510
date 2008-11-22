@@ -112,4 +112,8 @@ public class VistaLoginGWT extends VistaGWT implements
 	public void onDatosLoginCorrectos() {
 		pnlRaiz.removeFromParent();
 	}
+	
+	public Widget getWidgetPrincipal() {
+		return null;
+	}
 }

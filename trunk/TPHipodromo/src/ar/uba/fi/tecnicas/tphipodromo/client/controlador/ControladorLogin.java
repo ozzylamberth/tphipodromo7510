@@ -1,6 +1,5 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
-import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.Evento;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoLoginFactory;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.VistaLogin;
 
@@ -12,7 +11,7 @@ import com.google.gwt.user.client.HistoryListener;
  * @author Juan
  *
  */
-public class ControladorLogin extends Controlador<VistaLogin, Evento<VistaLogin>> implements HistoryListener {
+public class ControladorLogin extends Controlador<VistaLogin> implements HistoryListener {
 	
 	/** Controlador que tomará la posta si el login es satisfactorio. */
 	private ControladorPrincipal ctrlPrincipal;
@@ -77,7 +76,7 @@ public class ControladorLogin extends Controlador<VistaLogin, Evento<VistaLogin>
 //			}
 //		);
 		notifyObservers(EventoLoginFactory.getEventoDatosLoginCorrectos());
-		ctrlPrincipal.doPrincipal();
+		ctrlPrincipal.doMostrarPrincipal();
 	}
 	
 	/**

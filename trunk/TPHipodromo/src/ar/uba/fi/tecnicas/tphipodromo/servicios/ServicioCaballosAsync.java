@@ -2,10 +2,10 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 
 import java.util.Collection;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dto.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dto.DetalleCaballoDTO;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ServicioCaballosAsync {
 

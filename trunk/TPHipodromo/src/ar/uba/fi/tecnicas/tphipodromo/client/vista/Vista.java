@@ -15,4 +15,18 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista;
  */
 public interface Vista {
 	
+	/**
+	 * Muestra la vista.
+	 * 
+	 * @author Juan
+	 */
+	public void mostrar();
+	
+	/**
+	 * Oculta la vista.
+	 * 
+	 * @author Juan
+	 */
+	public void ocultar();
+	
 }

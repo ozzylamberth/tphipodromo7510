@@ -1,20 +1,20 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener;
 
-import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
 
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ACobrarApuestasListener implements ClickListener {
 
-	private ControladorPrincipal controlador;
+	private ControladorMenu controlador;
 	
-	public ACobrarApuestasListener(ControladorPrincipal controlador) {
+	public ACobrarApuestasListener(ControladorMenu controlador) {
 		this.controlador = controlador;
 	}
 	
 	public void onClick(Widget sender) {
-		controlador.doMostrarCobrarApuestas();
+		
 	}
 
 }
