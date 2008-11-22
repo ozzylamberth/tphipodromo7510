@@ -3,8 +3,7 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.DetalleCaballoDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.CaballoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -14,8 +13,10 @@ public interface ServicioCaballos extends RemoteService {
 	
 	public Collection<CaballoDTO> buscarTodos();
 	
-	public DetalleCaballoDTO buscarPorId(Long id) throws CaballoInexistenteException;
+	public CaballoDTO buscarPorId(Long id) throws EntidadInexistenteException;
 	
-	public void guardar(DetalleCaballoDTO detalleCaballoDTO) throws CaballoInexistenteException;
+	public void guardar(CaballoDTO caballoDTO);
+	
+	public void borrar(Long id) throws EntidadInexistenteException;
 	
 }

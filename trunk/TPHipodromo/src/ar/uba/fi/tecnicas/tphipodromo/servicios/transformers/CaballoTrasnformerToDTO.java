@@ -3,16 +3,16 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios.transformers;
 import org.apache.commons.collections.Transformer;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.DetalleCaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 /**
  * Convierte un Caballo en un DetalleCaballoDTO
  */
-public class DetalleCaballoDTOTrasnformer implements Transformer {
+public class CaballoTrasnformerToDTO implements Transformer {
 
 	public Object transform(Object arg0) {
 		Caballo caballo = (Caballo) arg0;
-		DetalleCaballoDTO detalleCaballoDTO = new DetalleCaballoDTO();
+		CaballoDTO detalleCaballoDTO = new CaballoDTO();
 		detalleCaballoDTO.setId(caballo.getId());
 		detalleCaballoDTO.setCaballeriza(caballo.getCaballeriza());
 		detalleCaballoDTO.setCriador(caballo.getCriador());
