@@ -14,6 +14,10 @@ public class DetalleCaballoDTO implements IsSerializable {
 	private boolean puraSangre = false;
 	private String padre = "";
 	private String madre = "";
+	
+	// atributos para la creacion de un nuevo caballo
+	private Long padreId = new Long(0);
+	private Long madreId = new Long(0);
 
 	public Long getId() {
 		return this.id;
@@ -93,6 +97,22 @@ public class DetalleCaballoDTO implements IsSerializable {
 
 	public void setMadre(String madre) {
 		this.madre = madre;
+	}
+
+	public Long getPadreId() {
+		return this.padreId;
+	}
+
+	public void setPadreId(Long padreId) {
+		this.padreId = padreId;
+	}
+
+	public Long getMadreId() {
+		return this.madreId;
+	}
+
+	public void setMadreId(Long madreId) {
+		this.madreId = madreId;
 	}
 	
 }
