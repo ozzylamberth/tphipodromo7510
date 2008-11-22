@@ -1,6 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 
-
+@SuppressWarnings("serial")
 public abstract class HipodromoException extends Exception {
 	
 		

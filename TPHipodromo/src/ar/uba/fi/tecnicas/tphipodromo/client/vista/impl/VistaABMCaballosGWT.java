@@ -5,8 +5,8 @@ import java.util.Collection;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.VistaABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballosAsync;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.dto.CaballoDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.dto.DetalleCaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.DetalleCaballoDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -50,7 +50,7 @@ public class VistaABMCaballosGWT extends VistaGWT implements VistaABMCaballos {
 		tabla.setText(0, 2, "Peso");
 
 		final ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
-		servicioCaballos.buscar(new AsyncCallback<Collection<CaballoDTO>>() {
+		servicioCaballos.buscarTodos(new AsyncCallback<Collection<CaballoDTO>>() {
 			public void onFailure(Throwable caught) {
 				final DialogBox dialog = new DialogBox();
 				Button btnCerrar = new Button("Cerrar");
@@ -94,7 +94,7 @@ public class VistaABMCaballosGWT extends VistaGWT implements VistaABMCaballos {
 								}
 							});
 
-							servicioCaballos.buscar("", new AsyncCallback<DetalleCaballoDTO>() {
+							servicioCaballos.buscarCaballoPorNombre(((Hyperlink) sender).getText(), new AsyncCallback<DetalleCaballoDTO>() {
 								public void onFailure(Throwable caught) {};
 
 								public void onSuccess(DetalleCaballoDTO result) {
