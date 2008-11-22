@@ -29,22 +29,19 @@ public class TPHipodromo implements EntryPoint {
 	  ControladorABMCaballos ctrlABMCaballos = new ControladorABMCaballos();
 	  ControladorABMApuestas ctrlABMApuestas = new ControladorABMApuestas();
 	  
-	  VistaMenuGWT vistaMenu = new VistaMenuGWT(ctrlMenu);
-	  VistaHomeGWT vistaHome = new VistaHomeGWT();
 	  VistaLoginGWT vistaLogin = new VistaLoginGWT(ctrlLogin);
-	  VistaPrincipalGWT vistaPrincipal = new VistaPrincipalGWT(vistaMenu);
-	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT();
-	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT();
+	  VistaPrincipalGWT vistaPrincipal = new VistaPrincipalGWT();
+	  VistaMenuGWT vistaMenu = new VistaMenuGWT(vistaPrincipal.getPanelIzquierda(), ctrlMenu);
+	  VistaHomeGWT vistaHome = new VistaHomeGWT(vistaPrincipal.getPanelCentro());
+	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT(vistaPrincipal.getPanelCentro());
+	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT(vistaPrincipal.getPanelCentro());
 	  
-	  ctrlPrincipal.setVistaHome(vistaHome);
-	  ctrlMenu.setVistaABMCaballos(vistaABMCaballos);
-	  ctrlMenu.setVistaABMApuestas(vistaABMApuestas);
-	  
-	  ctrlLogin.addObserver(vistaLogin);
 	  ctrlPrincipal.addObserver(vistaPrincipal);
-	  ctrlMenu.addObserver(vistaPrincipal);
-	  ctrlABMCaballos.addObserver(vistaABMCaballos);
-	  ctrlABMApuestas.addObserver(vistaABMApuestas);
+	  ctrlPrincipal.addObserver(vistaHome);
+	  ctrlPrincipal.addObserver(vistaMenu);
+	  ctrlMenu.addObserver(vistaHome);
+	  ctrlMenu.addObserver(vistaABMCaballos);
+	  ctrlMenu.addObserver(vistaABMApuestas);
 	  
 	  ctrlPrincipal.doMostrarPrincipal();
   }

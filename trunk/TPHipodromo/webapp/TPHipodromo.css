@@ -5,6 +5,10 @@
 	font-size: large;
 }
 
+.seccion-titulo {
+	font-size: large;
+}
+
 .listado {
 	border-collapse: collapse;
 }
@@ -16,7 +20,11 @@ td.listado-encabezado {
 	background-color: #f6de95;
 }
 
-td.listado-cuerpo {
+tr.listado-cuerpo-par {
+	background-color: #f6ebcb;
+}
+
+tr.listado-cuerpo-impar {
 	background-color: #f6ebcb;
 }
 

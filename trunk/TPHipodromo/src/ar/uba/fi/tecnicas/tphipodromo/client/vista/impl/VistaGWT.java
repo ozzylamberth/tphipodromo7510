@@ -5,6 +5,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -17,18 +18,21 @@ import com.google.gwt.user.client.ui.Widget;
  * @author Juan
  *
  */
-public abstract class VistaGWT implements Vista {
+public abstract class VistaGWT extends Vista {
 	
 	/** Objeto con las constantes definidas para internacionalización. */
 	protected Mensajes mensajes;
+	
+	private HasWidgets padre;
 	
 	/**
 	 * Constructor público.
 	 * 
 	 * @author Juan
 	 */
-	public VistaGWT() {
+	public VistaGWT(HasWidgets padre) {
 		this.mensajes = GWT.create(Mensajes.class);
+		this.padre = padre;
 	}
 	
 	/**
@@ -47,7 +51,15 @@ public abstract class VistaGWT implements Vista {
 	 * @author Juan
 	 */
 	public void mostrar() {
-		getWidgetPrincipal().setVisible(true);
+		if( padre==null) {
+			RootPanel.get().clear();
+			RootPanel.get().add(toWidget());
+		} else {
+			padre.clear();
+			padre.add(toWidget());
+		}
+		
+		toWidget().setVisible(true);
 	}
 	
 	/**
@@ -56,7 +68,8 @@ public abstract class VistaGWT implements Vista {
 	 * @author Juan
 	 */
 	public void ocultar() {
-		getWidgetPrincipal().setVisible(false);
+		toWidget().removeFromParent();
+		toWidget().setVisible(false);
 	}
 	
 	/**
@@ -65,6 +78,6 @@ public abstract class VistaGWT implements Vista {
 	 * 
 	 * @author Juan
 	 */
-	public abstract Widget getWidgetPrincipal();
-	
+	public abstract Widget toWidget();
+
 }
