@@ -65,7 +65,7 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 		}
 		
 		public void onClick(Widget sender) {
-//			ctrlABMJockey.doEditarJockey(jockey);
+			ctrlABMJockey.doEditarJockey(jockey);
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 		
 		public void onClick(Widget sender) {
 			if( Window.confirm("¿Está seguro que desea borrar el jockey?")) {
-//				ctrlABMCaballos.doBorrarCaballo(caballo);
+				ctrlABMJockey.doBorrarJockey(jockey);
 			}
 		}
 	}
@@ -91,13 +91,13 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 		}
 		
 		public void onClick(Widget sender) {
-//			ctrlABMCaballos.doMostrarCaballo(caballo);
+			ctrlABMJockey.doMostrarJockey(jockey);
 		}
 	}
 	
 	private class InsertarJockeyListener implements ClickListener {
 		public void onClick(Widget sender) {
-//			ctrlABMCaballos.doCrearCaballo();
+			ctrlABMJockey.doCrearJockey();
 		}
 	}
 

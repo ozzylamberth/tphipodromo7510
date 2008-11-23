@@ -2,6 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMJockey;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
@@ -14,6 +15,8 @@ public class VistaJockey extends Vista implements PopupListener {
 	private ControladorABMJockey ctrlABMJockey;
 	
 	private boolean editable;
+	
+	private JockeyDTO jockeyMostrado;
 	
 	private DialogBox dialogo;
 	
@@ -57,6 +60,19 @@ public class VistaJockey extends Vista implements PopupListener {
 		dialogo.show();
 	}
 	
+	private void bloquearComponentes(boolean editable) {
+		txtApellido.setReadOnly(!editable);
+		txtNombre.setReadOnly(!editable);
+		txtPeso.setReadOnly(!editable);
+		
+	}
+
+	private void cargarDatosJockey() {
+		this.txtApellido.setText(jockeyMostrado.getApellido());
+		this.txtNombre.setText(jockeyMostrado.getNombre());
+		this.txtPeso.setText(jockeyMostrado.getPeso().toString());
+	}
+
 	@Override
 	public void ocultar() {
 		super.ocultar();
@@ -66,8 +82,29 @@ public class VistaJockey extends Vista implements PopupListener {
 	public void onPopupClosed(PopupPanel sender, boolean autoClosed) {
 		this.ocultar();
 		if(editable && autoClosed) {
-			System.out.println("Guardar datos Jockey");
+			recargarDatosJockey();
+			ctrlABMJockey.doGuardarDatos(jockeyMostrado);
+			ctrlABMJockey.doBuscarTodos();
 		}
+	}
+	
+	private void recargarDatosJockey() {
+		jockeyMostrado.setNombre(txtNombre.getText());
+		jockeyMostrado.setApellido(txtApellido.getText());
+		jockeyMostrado.setPeso(new Double(txtPeso.getText()));
+	}
+
+	public void onMostrarJockey(JockeyDTO jockeyDTO, Boolean editable) {
+		super.onMostrarJockey(jockeyDTO, editable);
+		this.jockeyMostrado = jockeyDTO;
+		if(jockeyMostrado == null) {
+			jockeyMostrado = new JockeyDTO();
+		}
+		this.editable = editable;
+		this.cargarDatosJockey();
+		this.bloquearComponentes(editable);
+		this.mostrar();
+		
 	}
 
 }

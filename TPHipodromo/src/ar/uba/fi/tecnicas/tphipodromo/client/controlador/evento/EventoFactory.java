@@ -105,6 +105,14 @@ public class EventoFactory {
 			}
 		};
 	}
+
+	public static Evento getMostrarJockey() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarJockey((JockeyDTO)args[0], (Boolean) args[1]); 
+			}
+		};
+	}
 	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
