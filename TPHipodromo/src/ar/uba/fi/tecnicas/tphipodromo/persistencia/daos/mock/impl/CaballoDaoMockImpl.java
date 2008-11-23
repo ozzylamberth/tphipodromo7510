@@ -28,7 +28,6 @@ public class CaballoDaoMockImpl extends DAOGenericoMockImpl<Caballo> implements 
 	
 	private Caballo getMorochoAlado() {
 		Caballo caballo = new Caballo();
-		caballo.setId(new Long(1));
 		caballo.setCaballeriza("La caballeriza");
 		caballo.setCriador("Haras Santa Inés");
 		caballo.setEdad(3);
@@ -43,7 +42,6 @@ public class CaballoDaoMockImpl extends DAOGenericoMockImpl<Caballo> implements 
 	
 	private Caballo getRideLi() {
 		Caballo caballo = new Caballo();
-		caballo.setId(new Long(2));
 		caballo.setCaballeriza("otra caballeriza");
 		caballo.setCriador("Santa Inés");
 		caballo.setEdad(2);
@@ -58,7 +56,6 @@ public class CaballoDaoMockImpl extends DAOGenericoMockImpl<Caballo> implements 
 	
 	private Caballo getPegazo() {
 		Caballo caballo = new Caballo();
-		caballo.setId(new Long(3));
 		caballo.setCaballeriza("Caballeriza Real");
 		caballo.setCriador("Irigoyen");
 		caballo.setEdad(2);
