@@ -1,0 +1,46 @@
+<project name="tp-hipodromo" default="dist" basedir=".">
+	<description>
+		Trabajo práctico del grupo 7 de la materia Técnicas de
+		Diseño (75.10) de la Facultad de Ingeniería de la
+		Universidad de Buenos Aires.
+	</description>
+	
+	<property name="webapp.name" value="tp-hipodromo-release" />
+	<property name="module.package" value="ar.uba.fi.tecnicas.tphipodromo" />
+	<property name="module.name" value="TPHipodromo" />
+	<property name="distDir" location="dist" />
+	<property name="compileDir" location="www" />
+	
+	<target name="clean">
+		<delete dir="${compileDir}" />
+		<delete dir="${distDir}" />
+	</target>
+	
+	<target name="compile" depends="clean">
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="true">
+			<classpath>
+				<pathelement location="src" />
+				<pathelement location="${gwt.home}/gwt-user.jar" />
+				<pathelement location="${gwt.home}/gwt-dev-${os}.jar" />
+			</classpath>
+			<arg line="-out &quot;${compileDir}&quot;" />
+			<arg value="${module.package}.${module.name}" />
+		</java>
+	</target>
+	
+	<target name="dist" depends="clean, compile">
+		<mkdir dir="${distDir}" />
+		
+		<copy todir="${distDir}">
+			<fileset dir="webapp" />
+		</copy>
+		
+		<copy todir="${distDir}" overwrite="true">
+			<fileset dir="${compileDir}/${module.package}.${module.name}" />
+		</copy>
+		
+		<zip destfile="${distDir}/${webapp.name}.zip" basedir="${distDir}" />
+		
+		<move file="${distDir}/${webapp.name}.zip" tofile="${distDir}/${webapp.name}.war" />
+	</target>
+</project>
