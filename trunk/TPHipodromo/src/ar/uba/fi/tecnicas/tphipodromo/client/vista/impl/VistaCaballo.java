@@ -100,5 +100,12 @@ public class VistaCaballo extends Vista implements PopupListener {
 			ctrlABMCaballos.doBuscarTodos();
 		}
 	}
+	
+	public void onCrearCaballo() {
+		super.onCrearCaballo();
+		caballoMostrado = new CaballoDTO();
+		editable = true;
+		mostrar();
+	};
 
 }

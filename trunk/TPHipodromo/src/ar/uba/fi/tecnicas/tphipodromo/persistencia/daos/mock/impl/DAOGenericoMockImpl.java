@@ -32,7 +32,7 @@ public abstract class DAOGenericoMockImpl<T extends Identificable> implements DA
 	}
 	
 	private Long getID(T objeto) {
-		if (!objeto.getId().equals(new Long(0))) {
+		if ( objeto.getId() != null && !objeto.getId().equals(new Long(0))) {
 			return objeto.getId();
 		} else {
 			this.seq++;

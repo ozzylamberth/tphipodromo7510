@@ -80,6 +80,14 @@ public class EventoFactory {
 			}
 		};
 	}
+
+	public static Evento getCrearCaballo() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCrearCaballo(); 
+			}
+		};
+	}
 	
 	/*
 	public static Evento getEventoPedirDatosLogin() {

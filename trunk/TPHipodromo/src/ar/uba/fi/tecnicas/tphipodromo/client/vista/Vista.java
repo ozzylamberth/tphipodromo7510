@@ -51,6 +51,8 @@ public abstract class Vista {
 	
 	public void onMostrarDatosCaballo(CaballoDTO caballo, Boolean editable) {}
 
-	public void onMostrarMensajePie(String mensaje) {};
+	public void onMostrarMensajePie(String mensaje) {}
+
+	public void onCrearCaballo() {};
 	
 }
