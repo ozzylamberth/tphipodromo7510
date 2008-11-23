@@ -4,6 +4,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.AApuestasABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACaballosABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACobrarApuestasListener;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.AJockeysABMListener;
 
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -36,13 +37,20 @@ public class VistaMenuGWT extends VistaGWT {
 	    
 	    VerticalPanel verticalPanelAdmin = new VerticalPanel();
 	    verticalPanelAdmin.setSpacing(3);
-	    verticalPanelAdmin.add(new Label("Administrar Carreras"));
 	    verticalPanelAdmin.add(crearLinkCaballosABM());
+	    verticalPanelAdmin.add(crearLinkJockeyABM());
+	    verticalPanelAdmin.add(new Label("Administrar Carreras"));
 	    verticalPanelAdmin.add(new Label("Administrar Apuestas"));
 	    panelMenu.add(verticalPanelAdmin, "Administracion");
 		
 	}
 	
+	private Hyperlink crearLinkJockeyABM() {
+		Hyperlink link = new Hyperlink("Administrar Jockeys", "jockey");
+		link.addClickListener(new AJockeysABMListener(controlador));
+		return link;
+	}
+
 	public Widget toWidget() {
 		return panelMenu;
 	}

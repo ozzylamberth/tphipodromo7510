@@ -10,5 +10,9 @@ public class ControladorMenu extends Controlador {
 	
 	public void doABMApuestas() {
 		notifyObservers(EventoFactory.getMostrarABMApuestas());
+	}
+
+	public void doABMJockeys() {
+		notifyObservers(EventoFactory.getMostrarABMJockeys());
 	}	
 }

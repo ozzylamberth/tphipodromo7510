@@ -2,7 +2,11 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista;
 
 import java.util.Collection;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.Constants;
+
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 /**
  * Todas las vistas deben implementar esta interfaz. Por cada
@@ -53,6 +57,10 @@ public abstract class Vista {
 
 	public void onMostrarMensajePie(String mensaje) {}
 
-	public void onCrearCaballo() {};
+	public void onCrearCaballo() {}
+
+	public void onMostrarABMJockeys() {}
+
+	public void onListarJockeys(Collection<JockeyDTO> collection) {};
 	
 }
