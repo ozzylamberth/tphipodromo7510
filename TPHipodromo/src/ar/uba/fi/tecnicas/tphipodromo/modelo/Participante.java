@@ -10,7 +10,9 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
  * 
  * @author Fernando E. Mansilla - 84567
  */
-public class Participante {
+public class Participante implements Identificable {
+	
+	private Long id = new Long(0);
 	private int nroParticipante;
 	private Resultado resultado = null;
 	private Caballo caballo;
@@ -23,6 +25,14 @@ public class Participante {
 		this.jockey = jockey;
 		this.carrera = carrera;
 		this.estado = EstadoParticipante.LARGADA_PENDIENTE;
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getNroParticipante() {
@@ -56,11 +66,11 @@ public class Participante {
 		this.caballo = caballo;
 	}
 
-	public Jockey getJinete() {
+	public Jockey getJockey() {
 		return this.jockey;
 	}
 
-	public void setJinete(Jockey jockey) {
+	public void setJockey(Jockey jockey) {
 		this.jockey = jockey;
 	}
 

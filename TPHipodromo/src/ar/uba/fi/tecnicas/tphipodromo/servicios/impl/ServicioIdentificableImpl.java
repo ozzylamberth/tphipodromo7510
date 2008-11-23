@@ -39,7 +39,7 @@ public abstract class ServicioIdentificableImpl <T extends Identificable, DTO> e
 	@SuppressWarnings("unchecked")
 	public Long guardar(DTO objetoDTO) {
 		T objeto = (T) this.getTransformerFromDTO().transform(objetoDTO);
-		this.getDao().guardar(objeto);
+		objeto = this.getDao().guardar(objeto);
 		return objeto.getId();
 	}
 	

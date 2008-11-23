@@ -26,6 +26,39 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 		<url-pattern>/ServicioCaballos</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ServicioCarreras</servlet-name>
+		<display-name>ServicioCarreras</display-name>
+		<servlet-class>ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioCarrerasImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ServicioCarreras</servlet-name>
+		<url-pattern>/ServicioCarreras</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ServicioJockeys</servlet-name>
+		<display-name>ServicioJockeys</display-name>
+		<servlet-class>ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioJockeysImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ServicioJockeys</servlet-name>
+		<url-pattern>/ServicioJockeys</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ServicioParticipantes</servlet-name>
+		<display-name>ServicioParticipantes</display-name>
+		<servlet-class>ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioParticipantesImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ServicioParticipantes</servlet-name>
+		<url-pattern>/ServicioParticipantes</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>XFire</servlet-name>
 		<url-pattern>/servlet/XFireServlet/*</url-pattern>

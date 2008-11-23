@@ -7,7 +7,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Identificable;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 
-public class DAOGenericoMockImpl<T extends Identificable> implements DAOGenerico<T> {
+public abstract class DAOGenericoMockImpl<T extends Identificable> implements DAOGenerico<T> {
 	
 	private HashMap<Long, T> objetos = new HashMap<Long, T>();
 	private long seq = 0;
@@ -28,11 +28,10 @@ public class DAOGenericoMockImpl<T extends Identificable> implements DAOGenerico
 		objeto.setId(this.getID(objeto));
 		this.objetos.put(objeto.getId(), objeto);
 		return objeto;
-		
 	}
 	
 	private Long getID(T objeto) {
-		if ( objeto.getId() != null && !objeto.getId().equals(new Long(0))) {
+		if (!new Long(0).equals(objeto.getId())) {
 			return objeto.getId();
 		} else {
 			this.seq++;

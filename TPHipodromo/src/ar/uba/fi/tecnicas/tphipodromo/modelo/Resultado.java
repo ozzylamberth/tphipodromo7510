@@ -7,18 +7,28 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo;
  * 
  * @version 1.1 Fernando E. Mansilla - 84567 Se introdujo un enum de estados.
  */
-public class Resultado {
+public class Resultado implements Identificable {
+	
+	private Long id = new Long(0);
 	private int ordenLlegada;
 	private long tiempo;
 
 	public Resultado() {
-		ordenLlegada = 0;
-		tiempo = 0;
+		this.ordenLlegada = 0;
+		this.tiempo = 0;
 	}
 
 	public Resultado(Integer ordenLlegada, long tiempoMilis) {
 		setOrdenLlegada(ordenLlegada);
 		setTiempo(tiempoMilis);
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getOrdenLlegada() {
