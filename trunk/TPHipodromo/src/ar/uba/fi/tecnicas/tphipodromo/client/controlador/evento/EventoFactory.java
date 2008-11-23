@@ -71,6 +71,15 @@ public class EventoFactory {
 			}
 		};
 	}
+
+	public static Evento getMostrarMensaje() {
+		
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarMensajePie((String)args[0]); 
+			}
+		};
+	}
 	
 	/*
 	public static Evento getEventoPedirDatosLogin() {

@@ -1,13 +1,22 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.PopupListener;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class VistaCaballo extends Vista {
+public class VistaCaballo extends Vista implements PopupListener {
+	
+	private ControladorABMCaballos ctrlABMCaballos;
+	
+	private CaballoDTO caballoMostrado;
+	
+	private boolean editable;
 	
 	private DialogBox dialogo;
 	
@@ -19,7 +28,9 @@ public class VistaCaballo extends Vista {
 	
 	private TextBox txtPeso;
 	
-	public VistaCaballo() {
+	public VistaCaballo(ControladorABMCaballos ctrlABMCaballos) {
+		this.ctrlABMCaballos = ctrlABMCaballos;
+		
 		dialogo = new DialogBox(true);
 		
 		dialogo.setText("Caballo");
@@ -39,6 +50,7 @@ public class VistaCaballo extends Vista {
 		form.setWidget(2, 1, txtPeso);
 		
 		dialogo.add(form);
+		dialogo.addPopupListener(this);
 	}
 	
 	@Override
@@ -54,9 +66,21 @@ public class VistaCaballo extends Vista {
 		dialogo.hide();
 	}
 
+	/**
+	 * Carga los datos de la vista en el DTO
+	 */
+	private void recargarDatosCaballo() {
+		caballoMostrado.setNombre(txtNombre.getText());
+		caballoMostrado.setPeso(new Double(txtPeso.getText()));
+		caballoMostrado.setEdad(new Integer(txtEdad.getText()));
+	}
+
 	@Override
 	public void onMostrarDatosCaballo(CaballoDTO caballo, Boolean editable) {
 		super.onMostrarDatosCaballo(caballo, editable);
+		
+		this.caballoMostrado = caballo;
+		this.editable = editable;
 		
 		txtNombre.setReadOnly(!editable);
 		txtEdad.setReadOnly(!editable);
@@ -65,8 +89,16 @@ public class VistaCaballo extends Vista {
 		txtNombre.setText(caballo.getNombre());
 		txtEdad.setText(caballo.getEdad().toString());
 		txtPeso.setText(caballo.getPeso().toString());
-		
 		mostrar();
+	}
+
+	public void onPopupClosed(PopupPanel sender, boolean autoClosed) {
+		this.ocultar();
+		if(editable && autoClosed) {
+			this.recargarDatosCaballo();
+			ctrlABMCaballos.doGuadarCaballo(caballoMostrado);
+			ctrlABMCaballos.doBuscarTodos();
+		}
 	}
 
 }

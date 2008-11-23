@@ -38,5 +38,17 @@ public class ControladorABMCaballos extends Controlador {
 	public void doBorrarCaballo(CaballoDTO caballo) {
 		notifyObservers(EventoFactory.getCaballoBorrado());
 	}
-
+	
+	public void doGuadarCaballo(CaballoDTO caballo) {
+		ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
+		servicioCaballos.guardar(caballo, new AsyncCallback<Long>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Long result) {
+				notifyObservers(EventoFactory.getMostrarMensaje(),"Caballo guardado correctamente", result);
+			}
+		});
+	}
 }

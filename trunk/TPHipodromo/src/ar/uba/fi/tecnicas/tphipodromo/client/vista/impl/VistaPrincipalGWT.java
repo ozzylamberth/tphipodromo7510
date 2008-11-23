@@ -15,6 +15,8 @@ public class VistaPrincipalGWT extends VistaGWT {
 	
 	private SimplePanel panelCentro;
 	
+	private PanelPie panelPie;
+	
 	public VistaPrincipalGWT() {
 		super(null);
 		this.panelContenedor = new DockPanel();
@@ -25,7 +27,8 @@ public class VistaPrincipalGWT extends VistaGWT {
 		this.panelContenedor.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
 		
 		this.panelContenedor.add(new PanelTop(), DockPanel.NORTH);
-		this.panelContenedor.add(new PanelPie(), DockPanel.SOUTH);
+		panelPie = new PanelPie();
+		this.panelContenedor.add(panelPie, DockPanel.SOUTH);
 		this.panelContenedor.add(panelIzquierda, DockPanel.WEST);
 		this.panelContenedor.setCellWidth(panelIzquierda, "20%");
 		this.panelContenedor.add(panelCentro, DockPanel.CENTER);
@@ -61,4 +64,9 @@ public class VistaPrincipalGWT extends VistaGWT {
 		
 		super.onErrorRPC(e);
 	}
+	
+	@Override
+	public void onMostrarMensajePie(String mensaje) {
+		panelPie.mostrarMensaje(mensaje);
+	};
 }
