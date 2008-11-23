@@ -5,7 +5,6 @@ import java.util.Collection;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.util.BotonChico;
 import ar.uba.fi.tecnicas.tphipodromo.client.util.Listado;
-import ar.uba.fi.tecnicas.tphipodromo.client.util.Mensaje;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 import com.google.gwt.user.client.Window;
@@ -42,6 +41,7 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 			}
 		};
 		getCuerpo().add(listado);
+		getCuerpo().add(new BotonChico("Insertar", new InsertarCaballoListener()));
 	}
 	
 	@Override
@@ -61,7 +61,8 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	@Override
 	public void onCaballoBorrado() {
 		super.onCaballoBorrado();
-		new Mensaje("Caballo", "Caballo borrado exitosamente.").mostrar();
+		
+//		new Mensaje("Caballo", "Caballo borrado exitosamente.").mostrar();
 	}
 	
 	private class EditarCaballoListener implements ClickListener {
@@ -99,6 +100,12 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 		
 		public void onClick(Widget sender) {
 			ctrlABMCaballos.doMostrarCaballo(caballo);
+		}
+	}
+	
+	private class InsertarCaballoListener implements ClickListener {
+		public void onClick(Widget sender) {
+			ctrlABMCaballos.doCrearCaballo();
 		}
 	}
 }

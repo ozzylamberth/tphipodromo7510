@@ -37,6 +37,7 @@ public class ControladorABMCaballos extends Controlador {
 	
 	public void doBorrarCaballo(CaballoDTO caballo) {
 		notifyObservers(EventoFactory.getCaballoBorrado());
+		notifyObservers(EventoFactory.getMostrarMensaje(),"Caballo borrado correctamente");
 	}
 	
 	public void doGuadarCaballo(CaballoDTO caballo) {
@@ -50,5 +51,10 @@ public class ControladorABMCaballos extends Controlador {
 				notifyObservers(EventoFactory.getMostrarMensaje(),"Caballo guardado correctamente", result);
 			}
 		});
+	}
+
+	public void doCrearCaballo() {
+		notifyObservers(EventoFactory.getCrearCaballo());
+		
 	}
 }
