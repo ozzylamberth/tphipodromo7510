@@ -4,6 +4,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.PopupListener;
@@ -38,6 +39,8 @@ public class VistaCaballo extends Vista implements PopupListener {
 	
 	private TextBox txtPadre;
 	
+	private CheckBox checkPuraSangre;
+	
 	
 	public VistaCaballo(ControladorABMCaballos ctrlABMCaballos) {
 		this.ctrlABMCaballos = ctrlABMCaballos;
@@ -46,7 +49,7 @@ public class VistaCaballo extends Vista implements PopupListener {
 		
 		dialogo.setText("Caballo");
 		
-		form = new Grid(8, 2);
+		form = new Grid(9, 2);
 		
 		form.setText(0, 0, "Nombre");
 		form.setText(1, 0, "Edad");
@@ -65,6 +68,7 @@ public class VistaCaballo extends Vista implements PopupListener {
 		txtMadre = new TextBox();
 		txtPadre = new TextBox();
 		txtPelaje = new TextBox();
+		checkPuraSangre = new CheckBox("Pura Sangre");
 		
 		form.setWidget(0, 1, txtNombre);
 		form.setWidget(1, 1, txtEdad);
@@ -74,6 +78,8 @@ public class VistaCaballo extends Vista implements PopupListener {
 		form.setWidget(5, 1, txtMadre);
 		form.setWidget(6, 1, txtPadre);
 		form.setWidget(7, 1, txtPelaje);
+		form.setWidget(8, 0, checkPuraSangre);
+		
 		
 		dialogo.add(form);
 		dialogo.addPopupListener(this);
@@ -104,6 +110,7 @@ public class VistaCaballo extends Vista implements PopupListener {
 		caballoMostrado.setPadre(txtPadre.getText());
 		caballoMostrado.setPelaje(txtPelaje.getText());
 		caballoMostrado.setCriador(txtCriador.getText());
+		caballoMostrado.setPuraSangre(checkPuraSangre.isChecked());
 	}
 
 	@Override
@@ -121,6 +128,7 @@ public class VistaCaballo extends Vista implements PopupListener {
 		txtPadre.setReadOnly(!editable);
 		txtCriador.setReadOnly(!editable);
 		txtPelaje.setReadOnly(!editable);
+		checkPuraSangre.setEnabled(editable);
 		
 		txtNombre.setText(caballo.getNombre());
 		txtEdad.setText(caballo.getEdad().toString());
@@ -130,6 +138,7 @@ public class VistaCaballo extends Vista implements PopupListener {
 		txtPadre.setText(caballo.getPadre());
 		txtCriador.setText(caballo.getCriador());
 		txtPelaje.setText(caballo.getPelaje());
+		checkPuraSangre.setChecked(caballo.isPuraSangre());
 		
 		mostrar();
 	}
