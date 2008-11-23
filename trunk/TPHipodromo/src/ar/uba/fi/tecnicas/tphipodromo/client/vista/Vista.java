@@ -61,6 +61,8 @@ public abstract class Vista {
 
 	public void onMostrarABMJockeys() {}
 
-	public void onListarJockeys(Collection<JockeyDTO> collection) {};
+	public void onListarJockeys(Collection<JockeyDTO> collection) {}
+
+	public void onMostrarJockey(JockeyDTO jockeyDTO, Boolean editable) {}
 	
 }

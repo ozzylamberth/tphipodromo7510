@@ -15,7 +15,7 @@ public abstract class VistaDefaultGWT extends VistaGWT {
 		cuerpo = new VerticalPanel();
 		cuerpo.setSpacing(20);
 		
-		Label lblTitulo = new Label("Caballos");
+		Label lblTitulo = new Label(titulo);
 		lblTitulo.setStyleName("titulo");
 		cuerpo.add(lblTitulo);
 		cuerpo.setCellHorizontalAlignment(lblTitulo, VerticalPanel.ALIGN_CENTER);

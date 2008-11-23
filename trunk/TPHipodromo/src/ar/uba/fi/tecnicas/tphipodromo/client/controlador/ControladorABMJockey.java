@@ -26,4 +26,47 @@ public class ControladorABMJockey extends Controlador {
 		});		
 	}
 
+	public void doGuardarDatos(JockeyDTO jockeyMostrado) {
+		ServicioJockeysAsync servicio = GWT.create(ServicioJockeys.class);
+		
+		servicio.guardar(jockeyMostrado, new AsyncCallback<Long>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Long result) {
+				notifyObservers(EventoFactory.getMostrarMensaje(),"Jockey guardado correctamente");
+//				notifyObservers(EventoFactory.getMostrarABMJockeys());
+			}
+		});		
+	}
+
+	public void doBorrarJockey(JockeyDTO jockey) {
+		ServicioJockeysAsync servicio = GWT.create(ServicioJockeys.class);
+		
+		servicio.borrar(jockey.getId(), new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Void result) {
+				notifyObservers(EventoFactory.getMostrarMensaje(),"Jockey borrado correctamente", result);
+				notifyObservers(EventoFactory.getMostrarABMCaballos());
+			}
+		});	
+	}
+
+	public void doMostrarJockey(JockeyDTO jockey) {
+		this.notifyObservers(EventoFactory.getMostrarJockey(), jockey, false);
+	}
+
+	public void doEditarJockey(JockeyDTO jockey) {
+		this.notifyObservers(EventoFactory.getMostrarJockey(), jockey, true);
+	}
+
+	public void doCrearJockey() {
+		this.notifyObservers(EventoFactory.getMostrarJockey(), null, true);
+	}
+
+
 }
