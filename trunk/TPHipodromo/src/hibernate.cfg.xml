@@ -27,8 +27,8 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create</property>
 
-       <!--  <mapping resource="org/hibernate/tutorial/domain/Event.hbm.xml"/>
-        <mapping resource="org/hibernate/tutorial/domain/Person.hbm.xml"/> -->
+        <mapping resource="/ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Caballo.hbm.xml"/>
+       <!--  <mapping resource="org/hibernate/tutorial/domain/Person.hbm.xml"/> -->
 
     </session-factory>
     </hibernate-configuration>
