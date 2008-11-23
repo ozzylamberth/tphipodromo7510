@@ -1,18 +1,13 @@
-package ar.uba.fi.tecnicas.tphipodromo.modelo;
+package ar.uba.fi.tecnicas.tphipodromo.servicios.dtos;
 
-import java.math.BigDecimal;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-/**
- * Clase que modela un Jinete de un Caballo.
- * 
- * @author Fernando E. Mansilla - 84567
- */
-public class Jockey implements Identificable {
+public class JockeyDTO implements IsSerializable {
 	
 	private Long id = new Long(0);
-	private String apellido;
-	private String nombre;
-	private BigDecimal peso;
+	private String apellido = "";
+	private String nombre = "";
+	private Double peso = new Double(0);
 
 	public Long getId() {
 		return this.id;
@@ -38,11 +33,12 @@ public class Jockey implements Identificable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPeso() {
+	public Double getPeso() {
 		return this.peso;
 	}
 
-	public void setPeso(BigDecimal peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
+	
 }
