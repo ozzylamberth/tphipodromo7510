@@ -59,6 +59,17 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 		<url-pattern>/ServicioParticipantes</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ServicioApuestas</servlet-name>
+		<display-name>ServicioApuestas</display-name>
+		<servlet-class>ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioApuestasImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ServicioApuestas</servlet-name>
+		<url-pattern>/ServicioApuestas</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>XFire</servlet-name>
 		<url-pattern>/servlet/XFireServlet/*</url-pattern>
