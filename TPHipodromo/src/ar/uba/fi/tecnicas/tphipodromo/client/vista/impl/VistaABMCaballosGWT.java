@@ -61,7 +61,6 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	@Override
 	public void onCaballoBorrado() {
 		super.onCaballoBorrado();
-		
 //		new Mensaje("Caballo", "Caballo borrado exitosamente.").mostrar();
 	}
 	

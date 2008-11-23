@@ -2,7 +2,6 @@ package ar.uba.fi.tecnicas.tphipodromo.client.util;
 
 import java.util.Collection;
 
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
