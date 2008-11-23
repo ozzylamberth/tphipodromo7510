@@ -24,11 +24,11 @@ public interface DAOGenerico<T extends Identificable> {
 	/**
 	 * Persiste un objeto en la base de datos y retorna el id del mismo
 	 */
-	public Long guardar(T obj);
+	public T guardar(T obj);
 	
 	/**
 	 * Elimina un objeto de la base de datos
 	 */
-	public void borrar(Long id) throws ObjetoInexistenteException;
+	public void borrar(T obj) throws ObjetoInexistenteException;
 	
 }

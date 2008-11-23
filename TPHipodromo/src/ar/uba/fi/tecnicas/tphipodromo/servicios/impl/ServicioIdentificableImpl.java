@@ -39,12 +39,14 @@ public abstract class ServicioIdentificableImpl <T extends Identificable, DTO> e
 	@SuppressWarnings("unchecked")
 	public Long guardar(DTO objetoDTO) {
 		T objeto = (T) this.getTransformerFromDTO().transform(objetoDTO);
-		return this.getDao().guardar(objeto);
+		this.getDao().guardar(objeto);
+		return objeto.getId();
 	}
 	
 	public void borrar(Long id) throws EntidadInexistenteException {
 		try {
-			this.getDao().borrar(id);
+			T objeto = this.getDao().buscarPorId(id);
+			this.getDao().borrar(objeto);
 		} catch (ObjetoInexistenteException e) {
 			throw new EntidadInexistenteException();
 		}
