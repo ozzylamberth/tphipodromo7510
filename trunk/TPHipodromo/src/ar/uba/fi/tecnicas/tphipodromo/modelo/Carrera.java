@@ -28,8 +28,10 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
  * @version 2.0 Fernando E. Mansilla - 84567 Nueva estructura de manejo de
  *          cambio de estados.
  */
-public class Carrera implements Comparable<Carrera>, InterfaceAuditor,
+public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAuditor,
 		InterfaceDetectorLlegada {
+	
+	private Long id = new Long(0);
 	private BigDecimal distancia;
 	private Date fechaYHora;
 	private String nombre;
@@ -37,6 +39,10 @@ public class Carrera implements Comparable<Carrera>, InterfaceAuditor,
 	private EstadoCarrera estadoCarrera;
 	private List<Participante> participantes = new ArrayList<Participante>();
 	private final ReglamentoCarrera reglamentoParticipantes;
+	
+	public Carrera() {
+		this(new ReglamentoValeTodo());
+	}
 
 	public Carrera(ReglamentoCarrera reglamentoParticipantes) {
 		this.reglamentoParticipantes = reglamentoParticipantes;
@@ -321,6 +327,14 @@ public class Carrera implements Comparable<Carrera>, InterfaceAuditor,
 
 	public boolean isFinalizada() {
 		return (EstadoCarrera.FINALIZADA.equals(this.getEstadoCarrera()));
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public BigDecimal getDistancia() {

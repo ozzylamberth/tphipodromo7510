@@ -9,17 +9,24 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
  * @author Fernando E. Mansilla - 84567
  */
 public enum EstadoCarrera {
-	CANCELADA(new EstadoCarrera[] {}), FINALIZADA(new EstadoCarrera[] {}), A_AUDITAR(
-			new EstadoCarrera[] { FINALIZADA }), EN_CURSO(new EstadoCarrera[] {
-			A_AUDITAR, CANCELADA }), CERRADA_A_APUESTAS(new EstadoCarrera[] {
-			EN_CURSO, CANCELADA }), ABIERTA_A_APUESTAS(new EstadoCarrera[] {
-			CERRADA_A_APUESTAS, CANCELADA }), INSCRIPCION_PARTICIPANTES(
-			new EstadoCarrera[] { ABIERTA_A_APUESTAS, CANCELADA });
+	CANCELADA("Cancelada", new EstadoCarrera[] {}),
+	FINALIZADA("Finalizada", new EstadoCarrera[] {}),
+	A_AUDITAR("A Auditar", new EstadoCarrera[] { FINALIZADA }),
+	EN_CURSO("En Curso", new EstadoCarrera[] { A_AUDITAR, CANCELADA }),
+	CERRADA_A_APUESTAS("Cerrada a Apuestas", new EstadoCarrera[] { EN_CURSO, CANCELADA }),
+	ABIERTA_A_APUESTAS("Abierta a Apuestas", new EstadoCarrera[] { CERRADA_A_APUESTAS, CANCELADA }),
+	INSCRIPCION_PARTICIPANTES("Inscripcion Participantes", new EstadoCarrera[] { ABIERTA_A_APUESTAS, CANCELADA });
 
+	private String nombre;
 	private EstadoCarrera[] estadosValidos;
 
-	private EstadoCarrera(EstadoCarrera e[]) {
+	private EstadoCarrera(String nombre, EstadoCarrera e[]) {
+		this.nombre = nombre;
 		this.estadosValidos = e;
+	}
+	
+	public String getNombre() {
+		return this.nombre;
 	}
 
 	/**
