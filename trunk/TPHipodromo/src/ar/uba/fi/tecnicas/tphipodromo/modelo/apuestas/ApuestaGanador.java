@@ -10,6 +10,12 @@ import java.util.List;
  * primer lugar para ganar la apuesta
  */
 public class ApuestaGanador extends Apuesta {
+	
+	public static final String TIPO_APUESTA = "Apuesta Ganador"; 
+	
+	public ApuestaGanador() {
+		super(TIPO_APUESTA);
+	}
 
 	public int getCantidadParticipantes() {
 		return 1;

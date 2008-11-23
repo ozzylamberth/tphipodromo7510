@@ -11,6 +11,12 @@ import java.util.List;
  */
 public class ApuestaCuaterna extends Apuesta {
 	
+	public static final String TIPO_APUESTA = "Apuesta Cuaterna"; 
+	
+	public ApuestaCuaterna() {
+		super(TIPO_APUESTA);
+	}
+	
 	public int getCantidadParticipantes() {
 		return 4;
 	}
