@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Identificable;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ApuestaPerdidaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ApuestaVencidaException;
@@ -28,13 +29,15 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
  *          controlar los cambios de estados se la pasé al enumerado
  *          EstadoApuesta.
  */
-public abstract class Apuesta {
+public abstract class Apuesta implements Identificable {
 	/**
 	 * Representa la cantidad de decimales con la que se estará realizando los
 	 * cálculos de dinero en las apuestas.
 	 */
 	private final static int CANT_DECIMALES = 2;
-
+	
+	private Long id = new Long(0);
+	private String tipoApuesta;
 	private BolsaApuestasAbstracta bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
@@ -43,7 +46,8 @@ public abstract class Apuesta {
 	private Date fechaCreacion;
 	private int diasPlazoMaxDeCobro;
 
-	public Apuesta() {
+	public Apuesta(String tipoApuesta) {
+		this.tipoApuesta = tipoApuesta;
 		setEstadoApuesta(EstadoApuesta.CREADA);
 		setFechaCreacion(new Date());
 	}
@@ -71,11 +75,8 @@ public abstract class Apuesta {
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
 			try {
-
-				int ordenLLegada = participante.getResultado()
-						.getOrdenLlegada();
-				if (!this.getPosiblesOrdenesLLegada().contains(
-						new Integer(ordenLLegada))) {
+				int ordenLLegada = participante.getResultado().getOrdenLlegada();
+				if (!this.getPosiblesOrdenesLLegada().contains(new Integer(ordenLLegada))) {
 					return false;
 				}
 			} catch (ResultadosCarreraInvalidosException e) {
@@ -116,6 +117,22 @@ public abstract class Apuesta {
 		return (EstadoApuesta.PAGADA.equals(this.getEstadoApuesta()));
 	}
 
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTipoApuesta() {
+		return this.tipoApuesta;
+	}
+
+	public void setTipoApuesta(String tipoApuesta) {
+		this.tipoApuesta = tipoApuesta;
+	}
+
 	public BolsaApuestasAbstracta getBolsaApuestas() {
 		return this.bolsaApuestas;
 	}
@@ -152,9 +169,9 @@ public abstract class Apuesta {
 		return this.participantes;
 	}
 
-	public void validarCarreraCerradaAApuestas(
-			Collection<Participante> participantes)
+	public void validarCarreraCerradaAApuestas(Collection<Participante> participantes)
 			throws CarreraCerradaAApuestasException {
+		
 		for (Participante participante : participantes) {
 			if (participante.getCarrera().isCerradaAApuestas()) {
 				throw new CarreraCerradaAApuestasException();
@@ -166,6 +183,7 @@ public abstract class Apuesta {
 			throws CantidadParticipantesInvalidaException,
 			CarreraCerradaAApuestasException,
 			ParticipantesEnDistintasCarrerasException {
+		
 		this.validarCarreraCerradaAApuestas(participantes);
 		this.validarCantidadParticipantes(participantes);
 		this.participantes = participantes;
@@ -217,7 +235,6 @@ public abstract class Apuesta {
 	 *             Errores que impiden la liquidación.
 	 */
 	private void validarEstadoLiquidacion() throws HipodromoException {
-
 		HipodromoComposedException composedException = new HipodromoComposedException();
 		try {
 			this.validarCarrerasFinalizadas();
@@ -234,7 +251,6 @@ public abstract class Apuesta {
 		} catch (HipodromoException ex) {
 			composedException.add(ex);
 		}
-
 		if (composedException.hasExceptions()) {
 			throw composedException;
 		}
@@ -250,8 +266,7 @@ public abstract class Apuesta {
 	 * Valida que todas las carreras correspondientes a los participantes se
 	 * encuentren finalizadas
 	 */
-	private void validarCarrerasFinalizadas()
-			throws CarreraNoFinalizadaException {
+	private void validarCarrerasFinalizadas() throws CarreraNoFinalizadaException {
 		Iterator<Participante> it = this.getParticipantes().iterator();
 		while (it.hasNext()) {
 			Participante participante = (Participante) it.next();
@@ -263,8 +278,8 @@ public abstract class Apuesta {
 
 	private void validarFechaVencimiento() throws ApuestaVencidaException,
 			TransicionInvalidaEstadoApuestaException {
-		long milisegundos = new Date().getTime()
-				- this.getFechaCreacion().getTime();
+		
+		long milisegundos = new Date().getTime() - this.getFechaCreacion().getTime();
 		long dias = milisegundos / (1000 * 60 * 60 * 24);
 		if (dias > this.getDiasPlazoMaxDeCobro()) {
 			this.cambiarEstado(EstadoApuesta.VENCIDA);
@@ -276,8 +291,7 @@ public abstract class Apuesta {
 	 * @param nuevoEstado
 	 * @throws TransicionInvalidaEstadoApuestaException
 	 */
-	private void cambiarEstado(EstadoApuesta nuevoEstado)
-			throws TransicionInvalidaEstadoApuestaException {
+	private void cambiarEstado(EstadoApuesta nuevoEstado) throws TransicionInvalidaEstadoApuestaException {
 		if (this.estadoApuesta.esSiguienteEstadoValido(nuevoEstado)) {
 			setEstadoApuesta(nuevoEstado);
 		} else {
@@ -285,9 +299,9 @@ public abstract class Apuesta {
 		}
 	}
 
-	private void validarCantidadParticipantes(
-			Collection<Participante> participantes)
+	private void validarCantidadParticipantes(Collection<Participante> participantes)
 			throws CantidadParticipantesInvalidaException {
+		
 		if (participantes.size() != this.getCantidadParticipantes()) {
 			throw new CantidadParticipantesInvalidaException();
 		}

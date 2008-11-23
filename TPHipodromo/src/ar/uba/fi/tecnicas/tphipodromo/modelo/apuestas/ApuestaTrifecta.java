@@ -20,6 +20,12 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistinta
  */
 public class ApuestaTrifecta extends ApuestaPorPosicionesOrdenadas {
 	
+	public static final String TIPO_APUESTA = "Apuesta Trifecta"; 
+	
+	public ApuestaTrifecta() {
+		super(TIPO_APUESTA);
+	}
+	
 	/** TODO Eliminar este código duplicado en ApuestaExacta, ApuestaTrifecta y ApuestaImperfecta */
 	private void validarMismaCarrera(Collection<Participante> participantes) throws ParticipantesEnDistintasCarrerasException {
 		Carrera anterior = null;

@@ -27,7 +27,6 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TipoApuestaInvalidoExce
  * ConfiguracionManager se determina si la creación de la apuesta es factible
  * para la configuración de carreras dada.
  * 
- * @author ncampos
  * @author jgrande
  */
 public class ApuestaFactory {
@@ -40,8 +39,7 @@ public class ApuestaFactory {
 		return instance;
 	}
 
-	public <T extends Apuesta> Apuesta crear(Class<T> clazz,
-			Participante participante, BigDecimal montoApostado)
+	public <T extends Apuesta> Apuesta crear(Class<T> clazz, Participante participante, BigDecimal montoApostado)
 			throws ImposibleFabricarApuestaException,
 			CantidadParticipantesInvalidaException,
 			CarreraCerradaAApuestasException,
@@ -55,8 +53,7 @@ public class ApuestaFactory {
 		return this.crear(clazz, participantes, montoApostado);
 	}
 
-	public <T extends Apuesta> Apuesta crear(Class<T> clazz,
-			Collection<Participante> participantes, BigDecimal montoApostado)
+	public <T extends Apuesta> Apuesta crear(Class<T> clazz, Collection<Participante> participantes, BigDecimal montoApostado)
 			throws ImposibleFabricarApuestaException,
 			CantidadParticipantesInvalidaException,
 			CarreraCerradaAApuestasException,
