@@ -45,7 +45,7 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 		this.formulario.add("nombre", mensajes.nombre(), new CampoString(true));
 		this.formulario.add("edad", mensajes.edad(), new CampoInteger(true));
 		this.formulario.add("peso", mensajes.peso(), new CampoDouble(true));
-		this.formulario.add("caballeriza", mensajes.pelaje(), new CampoString(true));
+		this.formulario.add("caballeriza", mensajes.caballeriza(), new CampoString(true));
 		this.formulario.add("criador", mensajes.criador(), new CampoString(true));
 		this.formulario.add("madre", mensajes.madre(), this.campoMadre);
 		this.formulario.add("padre", mensajes.padre(), this.campoPadre);
