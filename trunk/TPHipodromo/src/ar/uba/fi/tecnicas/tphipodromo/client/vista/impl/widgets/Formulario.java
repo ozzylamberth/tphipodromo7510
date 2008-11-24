@@ -101,6 +101,16 @@ public class Formulario extends DialogBox implements ClickListener {
 		return Long.parseLong(campo.getValor());
 	}
 	
+	public double getDouble(String nombre) {
+		Campo campo = campos.get(nombre);
+		return Double.parseDouble(campo.getValor());
+	}
+	
+	public void setDouble(String nombre, double valor) {
+		Campo campo = campos.get(nombre);
+		campo.setValor(String.valueOf(valor));
+	}
+	
 	private void reset() {
 		for(Campo campo: campos.values()) {
 			campo.reset();
