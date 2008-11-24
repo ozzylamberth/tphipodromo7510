@@ -125,10 +125,9 @@ public class Formulario extends DialogBox implements ClickListener {
 	public final void onClick(Widget sender) {
 		if( sender.equals(botonGuardar)) {
 			if( validar()) {
+				this.hide();
 				listener.onGuardar();
 			}
-			
-			this.hide();
 		}
 		
 		if(sender.equals(botonCerrar)) {
