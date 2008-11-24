@@ -9,7 +9,7 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo;
  */
 public class Resultado implements Identificable {
 	
-	private Long id = new Long(0);
+	private Long id;
 	private int ordenLlegada;
 	private long tiempo;
 

@@ -3,16 +3,16 @@
 
 <hibernate-mapping >
 	<class name="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" table="Caballo">
-		<id name="id" column="id" type="java.lang.Integer">
-			<generator class="native" />         
+		<id name="id" column="id" type="long">
+			<generator class="increment" />         
 		</id>  
 		
-		<property name="caballeriza" type="java.lang.String"  />
-		<property name="criador" type="java.lang.String" />
-		<property name="edad" type="java.lang.Integer"  />
-		<property name="nombre" type="java.lang.String" />
-		<property name="pelaje" type="java.lang.String"  />
-		<property name="peso" type="float" />
+		<property name="caballeriza" type="string"  />
+		<property name="criador" type="string" />
+		<property name="edad" type="integer"  />
+		<property name="nombre" type="string" />
+		<property name="pelaje" type="string"  />
+	<!--	<property name="peso" type="float" /> -->
 		<property name="puraSangre" type="boolean"  />
 	</class>
 </hibernate-mapping>
