@@ -1,6 +1,5 @@
 package ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -9,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Configuracion;
@@ -42,10 +43,9 @@ public class BolsasApuestasManager {
 	private BolsasApuestasManager() {
 		properties = new Properties();
 		try {
-			properties.load(new FileInputStream(
-					"TipoBolsaXTipoApuesta.properties"));
+			properties.load(getClass().getResourceAsStream("/TipoBolsaXTipoApuesta.properties"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getLogger(getClass()).error("Error al leer TipoBolsaXTipoApuesta.properties", e);
 		}
 	}
 
@@ -89,8 +89,7 @@ public class BolsasApuestasManager {
 
 				bolsa.setTipoBolsaApuestas(tipoApuestas);
 				bolsa.setCarreras(carreras);
-				bolsa
-						.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
+				bolsa.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
 
 				if (configuración != null) {
 					bolsa.setIncrementoPozo(configuración.getIncrementoPozo());
@@ -102,26 +101,26 @@ public class BolsasApuestasManager {
 
 				bolsasPorCarrera.put(carreras, bolsa);
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(getClass()).error("Error al instanciar bolsa " +
+						"de apuestas para el tipo " + tipoApuestas.getCanonicalName(), e);
 			}
 		}
 
@@ -139,25 +138,14 @@ public class BolsasApuestasManager {
 
 		String className = (String) properties.get(tipoApuesta
 				.getCanonicalName());
-		System.out.println("1) " + className);
-		if (className == null) {
-			try {
-				properties.load(new FileInputStream(
-						"TipoBolsaXTipoApuesta.properties"));
-				className = (String) properties.get(tipoApuesta
-						.getCanonicalName());
-				System.out.println("2) " + className);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		Logger.getLogger(getClass()).trace("1) " + className);
 
 		if (className != null) {
 			return (Class<? extends BolsaApuestasAbstracta>) ClassLoader
 					.getSystemClassLoader().loadClass(className);
 		}
-		return null;
-
+		
+		throw new ClassNotFoundException();
 	}
 
 }

@@ -1,5 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.modelo.test;
 
+import org.apache.log4j.PropertyConfigurator;
+
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -7,6 +9,8 @@ public class HipodromoTestSuite extends TestCase {
 	
 	public static TestSuite suite() {
 		TestSuite suite = new TestSuite();
+		
+		PropertyConfigurator.configure(HipodromoTestSuite.class.getResource("/log4j.properties"));
 		
 		//Apuestas Directas
 		suite.addTestSuite(ApuestaGanadorTest.class);
