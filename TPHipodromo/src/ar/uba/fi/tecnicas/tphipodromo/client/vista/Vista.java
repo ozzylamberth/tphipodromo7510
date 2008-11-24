@@ -3,6 +3,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 /**
@@ -61,5 +62,13 @@ public abstract class Vista {
 	public void onListarJockeys(Collection<JockeyDTO> collection) {}
 
 	public void onMostrarJockey(JockeyDTO jockeyDTO, Boolean editable) {}
+	
+	public void onMostrarABMCarrera(){}
+	
+	public void onListaCarreraActualizada(Collection<CarreraDTO> lista){}
+
+	public void onCarreraBorrada() {}
+	
+	public void onMostrarDatosCarrera(CarreraDTO carrera, Boolean editable){}
 	
 }

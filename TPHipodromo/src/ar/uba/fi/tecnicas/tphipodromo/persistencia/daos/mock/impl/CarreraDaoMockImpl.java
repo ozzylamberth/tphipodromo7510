@@ -15,6 +15,7 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 	
 	private Carrera getCarrera1() {
 		Carrera carrera = new Carrera();
+		carrera.setId(new Long(1));
 		carrera.setDistancia(new BigDecimal(100));
 		carrera.setFechaYHora(new Date());
 		carrera.setNombre("Carrera 1");
@@ -24,6 +25,7 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 	
 	private Carrera getCarrera2() {
 		Carrera carrera = new Carrera();
+		carrera.setId(new Long(2));
 		carrera.setDistancia(new BigDecimal(400));
 		carrera.setFechaYHora(new Date());
 		carrera.setNombre("Carrera 2");
