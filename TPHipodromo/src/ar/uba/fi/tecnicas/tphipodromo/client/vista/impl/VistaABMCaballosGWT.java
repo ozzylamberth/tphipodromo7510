@@ -32,18 +32,23 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 						new Label(obj.getNombre()),
 						new Label(obj.getEdad().toString()),
 						new Label(obj.getPeso().toString()),
-						new BotonChico("Ver", new VerCaballoListener(obj)),
-						new BotonChico("Editar", new EditarCaballoListener(obj)),
-						new BotonChico("Borrar", new BorrarCaballoListener(obj))
+						new BotonChico(mensajes.ver(), new VerCaballoListener(obj)),
+						new BotonChico(mensajes.editar(), new EditarCaballoListener(obj)),
+						new BotonChico(mensajes.borrar(), new BorrarCaballoListener(obj))
 				};
 			}
 
 			public String[] getTitulos() {
-				return new String[] {"Nombre", "Edad", "Peso", "", "", ""};
+				return new String[] {mensajes.nombre(),
+						mensajes.edad(), 
+						mensajes.peso(), 
+						"", 
+						"", 
+						""};
 			}
 		};
 		
-		Button botonInsertar = new Button("Insertar", new InsertarCaballoListener());
+		Button botonInsertar = new Button(mensajes.nuevo(), new InsertarCaballoListener());
 		
 		getCuerpo().add(listado);
 		getCuerpo().add(botonInsertar);
@@ -63,12 +68,6 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	public void onListaCaballosActualizada(Collection<CaballoDTO> lista) {
 		super.onListaCaballosActualizada(lista);
 		this.listado.update(lista);
-	}
-	
-	@Override
-	public void onCaballoBorrado() {
-		super.onCaballoBorrado();
-//		new Mensaje("Caballo", "Caballo borrado exitosamente.").mostrar();
 	}
 	
 	private class EditarCaballoListener implements ClickListener {
@@ -91,7 +90,7 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 		}
 		
 		public void onClick(Widget sender) {
-			if( Window.confirm("¿Está seguro que desea borrar el caballo?")) {
+			if( Window.confirm(mensajes.confirmacionBorrarCaballo())) {
 				ctrlABMCaballos.doBorrarCaballo(caballo);
 			}
 		}

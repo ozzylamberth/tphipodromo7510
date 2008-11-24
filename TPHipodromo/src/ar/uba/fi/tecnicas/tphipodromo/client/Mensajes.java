@@ -7,6 +7,15 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   
   /**
+   * Translated "Borrar".
+   * 
+   * @return translated "Borrar"
+   */
+  @DefaultStringValue("Borrar")
+  @Key("borrar")
+  String borrar();
+
+  /**
    * Translated "Caballeriza".
    * 
    * @return translated "Caballeriza"
@@ -14,6 +23,33 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Caballeriza")
   @Key("caballeriza")
   String caballeriza();
+
+  /**
+   * Translated "Caballo".
+   * 
+   * @return translated "Caballo"
+   */
+  @DefaultStringValue("Caballo")
+  @Key("caballo")
+  String caballo();
+
+  /**
+   * Translated "Caballo borrado satisfactoriamente.".
+   * 
+   * @return translated "Caballo borrado satisfactoriamente."
+   */
+  @DefaultStringValue("Caballo borrado satisfactoriamente.")
+  @Key("caballoBorrado")
+  String caballoBorrado();
+
+  /**
+   * Translated "Caballo guardado satisfactoriamente.".
+   * 
+   * @return translated "Caballo guardado satisfactoriamente."
+   */
+  @DefaultStringValue("Caballo guardado satisfactoriamente.")
+  @Key("caballoGuardado")
+  String caballoGuardado();
 
   /**
    * Translated "Caballos".
@@ -34,6 +70,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String cerrar();
 
   /**
+   * Translated "¿Está seguro que desea borrar el caballo?".
+   * 
+   * @return translated "¿Está seguro que desea borrar el caballo?"
+   */
+  @DefaultStringValue("¿Está seguro que desea borrar el caballo?")
+  @Key("confirmacionBorrarCaballo")
+  String confirmacionBorrarCaballo();
+
+  /**
    * Translated "Criador".
    * 
    * @return translated "Criador"
@@ -52,6 +97,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String edad();
 
   /**
+   * Translated "Editar".
+   * 
+   * @return translated "Editar"
+   */
+  @DefaultStringValue("Editar")
+  @Key("editar")
+  String editar();
+
+  /**
    * Translated "Error al acceder al servidor".
    * 
    * @return translated "Error al acceder al servidor"
@@ -68,6 +122,33 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("¿Es pura sangre?")
   @Key("esPuraSange")
   String esPuraSange();
+
+  /**
+   * Translated "Guardar".
+   * 
+   * @return translated "Guardar"
+   */
+  @DefaultStringValue("Guardar")
+  @Key("guardar")
+  String guardar();
+
+  /**
+   * Translated "0".
+   * 
+   * @return translated "0"
+   */
+  @DefaultStringValue("0")
+  @Key("idNulo")
+  String idNulo();
+
+  /**
+   * Translated "Insertar".
+   * 
+   * @return translated "Insertar"
+   */
+  @DefaultStringValue("Insertar")
+  @Key("insertar")
+  String insertar();
 
   /**
    * Translated "Madre".
@@ -95,6 +176,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Nombre")
   @Key("nombre")
   String nombre();
+
+  /**
+   * Translated "Nuevo".
+   * 
+   * @return translated "Nuevo"
+   */
+  @DefaultStringValue("Nuevo")
+  @Key("nuevo")
+  String nuevo();
 
   /**
    * Translated "Padre".
@@ -131,4 +221,13 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Si")
   @Key("si")
   String si();
+
+  /**
+   * Translated "Ver".
+   * 
+   * @return translated "Ver"
+   */
+  @DefaultStringValue("Ver")
+  @Key("ver")
+  String ver();
 }

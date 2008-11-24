@@ -2,6 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
 import java.util.Collection;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballosAsync;
@@ -12,6 +13,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
 public class ControladorABMCaballos extends Controlador {
+	
+	private Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
 	
@@ -48,7 +51,7 @@ public class ControladorABMCaballos extends Controlador {
 			public void onSuccess(Void result) {
 				doActualizarListadoCaballos();
 				notifyObservers(EventoFactory.getCaballoBorrado());
-				notifyObservers(EventoFactory.getMostrarMensaje(),"Caballo borrado correctamente");
+				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.caballoBorrado());
 			}
 		});
 	}
@@ -61,7 +64,7 @@ public class ControladorABMCaballos extends Controlador {
 			
 			public void onSuccess(Long result) {
 				doActualizarListadoCaballos();
-				notifyObservers(EventoFactory.getMostrarMensaje(),"Caballo guardado correctamente", result);
+				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.caballoGuardado(), result);
 			}
 		});
 	}

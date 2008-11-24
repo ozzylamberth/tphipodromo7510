@@ -12,8 +12,8 @@ public class CampoBoolean extends Campo {
 		
 		this.listBox = new ListBox();
 		
-		listBox.addItem("SI");
-		listBox.addItem("NO");
+		listBox.addItem(mensajes.si());
+		listBox.addItem(mensajes.no());
 	}
 	
 	@Override

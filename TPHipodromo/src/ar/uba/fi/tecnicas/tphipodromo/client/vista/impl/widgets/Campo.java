@@ -1,8 +1,13 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class Campo {
+	
+	protected Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private boolean obligatorio;
 	
