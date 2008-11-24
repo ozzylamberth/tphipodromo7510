@@ -31,7 +31,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
 public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAuditor,
 		InterfaceDetectorLlegada {
 	
-	private Long id = new Long(0);
+	private Long id;
 	private BigDecimal distancia;
 	private Date fechaYHora;
 	private String nombre;

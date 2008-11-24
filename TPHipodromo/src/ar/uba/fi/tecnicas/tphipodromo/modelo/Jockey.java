@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  */
 public class Jockey implements Identificable {
 	
-	private Long id = new Long(0);
+	private Long id;
 	private String apellido;
 	private String nombre;
 	private BigDecimal peso;
