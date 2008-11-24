@@ -17,5 +17,10 @@ public class ControladorMenu extends Controlador {
 	public void doABMJockeys() {
 		notifyObservers(EventoFactory.getOcultarMensaje());
 		notifyObservers(EventoFactory.getMostrarABMJockeys());
+	}
+
+	public void doABMCarreras() {
+		notifyObservers(EventoFactory.getOcultarMensaje());
+		notifyObservers(EventoFactory.getMostrarABMCarreras());
 	}	
 }

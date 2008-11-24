@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 @SuppressWarnings("unchecked")
@@ -109,6 +110,30 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onListaCaballosActualizada((Collection<CaballoDTO>)args[0]); 
+			}
+		};
+	}
+
+	public static Evento getListaCarreraActualizada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onListaCarreraActualizada((Collection<CarreraDTO>)args[0]); 
+			}
+		};
+	}
+
+	public static Evento getCarreraBorrada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCarreraBorrada(); 
+			}
+		};
+	}
+
+	public static Evento getMostrarABMCarreras() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarABMCarrera(); 
 			}
 		};
 	}

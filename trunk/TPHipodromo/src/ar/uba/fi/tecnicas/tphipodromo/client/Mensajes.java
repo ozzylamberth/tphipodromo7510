@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'/home/jgrande/Documents/facultad/7510/workspace/tphipodromo7510/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	'D:/Documents/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   
@@ -61,6 +61,33 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String caballos();
 
   /**
+   * Translated "Carrera".
+   * 
+   * @return translated "Carrera"
+   */
+  @DefaultStringValue("Carrera")
+  @Key("carrera")
+  String carrera();
+
+  /**
+   * Translated "Carrera Borrada satisfactoriamente".
+   * 
+   * @return translated "Carrera Borrada satisfactoriamente"
+   */
+  @DefaultStringValue("Carrera Borrada satisfactoriamente")
+  @Key("carreraBorrada")
+  String carreraBorrada();
+
+  /**
+   * Translated "Carrera Guardada satisfactoriamente".
+   * 
+   * @return translated "Carrera Guardada satisfactoriamente"
+   */
+  @DefaultStringValue("Carrera Guardada satisfactoriamente")
+  @Key("carreraGuardada")
+  String carreraGuardada();
+
+  /**
    * Translated "Cerrar".
    * 
    * @return translated "Cerrar"
@@ -79,6 +106,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String confirmacionBorrarCaballo();
 
   /**
+   * Translated "�Est� seguro que desea borrar la carrera?".
+   * 
+   * @return translated "�Est� seguro que desea borrar la carrera?"
+   */
+  @DefaultStringValue("�Est� seguro que desea borrar la carrera?")
+  @Key("confirmacionBorrarCarrera")
+  String confirmacionBorrarCarrera();
+
+  /**
    * Translated "Criador".
    * 
    * @return translated "Criador"
@@ -86,6 +122,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Criador")
   @Key("criador")
   String criador();
+
+  /**
+   * Translated "Distancia".
+   * 
+   * @return translated "Distancia"
+   */
+  @DefaultStringValue("Distancia")
+  @Key("distancia")
+  String distancia();
 
   /**
    * Translated "Edad".
@@ -122,6 +167,24 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("¿Es pura sangre?")
   @Key("esPuraSange")
   String esPuraSange();
+
+  /**
+   * Translated "Estado".
+   * 
+   * @return translated "Estado"
+   */
+  @DefaultStringValue("Estado")
+  @Key("estado")
+  String estado();
+
+  /**
+   * Translated "Fecha y Hora".
+   * 
+   * @return translated "Fecha y Hora"
+   */
+  @DefaultStringValue("Fecha y Hora")
+  @Key("fechaYHora")
+  String fechaYHora();
 
   /**
    * Translated "Guardar".
@@ -185,6 +248,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Nuevo")
   @Key("nuevo")
   String nuevo();
+
+  /**
+   * Translated "Numero".
+   * 
+   * @return translated "Numero"
+   */
+  @DefaultStringValue("Numero")
+  @Key("numero")
+  String numero();
 
   /**
    * Translated "Padre".
