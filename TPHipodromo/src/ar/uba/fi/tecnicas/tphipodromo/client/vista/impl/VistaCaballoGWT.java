@@ -8,6 +8,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoBoolean;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoLista;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
@@ -62,18 +63,13 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	
 	@Override
 	public void onListaCaballosActualizada(Collection<CaballoDTO> lista) {
-		Collection<CampoLista.Item> items = new LinkedList<CampoLista.Item>();
+		Collection<CampoListaItem> items = new LinkedList<CampoListaItem>();
+		
+		items.add(new CampoListaItem("0", ""));
 		
 		for(final CaballoDTO caballo: lista) {
-			items.add(new CampoLista.Item() {
-				public String getDescripcion() {
-					return caballo.getNombre();
-				}
-				
-				public String getId() {
-					return caballo.getId().toString();
-				}
-			});
+			items.add(new CampoListaItem(caballo.getId().toString(),
+					caballo.getNombre()));
 		}
 		
 		campoPadre.setItems(items);
