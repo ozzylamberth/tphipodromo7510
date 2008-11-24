@@ -47,3 +47,13 @@ td.listado-cuerpo {
 	font-size: small;
 	cursor: hand;
 }
+
+.gwt-DecoratorPanel .middleCenter {
+	height: 100%;
+	width: 100%;
+}
+
+.campo-invalido {
+	background: red;
+	color: white;
+}

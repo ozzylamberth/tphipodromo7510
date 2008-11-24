@@ -1,4 +1,4 @@
-package ar.uba.fi.tecnicas.tphipodromo.client.util;
+package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
 import java.util.Collection;
 

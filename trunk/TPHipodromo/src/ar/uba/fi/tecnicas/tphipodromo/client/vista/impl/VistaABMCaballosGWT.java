@@ -3,12 +3,14 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
-import ar.uba.fi.tecnicas.tphipodromo.client.util.BotonChico;
-import ar.uba.fi.tecnicas.tphipodromo.client.util.Listado;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.BotonChico;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -40,21 +42,26 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 				return new String[] {"Nombre", "Edad", "Peso", "", "", ""};
 			}
 		};
+		
+		Button botonInsertar = new Button("Insertar", new InsertarCaballoListener());
+		
 		getCuerpo().add(listado);
-		getCuerpo().add(new BotonChico("Insertar", new InsertarCaballoListener()));
+		getCuerpo().add(botonInsertar);
+		getCuerpo().setCellHorizontalAlignment(botonInsertar,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 	}
 	
 	@Override
 	public void onMostrarABMCaballos() {
 		this.listado.limpiar();
-		ctrlABMCaballos.doBuscarTodos();
+		ctrlABMCaballos.doActualizarListadoCaballos();
 		super.onMostrarABMCaballos();
 		this.mostrar();
 	}
 	
 	@Override
-	public void onListarCaballos(Collection<CaballoDTO> lista) {
-		super.onListarCaballos(lista);
+	public void onListaCaballosActualizada(Collection<CaballoDTO> lista) {
+		super.onListaCaballosActualizada(lista);
 		this.listado.update(lista);
 	}
 	

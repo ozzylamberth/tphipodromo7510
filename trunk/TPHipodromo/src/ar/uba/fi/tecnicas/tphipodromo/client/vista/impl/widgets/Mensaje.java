@@ -1,4 +1,4 @@
-package ar.uba.fi.tecnicas.tphipodromo.client.util;
+package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
