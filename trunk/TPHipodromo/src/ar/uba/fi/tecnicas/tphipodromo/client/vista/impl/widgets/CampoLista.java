@@ -7,11 +7,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class CampoLista extends Campo {
 	
-	public interface Item {
-		public String getId();
-		public String getDescripcion();
-	}
-	
 	private ListBox listBox;
 	
 	public CampoLista() {
@@ -20,10 +15,10 @@ public class CampoLista extends Campo {
 		listBox = new ListBox();
 	}
 	
-	public void setItems(Collection<Item> items) {
+	public void setItems(Collection<CampoListaItem> items) {
 		listBox.clear();
 		
-		for(Item item: items) {
+		for(CampoListaItem item: items) {
 			listBox.addItem(item.getDescripcion(), item.getId());
 		}
 	}

@@ -9,10 +9,16 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexis
 
 public class CaballoDaoMockImpl extends DAOGenericoMockImpl<Caballo> implements CaballoDao {
 	
+	Caballo morochoAldao, rideLi, pegazo;
+	
 	public CaballoDaoMockImpl() {
-		this.guardar(this.getMorochoAlado());
-		this.guardar(this.getRideLi());
-		this.guardar(this.getPegazo());
+		morochoAldao = getMorochoAlado();
+		rideLi = getRideLi();
+		pegazo = getPegazo();
+		
+		this.guardar(morochoAldao);
+		this.guardar(rideLi);
+		this.guardar(pegazo);
 	}
 	
 	public Caballo buscarPorNombre(String nombre) throws ObjetoInexistenteException {
@@ -62,9 +68,9 @@ public class CaballoDaoMockImpl extends DAOGenericoMockImpl<Caballo> implements 
 		caballo.setCaballeriza("Caballeriza Real");
 		caballo.setCriador("Irigoyen");
 		caballo.setEdad(2);
-		caballo.setMadre(this.getMorochoAlado());
+		caballo.setMadre(morochoAldao);
 		caballo.setNombre("Pegazo");
-		caballo.setPadre(this.getRideLi());
+		caballo.setPadre(rideLi);
 		caballo.setPelaje("Blanco");
 		caballo.setPeso(new BigDecimal(150));
 		caballo.setPuraSangre(Boolean.TRUE);
