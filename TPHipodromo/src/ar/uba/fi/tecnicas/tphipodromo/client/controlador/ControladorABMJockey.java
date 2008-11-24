@@ -36,7 +36,7 @@ public class ControladorABMJockey extends Controlador {
 			
 			public void onSuccess(Long result) {
 				notifyObservers(EventoFactory.getMostrarMensaje(),"Jockey guardado correctamente");
-//				notifyObservers(EventoFactory.getMostrarABMJockeys());
+				notifyObservers(EventoFactory.getMostrarABMJockeys());
 			}
 		});		
 	}
@@ -51,7 +51,7 @@ public class ControladorABMJockey extends Controlador {
 			
 			public void onSuccess(Void result) {
 				notifyObservers(EventoFactory.getMostrarMensaje(),"Jockey borrado correctamente", result);
-				notifyObservers(EventoFactory.getMostrarABMCaballos());
+				notifyObservers(EventoFactory.getMostrarABMJockeys());
 			}
 		});	
 	}
