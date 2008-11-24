@@ -12,7 +12,19 @@
 		<property name="edad" type="integer"  />
 		<property name="nombre" type="string" />
 		<property name="pelaje" type="string"  />
-	<!--	<property name="peso" type="float" /> -->
+		<property name="peso" type="big_decimal" />
 		<property name="puraSangre" type="boolean"  />
+		
+		<many-to-one name="padre" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" cascade="save-update" />
+		<many-to-one name="madre" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" cascade="save-update" />
+	  	
+	  	<component name="estadisticas" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Estadisticas">
+	  		<map name="resultadosPorPosicion" table="estadisticas">
+	  		<key column="id"/>
+	  		<map-key column="posicion" type="integer" />
+	  		<element column="frecuencia" type="integer"	/>  
+  		</map>
+  		</component>
+		
 	</class>
 </hibernate-mapping>

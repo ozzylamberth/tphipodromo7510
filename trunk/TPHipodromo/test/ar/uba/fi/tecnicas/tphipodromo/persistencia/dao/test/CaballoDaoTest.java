@@ -11,7 +11,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFa
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 import junit.framework.TestCase;
 
-public class JockeyDaoTest extends TestCase {
+public class CaballoDaoTest extends TestCase {
 	
 	public static void main(String[] s){
 		DaoFactory factory= new HibernateDaoFactory();
@@ -25,9 +25,22 @@ public class JockeyDaoTest extends TestCase {
 		nuevoCaballo.setPelaje("peludo");
 		nuevoCaballo.setPeso(new BigDecimal(10));
 		nuevoCaballo.setPuraSangre(true);
+		dao.guardar(nuevoCaballo);		
+		
+		Caballo madre = new Caballo();
+		Caballo padre = new Caballo();
+		
+		nuevoCaballo.setMadre(madre);
+		nuevoCaballo.setPadre(padre);
+		
+		nuevoCaballo.getEstadisticas().agregarResultado(10);
+		nuevoCaballo.getEstadisticas().agregarResultado(9);
+		nuevoCaballo.getEstadisticas().agregarResultado(10);
+		
 		dao.guardar(nuevoCaballo);
 		
 		HibernateUtil.closeSession();
+		org.hsqldb.DatabaseManager.closeDatabases(0);
 	}
 	
 	public void testDao(){

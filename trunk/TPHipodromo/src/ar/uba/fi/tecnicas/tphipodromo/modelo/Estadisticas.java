@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Fernando E. Mansilla - 84567
  */
 public class Estadisticas {
-
+	
 	private Map<Integer, Integer> resultadosPorPosicion = new HashMap<Integer, Integer>();
 
 	/**
@@ -56,5 +56,16 @@ public class Estadisticas {
 		} else {
 			return valorActual;
 		}
+	}
+
+	@SuppressWarnings("all")
+	private Map<Integer, Integer> getResultadosPorPosicion() {
+		return resultadosPorPosicion;
+	}
+
+	@SuppressWarnings("all")
+	private void setResultadosPorPosicion(
+			Map<Integer, Integer> resultadosPorPosicion) {
+		this.resultadosPorPosicion = resultadosPorPosicion;
 	}
 }

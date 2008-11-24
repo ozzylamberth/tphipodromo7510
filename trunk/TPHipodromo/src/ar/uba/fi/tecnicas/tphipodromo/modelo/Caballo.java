@@ -18,7 +18,7 @@ public class Caballo implements Identificable {
 	private boolean puraSangre;
 	private Caballo padre;
 	private Caballo madre;
-	private final Estadisticas estadisticas;
+	private Estadisticas estadisticas;
 
 	public Caballo() {
 		estadisticas = new Estadisticas();
@@ -34,6 +34,11 @@ public class Caballo implements Identificable {
 
 	public Estadisticas getEstadisticas(){
 		return estadisticas;
+	}
+	
+	@SuppressWarnings("all")
+	private void setEstadisticas(Estadisticas e){
+		this.estadisticas = e;
 	}
 		
 	public String getCaballeriza() {
