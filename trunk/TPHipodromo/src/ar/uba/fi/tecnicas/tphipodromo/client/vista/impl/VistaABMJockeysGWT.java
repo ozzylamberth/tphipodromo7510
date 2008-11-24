@@ -8,7 +8,9 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -40,7 +42,10 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 			}
 		};
 		getCuerpo().add(listado);
-		getCuerpo().add(new BotonChico("Insertar", new InsertarJockeyListener()));
+		Button botonInsertar = new Button("Insertar", new InsertarJockeyListener());
+		getCuerpo().add(botonInsertar);
+		getCuerpo().setCellHorizontalAlignment(botonInsertar,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 	}
 	
 	@Override

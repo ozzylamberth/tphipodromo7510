@@ -2,96 +2,44 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMJockey;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoDouble;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.PopupListener;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.TextBox;
-
-public class VistaJockeyGWT extends Vista implements PopupListener {
+public class VistaJockeyGWT extends Vista implements FormularioListener {
 
 	private ControladorABMJockey ctrlABMJockey;
 	
-	private boolean editable;
-	
 	private JockeyDTO jockeyMostrado;
 	
-	private DialogBox dialogo;
-	
-	private Grid form;
-	
-	private TextBox txtNombre;
-	
-	private TextBox txtApellido;
-	
-	private TextBox txtPeso;
+	private Formulario formulario;
 	
 	public VistaJockeyGWT(ControladorABMJockey ctrlABMJockey) {
 		this.ctrlABMJockey = ctrlABMJockey;
 		
-		dialogo = new DialogBox(true);
+		this.formulario = new Formulario(this);
 		
-		dialogo.setText("Jockey");
+		this.formulario.setText("Jockey");
 		
-		form = new Grid(3, 2);
+		this.formulario.add("nombre", "Nombre", new CampoString(true));
+		this.formulario.add("apellido", "Apellido", new CampoString(true));
+		this.formulario.add("peso", "Peso", new CampoDouble(true));
 		
-		form.setText(0, 0, "Nombre");
-		form.setText(1, 0, "Apellido");
-		form.setText(2, 0, "Peso");
-		
-		txtNombre = new TextBox();
-		txtPeso = new TextBox();
-		txtApellido = new TextBox();
-		
-		form.setWidget(0, 1, txtNombre);
-		form.setWidget(1, 1, txtApellido);
-		form.setWidget(2, 1, txtPeso);
-		
-		dialogo.add(form);
-		dialogo.addPopupListener(this);
 	}
 	
 	@Override
 	public void mostrar() {
 		super.mostrar();
-		dialogo.center();
-		dialogo.show();
-	}
-	
-	private void bloquearComponentes(boolean editable) {
-		txtApellido.setReadOnly(!editable);
-		txtNombre.setReadOnly(!editable);
-		txtPeso.setReadOnly(!editable);
-		
-	}
-
-	private void cargarDatosJockey() {
-		this.txtApellido.setText(jockeyMostrado.getApellido());
-		this.txtNombre.setText(jockeyMostrado.getNombre());
-		this.txtPeso.setText(jockeyMostrado.getPeso().toString());
+		formulario.center();
+		formulario.show();
 	}
 
 	@Override
 	public void ocultar() {
 		super.ocultar();
-		dialogo.hide();
-	}
-
-	public void onPopupClosed(PopupPanel sender, boolean autoClosed) {
-		this.ocultar();
-		if(editable && autoClosed) {
-			recargarDatosJockey();
-			ctrlABMJockey.doGuardarDatos(jockeyMostrado);
-			ctrlABMJockey.doBuscarTodos();
-		}
-	}
-	
-	private void recargarDatosJockey() {
-		jockeyMostrado.setNombre(txtNombre.getText());
-		jockeyMostrado.setApellido(txtApellido.getText());
-		jockeyMostrado.setPeso(new Double(txtPeso.getText()));
+		formulario.hide();
 	}
 
 	public void onMostrarJockey(JockeyDTO jockeyDTO, Boolean editable) {
@@ -100,11 +48,21 @@ public class VistaJockeyGWT extends Vista implements PopupListener {
 		if(jockeyMostrado == null) {
 			jockeyMostrado = new JockeyDTO();
 		}
-		this.editable = editable;
-		this.cargarDatosJockey();
-		this.bloquearComponentes(editable);
+		this.formulario.setEditable(editable);
+		this.formulario.setString("nombre", jockeyMostrado.getNombre());
+		this.formulario.setString("apellido", jockeyMostrado.getApellido());
+		this.formulario.setDouble("peso", jockeyMostrado.getPeso());
+		
 		this.mostrar();
 		
+	}
+
+	public void onGuardar() {
+		jockeyMostrado.setNombre(formulario.getString("nombre"));
+		jockeyMostrado.setPeso(formulario.getDouble("peso"));
+		jockeyMostrado.setApellido(formulario.getString("apellido"));
+		
+		ctrlABMJockey.doGuardarDatos(jockeyMostrado);
 	}
 
 }
