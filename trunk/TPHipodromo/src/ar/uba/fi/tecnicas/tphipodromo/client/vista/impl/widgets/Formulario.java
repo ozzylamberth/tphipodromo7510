@@ -3,6 +3,9 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -14,11 +17,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class Formulario extends DialogBox implements ClickListener {
 	
+	private Mensajes mensajes = GWT.create(Mensajes.class);
+	
 	private FlexTable form = new FlexTable();
 	
-	private Button botonGuardar = new Button("Guardar");
+	private Button botonGuardar = new Button(mensajes.guardar());
 	
-	private Button botonCerrar = new Button("Cerrar");
+	private Button botonCerrar = new Button(mensajes.cerrar());
 	
 	private Map<String, Campo> campos = new HashMap<String, Campo>();
 	
@@ -38,6 +43,7 @@ public class Formulario extends DialogBox implements ClickListener {
 		this.botonCerrar.addClickListener(this);
 		
 		HorizontalPanel botonera = new HorizontalPanel();
+		botonera.setSpacing(10);
 		botonera.add(botonGuardar);
 		botonera.add(botonCerrar);
 		

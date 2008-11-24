@@ -3,6 +3,9 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.google.gwt.core.client.GWT;
+
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoBoolean;
@@ -27,25 +30,27 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	
 	private CampoLista campoMadre;
 	
+	private Mensajes mensajes = GWT.create(Mensajes.class);
+	
 	public VistaCaballoGWT(ControladorABMCaballos ctrlABMCaballos) {
 		this.ctrlABMCaballos = ctrlABMCaballos;
 		
 		this.formulario = new Formulario(this);
 		
-		this.formulario.setText("Caballo");
+		this.formulario.setText(mensajes.caballo());
 		
 		this.campoPadre = new CampoLista();
 		this.campoMadre = new CampoLista();
 		
-		this.formulario.add("nombre", "Nombre", new CampoString(true));
-		this.formulario.add("edad", "Edad", new CampoInteger(true));
-		this.formulario.add("peso", "Peso", new CampoDouble(true));
-		this.formulario.add("caballeriza", "Caballeriza", new CampoString(true));
-		this.formulario.add("criador", "Criador", new CampoString(true));
-		this.formulario.add("madre", "Madre", this.campoMadre);
-		this.formulario.add("padre", "Padre", this.campoPadre);
-		this.formulario.add("pelaje", "Pelaje", new CampoString(true));
-		this.formulario.add("puraSangre", "Pura Sangre", new CampoBoolean());
+		this.formulario.add("nombre", mensajes.nombre(), new CampoString(true));
+		this.formulario.add("edad", mensajes.edad(), new CampoInteger(true));
+		this.formulario.add("peso", mensajes.peso(), new CampoDouble(true));
+		this.formulario.add("caballeriza", mensajes.pelaje(), new CampoString(true));
+		this.formulario.add("criador", mensajes.criador(), new CampoString(true));
+		this.formulario.add("madre", mensajes.madre(), this.campoMadre);
+		this.formulario.add("padre", mensajes.padre(), this.campoPadre);
+		this.formulario.add("pelaje", mensajes.pelaje(), new CampoString(true));
+		this.formulario.add("puraSangre", mensajes.esPuraSange(), new CampoBoolean());
 		
 	}
 	
@@ -66,7 +71,7 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	public void onListaCaballosActualizada(Collection<CaballoDTO> lista) {
 		Collection<CampoListaItem> items = new LinkedList<CampoListaItem>();
 		
-		items.add(new CampoListaItem("0", ""));
+		items.add(new CampoListaItem(mensajes.idNulo(), ""));
 		
 		for(final CaballoDTO caballo: lista) {
 			items.add(new CampoListaItem(caballo.getId().toString(),
