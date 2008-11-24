@@ -3,8 +3,8 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMJockey;
-import ar.uba.fi.tecnicas.tphipodromo.client.util.BotonChico;
-import ar.uba.fi.tecnicas.tphipodromo.client.util.Listado;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.BotonChico;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
 import com.google.gwt.user.client.Window;

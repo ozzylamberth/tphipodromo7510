@@ -49,14 +49,6 @@ public class EventoFactory {
 		};
 	}
 	
-	public static Evento getListarCaballos() {
-		return new Evento() {
-			public void resolver(Vista v, Object[] args) { 
-				v.onListarCaballos((Collection<CaballoDTO>)args[0]); 
-			}
-		};
-	}
-	
 	public static Evento getMostrarABMApuestas() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
@@ -72,20 +64,19 @@ public class EventoFactory {
 			}
 		};
 	}
-
-	public static Evento getMostrarMensaje() {
-		
+	
+	public static Evento getOcultarMensaje() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
-				v.onMostrarMensajePie((String)args[0]); 
+				v.onOcultarMensajePie(); 
 			}
 		};
 	}
 
-	public static Evento getCrearCaballo() {
+	public static Evento getMostrarMensaje() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
-				v.onCrearCaballo(); 
+				v.onMostrarMensajePie((String)args[0]); 
 			}
 		};
 	}
@@ -110,6 +101,14 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onMostrarJockey((JockeyDTO)args[0], (Boolean) args[1]); 
+			}
+		};
+	}
+	
+	public static Evento getListaCaballosActualizada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onListaCaballosActualizada((Collection<CaballoDTO>)args[0]); 
 			}
 		};
 	}

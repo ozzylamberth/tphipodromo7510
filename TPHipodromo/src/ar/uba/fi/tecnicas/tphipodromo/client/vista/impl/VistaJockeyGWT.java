@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.PopupListener;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class VistaJockey extends Vista implements PopupListener {
+public class VistaJockeyGWT extends Vista implements PopupListener {
 
 	private ControladorABMJockey ctrlABMJockey;
 	
@@ -28,7 +28,7 @@ public class VistaJockey extends Vista implements PopupListener {
 	
 	private TextBox txtPeso;
 	
-	public VistaJockey(ControladorABMJockey ctrlABMJockey) {
+	public VistaJockeyGWT(ControladorABMJockey ctrlABMJockey) {
 		this.ctrlABMJockey = ctrlABMJockey;
 		
 		dialogo = new DialogBox(true);

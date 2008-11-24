@@ -29,7 +29,7 @@ public class CaballoTransformerFromDTO implements Transformer {
 			caballo.setPadre(this.buscarCaballo(caballoDTO.getPadreId()));
 		}
 		if (!caballoDTO.getMadreId().equals(new Long(0))) {
-			caballo.setPadre(this. buscarCaballo(caballoDTO.getMadreId()));
+			caballo.setMadre(this. buscarCaballo(caballoDTO.getMadreId()));
 		}
 		return caballo;
 	}

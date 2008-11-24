@@ -9,9 +9,9 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMApuestasGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCaballosGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMJockeysGWT;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCaballo;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCaballoGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaHomeGWT;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaJockey;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaJockeyGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaLoginGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaMenuGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaPrincipalGWT;
@@ -39,11 +39,11 @@ public class TPHipodromo implements EntryPoint {
 	  VistaMenuGWT vistaMenu = new VistaMenuGWT(vistaPrincipal.getPanelIzquierda(), ctrlMenu);
 	  VistaHomeGWT vistaHome = new VistaHomeGWT(vistaPrincipal.getPanelCentro());
 	  VistaABMCaballosGWT vistaABMCaballos = new VistaABMCaballosGWT(vistaPrincipal.getPanelCentro(), ctrlABMCaballos);
-	  VistaCaballo vistaCaballo = new VistaCaballo(ctrlABMCaballos);
+	  VistaCaballoGWT vistaCaballo = new VistaCaballoGWT(ctrlABMCaballos);
 	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT(vistaPrincipal.getPanelCentro());
 	  
 	  VistaABMJockeysGWT vistaABMJockeys = new VistaABMJockeysGWT(vistaPrincipal.getPanelCentro(), ctrlABMJockey);
-	  VistaJockey vistaJockey = new VistaJockey(ctrlABMJockey);
+	  VistaJockeyGWT vistaJockey = new VistaJockeyGWT(ctrlABMJockey);
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
 	  ctrlPrincipal.addObserver(vistaHome);
@@ -52,6 +52,7 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaABMCaballos);
 	  ctrlMenu.addObserver(vistaABMApuestas);
 	  ctrlMenu.addObserver(vistaABMJockeys);
+	  ctrlMenu.addObserver(vistaPrincipal);
 	  ctrlABMCaballos.addObserver(vistaABMCaballos);
 	  ctrlABMCaballos.addObserver(vistaCaballo);
 	  ctrlABMCaballos.addObserver(vistaPrincipal);
