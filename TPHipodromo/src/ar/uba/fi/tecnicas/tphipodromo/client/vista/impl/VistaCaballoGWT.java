@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoBoolean;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoDouble;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoLista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
@@ -38,7 +39,7 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 		
 		this.formulario.add("nombre", "Nombre", new CampoString(true));
 		this.formulario.add("edad", "Edad", new CampoInteger(true));
-		this.formulario.add("peso", "Peso", new CampoString(true));
+		this.formulario.add("peso", "Peso", new CampoDouble(true));
 		this.formulario.add("caballeriza", "Caballeriza", new CampoString(true));
 		this.formulario.add("criador", "Criador", new CampoString(true));
 		this.formulario.add("madre", "Madre", this.campoMadre);
@@ -86,7 +87,7 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 		
 		this.formulario.setString("nombre", caballo.getNombre());
 		this.formulario.setInteger("edad", caballo.getEdad());
-		this.formulario.setString("peso", caballo.getPeso().toString());
+		this.formulario.setDouble("peso", caballo.getPeso());
 		this.formulario.setString("caballeriza", caballo.getCaballeriza());
 		this.formulario.setLong("madre", caballo.getMadreId());
 		this.formulario.setLong("padre", caballo.getPadreId());
@@ -99,7 +100,7 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	
 	public void onGuardar() {
 		caballo.setNombre(formulario.getString("nombre"));
-		caballo.setPeso(new Double(formulario.getString("peso")));
+		caballo.setPeso(formulario.getDouble("peso"));
 		caballo.setEdad(formulario.getInteger("edad"));
 		caballo.setCaballeriza(formulario.getString("caballeriza"));
 		caballo.setMadreId(formulario.getLong("madre"));

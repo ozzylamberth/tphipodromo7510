@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -88,6 +89,12 @@ public class VistaPrincipalGWT extends VistaGWT {
 	public void onMostrarMensajePie(String s) {
 		this.mensaje.setText(s);
 		this.mensajeDecorado.setVisible(true);
+		Timer t = new Timer() {
+	        public void run() {
+	        	onOcultarMensajePie();
+	        }
+	      };
+	     t.schedule(5000);//TODO tomas: Parametrizar
 	};
 	
 	@Override
