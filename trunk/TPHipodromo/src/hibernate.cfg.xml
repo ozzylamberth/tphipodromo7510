@@ -24,6 +24,7 @@
 		<property name="hibernate.use_sql_comments">false</property>
 
         <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Caballo.hbm.xml"/>
+        <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Jockey.hbm.xml"/>
 
     </session-factory>
     </hibernate-configuration>
