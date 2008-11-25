@@ -4,7 +4,7 @@
 <hibernate-mapping >
 	<class name="ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey" table="Jockey">
 		<id name="id" column="id" type="long" unsaved-value="0">
-			<generator class="increment"  />         
+			<generator class="increment" />
 		</id>  
 		
 		<property name="apellido" type="string"  />
