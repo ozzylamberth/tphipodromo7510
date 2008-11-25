@@ -3,8 +3,11 @@ package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 
 public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements CarreraDao {
 	
@@ -31,6 +34,10 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 		carrera.setNombre("Carrera 2");
 		carrera.setNumero(2);
 		return carrera;
+	}
+	
+	public Carrera buscarPorNombre(String nombre) throws ObjetoInexistenteException, MultiplesObjetosException {
+		return null;
 	}
 	
 }
