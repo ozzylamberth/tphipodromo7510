@@ -390,7 +390,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	 *             Excepcion compuesta por todos las excepciones ocurridas en el
 	 *             proceso.
 	 */
-	public void setParticipantes(ArrayList<Participante> participantes)
+	public void setParticipantes(List<Participante> participantes)
 			throws HipodromoException {
 
 		HipodromoComposedException exception = new HipodromoComposedException();
