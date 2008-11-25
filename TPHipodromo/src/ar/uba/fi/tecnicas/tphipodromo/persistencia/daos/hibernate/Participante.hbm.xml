@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping >
+	<class name="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante" table="Participante">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="increment" />
+		</id>  
+		
+		<property name="nroParticipante" type="integer"  />
+		<one-to-one name="resultado" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado" />
+		<one-to-one name="caballo" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" />
+		<one-to-one name="jockey" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey" />
+	
+		<many-to-one name="carrera" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera" cascade="save-update" />
+		
+	<!-- 	<property name="estadoParticipante" type="ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoParticipante" not-null="true"/> -->		
+		
+	</class>
+</hibernate-mapping>
