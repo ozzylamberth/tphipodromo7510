@@ -10,15 +10,19 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioJockeys;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.JockeyTransformerFromDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.JockeyTransformerToDTO;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 
 @SuppressWarnings("serial")
 public class ServicioJockeysImpl extends ServicioIdentificableImpl<Jockey, JockeyDTO> implements ServicioJockeys {
 	
-	private JockeyDao jockeyDao = new JockeyDaoMockImpl();
+	private JockeyDao jockeyDao;
 	private JockeyTransformerFromDTO jockeyTransformerFromDTO = new JockeyTransformerFromDTO();
 	private JockeyTransformerToDTO jockeyTransformerToDTO = new JockeyTransformerToDTO();
 
 	public DAOGenerico<Jockey> getDao() {
+		if(jockeyDao==null){
+			jockeyDao = new HibernateDaoFactory().getJockeyDAO();			
+		}
 		return this.jockeyDao;
 	}
 
