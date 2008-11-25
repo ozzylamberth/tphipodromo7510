@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class CaballoDTO implements IsSerializable {
 	
-	private Long id = new Long(0);
+	private Long id;
 	private String caballeriza = "";
 	private String criador = "";
 	private Integer edad = new Integer(0);
