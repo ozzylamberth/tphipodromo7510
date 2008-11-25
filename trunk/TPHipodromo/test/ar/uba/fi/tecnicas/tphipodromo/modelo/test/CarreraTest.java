@@ -216,4 +216,22 @@ public class CarreraTest extends TestCase {
 		}
 	}
 
+	public void testAgregarParticipantes() {
+		
+		Participante participante1 = new Participante(new Caballo(), new Jockey(), carrera);
+		Participante participante2 = new Participante(new Caballo(), new Jockey(), carrera);
+		Participante participante3 = new Participante(new Caballo(), new Jockey(), carrera);
+		
+		List<Participante> participantesList = new ArrayList<Participante>();
+		
+		participantesList.add(participante1);
+		participantesList.add(participante2);
+		participantesList.add(participante3);
+		
+		try{
+			carrera.setParticipantes(participantesList);				
+		}catch (HipodromoException e){
+			fail ("Error al setear List de Participantes");
+		}
+	}
 }
