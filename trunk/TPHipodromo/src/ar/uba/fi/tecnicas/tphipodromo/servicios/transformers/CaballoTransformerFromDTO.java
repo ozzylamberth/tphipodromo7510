@@ -23,7 +23,7 @@ public class CaballoTransformerFromDTO implements Transformer {
 		CaballoDTO caballoDTO = (CaballoDTO) arg0;
 		
 		Caballo caballo;
-		if(caballoDTO.getId()!=0){
+		if(caballoDTO.getId()!=null){
 			caballo = buscarCaballo(caballoDTO.getId());
 		}else{
 			caballo = new Caballo();
