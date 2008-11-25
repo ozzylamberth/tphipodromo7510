@@ -23,7 +23,7 @@ public class CaballoTransformerFromDTO implements Transformer {
 		CaballoDTO caballoDTO = (CaballoDTO) arg0;
 		
 		Caballo caballo;
-		if(caballoDTO.getId()!=null){
+		if(!caballoDTO.getId().equals(new Long(0))){
 			caballo = buscarCaballo(caballoDTO.getId());
 		}else{
 			caballo = new Caballo();
@@ -42,10 +42,16 @@ public class CaballoTransformerFromDTO implements Transformer {
 		caballo.setPuraSangre(caballoDTO.isPuraSangre());
 		if (!caballoDTO.getPadreId().equals(new Long(0))) {
 			caballo.setPadre(this.buscarCaballo(caballoDTO.getPadreId()));
+		} else {
+			caballo.setPadre(null);
 		}
+		
 		if (!caballoDTO.getMadreId().equals(new Long(0))) {
 			caballo.setMadre(this. buscarCaballo(caballoDTO.getMadreId()));
+		} else {
+			caballo.setMadre(null);
 		}
+		
 		return caballo;
 	}
 	
