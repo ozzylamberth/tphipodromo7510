@@ -7,16 +7,31 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.CaballoDaoMockImpl;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 public class CaballoTransformerFromDTO implements Transformer {
 	
-	private CaballoDao caballoDao = new CaballoDaoMockImpl();
+	private CaballoDao caballoDao;
+	
+	public CaballoDao getDao(){
+		return caballoDao!=null?caballoDao:new HibernateDaoFactory().getCaballoDAO(); //TODO: usar bien la factory
+	}
 
 	public Object transform(Object arg0) {
 		CaballoDTO caballoDTO = (CaballoDTO) arg0;
-		Caballo caballo = new Caballo();
+		
+		Caballo caballo;
+		if(caballoDTO.getId()!=null){
+			caballo = buscarCaballo(caballoDTO.getId());
+		}else{
+			caballo = new Caballo();
+		}
+
+		if(caballo==null)
+			return null; //TODO: Crear una excepcion y tirarla
+
 		caballo.setId(caballoDTO.getId());
 		caballo.setCaballeriza(caballoDTO.getCaballeriza());
 		caballo.setCriador(caballoDTO.getCriador());
@@ -36,7 +51,7 @@ public class CaballoTransformerFromDTO implements Transformer {
 	
 	private Caballo buscarCaballo(Long id) {
 		try {
-			return this.caballoDao.buscarPorId(id);
+			return this.getDao().buscarPorId(id);
 		} catch (ObjetoInexistenteException e) {
 			return null;
 		}
