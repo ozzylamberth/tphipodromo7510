@@ -65,7 +65,7 @@ public class ControladorABMJockey extends Controlador {
 	}
 
 	public void doCrearJockey() {
-		this.notifyObservers(EventoFactory.getMostrarJockey(), null, true);
+		this.notifyObservers(EventoFactory.getMostrarJockey(), new JockeyDTO(), true);
 	}
 
 
