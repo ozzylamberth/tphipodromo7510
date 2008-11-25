@@ -25,6 +25,9 @@
 
         <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Caballo.hbm.xml"/>
         <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Jockey.hbm.xml"/>
+		<!--<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Carrera.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Participante.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Resultado.hbm.xml"/>-->
 
     </session-factory>
     </hibernate-configuration>
