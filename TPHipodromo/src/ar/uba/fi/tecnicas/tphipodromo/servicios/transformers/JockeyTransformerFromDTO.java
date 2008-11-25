@@ -22,7 +22,7 @@ public class JockeyTransformerFromDTO implements Transformer {
 		JockeyDTO jockeyDTO = (JockeyDTO) arg0;
 
 		Jockey jockey;
-		if( jockeyDTO.getId()!=null ) {
+		if(!jockeyDTO.getId().equals(new Long(0))) {
 			jockey = buscarJockey(jockeyDTO.getId());
 		}else{
 			jockey = new Jockey();
