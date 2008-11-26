@@ -17,4 +17,5 @@ public abstract class DaoFactory {
 	public abstract CaballoDao getCaballoDAO();
 	public abstract CarreraDao getCarreraDAO();
 	public abstract JockeyDao getJockeyDAO();
+	public abstract ParticipanteDao getParticipanteDAO();
 }
