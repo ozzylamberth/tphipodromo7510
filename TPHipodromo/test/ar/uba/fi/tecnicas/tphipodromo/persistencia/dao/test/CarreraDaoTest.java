@@ -11,19 +11,17 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
-import junit.framework.TestCase;
 
-public class CarreraDaoTest extends TestCase {
-
+public class CarreraDaoTest extends PersistenciaTestCase {
+	
 	public void testDao() throws TransicionInvalidaEstadoParticipanteException, ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, InscripcionCarreraCerradaException, ObjetoInexistenteException{
 		Carrera carreraLeida;
-		
+
 		Carrera carrera = new Carrera();
-		DaoFactory factory= new HibernateDaoFactory();
+		DaoFactory factory= DaoFactory.instance(DaoFactory.HIBERNATE);
 		CarreraDao dao = factory.getCarreraDAO();
-			
+		
 		Jockey jockey1 = new Jockey();
 		jockey1.setApellido("Wasserman");
 		jockey1.setNombre("Damian");
@@ -53,11 +51,13 @@ public class CarreraDaoTest extends TestCase {
 		
 		dao.guardar(carrera);
 		
+		HibernateUtil.currentSession().clear();		
+		
 		try {
 			carreraLeida = dao.buscarPorNombre("ssss3");
 			assertEquals(carrera.getNumero(), carreraLeida.getNumero());
-			assertEquals(carrera.getDistancia(), carreraLeida.getDistancia());
-			assertEquals(carrera.getFechaYHora(), carreraLeida.getFechaYHora());
+			assertEquals(carrera.getDistancia().doubleValue(), carreraLeida.getDistancia().doubleValue());
+			assertEquals(carrera.getFechaYHora().getTime()/1000, carreraLeida.getFechaYHora().getTime()/1000); //la base no guarda nanosegundos
 			assertEquals(carrera.getNombre(), carreraLeida.getNombre());
 			dao.borrar(carreraLeida);
 		} catch (ObjetoInexistenteException e) {
