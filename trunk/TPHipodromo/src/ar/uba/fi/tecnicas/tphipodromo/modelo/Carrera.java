@@ -392,7 +392,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	 */
 	public void setParticipantes(List<Participante> participantes)
 			throws HipodromoException {
-
+		
 		HipodromoComposedException exception = new HipodromoComposedException();
 		Iterator<Participante> it = participantes.iterator();
 		while (it.hasNext()) {
