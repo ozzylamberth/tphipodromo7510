@@ -6,7 +6,10 @@ import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarrerasAsync;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantes;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantesAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,6 +19,8 @@ public class ControladorABMCarreras extends Controlador {
 	private Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private ServicioCarrerasAsync servicioCaballos = GWT.create(ServicioCarreras.class);
+	
+	private ServicioParticipantesAsync servicioParticipantes = GWT.create(ServicioParticipantes.class);
 	
 	public void doActualizarListadoCarrera() {
 		servicioCaballos.buscarTodos(new AsyncCallback<Collection<CarreraDTO>>() {
@@ -30,7 +35,7 @@ public class ControladorABMCarreras extends Controlador {
 	}
 
 	public void doEditarCrrera(CarreraDTO carrera) {
-		notifyObservers(EventoFactory.getMostrarDatosCaballo(), carrera, Boolean.TRUE);
+		notifyObservers(EventoFactory.getMostrarDatosCarrera(), carrera, Boolean.TRUE);
 	}
 
 	public void doBorrarCarrera(CarreraDTO carrera) {
@@ -48,11 +53,11 @@ public class ControladorABMCarreras extends Controlador {
 	}
 
 	public void doMostrarCarrera(CarreraDTO carrera) {
-		notifyObservers(EventoFactory.getMostrarDatosCaballo(), carrera, Boolean.FALSE);
+		notifyObservers(EventoFactory.getMostrarDatosCarrera(), carrera, Boolean.FALSE);
 	}
 
 	public void doCrearCarrera() {
-		notifyObservers(EventoFactory.getMostrarDatosCaballo(), new CarreraDTO(), Boolean.TRUE);
+		notifyObservers(EventoFactory.getMostrarDatosCarrera(), new CarreraDTO(), Boolean.TRUE);
 	}
 
 	public void doGuadarCarrera(CarreraDTO carrera) {
@@ -64,6 +69,22 @@ public class ControladorABMCarreras extends Controlador {
 			public void onSuccess(Long result) {
 				doActualizarListadoCarrera();
 				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.carreraGuardada(), result);
+			}
+		});
+	}
+
+	public void doMostrarParticipantes(CarreraDTO carrera) {
+		notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, false);
+	}
+	
+	public void doEditarParticipantes(final CarreraDTO carrera) {
+		servicioParticipantes.buscarPorCarrera(carrera, new AsyncCallback<Collection<ParticipanteDTO>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Collection<ParticipanteDTO> result) {
+				notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, result, true);
 			}
 		});
 	}

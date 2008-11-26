@@ -5,6 +5,7 @@ import java.util.Collection;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 /**
  * Todas las vistas deben implementar esta interfaz. Por cada
@@ -70,5 +71,8 @@ public abstract class Vista {
 	public void onCarreraBorrada() {}
 	
 	public void onMostrarDatosCarrera(CarreraDTO carrera, Boolean editable){}
+
+	public void onMostrarParticipantesCarrera(CarreraDTO carreraDTO,
+			Collection<ParticipanteDTO> participantes, Boolean editable) {}
 	
 }
