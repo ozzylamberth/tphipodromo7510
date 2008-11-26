@@ -53,8 +53,8 @@ public class CarreraDaoTest extends TestCase {
 		
 		dao.guardar(carrera);
 		
-		HibernateUtil.currentSession().flush();
-		/*
+
+		
 		try {
 			carreraLeida = dao.buscarPorNombre("ssss3");
 			assertEquals(carrera.getNumero(), carreraLeida.getNumero());
@@ -67,6 +67,6 @@ public class CarreraDaoTest extends TestCase {
 		} catch (MultiplesObjetosException e) {
 			fail(e.getMessage());
 		}
-		*/
+		
 	}
 }
