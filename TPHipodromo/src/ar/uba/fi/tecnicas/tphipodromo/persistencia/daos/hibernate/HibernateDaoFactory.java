@@ -4,6 +4,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 
 public class HibernateDaoFactory extends DaoFactory {
 	
@@ -30,4 +31,10 @@ public class HibernateDaoFactory extends DaoFactory {
 	public JockeyDao getJockeyDAO() {
 		return (JockeyDao) generarHiberanteDao(JockeyDaoHibernate.class);
 	}
+
+	@Override
+	public ParticipanteDao getParticipanteDAO() {
+		return (ParticipanteDao) generarHiberanteDao(ParticipanteDaoHibernate.class);
+	}
+
 }

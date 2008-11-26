@@ -24,5 +24,4 @@ public class CaballoDaoHibernate extends HibernateDaoGenerico<Caballo> implement
 				
 		return listaCaballos.get(0);
 	}
-
 }
