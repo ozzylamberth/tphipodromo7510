@@ -8,13 +8,12 @@
 		</id>  
 		
 		<property name="nroParticipante" type="integer"  />
+		<property name="eestado" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoParticipante" not-null="true"/>
+		
 		<one-to-one name="rresultado" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado" cascade="save-update" />
 		<one-to-one name="caballo" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" cascade="save-update" />
 		<one-to-one name="jockey" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey" cascade="save-update" />
-	
-		<many-to-one name="carrera" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera" cascade="save-update" />
-		
-		<property name="eestado" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoParticipante" not-null="true"/>		
+		<one-to-one name="carrera" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera" cascade="save-update" />		
 		
 	</class>
 </hibernate-mapping>

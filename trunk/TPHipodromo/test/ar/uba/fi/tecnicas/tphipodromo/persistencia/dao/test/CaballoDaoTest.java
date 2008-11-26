@@ -3,17 +3,14 @@ package ar.uba.fi.tecnicas.tphipodromo.persistencia.dao.test;
 import java.math.BigDecimal;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
-import junit.framework.TestCase;
 
-public class CaballoDaoTest extends TestCase {
+public class CaballoDaoTest extends PersistenciaTestCase {
 	
 	public void testDao(){
 		DaoFactory factory= new HibernateDaoFactory();
@@ -54,10 +51,9 @@ public class CaballoDaoTest extends TestCase {
 		nuevoCaballo.getEstadisticas().agregarResultado(9);
 		nuevoCaballo.getEstadisticas().agregarResultado(10);
 		
-		dao.guardar(nuevoCaballo);
+		dao.guardar(nuevoCaballo);		
 		
-		
-		HibernateUtil.currentSession().flush();
+		HibernateUtil.currentSession().clear();	
 		
 		try {
 			Caballo caballoLeido = dao.buscarPorNombre("pepe");

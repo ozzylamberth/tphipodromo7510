@@ -47,7 +47,7 @@ public class ParticipanteDaoTest extends TestCase{
 		
 		DaoFactory factory= new HibernateDaoFactory();
 		ParticipanteDao dao = factory.getParticipanteDAO();
-	
+			//TODO
 		dao.guardar(part1);
 		}
 	}
