@@ -2,7 +2,6 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 
 import java.util.Collection;
 
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
