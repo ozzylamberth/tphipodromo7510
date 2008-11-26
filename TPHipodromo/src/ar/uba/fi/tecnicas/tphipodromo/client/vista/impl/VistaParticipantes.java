@@ -61,7 +61,6 @@ public class VistaParticipantes extends DialogBox {
 			
 		}
 		
-		@Override
 		public void onClick(Widget sender) {
 			// TODO Auto-generated method stub
 			

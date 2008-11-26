@@ -3,7 +3,9 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios.dtos;
 import java.util.Collection;
 import java.util.Date;
 
-public class ApuestaDTO {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class ApuestaDTO implements IsSerializable {
 	
 	private Long id = new Long(0);
 	private String tipoApuesta = "";

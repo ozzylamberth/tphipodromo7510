@@ -1,6 +1,8 @@
 package ar.uba.fi.tecnicas.tphipodromo.servicios.dtos;
 
-public class ParticipanteDTO {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class ParticipanteDTO implements IsSerializable {
 	
 	private Long id = new Long(0);
 	private int nroParticipante = 0;
