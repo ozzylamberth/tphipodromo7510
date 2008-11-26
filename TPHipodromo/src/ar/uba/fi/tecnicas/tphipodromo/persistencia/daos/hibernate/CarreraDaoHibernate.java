@@ -9,19 +9,21 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexis
 
 public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implements CarreraDao{
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Carrera buscarPorNombre(String nombre)
 			throws ObjetoInexistenteException, MultiplesObjetosException {
-		Carrera ejemplo = new Carrera();
-		ejemplo.setNombre(nombre);
-		List<Carrera> listaCarreras = obtenerPorEjemploExacto(ejemplo);
 		
+		List listaCarreras = getSession()
+		.createQuery("from Carrera c where c.nombre = :p").setString("p", nombre)
+		.list();
+			
 		if (listaCarreras.size()==0)
 			throw new ObjetoInexistenteException();
 		
 		if (listaCarreras.size()>1)
 			throw new MultiplesObjetosException();
 				
-		return listaCarreras.get(0);
+		return (Carrera)listaCarreras.get(0);
 	}
 }

@@ -14,10 +14,10 @@
 		
 		<property name="estadoCarrera" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoCarrera" not-null="true" /> 
 		
-		<!-- <list name="participantes" lazy="true" inverse="true">
+		<list name="lstParticipantes" inverse="true" cascade="all-delete-orphan">
 		      <key column="idCarrera"/>
-		      <index column="index_col"/>
+		      <list-index column="ORDEN" base="0"/>
 		      <one-to-many class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
-		  </list> -->		
+		  </list>		
 	</class>
 </hibernate-mapping>

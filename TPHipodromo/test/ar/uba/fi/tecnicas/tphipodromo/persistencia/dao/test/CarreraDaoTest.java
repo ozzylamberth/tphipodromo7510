@@ -52,7 +52,7 @@ public class CarreraDaoTest extends TestCase {
 		carrera.addParticipante(part1);
 		
 		dao.guardar(carrera);
-				
+		
 		try {
 			carreraLeida = dao.buscarPorNombre("ssss3");
 			assertEquals(carrera.getNumero(), carreraLeida.getNumero());
