@@ -12,7 +12,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
  */
 public class Participante implements Identificable {
 	
-	private Long id;
+	private Long id = new Long(0);
 	private int nroParticipante;
 	private Resultado rresultado = null;
 	private Caballo caballo;
