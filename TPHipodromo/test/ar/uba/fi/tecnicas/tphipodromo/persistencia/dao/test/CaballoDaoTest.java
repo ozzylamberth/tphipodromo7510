@@ -56,8 +56,8 @@ public class CaballoDaoTest extends TestCase {
 		
 		dao.guardar(nuevoCaballo);
 		
-		HibernateUtil.closeSession();
-		org.hsqldb.DatabaseManager.closeDatabases(0);
+		
+		HibernateUtil.currentSession().flush();
 		
 		try {
 			Caballo caballoLeido = dao.buscarPorNombre("pepe");
@@ -65,6 +65,7 @@ public class CaballoDaoTest extends TestCase {
 			assertEquals(nuevoCaballo.getCriador(), caballoLeido.getCriador());
 			assertEquals(nuevoCaballo.getEdad(), caballoLeido.getEdad());
 			assertEquals(nuevoCaballo.getNombre(), caballoLeido.getNombre());
+			dao.borrar(caballoLeido);
 		} catch (ObjetoInexistenteException e) {
 			fail(e.getMessage());
 		} catch (MultiplesObjetosException e) {
