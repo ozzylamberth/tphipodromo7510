@@ -17,6 +17,6 @@ public interface ServicioParticipantesAsync {
 	
 	public void borrar(Long id, AsyncCallback<Void> callback);
 	
-	public Collection<ParticipanteDTO> buscarPorCarrera(CarreraDTO carrera, AsyncCallback<Collection<ParticipanteDTO>> callback);
+	public void buscarPorCarrera(CarreraDTO carrera, AsyncCallback<Collection<ParticipanteDTO>> callback);
 	
 }
