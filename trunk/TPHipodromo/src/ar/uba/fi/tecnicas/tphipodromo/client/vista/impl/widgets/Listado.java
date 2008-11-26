@@ -19,6 +19,9 @@ public abstract class Listado<T> extends FlexTable {
 		int i=0;
 		
 		for(String s: getTitulos()) {
+			if(this.getAnchos() != null) {
+				this.getColumnFormatter().setWidth(i, String.valueOf(getAnchos()[i]));
+			}
 			this.setText(0, i, s);
 			this.getCellFormatter().setStyleName(0, i, "listado-encabezado");
 			i++;
@@ -55,5 +58,9 @@ public abstract class Listado<T> extends FlexTable {
 	public abstract String[] getTitulos();
 	
 	public abstract Widget[] getAtributos(T obj);
+	
+	protected String[] getAnchos() {
+		return null;
+	}
 
 }

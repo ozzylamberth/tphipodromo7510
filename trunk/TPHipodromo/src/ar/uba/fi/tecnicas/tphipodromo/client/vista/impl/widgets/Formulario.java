@@ -31,6 +31,8 @@ public class Formulario extends DialogBox implements ClickListener {
 	
 	private int cantidadCampos = 0;
 	
+	private HorizontalPanel botonera;
+	
 	public Formulario(FormularioListener l) {
 		super(false);
 		
@@ -42,7 +44,7 @@ public class Formulario extends DialogBox implements ClickListener {
 		this.botonGuardar.addClickListener(this);
 		this.botonCerrar.addClickListener(this);
 		
-		HorizontalPanel botonera = new HorizontalPanel();
+		botonera = new HorizontalPanel();
 		botonera.setSpacing(10);
 		botonera.add(botonGuardar);
 		botonera.add(botonCerrar);
@@ -116,6 +118,26 @@ public class Formulario extends DialogBox implements ClickListener {
 		Campo campo = campos.get(nombre);
 		campo.setValor(String.valueOf(valor));
 	}
+	/*
+	public Date getFecha(String nombre) {
+		Campo campo = campos.get(nombre);
+		try {
+			if(campo.getValor()== null) {
+				return null;
+			}
+			return Utils.parsearFecha(campo.getValor(), Utils.FORMATO_ARG);
+		} catch (ParseException e) {
+			//Esta excepcion no deberia darse
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void setFecha(String nombre, Date fecha) {
+		Campo campo = campos.get(nombre);
+		campo.setValor(Utils.getFechaFormateada(fecha, Utils.FORMATO_ARG));
+	}
+	*/
 	
 	private void reset() {
 		for(Campo campo: campos.values()) {
@@ -159,5 +181,12 @@ public class Formulario extends DialogBox implements ClickListener {
 			campo.setEditable(editable);
 		}
 	}
-	
+
+	public HorizontalPanel getBotonera() {
+		return botonera;
+	}
+
+	public void setBotonera(HorizontalPanel botonera) {
+		this.botonera = botonera;
+	}
 }

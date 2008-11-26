@@ -6,6 +6,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 @SuppressWarnings("unchecked")
 public class EventoFactory {
@@ -134,6 +135,22 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onMostrarABMCarrera(); 
+			}
+		};
+	}
+
+	public static Evento getMostrarDatosCarrera() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarDatosCarrera((CarreraDTO)args[0], (Boolean)args[1]); 
+			}
+		};
+	}
+
+	public static Evento getMostrarParticipantes() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1],(Boolean)args[2]); 
 			}
 		};
 	}

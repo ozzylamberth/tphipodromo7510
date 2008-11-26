@@ -2,6 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 
 import java.util.Collection;
 
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 
@@ -18,5 +19,7 @@ public interface ServicioParticipantes extends RemoteService{
 	public Long guardar(ParticipanteDTO participanteDTO);
 	
 	public void borrar(Long id) throws EntidadInexistenteException;
+	
+	public Collection<ParticipanteDTO> buscarPorCarrera(CarreraDTO carrera);
 	
 }

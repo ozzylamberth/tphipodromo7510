@@ -151,6 +151,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String editar();
 
   /**
+   * Translated "Eliminar".
+   * 
+   * @return translated "Eliminar"
+   */
+  @DefaultStringValue("Eliminar")
+  @Key("eliminar")
+  String eliminar();
+
+  /**
    * Translated "Error al acceder al servidor".
    * 
    * @return translated "Error al acceder al servidor"
@@ -266,6 +275,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Padre")
   @Key("padre")
   String padre();
+
+  /**
+   * Translated "Participantes".
+   * 
+   * @return translated "Participantes"
+   */
+  @DefaultStringValue("Participantes")
+  @Key("participantes")
+  String participantes();
 
   /**
    * Translated "Pelaje".
