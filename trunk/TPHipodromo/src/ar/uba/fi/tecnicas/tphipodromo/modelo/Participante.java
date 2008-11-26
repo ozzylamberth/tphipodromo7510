@@ -14,17 +14,17 @@ public class Participante implements Identificable {
 	
 	private Long id;
 	private int nroParticipante;
-	private Resultado resultado = null;
+	private Resultado rresultado = null;
 	private Caballo caballo;
 	private Jockey jockey;
 	private Carrera carrera;
-	private EstadoParticipante estado;
+	private EstadoParticipante eestado;
 
 	public Participante(Caballo caballo, Jockey jockey, Carrera carrera) {
 		this.caballo = caballo;
 		this.jockey = jockey;
 		this.carrera = carrera;
-		this.estado = EstadoParticipante.LARGADA_PENDIENTE;
+		this.eestado = EstadoParticipante.LARGADA_PENDIENTE;
 	}
 
 	public Long getId() {
@@ -44,9 +44,9 @@ public class Participante implements Identificable {
 	}
 
 	public Resultado getResultado() throws ResultadosCarreraInvalidosException {
-		if (this.estado.equals(EstadoParticipante.A_AUDITAR)
-				|| this.estado.equals(EstadoParticipante.FINALIZADO)) {
-			return this.resultado;
+		if (this.eestado.equals(EstadoParticipante.A_AUDITAR)
+				|| this.eestado.equals(EstadoParticipante.FINALIZADO)) {
+			return this.rresultado;
 		} else {
 			throw new ResultadosCarreraInvalidosException();
 		}
@@ -54,7 +54,7 @@ public class Participante implements Identificable {
 
 	public void setResultado(Resultado resultado)
 			throws TransicionInvalidaEstadoParticipanteException {
-		this.resultado = resultado;
+		this.rresultado = resultado;
 		setEstado(EstadoParticipante.A_AUDITAR);
 	}
 
@@ -92,14 +92,14 @@ public class Participante implements Identificable {
 	 */
 	public void setEstado(EstadoParticipante nuevoEstado)
 			throws TransicionInvalidaEstadoParticipanteException {
-		if (!estado.equals(nuevoEstado)) {
-			if (estado.esSiguienteEstadoValido(nuevoEstado)) {
+		if (!eestado.equals(nuevoEstado)) {
+			if (eestado.esSiguienteEstadoValido(nuevoEstado)) {
 				if (nuevoEstado.equals(EstadoParticipante.A_AUDITAR)
-						&& resultado == null) {
+						&& rresultado == null) {
 					throw new TransicionInvalidaEstadoParticipanteException();
 				} else {
-					this.estado = nuevoEstado;
-					if (this.estado.equals(EstadoParticipante.FINALIZADO)) {
+					this.eestado = nuevoEstado;
+					if (this.eestado.equals(EstadoParticipante.FINALIZADO)) {
 						try {
 							getCaballo().getEstadisticas().agregarResultado(
 									getResultado().getOrdenLlegada());
@@ -108,13 +108,33 @@ public class Participante implements Identificable {
 					}
 				}
 			} else {
-				throw new TransicionInvalidaEstadoParticipanteException(estado,
+				throw new TransicionInvalidaEstadoParticipanteException(eestado,
 						nuevoEstado);
 			}
 		}
 	}
 
 	public EstadoParticipante getEstado() {
-		return this.estado;
+		return this.eestado;
+	}
+
+	@SuppressWarnings("all")
+	private Resultado getRresultado() {
+		return rresultado;
+	}
+
+	@SuppressWarnings("all")
+	private void setRresultado(Resultado rresultado) {
+		this.rresultado = rresultado;
+	}
+
+	@SuppressWarnings("all")
+	private EstadoParticipante getEestado() {
+		return eestado;
+	}
+
+	@SuppressWarnings("all")
+	private void setEestado(EstadoParticipante eestado) {
+		this.eestado = eestado;
 	}
 }

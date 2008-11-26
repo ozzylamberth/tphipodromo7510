@@ -37,7 +37,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	private String nombre;
 	private int numero;
 	private EstadoCarrera estadoCarrera;
-	private List<Participante> participantes = new ArrayList<Participante>();
+	private List<Participante> lstParticipantes = new ArrayList<Participante>();
 	private final ReglamentoCarrera reglamentoParticipantes;
 	
 	public Carrera() {
@@ -75,7 +75,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	public void abrirApuestas() throws HipodromoException {
 
 		HipodromoComposedException exception = new HipodromoComposedException();
-		Iterator<Participante> it = participantes.iterator();
+		Iterator<Participante> it = lstParticipantes.iterator();
 		int conteoParticipantesHabilitados = 0;
 
 		while (it.hasNext()) {
@@ -123,7 +123,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	public void cerrarApuestas() throws HipodromoException {
 
 		HipodromoComposedException exception = new HipodromoComposedException();
-		Iterator<Participante> it = participantes.iterator();
+		Iterator<Participante> it = lstParticipantes.iterator();
 		int conteoParticipantesHabilitados = 0;
 
 		while (it.hasNext()) {
@@ -173,7 +173,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	 */
 	public void comenzar() throws HipodromoException {
 		HipodromoComposedException exception = new HipodromoComposedException();
-		Iterator<Participante> it = participantes.iterator();
+		Iterator<Participante> it = lstParticipantes.iterator();
 		int conteoParticipantesHabilitados = 0;
 
 		while (it.hasNext()) {
@@ -228,7 +228,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	 */
 	public void terminar() throws HipodromoException {
 
-		Iterator<Participante> it = participantes.iterator();
+		Iterator<Participante> it = lstParticipantes.iterator();
 		HipodromoComposedException exception = new HipodromoComposedException();
 
 		while (it.hasNext()) {
@@ -277,7 +277,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	public void aprobarResultados() throws HipodromoException {
 
 		HipodromoComposedException exception = new HipodromoComposedException();
-		Iterator<Participante> it = participantes.iterator();
+		Iterator<Participante> it = lstParticipantes.iterator();
 
 		while (it.hasNext()) {
 			Participante participante = it.next();
@@ -378,7 +378,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	}
 
 	public List<Participante> getParticipantes() {
-		return this.participantes;
+		return this.lstParticipantes;
 	}
 
 	/**
@@ -432,7 +432,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 		}
 
 		if (!this.estadoCarrera.equals(EstadoCarrera.INSCRIPCION_PARTICIPANTES)
-				|| participantes.size() > reglamentoParticipantes
+				|| lstParticipantes.size() > reglamentoParticipantes
 						.getCantidadParticipantesMaxima()) {
 			throw new InscripcionCarreraCerradaException();
 		}
@@ -443,7 +443,7 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 
 		if (reglamentoParticipantes.validarRequisitos(participante)) {
 			participante.setCarrera(this);
-			this.participantes.add(participante);
+			this.lstParticipantes.add(participante);
 		} else {
 			throw new ParticipanteNoCalificadoException();
 		}
@@ -452,6 +452,21 @@ public class Carrera implements Identificable, Comparable<Carrera>, InterfaceAud
 	@Override
 	public int compareTo(Carrera o) {
 		return this.getNumero() - o.getNumero();
+	}
+
+	@SuppressWarnings("all")
+	private List<Participante> getLstParticipantes() {
+		return lstParticipantes;
+	}
+
+	@SuppressWarnings("all")
+	private void setLstParticipantes(List<Participante> lstParticipantes) {
+		this.lstParticipantes = lstParticipantes;
+	}
+
+	@SuppressWarnings("all")
+	private ReglamentoCarrera getReglamentoParticipantes() {
+		return reglamentoParticipantes;
 	}
 
 }
