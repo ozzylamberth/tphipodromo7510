@@ -12,14 +12,7 @@
 		<property name="nombre" type="string" />
 		<property name="numero" type="integer"  />
 		
-		<!-- <property name="estadoCarrera" type="ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera" not-null="true"/> 
-		
-		 <list name="participantes" lazy="true" inverse="true">
-		      <key column="idCarrera"/>
-		      <index column="index_col"/>
-		      <one-to-many class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
-		  </list>
--->
+		<property name="estadoCarrera" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoCarrera" not-null="true" /> 
 				
 	</class>
 </hibernate-mapping>
