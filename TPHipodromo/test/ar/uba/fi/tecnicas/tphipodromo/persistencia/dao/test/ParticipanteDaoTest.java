@@ -2,20 +2,18 @@ package ar.uba.fi.tecnicas.tphipodromo.persistencia.dao.test;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import junit.framework.TestCase;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.*;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.InscripcionCarreraCerradaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipanteNoCalificadoException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistintasCarrerasException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.*;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.JockeyDaoHibernate;
 
-public class ParticipanteDaoTest extends TestCase{
-	public void testParticipante() throws TransicionInvalidaEstadoParticipanteException, ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, InscripcionCarreraCerradaException{
+public class ParticipanteDaoTest extends PersistenciaTestCase{
+	public void testParticipante() throws TransicionInvalidaEstadoParticipanteException, ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, InscripcionCarreraCerradaException, ObjetoInexistenteException{
 		Carrera carrera = new Carrera();
 
 		
@@ -48,6 +46,10 @@ public class ParticipanteDaoTest extends TestCase{
 		DaoFactory factory= new HibernateDaoFactory();
 		ParticipanteDao dao = factory.getParticipanteDAO();
 			//TODO
-		dao.guardar(part1);
+		dao.guardar(part1);	
+		dao.borrar(part1);
+		
+
+		
 		}
 	}
