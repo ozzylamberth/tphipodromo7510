@@ -2,13 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-codec.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-collections.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-digester.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-el.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-lang.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/commons-logging.jar"/>
-	<classpathentry kind="lib" path="C:/Archivos de programa/Eclipse/workspace/PruebaDTOMapping/lib/global/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-el.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/global/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/global/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/buildtime/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
