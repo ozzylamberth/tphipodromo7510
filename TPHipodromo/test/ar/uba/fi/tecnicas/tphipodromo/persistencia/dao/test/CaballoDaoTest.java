@@ -17,17 +17,17 @@ public class CaballoDaoTest extends PersistenciaTestCase {
 		CaballoDao dao = factory.getCaballoDAO();
 		
 		Caballo nuevoCaballo = new Caballo();
-		nuevoCaballo.setCaballeriza("caballeriza test");
+		nuevoCaballo.setCaballeriza("Hijop");
 		nuevoCaballo.setCriador("criador");
 		nuevoCaballo.setEdad(4);
-		nuevoCaballo.setNombre("pepe");
+		nuevoCaballo.setNombre("pepeHijop");
 		nuevoCaballo.setPelaje("peludo");
 		nuevoCaballo.setPeso(new BigDecimal(10));
 		nuevoCaballo.setPuraSangre(true);
 		dao.guardar(nuevoCaballo);		
 		
 		Caballo madre = new Caballo();
-		madre.setNombre("mama caballa");
+		madre.setNombre(" Hijop mama caballa");
 		madre.setCriador("criador");
 		madre.setEdad(10);
 		madre.setCaballeriza("caballeriza");
@@ -36,11 +36,11 @@ public class CaballoDaoTest extends PersistenciaTestCase {
 		madre.setPuraSangre(false);
 
 		Caballo padre = new Caballo();
-		padre.setNombre("papa caballo");
-		padre.setCriador("criador 2");
+		padre.setNombre(" Hijop p apa callo");
+		padre.setCriador("crd2");
 		padre.setEdad(11);
-		padre.setCaballeriza("caballeriza 2");
-		padre.setPelaje("pelo pelo");
+		padre.setCaballeriza("dsa 2");
+		padre.setPelaje("pelo dd pelo");
 		padre.setPeso(new BigDecimal(160));
 		padre.setPuraSangre(true);
 		
@@ -56,12 +56,14 @@ public class CaballoDaoTest extends PersistenciaTestCase {
 		HibernateUtil.currentSession().clear();	
 		
 		try {
-			Caballo caballoLeido = dao.buscarPorNombre("pepe");
+			Caballo caballoLeido = dao.buscarPorNombre("pepeHijop");
 			assertEquals(nuevoCaballo.getCaballeriza(), caballoLeido.getCaballeriza());
 			assertEquals(nuevoCaballo.getCriador(), caballoLeido.getCriador());
 			assertEquals(nuevoCaballo.getEdad(), caballoLeido.getEdad());
 			assertEquals(nuevoCaballo.getNombre(), caballoLeido.getNombre());
 			dao.borrar(caballoLeido);
+			dao.borrar(madre);
+			dao.borrar(padre);
 		} catch (ObjetoInexistenteException e) {
 			fail(e.getMessage());
 		} catch (MultiplesObjetosException e) {
