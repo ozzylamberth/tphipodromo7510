@@ -9,7 +9,7 @@ import ar.edu.uba.fi.model.businessobjet.Estudiante;
 
 public class EstudianteDTOBuilder {
 
-	public static void populateEnfermeroDTO(EstudianteDTO estudianteDTO, Estudiante estudiante){
+	public static void populateEstudianteDTO(EstudianteDTO estudianteDTO, Estudiante estudiante){
 		
 		try {
 			BeanUtils.copyProperties(estudianteDTO, estudiante);
@@ -21,7 +21,7 @@ public class EstudianteDTOBuilder {
 		
 	}
 	
-	public static EstudianteDTO createEnfermeroDTO(Estudiante estudiante){
+	public static EstudianteDTO createEstudianteDTO(Estudiante estudiante){
 		
 		EstudianteDTO estudianteDTO = new EstudianteDTO();
 		try {
@@ -34,7 +34,7 @@ public class EstudianteDTOBuilder {
 		return estudianteDTO;
 	}
 	
-	public static Estudiante createEnfermero(EstudianteDTO estudianteDTO){
+	public static Estudiante createEstudiante(EstudianteDTO estudianteDTO){
 		
 		Estudiante estudiante = new Estudiante();
 		try {
