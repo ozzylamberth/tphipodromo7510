@@ -6,12 +6,14 @@ import java.util.Collection;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.*;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 
 public class JockeyDaoTest extends PersistenciaTestCase{
 	
-	public void testJockey(){
+	public void testJockey() throws ObjetoInexistenteException{
 			Jockey jockey1 = new Jockey();
 			jockey1.setApellido("Wasserman");
 			jockey1.setNombre("Damian");
@@ -32,6 +34,10 @@ public class JockeyDaoTest extends PersistenciaTestCase{
 				assertEquals(jockey1.getApellido(), j.getApellido());
 				assertEquals(jockey1.getNombre(), j.getNombre());
 				assertEquals(jockey1.getPeso().doubleValue(), j.getPeso().doubleValue());
+				dao.borrar(j);
+				
 			}
+			
+			
 	}
 }
