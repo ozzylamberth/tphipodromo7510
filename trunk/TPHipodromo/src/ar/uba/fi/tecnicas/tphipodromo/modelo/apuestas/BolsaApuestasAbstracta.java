@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Identificable;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TipoApuestaInvalidoException;
 
@@ -18,7 +19,10 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TipoApuestaInvalidoExce
  * clase. Es utilizada por la Clase BolsaApuestasManager para crear las
  * distintas Bolsas de apuestas según el tipo de apuesta.
  */
-public abstract class BolsaApuestasAbstracta {
+public abstract class BolsaApuestasAbstracta implements Identificable {
+	
+	private Long id;
+	
 	public static final int DECIMALES = 2;
 	public static final RoundingMode ROUNDING_MODE = RoundingMode.CEILING;
 
@@ -101,6 +105,24 @@ public abstract class BolsaApuestasAbstracta {
 
 	public BigDecimal getPozoMinimo() {
 		return pozoMinimo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@SuppressWarnings("all")
+	private Class<? extends Apuesta> getTipoApuestas() {
+		return tipoApuestas;
+	}
+
+	@SuppressWarnings("all")
+	private void setTipoApuestas(Class<? extends Apuesta> tipoApuestas) {
+		this.tipoApuestas = tipoApuestas;
 	}
 
 }

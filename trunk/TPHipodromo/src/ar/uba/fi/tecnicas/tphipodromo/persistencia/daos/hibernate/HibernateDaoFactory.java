@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.BolsaApuestasDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
@@ -35,6 +36,11 @@ public class HibernateDaoFactory extends DaoFactory {
 	@Override
 	public ParticipanteDao getParticipanteDAO() {
 		return (ParticipanteDao) generarHiberanteDao(ParticipanteDaoHibernate.class);
+	}
+
+	@Override
+	public BolsaApuestasDao getBolsaApuestasDAO() {
+		return (BolsaApuestasDao) generarHiberanteDao(BolsaApuestasDaoHibernate.class);
 	}
 
 }

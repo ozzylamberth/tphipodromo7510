@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping >
+	<class name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.BolsaApuestasAbstracta" table="BolsaApuestas">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="increment" />         
+		</id>
+		
+		<discriminator column="BOLSA_TIPO" type="string" force="true" />
+			  
+		<property name="porcentajeComisionHipodromo" type="big_decimal" />
+		<property name="incrementoPozo" type="big_decimal" />
+		<property name="pozoMinimo" type="big_decimal" />
+		<property name="tipoApuestas" type="class" />
+
+		<!--	protected Set<Carrera> carreras = new HashSet<Carrera>();  -->
+		<!--	protected Set<Apuesta> apuestas = new HashSet<Apuesta>();  -->
+		
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.BolsaApuestasConcreta" discriminator-value="CONCRETA" />
+		
+	</class>
+</hibernate-mapping>

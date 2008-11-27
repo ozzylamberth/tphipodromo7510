@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping >
+	<class name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta" table="Apuesta">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="increment" />         
+		</id> 
+		
+		<discriminator column="BOLSA_TIPO" type="string" force="true" />
+		
+		<property name="tipoApuesta" type="string" />
+		<property name="montoApostado" type="big_decimal" />
+		<property name="nroTicket" type="long" />
+		<property name="fechaCreacion" type="timestamp" />
+		<property name="diasPlazoMaxDeCobro" type="int" />
+		
+		<!--  private BolsaApuestasAbstracta bolsaApuestas;  -->
+		<!-- private EstadoApuesta estadoApuesta; -->
+		<!-- private Collection<Participante> participantes = new ArrayList<Participante>(); -->
+		
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTriplo" discriminator-value="TRIPLO" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTrifecta" discriminator-value="TRIFECTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTercero" discriminator-value="TERCERO" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaImperfecta" discriminator-value="IMPERFECTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaGanador" discriminator-value="GANADOR" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaExacta" discriminator-value="EXACTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaDoble" discriminator-value="DOBLE" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaCuaterna" discriminator-value="CUATERNA" />
+			
+	</class>
+</hibernate-mapping>
