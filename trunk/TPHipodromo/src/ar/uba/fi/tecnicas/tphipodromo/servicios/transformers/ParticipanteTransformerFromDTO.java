@@ -14,6 +14,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ResultadoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class ParticipanteTransformerFromDTO implements Transformer {
 	
@@ -21,6 +22,13 @@ public class ParticipanteTransformerFromDTO implements Transformer {
 	private CarreraDao carreraDao;
 	private JockeyDao jockeyDao;
 	private ResultadoDao resultadoDao;
+	
+	public ParticipanteTransformerFromDTO() {
+		this.caballoDao = (CaballoDao) ServicioSpring.getInstance().getBean("caballoDao");
+		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
+		this.jockeyDao = (JockeyDao) ServicioSpring.getInstance().getBean("jockeyDao"); 
+		this.resultadoDao = (ResultadoDao) ServicioSpring.getInstance().getBean("resultadoDao");
+	}
 
 	public Object transform(Object arg0) {
 		ParticipanteDTO participanteDTO = (ParticipanteDTO) arg0;

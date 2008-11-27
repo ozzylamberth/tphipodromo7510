@@ -11,8 +11,6 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.CarreraDaoMockImpl;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.ParticipanteDaoMockImpl;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantes;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
@@ -23,10 +21,15 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ParticipanteTransfo
 @SuppressWarnings("serial")
 public class ServicioParticipantesImpl extends ServicioIdentificableImpl<Participante, ParticipanteDTO> implements ServicioParticipantes {
 	
-	private ParticipanteDao participanteDao = new ParticipanteDaoMockImpl();
-	private CarreraDao carreraDao = new CarreraDaoMockImpl();
+	private ParticipanteDao participanteDao;
+	private CarreraDao carreraDao;
 	private ParticipanteTransformerFromDTO participanteTransformerFromDTO = new ParticipanteTransformerFromDTO();
 	private ParticipanteTransformerToDTO participanteTransformerToDTO = new ParticipanteTransformerToDTO();
+	
+	public ServicioParticipantesImpl() {
+		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
+		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
+	}
 
 	public DAOGenerico<Participante> getDao() {
 		return this.participanteDao;

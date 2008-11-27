@@ -4,9 +4,6 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.CaballoDaoMockImpl;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTransformerFromDTO;
@@ -19,10 +16,11 @@ public class ServicioCaballosImpl extends ServicioIdentificableImpl<Caballo, Cab
 	private CaballoTrasnformerToDTO caballoTrasnformerToDTO = new CaballoTrasnformerToDTO();
 	private CaballoTransformerFromDTO caballoTransformerFromDTO = new CaballoTransformerFromDTO();
 	
+	public ServicioCaballosImpl() {
+		this.caballoDao = (CaballoDao) ServicioSpring.getInstance().getBean("caballoDao");
+	}
+	
 	public DAOGenerico<Caballo> getDao() {
-		if(caballoDao==null){
-			caballoDao = new HibernateDaoFactory().getCaballoDAO();			
-		}
 		return this.caballoDao;
 	}
 	
