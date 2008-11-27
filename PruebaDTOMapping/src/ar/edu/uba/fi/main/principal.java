@@ -11,7 +11,7 @@ public class principal {
 		Estudiante estudiante = new Estudiante(1234, "Statile", "SI", "Pablo", 33555666, "DNI");
 		EstudianteDTO estudianteDTO = new EstudianteDTO();
 		
-		EstudianteDTOBuilder.populateEnfermeroDTO(estudianteDTO, estudiante);
+		EstudianteDTOBuilder.populateEstudianteDTO(estudianteDTO, estudiante);
 		
 		System.out.println("Nombre del EstudianteDTO: " + estudianteDTO.getNombre());
 		System.out.println("Apellido del EstudianteDTO: " + estudianteDTO.getApellido());
