@@ -7,16 +7,19 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.CaballoDaoMockImpl;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class CaballoTransformerFromDTO implements Transformer {
 	
 	private CaballoDao caballoDao;
 	
+	public CaballoTransformerFromDTO() {
+		this.caballoDao = (CaballoDao) ServicioSpring.getInstance().getBean("caballoDao");
+	}
+	
 	public CaballoDao getDao(){
-		return caballoDao!=null?caballoDao:new HibernateDaoFactory().getCaballoDAO(); //TODO: usar bien la factory
+		return caballoDao;
 	}
 
 	public Object transform(Object arg0) {

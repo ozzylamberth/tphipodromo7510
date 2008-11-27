@@ -25,8 +25,6 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.CarreraException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.ApuestaDaoMockImpl;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.ParticipanteDaoMockImpl;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ApuestaInvalidaException;
@@ -36,9 +34,9 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ApuestaTransformerT
 
 public class ServicioApuestasImpl implements ServicioApuestas {
 	
-	private ApuestaDao apuestaDao = new ApuestaDaoMockImpl();
+	private ApuestaDao apuestaDao;
 	private ApuestaTransformerToDTO apuestaTransformerToDTO = new ApuestaTransformerToDTO();
-	private ParticipanteDao participanteDao = new ParticipanteDaoMockImpl();
+	private ParticipanteDao participanteDao;
 	
 	@SuppressWarnings("unchecked")
 	private HashMap<String, Class> tiposApuestaSimples = new HashMap<String, Class>();
@@ -46,6 +44,12 @@ public class ServicioApuestasImpl implements ServicioApuestas {
 	private HashMap<String, Class> tiposApuestaCompuestas = new HashMap<String, Class>();
 	
 	public ServicioApuestasImpl() {
+		this.apuestaDao = (ApuestaDao) ServicioSpring.getInstance().getBean("apuestaDao");
+		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
+		this.initTiposApuestas();
+	}
+	
+	public void initTiposApuestas() {
 		this.tiposApuestaSimples.put(ApuestaGanador.TIPO_APUESTA, ApuestaGanador.class);
 		this.tiposApuestaSimples.put(ApuestaSegundo.TIPO_APUESTA, ApuestaSegundo.class);
 		this.tiposApuestaSimples.put(ApuestaTercero.TIPO_APUESTA, ApuestaTercero.class);
