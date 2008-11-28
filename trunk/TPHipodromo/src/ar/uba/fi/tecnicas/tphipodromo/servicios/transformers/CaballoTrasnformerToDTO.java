@@ -6,7 +6,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
 /**
- * Convierte un Caballo en un DetalleCaballoDTO
+ * Convierte un Caballo en un CaballoDTO
  */
 public class CaballoTrasnformerToDTO implements Transformer {
 
@@ -22,11 +22,9 @@ public class CaballoTrasnformerToDTO implements Transformer {
 		detalleCaballoDTO.setPeso(new Double(caballo.getPeso().toString()));
 		detalleCaballoDTO.setPuraSangre(caballo.isPuraSangre());
 		if (caballo.getPadre() != null) {
-			detalleCaballoDTO.setPadre(caballo.getPadre().getNombre());
 			detalleCaballoDTO.setPadreId(caballo.getPadre().getId());
 		}
 		if (caballo.getMadre() != null) {
-			detalleCaballoDTO.setMadre(caballo.getMadre().getNombre());
 			detalleCaballoDTO.setMadreId(caballo.getMadre().getId());
 		}
 		return detalleCaballoDTO;

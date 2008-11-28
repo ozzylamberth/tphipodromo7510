@@ -30,11 +30,14 @@ public class VistaParticipantes extends DialogBox {
 		listado = new Listado<ParticipanteDTO>() {
 			public Widget[] getAtributos(ParticipanteDTO obj) {
 				return new Widget[] {
-						new Label(obj.getCaballoId().toString()),
-						new Label(obj.getJockeyId().toString()),
+						// Te comente las siguientes lineas para que no haya errores de compilacion.
+						// Esto se produjo porque ya cambie el participante DTO para que tenga todos
+						// los otros DTOs adentro, como me pediste
+//						new Label(obj.getCaballoId().toString()),
+//						new Label(obj.getJockeyId().toString()),
 						new Label(String.valueOf(obj.getNroParticipante())),
 						new Label(obj.getEstado()),
-						new Label(obj.getResultadoId().toString()),
+//						new Label(obj.getResultadoId().toString()),
 						new BotonChico(mensajes.eliminar(), new EliminarPrticipanteListener(obj))
 				};
 			}
