@@ -6,10 +6,10 @@ public class ParticipanteDTO  implements IsSerializable {
 	
 	private Long id = new Long(0);
 	private int nroParticipante = 0;
-	private Long resultadoId = new Long(0);
-	private Long caballoId = new Long(0);
-	private Long jockeyId = new Long(0);
-	private Long carreraId = new Long(0);
+	private ResultadoDTO resultadoDTO;
+	private CaballoDTO caballoDTO;
+	private JockeyDTO jockeyDTO;
+	private CarreraDTO carreraDTO;
 	private String estado = "";
 
 	public Long getId() {
@@ -28,36 +28,36 @@ public class ParticipanteDTO  implements IsSerializable {
 		this.nroParticipante = nroParticipante;
 	}
 
-	public Long getResultadoId() {
-		return this.resultadoId;
+	public ResultadoDTO getResultadoDTO() {
+		return this.resultadoDTO;
 	}
 
-	public void setResultadoId(Long idResultado) {
-		this.resultadoId = idResultado;
+	public void setResultadoDTO(ResultadoDTO resultadoDTO) {
+		this.resultadoDTO = resultadoDTO;
 	}
 
-	public Long getCaballoId() {
-		return this.caballoId;
+	public CaballoDTO getCaballoDTO() {
+		return this.caballoDTO;
 	}
 
-	public void setCaballoId(Long idCaballo) {
-		this.caballoId = idCaballo;
+	public void setCaballoDTO(CaballoDTO caballoDTO) {
+		this.caballoDTO = caballoDTO;
 	}
 
-	public Long getJockeyId() {
-		return this.jockeyId;
+	public JockeyDTO getJockeyDTO() {
+		return this.jockeyDTO;
 	}
 
-	public void setJockeyId(Long jockeyId) {
-		this.jockeyId = jockeyId;
+	public void setJockeyDTO(JockeyDTO jockeyDTO) {
+		this.jockeyDTO = jockeyDTO;
 	}
 
-	public Long getCarreraId() {
-		return this.carreraId;
+	public CarreraDTO getCarreraDTO() {
+		return this.carreraDTO;
 	}
 
-	public void setCarreraId(Long idCarrera) {
-		this.carreraId = idCarrera;
+	public void setCarreraDTO(CarreraDTO carreraDTO) {
+		this.carreraDTO = carreraDTO;
 	}
 
 	public String getEstado() {

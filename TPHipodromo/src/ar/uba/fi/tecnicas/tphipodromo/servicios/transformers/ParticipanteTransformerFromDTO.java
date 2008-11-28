@@ -33,10 +33,10 @@ public class ParticipanteTransformerFromDTO implements Transformer {
 	public Object transform(Object arg0) {
 		ParticipanteDTO participanteDTO = (ParticipanteDTO) arg0;
 		try {
-			Caballo caballo = this.caballoDao.buscarPorId(participanteDTO.getCaballoId());
-			Carrera carrera = this.carreraDao.buscarPorId(participanteDTO.getCarreraId());
-			Jockey jockey = this.jockeyDao.buscarPorId(participanteDTO.getJockeyId());
-			Resultado resultado = this.resultadoDao.buscarPorId(participanteDTO.getResultadoId());
+			Caballo caballo = this.caballoDao.buscarPorId(participanteDTO.getCaballoDTO().getId());
+			Carrera carrera = this.carreraDao.buscarPorId(participanteDTO.getCarreraDTO().getId());
+			Jockey jockey = this.jockeyDao.buscarPorId(participanteDTO.getJockeyDTO().getId());
+			Resultado resultado = this.resultadoDao.buscarPorId(participanteDTO.getResultadoDTO().getId());
 			Participante participante = new Participante(caballo, jockey, carrera);
 			participante.setId(participanteDTO.getId());
 			participante.setNroParticipante(participanteDTO.getNroParticipante());

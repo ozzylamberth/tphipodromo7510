@@ -12,8 +12,6 @@ public class CaballoDTO implements IsSerializable {
 	private String pelaje = "";
 	private Double peso = new Double(0);
 	private boolean puraSangre = false;
-	private String padre = "";
-	private String madre = "";
 	
 	// atributos para la creacion de un nuevo caballo
 	private Long padreId = new Long(0);
@@ -81,22 +79,6 @@ public class CaballoDTO implements IsSerializable {
 
 	public void setPuraSangre(boolean puraSangre) {
 		this.puraSangre = puraSangre;
-	}
-
-	public String getPadre() {
-		return padre;
-	}
-
-	public void setPadre(String padre) {
-		this.padre = padre;
-	}
-
-	public String getMadre() {
-		return madre;
-	}
-
-	public void setMadre(String madre) {
-		this.madre = madre;
 	}
 
 	public Long getPadreId() {
