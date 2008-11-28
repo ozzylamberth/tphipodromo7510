@@ -1,5 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,12 @@ public class Formulario extends DialogBox implements ClickListener {
 	
 	private HorizontalPanel botonera;
 	
+	/**
+	 * Tiene los nombres de los campos que son solo para mostrar datos y no se pueden
+	 * modificar.
+	 */
+	private Collection<String> noEditables;
+	
 	public Formulario(FormularioListener l) {
 		super(false);
 		
@@ -43,6 +51,8 @@ public class Formulario extends DialogBox implements ClickListener {
 		
 		this.botonGuardar.addClickListener(this);
 		this.botonCerrar.addClickListener(this);
+		
+		noEditables = new ArrayList<String>();
 		
 		botonera = new HorizontalPanel();
 		botonera.setSpacing(10);

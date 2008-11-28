@@ -73,8 +73,16 @@ public class ControladorABMCarreras extends Controlador {
 		});
 	}
 
-	public void doMostrarParticipantes(CarreraDTO carrera) {
-		notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, false);
+	public void doMostrarParticipantes(final CarreraDTO carrera) {
+		servicioParticipantes.buscarPorCarrera(carrera, new AsyncCallback<Collection<ParticipanteDTO>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Collection<ParticipanteDTO> result) {
+				notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, result, false);
+			}
+		});
 	}
 	
 	public void doEditarParticipantes(final CarreraDTO carrera) {
