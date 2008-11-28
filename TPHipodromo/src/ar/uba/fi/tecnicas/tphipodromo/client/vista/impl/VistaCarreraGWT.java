@@ -10,6 +10,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoDouble;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoNoEditableDecorator;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
@@ -43,10 +44,10 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 		this.formulario.setText(mensajes.carrera());
 
 		this.formulario.add("numero", mensajes.numero(), new CampoInteger(true));
-		this.formulario.add("nombre", mensajes.nombre(), new CampoString(true));
+		this.formulario.add("nombre", mensajes.nombre(), new CampoString(false));
 //		this.formulario.add("fechaYHora", mensajes.fechaYHora(), new CampoFecha(true));
 		this.formulario.add("distancia", mensajes.distancia(), new CampoDouble(true));
-		this.formulario.add("estado", mensajes.estado(), new CampoString(true));
+		this.formulario.add("estado", mensajes.estado(), new CampoNoEditableDecorator( new CampoString(true)));
 		
 		botonParticipantes = new Button(mensajes.participantes());
 		botonParticipantes.addClickListener(new ParticipantesClickListener());
@@ -117,7 +118,7 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 	@Override
 	public void onMostrarParticipantesCarrera(CarreraDTO carreraDTO,
 			Collection<ParticipanteDTO> participantes, Boolean editable) {
-		//TODO llamar a vistaParticipantes y hacerle update
+		
 	}
 
 }
