@@ -22,6 +22,8 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTrifecta;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTriplo;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ApuestaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.CarreraException;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoApuestaException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
@@ -29,7 +31,9 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ApuestaInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ErrorHipodromoException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TipoApuestaInvalidaException;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TransicionInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ApuestaTransformerToDTO;
 
 public class ServicioApuestasImpl implements ServicioApuestas {
@@ -133,6 +137,31 @@ public class ServicioApuestasImpl implements ServicioApuestas {
 			throw new ApuestaInvalidaException();
 		}
 		return participantes;
+	}
+
+	@Override
+	public Double liquidarApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException, ErrorHipodromoException {
+		try {
+			Apuesta apuesta = this.apuestaDao.buscarPorId(apuestaDTO.getId());
+			BigDecimal liquidacion = apuesta.liquidar();
+			return new Double(liquidacion.doubleValue());
+		} catch (ObjetoInexistenteException e) {
+			throw new EntidadInexistenteException();
+		} catch (HipodromoException e) {
+			throw new ErrorHipodromoException();
+		}
+	}
+
+	@Override
+	public void pagarApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException, TransicionInvalidaException {
+		try {
+			Apuesta apuesta = this.apuestaDao.buscarPorId(apuestaDTO.getId());
+			apuesta.pagar();
+		} catch (ObjetoInexistenteException e) {
+			throw new EntidadInexistenteException();
+		} catch (TransicionInvalidaEstadoApuestaException e) {
+			throw new TransicionInvalidaException();
+		}
 	}
 
 }

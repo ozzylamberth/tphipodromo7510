@@ -16,4 +16,8 @@ public interface ServicioApuestasAsync {
 	
 	public void obtenerTiposApuesta(AsyncCallback<Collection<String>> callback);
 	
+	public void liquidarApuesta(ApuestaDTO apuestaDTO, AsyncCallback<Double> callback);
+	
+	public void pagarApuesta(ApuestaDTO apuestaDTO, AsyncCallback<Void> callback);
+	
 }
