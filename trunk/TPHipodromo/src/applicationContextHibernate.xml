@@ -6,5 +6,5 @@
 	<bean id="participanteDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.ParticipanteDaoHibernate"/>
 	<bean id="carreraDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.CarreraDaoHibernate"/>
 	<bean id="jockeyDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.JockeyDaoHibernate"/>
-	<!--<bean id="resultadoDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate."/>-->
+	<bean id="resultadoDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.ResultadoDaoHibernate"/>
 </beans>
