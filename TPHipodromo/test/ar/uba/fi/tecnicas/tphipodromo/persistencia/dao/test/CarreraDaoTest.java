@@ -61,7 +61,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 			carreraLeida = dao.buscarPorNombre("ssss3");
 			assertEquals(carrera.getNumero(), carreraLeida.getNumero());
 			assertEquals(carrera.getDistancia().doubleValue(), carreraLeida.getDistancia().doubleValue());
-			assertEquals(carrera.getFechaYHora().getTime()/1000, carreraLeida.getFechaYHora().getTime()/1000); //la base no guarda nanosegundos
+			assertEquals(carrera.getFechaYHora(), carreraLeida.getFechaYHora()); //la base no guarda nanosegundos
 			assertEquals(carrera.getNombre(), carreraLeida.getNombre());
 			dao.borrar(carreraLeida);
 		} catch (ObjetoInexistenteException e) {
