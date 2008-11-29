@@ -7,6 +7,8 @@
 
 .titulo {
 	font-size: large;
+	font: 130% georgia, sans-serif;
+	font-style: bold;
 }
 
 .listado {
@@ -17,15 +19,16 @@ td.listado-encabezado {
 	border-bottom: 1px solid;
 	font-weight: bold;
 	padding: 2px 10px;
-	background-color: #f6de95;
+	background-color: #B0C4DE;
+	text-align: center;
 }
 
 tr.listado-cuerpo-par {
-	background-color: #f6ebcb;
+	background-color: #F0F8FF;
 }
 
 tr.listado-cuerpo-impar {
-	background-color: #f6f2e8;
+	background-color: #FFFFFF;
 }
 
 td.listado-cuerpo {
