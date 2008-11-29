@@ -1,6 +1,5 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +38,7 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 	}
 
 	@Override
-	public Collection<Carrera> buscarCarrerasApostables(Date fecha) {
+	public Collection<Carrera> buscarCarrerasApostablesPorFecha(Date fecha) {
 		// TODO implementar logica
 		return null;
 	}
