@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,9 +30,11 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 		return (Carrera)listaCarreras.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Carrera> buscarPorFecha(Date fecha) {
-		// TODO implementar logica
-		return null;
+	public Collection<Carrera> buscarPorFecha(Date fecha)  {
+			
+			Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora = :p").setLong("p",  fecha.getTime()/1000).list();
+			return listaCarreras;
 	}
 }
