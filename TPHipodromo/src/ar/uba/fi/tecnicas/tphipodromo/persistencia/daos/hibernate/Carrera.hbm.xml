@@ -8,7 +8,7 @@
 		</id>  
 		
 		<property name="distancia" type="big_decimal" />
-		<property name="fechaYHora" type="timestamp"  />
+		<property name="fechaYHora" type="date"  />
 		<property name="nombre" type="string" />
 		<property name="numero" type="integer"  />
 		
