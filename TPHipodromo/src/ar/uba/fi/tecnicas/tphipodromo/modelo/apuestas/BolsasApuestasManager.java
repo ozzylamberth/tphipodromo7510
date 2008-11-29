@@ -68,7 +68,7 @@ public class BolsasApuestasManager {
 	 */
 	public BolsaApuestasAbstracta getBolsaApuestas(
 			Class<? extends Apuesta> tipoApuestas, Set<Carrera> carreras,
-			Configuracion configuración) {
+			Configuracion configuracion) {
 		Map<Set<Carrera>, BolsaApuestasAbstracta> bolsasPorCarrera = bolsasApuestas
 				.get(tipoApuestas);
 
@@ -91,9 +91,9 @@ public class BolsasApuestasManager {
 				bolsa.setCarreras(carreras);
 				bolsa.setPorcentajeComisionHipodromo(porcentajeComisionHipodromo);
 
-				if (configuración != null) {
-					bolsa.setIncrementoPozo(configuración.getIncrementoPozo());
-					bolsa.setPozoMinimo(configuración.getPozoMinimo());
+				if (configuracion != null) {
+					bolsa.setIncrementoPozo(configuracion.getIncrementoPozo());
+					bolsa.setPozoMinimo(configuracion.getPozoMinimo());
 				} else {
 					bolsa.setIncrementoPozo(BigDecimal.ZERO);
 					bolsa.setPozoMinimo(BigDecimal.ZERO);
