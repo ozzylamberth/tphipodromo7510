@@ -7,8 +7,6 @@ import java.util.LinkedList;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaFactory;
@@ -29,6 +27,9 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TipoApuestaInvalidaE
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TransicionInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ApuestaTransformerToDTO;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+@SuppressWarnings("serial")
 public class ServicioApuestasImpl extends RemoteServiceServlet implements ServicioApuestas {
 	
 	private ApuestaDao apuestaDao;
