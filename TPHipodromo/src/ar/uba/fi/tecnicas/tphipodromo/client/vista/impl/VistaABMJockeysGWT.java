@@ -43,7 +43,7 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 				return new String[] {"Nombre", "Apellido", "Peso", "", "", ""};
 			}
 		};
-		getCuerpo().add(listado);
+		getCuerpo().add(listado.toWidget());
 		Button botonInsertar = new Button("Insertar", new InsertarJockeyListener());
 		getCuerpo().add(botonInsertar);
 		getCuerpo().setCellHorizontalAlignment(botonInsertar,

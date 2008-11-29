@@ -2,17 +2,33 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
 import java.util.Collection;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class Listado<T> extends FlexTable {
+public abstract class Listado<T> {
+	
+	private VerticalPanel panel = new VerticalPanel();
+	
+	private FlexTable tabla = new FlexTable();
+	
+	private Mensajes mensajes = GWT.create(Mensajes.class);
+	
+	private Label lblVacia = new Label(mensajes.listaVacia());
+	
+	private Label lblCargando = new Label(mensajes.cargando());
 	
 	public Listado() {
 		super();
-		
-		this.setStyleName("listado");
-		
+		tabla.setStyleName("listado");
+		lblCargando.setVisible(false);
+		lblVacia.setVisible(false);
 		encabezado();
+		pie();
 	}
 	
 	private void encabezado() {
@@ -20,20 +36,28 @@ public abstract class Listado<T> extends FlexTable {
 		
 		for(String s: getTitulos()) {
 			if(this.getAnchos() != null) {
-				this.getColumnFormatter().setWidth(i, String.valueOf(getAnchos()[i]));
+				tabla.getColumnFormatter().setWidth(i, String.valueOf(getAnchos()[i]));
 			}
-			this.setText(0, i, s);
-			this.getCellFormatter().setStyleName(0, i, "listado-encabezado");
+			tabla.setText(0, i, s);
+			tabla.getCellFormatter().setStyleName(0, i, "listado-encabezado");
 			i++;
 		}
 		
-		this.getRowFormatter().setStyleName(0, "listado-encabezado");
+		tabla.getRowFormatter().setStyleName(0, "listado-encabezado");
+		
+		panel.add(lblCargando);
+		panel.add(tabla);
+	}
+	
+	private void pie() {
+		panel.add(lblVacia);
 	}
 	
 	public void limpiar() {
-		for(int i=1; i<this.getRowCount(); i++) {
-			this.removeRow(i);
-		}
+		while(tabla.getRowCount()>1)
+			tabla.removeRow(1);
+		
+		lblVacia.setVisible(true);
 	}
 	
 	public void update(Collection<T> lista) {
@@ -41,18 +65,28 @@ public abstract class Listado<T> extends FlexTable {
 		
 		limpiar();
 		
+		lblVacia.setVisible(lista.size()==0);
+		
 		for(T obj: lista) {
 			int j= 0;
 			
 			for( Widget s: getAtributos(obj)) {
-				this.setWidget(i, j, s);
-				this.getCellFormatter().setStyleName(i, j, "listado-cuerpo");
+				tabla.setWidget(i, j, s);
+				tabla.getCellFormatter().setStyleName(i, j, "listado-cuerpo");
 				j++;
 			}
 			
-			this.getRowFormatter().setStyleName(i, "listado-cuerpo-" + ( i%2==0 ? "par" : "impar"));
+			tabla.getRowFormatter().setStyleName(i, "listado-cuerpo-" + ( i%2==0 ? "par" : "impar"));
 			i++;
 		}
+	}
+	
+	public void setCargando(boolean cargando) {
+		lblCargando.setVisible(cargando);
+	}
+	
+	public Widget toWidget() {
+		return panel;
 	}
 	
 	public abstract String[] getTitulos();

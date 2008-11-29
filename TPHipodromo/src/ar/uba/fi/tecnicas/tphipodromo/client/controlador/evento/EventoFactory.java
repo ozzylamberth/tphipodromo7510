@@ -1,6 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento;
 
 import java.util.Collection;
+import java.util.Map;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
@@ -199,6 +200,23 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onMostrarLiquidacionApuestas(); 
+			}
+		};
+	}
+	
+	public static Evento getMapaCarrerasActualizado() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMapaCarrerasActualizado(
+						(Map<CarreraDTO, Collection<ParticipanteDTO>>)args[0]); 
+			}
+		};
+	}
+	
+	public static Evento getApuestaCreada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onApuestaCreada(); 
 			}
 		};
 	}

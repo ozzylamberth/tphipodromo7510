@@ -52,7 +52,7 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 		
 		Button botonInsertar = new Button(mensajes.nuevo(), new InsertarCaballoListener());
 		
-		getCuerpo().add(listado);
+		getCuerpo().add(listado.toWidget());
 		getCuerpo().add(botonInsertar);
 		getCuerpo().setCellHorizontalAlignment(botonInsertar,
 				HasHorizontalAlignment.ALIGN_RIGHT);
@@ -60,7 +60,7 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	
 	@Override
 	public void onMostrarABMCaballos() {
-		this.listado.limpiar();
+		this.listado.setCargando(true);
 		ctrlABMCaballos.doActualizarListadoCaballos();
 		super.onMostrarABMCaballos();
 		this.mostrar();
@@ -68,8 +68,9 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	
 	@Override
 	public void onListaCaballosActualizada(Collection<CaballoDTO> lista) {
-		super.onListaCaballosActualizada(lista);
 		this.listado.update(lista);
+		this.listado.setCargando(false);
+		super.onListaCaballosActualizada(lista);
 	}
 	
 	private class EditarCaballoListener implements ClickListener {

@@ -63,6 +63,10 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 			Class tipoApuesta = this.obtenerTipoApuestaClass(apuestaDTO.getTipoApuesta());
 			BigDecimal montoApostado = new BigDecimal(apuestaDTO.getMontoApostado().toString());
 			Collection<Participante> participantes = this.obtenerParticipantes(apuestaDTO.getParticipantesIds());
+			
+			if(participantes.size()==0)
+				throw new ApuestaInvalidaException();
+			
 			ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
 		} catch (ApuestaException e) {
 			throw new ApuestaInvalidaException();

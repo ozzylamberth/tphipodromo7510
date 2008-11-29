@@ -132,7 +132,7 @@ public class VistaParticipantes extends DialogBox  {
 		panelHorizontal.add(agregar);
 		panel.add(panelHorizontal);
 		
-		panel.add(listado);
+		panel.add(listado.toWidget());
 		
 		HorizontalPanel botonera = new HorizontalPanel();
 		botonera.setSpacing(10);

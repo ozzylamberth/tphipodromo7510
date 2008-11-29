@@ -14,8 +14,8 @@ public class ServicioSpring {
 	}
 
 	public Object getBean(String beanName) {
-//		String[] paths = {"applicationContext.xml"};
-		String[] paths = {"applicationContextHibernate.xml"};
+		String[] paths = {"applicationContext.xml"};
+//		String[] paths = {"applicationContextHibernate.xml"};
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(paths);
 		return context.getBean(beanName);
 	}
