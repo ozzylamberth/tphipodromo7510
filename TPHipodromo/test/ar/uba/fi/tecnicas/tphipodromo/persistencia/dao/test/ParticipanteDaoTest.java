@@ -49,7 +49,13 @@ public class ParticipanteDaoTest extends PersistenciaTestCase{
 		dao.guardar(part1);	
 		dao.borrar(part1);
 		
-
-		
+		}
+	
+		public void testParticipanteGetPorId() throws ObjetoInexistenteException{
+			DaoFactory factory= new HibernateDaoFactory();
+			ParticipanteDao dao = factory.getParticipanteDAO();
+			Participante part = dao.buscarPorId(new Long(0));
+			assertEquals(part,null);
+			
 		}
 	}
