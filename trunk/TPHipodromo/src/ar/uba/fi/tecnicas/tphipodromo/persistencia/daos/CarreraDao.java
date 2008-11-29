@@ -13,6 +13,6 @@ public interface CarreraDao extends DAOGenerico<Carrera>{
 	
 	public Collection<Carrera> buscarPorFecha(Date fecha);
 	
-	public Collection<Carrera> buscarCarrerasApostables(Date fecha);
+	public Collection<Carrera> buscarCarrerasApostablesPorFecha(Date fecha);
 
 }

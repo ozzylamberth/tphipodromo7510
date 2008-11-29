@@ -99,7 +99,7 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 	}
 
 	@Override
-	public Collection<Carrera> buscarCarrerasApostables(Date fecha) {
+	public Collection<Carrera> buscarCarrerasApostablesPorFecha(Date fecha) {
 		Collection<Carrera> result = new ArrayList<Carrera>();
 		Iterator<Carrera> it = buscarTodos().iterator();
 		while (it.hasNext()) {

@@ -46,8 +46,8 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<CarreraDTO> buscarCarrerasApostables(Date fecha) {
-		Collection<Carrera> carreras = this.carreraDao.buscarCarrerasApostables(fecha); 
+	public Collection<CarreraDTO> buscarCarrerasApostablesPorFecha(Date fecha) {
+		Collection<Carrera> carreras = this.carreraDao.buscarCarrerasApostablesPorFecha(fecha); 
 		return CollectionUtils.collect(carreras, this.getTransformerToDTO());
 	}
 
