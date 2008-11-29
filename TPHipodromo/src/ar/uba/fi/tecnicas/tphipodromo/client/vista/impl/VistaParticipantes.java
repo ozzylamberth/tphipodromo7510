@@ -1,7 +1,9 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
@@ -40,7 +42,7 @@ public class VistaParticipantes extends DialogBox  {
 	
 	private Button agregar;
 	
-	private Collection<ParticipanteDTO> participantes;
+	private List<ParticipanteDTO> participantes;
 	
 	private Map<Long, JockeyDTO> jockeysMostrados;
 	
@@ -60,9 +62,10 @@ public class VistaParticipantes extends DialogBox  {
 		super(false);
 		mensajes = GWT.create(Mensajes.class);
 		this.controladorCarreras = controladorCarreras;
+		participantes = new ArrayList<ParticipanteDTO>();
 		
 		this.setText(mensajes.participantes());
-//		this.setSize("200", "300");
+		this.setSize("20%", "30%");
 		
 		labelNombreCarrera = new Label();
 		labelNumeroCarrera = new Label();
@@ -154,7 +157,7 @@ public class VistaParticipantes extends DialogBox  {
 	}
 
 	public void mostrarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
-		this.participantes = participantes;
+		this.participantes.addAll(participantes);
 		this.carreraMostrada = carrera;
 		this.setEditable(false);
 		this.actualizar();
@@ -176,7 +179,7 @@ public class VistaParticipantes extends DialogBox  {
 	}
 
 	public void editarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
-		this.participantes = participantes;
+		this.participantes.addAll(participantes);
 		this.carreraMostrada = carrera;
 		this.setEditable(true);
 		this.actualizar();
@@ -215,7 +218,6 @@ public class VistaParticipantes extends DialogBox  {
 	}
 	
 	private void agregarSeleccion() {
-		System.out.println("Agrego el jockey " + listaJockeys.getValue(listaJockeys.getSelectedIndex()));
 		ParticipanteDTO participante = new ParticipanteDTO();
 		
 		participante.setCaballoDTO(caballosMostrados.get(new Long(listaCaballos.getValue(listaCaballos.getSelectedIndex()))));
@@ -225,7 +227,6 @@ public class VistaParticipantes extends DialogBox  {
 		listaJockeys.removeItem(listaJockeys.getSelectedIndex());
 		
 		participante.setCarreraDTO(carreraMostrada);
-		//TODO modificar la forma que se obtiene el nro
 		participante.setNroParticipante(participantes.size() + 1);
 		participante.setEstado("Creado");
 		participantes.add(participante);
@@ -234,7 +235,8 @@ public class VistaParticipantes extends DialogBox  {
 	
 	private class AgregarParticipanteListener implements ClickListener {
 		public void onClick(Widget sender) {
-			agregarSeleccion();
+			if(listaCaballos.getSelectedIndex() != -1 && listaJockeys.getSelectedIndex() != -1)
+				agregarSeleccion();
 		}
 		
 	}
@@ -250,8 +252,15 @@ public class VistaParticipantes extends DialogBox  {
 			if(editable) {
 				participante.setCarreraDTO(null);
 				participantes.remove(participante);
-				listaCaballos.addItem(participante.getCaballoDTO().getId().toString(), participante.getCaballoDTO().getNombre());
-				listaJockeys.addItem(participante.getJockeyDTO().getId().toString(), participante.getJockeyDTO().getNombre());
+				listaCaballos.addItem(participante.getCaballoDTO().getNombre(), participante.getCaballoDTO().getId().toString());
+				listaJockeys.addItem(participante.getJockeyDTO().getNombre(), participante.getJockeyDTO().getId().toString());
+				
+				int i = 1;
+				for(ParticipanteDTO participanteActual:participantes) {
+					participanteActual.setNroParticipante(i);
+					i++;
+				}
+				
 				actualizar();
 			}
 		}

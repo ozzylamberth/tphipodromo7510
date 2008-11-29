@@ -14,7 +14,7 @@ public class ACobrarApuestasListener implements ClickListener {
 	}
 	
 	public void onClick(Widget sender) {
-		
+		controlador.doMostrarLiquidacionApuestas();
 	}
 
 }

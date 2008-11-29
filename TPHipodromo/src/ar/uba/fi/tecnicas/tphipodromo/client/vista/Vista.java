@@ -85,4 +85,6 @@ public abstract class Vista {
 	public void onMostrarCaballosParaCarrera(Collection<CaballoDTO> collection) {}
 
 	public void onMostrarJockeysParaCarrera(Collection<JockeyDTO> collection) {}
+	
+	public void onMostrarLiquidacionApuestas() {}
 }
