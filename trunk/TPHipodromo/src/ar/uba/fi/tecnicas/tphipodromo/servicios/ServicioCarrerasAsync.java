@@ -1,6 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.servicios;
 
 import java.util.Collection;
+import java.util.Date;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 
@@ -15,5 +16,7 @@ public interface ServicioCarrerasAsync {
 	public void guardar(CarreraDTO carreraDTO, AsyncCallback<Long> callback);
 	
 	public void borrar(Long id, AsyncCallback<Void> callback);
+	
+	public void buscarPorFecha(Date fecha, AsyncCallback<Collection<CarreraDTO>> callback);
 	
 }

@@ -1,5 +1,9 @@
 package ar.uba.fi.tecnicas.tphipodromo.servicios.impl;
 
+import java.util.Collection;
+import java.util.Date;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
@@ -31,6 +35,13 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 
 	public Transformer getTransformerToDTO() {
 		return this.carreraTransformerToDTO;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Collection<CarreraDTO> buscarPorFecha(Date fecha) {
+		Collection<Carrera> carreras = this.carreraDao.buscarPorFecha(fecha); 
+		return CollectionUtils.collect(carreras, this.getTransformerToDTO());
 	}
 
 }
