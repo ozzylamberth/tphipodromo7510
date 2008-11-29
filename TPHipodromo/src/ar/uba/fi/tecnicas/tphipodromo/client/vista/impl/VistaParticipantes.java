@@ -23,11 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-/**
- * 
- * NO esta terminado, por eso no funciona
- *
- */
+
 public class VistaParticipantes extends DialogBox  {
 	
 	private Label labelNumeroCarrera;
@@ -84,9 +80,9 @@ public class VistaParticipantes extends DialogBox  {
 		listado = new Listado<ParticipanteDTO>() {
 			public Widget[] getAtributos(ParticipanteDTO obj) {
 				return new Widget[] {
+						new Label(String.valueOf(obj.getNroParticipante())),
 						new Label(obj.getCaballoDTO().getNombre().toString()),
 						new Label(obj.getJockeyDTO().getApellido().toString()),
-						new Label(String.valueOf(obj.getNroParticipante())),
 						new Label(obj.getEstado()),
 						new Label(this.obtenerResultado(obj.getResultadoDTO())),
 						new BotonChico(mensajes.eliminar(), new EliminarPrticipanteListener(obj))
@@ -101,11 +97,12 @@ public class VistaParticipantes extends DialogBox  {
 			}
 
 			public String[] getTitulos() {
-				return new String[] {mensajes.nombre(),
-						mensajes.edad(), 
-						mensajes.peso(), 
-						"", 
-						"", 
+				return new String[] {
+						mensajes.nroParticipante(), 
+						mensajes.caballo(),
+						mensajes.jockey(), 
+						mensajes.estado(), 
+						mensajes.resultado(), 
 						""};
 			}
 		};
@@ -220,13 +217,17 @@ public class VistaParticipantes extends DialogBox  {
 	private void agregarSeleccion() {
 		System.out.println("Agrego el jockey " + listaJockeys.getValue(listaJockeys.getSelectedIndex()));
 		ParticipanteDTO participante = new ParticipanteDTO();
+		
 		participante.setCaballoDTO(caballosMostrados.get(new Long(listaCaballos.getValue(listaCaballos.getSelectedIndex()))));
+		listaCaballos.removeItem(listaCaballos.getSelectedIndex());
+		
 		participante.setJockeyDTO(jockeysMostrados.get(new Long(listaJockeys.getValue(listaJockeys.getSelectedIndex()))));
+		listaJockeys.removeItem(listaJockeys.getSelectedIndex());
+		
 		participante.setCarreraDTO(carreraMostrada);
-		//TDO modificar la forma que se obtiene el nro
+		//TODO modificar la forma que se obtiene el nro
 		participante.setNroParticipante(participantes.size() + 1);
-		participante.setEstado("");
-//		TODO sacar el caballo y el jockey de los mostrados
+		participante.setEstado("Creado");
 		participantes.add(participante);
 		actualizar();
 	}
@@ -249,6 +250,8 @@ public class VistaParticipantes extends DialogBox  {
 			if(editable) {
 				participante.setCarreraDTO(null);
 				participantes.remove(participante);
+				listaCaballos.addItem(participante.getCaballoDTO().getId().toString(), participante.getCaballoDTO().getNombre());
+				listaJockeys.addItem(participante.getJockeyDTO().getId().toString(), participante.getJockeyDTO().getNombre());
 				actualizar();
 			}
 		}
