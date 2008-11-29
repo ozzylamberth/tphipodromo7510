@@ -12,6 +12,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
@@ -91,6 +92,21 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 			Date diaCarrera = DateUtils.truncate(carrera.getFechaYHora(), Calendar.DATE);
 			Date dia = DateUtils.truncate(fecha, Calendar.DATE);
 			if (dia.compareTo(diaCarrera) == 0) {
+				result.add(carrera);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Collection<Carrera> buscarCarrerasApostables(Date fecha) {
+		Collection<Carrera> result = new ArrayList<Carrera>();
+		Iterator<Carrera> it = buscarTodos().iterator();
+		while (it.hasNext()) {
+			Carrera carrera = (Carrera) it.next();
+			Date diaCarrera = DateUtils.truncate(carrera.getFechaYHora(), Calendar.DATE);
+			Date dia = DateUtils.truncate(fecha, Calendar.DATE);
+			if ((dia.compareTo(diaCarrera) == 0) && (EstadoCarrera.ABIERTA_A_APUESTAS.equals(carrera.getEstadoCarrera()))) {
 				result.add(carrera);
 			}
 		}
