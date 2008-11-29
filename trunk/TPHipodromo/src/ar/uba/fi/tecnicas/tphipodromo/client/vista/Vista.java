@@ -73,6 +73,10 @@ public abstract class Vista {
 	public void onMostrarDatosCarrera(CarreraDTO carrera, Boolean editable){}
 
 	public void onMostrarParticipantesCarrera(CarreraDTO carreraDTO,
-			Collection<ParticipanteDTO> participantes, Boolean editable) {}
+			Collection<ParticipanteDTO> participantes) {}
+	
+	public void onEditarParticipantesCarrera(CarreraDTO carreraDTO,
+			Collection<ParticipanteDTO> participantes, Collection<JockeyDTO> jockeys, 
+			Collection<CaballoDTO> caballos) {}
 	
 }
