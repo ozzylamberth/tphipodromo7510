@@ -112,7 +112,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 		
 		HibernateUtil.currentSession().clear();		
 		
-		Collection<Carrera> carrerasLeida =  dao.buscarPorFecha(fecha);
+		Collection<Carrera> carrerasLeida =  dao.buscarPorFecha(new Date());
 		
 		for( Carrera c : carrerasLeida){
 			assertEquals(carrera.getNombre(), c.getNombre());

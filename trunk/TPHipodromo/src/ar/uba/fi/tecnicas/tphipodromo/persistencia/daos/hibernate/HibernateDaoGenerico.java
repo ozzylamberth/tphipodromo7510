@@ -89,7 +89,8 @@ implements DAOGenerico<T>{
 
 	@SuppressWarnings("unchecked")
 	public T buscarPorId(Long id) {	
-		return (T) getSession().load(getClasePersistente(), id);
+		return (T) getSession().get(getClasePersistente(), id);
+		
 	}
 
 	public Collection<T> buscarTodos() {
