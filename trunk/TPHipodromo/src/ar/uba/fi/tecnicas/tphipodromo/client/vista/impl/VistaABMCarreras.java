@@ -57,7 +57,7 @@ public class VistaABMCarreras extends VistaDefaultGWT {
 		
 		Button botonInsertar = new Button(mensajes.nuevo(), new InsertarCarreraListener());
 		
-		getCuerpo().add(listado);
+		getCuerpo().add(listado.toWidget());
 		getCuerpo().add(botonInsertar);
 		getCuerpo().setCellHorizontalAlignment(botonInsertar,
 				HasHorizontalAlignment.ALIGN_RIGHT);

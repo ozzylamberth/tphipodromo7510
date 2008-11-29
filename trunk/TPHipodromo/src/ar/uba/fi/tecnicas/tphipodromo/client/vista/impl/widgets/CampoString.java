@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -46,6 +47,10 @@ public class CampoString extends Campo {
 	public void reset() {
 		textBox.setText("");
 		super.reset();
+	}
+	
+	public void addChangeListener(ChangeListener l) {
+		textBox.addChangeListener(l);
 	}
 
 }

@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	D:/Documents/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -16,6 +16,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String agregar();
 
   /**
+   * Translated "Año".
+   * 
+   * @return translated "Año"
+   */
+  @DefaultMessage("Año")
+  @Key("anio")
+  String anio();
+
+  /**
    * Translated "Apostar".
    * 
    * @return translated "Apostar"
@@ -23,6 +32,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Apostar")
   @Key("apostar")
   String apostar();
+
+  /**
+   * Translated "Apuesta creada satisfactoriamente.".
+   * 
+   * @return translated "Apuesta creada satisfactoriamente."
+   */
+  @DefaultMessage("Apuesta creada satisfactoriamente.")
+  @Key("apuestaCreada")
+  String apuestaCreada();
 
   /**
    * Translated "Borrar".
@@ -86,6 +104,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Caballos")
   @Key("caballos")
   String caballos();
+
+  /**
+   * Translated "Cargando...".
+   * 
+   * @return translated "Cargando..."
+   */
+  @DefaultMessage("Cargando...")
+  @Key("cargando")
+  String cargando();
 
   /**
    * Translated "Carrera".
@@ -167,6 +194,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Criador")
   @Key("criador")
   String criador();
+
+  /**
+   * Translated "Día".
+   * 
+   * @return translated "Día"
+   */
+  @DefaultMessage("Día")
+  @Key("dia")
+  String dia();
 
   /**
    * Translated "Distancia".
@@ -259,6 +295,24 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String guardar();
 
   /**
+   * Translated "Hora".
+   * 
+   * @return translated "Hora"
+   */
+  @DefaultMessage("Hora")
+  @Key("hora")
+  String hora();
+
+  /**
+   * Translated "Hoy".
+   * 
+   * @return translated "Hoy"
+   */
+  @DefaultMessage("Hoy")
+  @Key("hoy")
+  String hoy();
+
+  /**
    * Translated "0".
    * 
    * @return translated "0"
@@ -295,6 +349,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String jockeys();
 
   /**
+   * Translated "No hay elementos para mostrar".
+   * 
+   * @return translated "No hay elementos para mostrar"
+   */
+  @DefaultMessage("No hay elementos para mostrar")
+  @Key("listaVacia")
+  String listaVacia();
+
+  /**
    * Translated "Madre".
    * 
    * @return translated "Madre"
@@ -302,6 +365,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Madre")
   @Key("madre")
   String madre();
+
+  /**
+   * Translated "Mes".
+   * 
+   * @return translated "Mes"
+   */
+  @DefaultMessage("Mes")
+  @Key("mes")
+  String mes();
 
   /**
    * Translated "Monto".
@@ -340,11 +412,11 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String nroParticipante();
 
   /**
-   * Translated "N�mero de Ticket".
+   * Translated "Número de Ticket".
    * 
-   * @return translated "N�mero de Ticket"
+   * @return translated "Número de Ticket"
    */
-  @DefaultMessage("N�mero de Ticket")
+  @DefaultMessage("Número de Ticket")
   @Key("nroTicket")
   String nroTicket();
 
@@ -374,6 +446,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Padre")
   @Key("padre")
   String padre();
+
+  /**
+   * Translated "Participante".
+   * 
+   * @return translated "Participante"
+   */
+  @DefaultMessage("Participante")
+  @Key("participante")
+  String participante();
 
   /**
    * Translated "Participantes".
