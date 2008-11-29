@@ -11,10 +11,8 @@ import java.util.List;
  */
 public class ApuestaSegundo extends Apuesta {
 	
-	public static final String TIPO_APUESTA = "Apuesta Segundo"; 
-	
 	public ApuestaSegundo() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.SEGUNDO);
 	}
 	
 	public int getCantidadParticipantes() {

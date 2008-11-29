@@ -37,7 +37,7 @@ public abstract class Apuesta implements Identificable {
 	private final static int CANT_DECIMALES = 2;
 	
 	private Long id;
-	private String tipoApuesta;
+	private TipoApuesta tipoApuesta;
 	private BolsaApuestasAbstracta bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
@@ -46,7 +46,7 @@ public abstract class Apuesta implements Identificable {
 	private Date fechaCreacion;
 	private int diasPlazoMaxDeCobro;
 
-	public Apuesta(String tipoApuesta) {
+	public Apuesta(TipoApuesta tipoApuesta) {
 		this.tipoApuesta = tipoApuesta;
 		setEstadoApuesta(EstadoApuesta.CREADA);
 		setFechaCreacion(new Date());
@@ -125,11 +125,11 @@ public abstract class Apuesta implements Identificable {
 		this.id = id;
 	}
 
-	public String getTipoApuesta() {
+	public TipoApuesta getTipoApuesta() {
 		return this.tipoApuesta;
 	}
 
-	public void setTipoApuesta(String tipoApuesta) {
+	public void setTipoApuesta(TipoApuesta tipoApuesta) {
 		this.tipoApuesta = tipoApuesta;
 	}
 

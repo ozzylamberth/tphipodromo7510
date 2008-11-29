@@ -9,12 +9,10 @@ import java.util.List;
  * seleccionar 4 caballos para apostar, que deberan llegar primero en 4 carreras
  * consecutivas, señaladas en el programa oficial, para ganar la apuesta
  */
-public class ApuestaCuaterna extends Apuesta {
-	
-	public static final String TIPO_APUESTA = "Apuesta Cuaterna"; 
+public class ApuestaCuaterna extends Apuesta { 
 	
 	public ApuestaCuaterna() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.CUATERNA);
 	}
 	
 	public int getCantidadParticipantes() {

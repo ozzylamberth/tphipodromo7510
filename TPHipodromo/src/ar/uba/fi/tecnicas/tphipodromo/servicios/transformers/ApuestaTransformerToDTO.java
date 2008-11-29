@@ -16,7 +16,7 @@ public class ApuestaTransformerToDTO implements Transformer {
 		Apuesta apuesta = (Apuesta) arg0;
 		ApuestaDTO apuestaDTO = new ApuestaDTO();
 		apuestaDTO.setId(apuesta.getId());
-		apuestaDTO.setTipoApuesta(apuesta.getTipoApuesta());
+		apuestaDTO.setTipoApuesta(apuesta.getTipoApuesta().getNombre());
 		apuestaDTO.setEstado(apuesta.getEstadoApuesta().getNombre());
 		apuestaDTO.setMontoApostado(new Double(apuesta.getMontoApostado().toString()));
 		apuestaDTO.setNroTicket(apuesta.getNroTicket());

@@ -20,10 +20,8 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistinta
  */
 public class ApuestaExacta extends ApuestaPorPosicionesOrdenadas {
 	
-	public static final String TIPO_APUESTA = "Apuesta Exacta"; 
-	
 	public ApuestaExacta() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.EXACTA);
 	}
 	
 	/** TODO Eliminar este código duplicado en ApuestaExacta, ApuestaTrifecta y ApuestaImperfecta */

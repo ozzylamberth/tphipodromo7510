@@ -2,7 +2,6 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios.impl;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,16 +11,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaCuaterna;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaDoble;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaExacta;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaFactory;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaGanador;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaImperfecta;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaSegundo;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTercero;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTrifecta;
-import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTriplo;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.TipoApuesta;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ApuestaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.CarreraException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
@@ -44,28 +35,9 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	private ApuestaTransformerToDTO apuestaTransformerToDTO = new ApuestaTransformerToDTO();
 	private ParticipanteDao participanteDao;
 	
-	@SuppressWarnings("unchecked")
-	private HashMap<String, Class> tiposApuestaSimples = new HashMap<String, Class>();
-	@SuppressWarnings("unchecked")
-	private HashMap<String, Class> tiposApuestaCompuestas = new HashMap<String, Class>();
-	
 	public ServicioApuestasImpl() {
 		this.apuestaDao = (ApuestaDao) ServicioSpring.getInstance().getBean("apuestaDao");
 		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
-		this.initTiposApuestas();
-	}
-	
-	public void initTiposApuestas() {
-		this.tiposApuestaSimples.put(ApuestaGanador.TIPO_APUESTA, ApuestaGanador.class);
-		this.tiposApuestaSimples.put(ApuestaSegundo.TIPO_APUESTA, ApuestaSegundo.class);
-		this.tiposApuestaSimples.put(ApuestaTercero.TIPO_APUESTA, ApuestaTercero.class);
-		
-		this.tiposApuestaCompuestas.put(ApuestaCuaterna.TIPO_APUESTA, ApuestaCuaterna.class);
-		this.tiposApuestaCompuestas.put(ApuestaDoble.TIPO_APUESTA, ApuestaDoble.class);
-		this.tiposApuestaCompuestas.put(ApuestaImperfecta.TIPO_APUESTA, ApuestaImperfecta.class);
-		this.tiposApuestaCompuestas.put(ApuestaExacta.TIPO_APUESTA, ApuestaExacta.class);
-		this.tiposApuestaCompuestas.put(ApuestaTrifecta.TIPO_APUESTA, ApuestaTrifecta.class);
-		this.tiposApuestaCompuestas.put(ApuestaTriplo.TIPO_APUESTA, ApuestaTriplo.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -84,15 +56,13 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 		return ((ApuestaDTO) apuestaTransformerToDTO.transform(apuesta));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException {
 		try {
-			if (this.tiposApuestaSimples.get(apuestaDTO.getTipoApuesta()) != null) {
-				this.crearApuestaSimple(apuestaDTO);
-			} else if (this.tiposApuestaSimples.get(apuestaDTO.getTipoApuesta()) != null) {
-				this.crearApuestaCompuesta(apuestaDTO);
-			} else {
-				throw new TipoApuestaInvalidaException();
-			}
+			Class tipoApuesta = this.obtenerTipoApuestaClass(apuestaDTO.getTipoApuesta());
+			BigDecimal montoApostado = new BigDecimal(apuestaDTO.getMontoApostado().toString());
+			Collection<Participante> participantes = this.obtenerParticipantes(apuestaDTO.getParticipantesIds());
+			ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
 		} catch (ApuestaException e) {
 			throw new ApuestaInvalidaException();
 		} catch (CarreraException e) {
@@ -100,31 +70,24 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 		}
 	}
 	
-	public Collection<String> obtenerTiposApuesta() {
-		Collection<String> tiposApuesta = new LinkedList<String>();
-		tiposApuesta.addAll(this.tiposApuestaSimples.keySet());
-		tiposApuesta.addAll(this.tiposApuestaCompuestas.keySet());
-		return tiposApuesta;
-	}
-	
 	@SuppressWarnings("unchecked")
-	private Apuesta crearApuestaSimple(ApuestaDTO apuestaDTO) throws ApuestaException, CarreraException, ApuestaInvalidaException {
-		try {
-			Class tipoApuesta = this.tiposApuestaSimples.get(apuestaDTO.getTipoApuesta());
-			BigDecimal montoApostado = new BigDecimal(apuestaDTO.getMontoApostado().toString());
-			Participante participante = this.participanteDao.buscarPorId(apuestaDTO.getParticipantesIds().iterator().next());
-			return ApuestaFactory.getInstance().crear(tipoApuesta, participante, montoApostado);
-		} catch (ObjetoInexistenteException e) {
-			throw new ApuestaInvalidaException();
+	private Class obtenerTipoApuestaClass(String tipoApuesta) throws TipoApuestaInvalidaException {
+		TipoApuesta[] tiposApuesta = TipoApuesta.values();
+		for (int i = 0; i < tiposApuesta.length; i++) {
+			if (tiposApuesta[i].getNombre().equals(tipoApuesta)) {
+				return tiposApuesta[i].getTipoApuestaClass();
+			}
 		}
+		throw new TipoApuestaInvalidaException();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private Apuesta crearApuestaCompuesta(ApuestaDTO apuestaDTO) throws ApuestaException, CarreraException, ApuestaInvalidaException {
-		Class tipoApuesta = this.tiposApuestaSimples.get(apuestaDTO.getTipoApuesta());
-		BigDecimal montoApostado = new BigDecimal(apuestaDTO.getMontoApostado().toString());
-		Collection<Participante> participantes = this.obtenerParticipantes(apuestaDTO.getParticipantesIds());
-		return ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
+	public Collection<String> obtenerTiposApuesta() {
+		Collection<String> tiposApuestaDTO = new LinkedList<String>();
+		TipoApuesta[] tiposApuesta = TipoApuesta.values();
+		for (int i = 0; i < tiposApuesta.length; i++) {
+			tiposApuestaDTO.add(tiposApuesta[i].getNombre());
+		}
+		return tiposApuestaDTO;
 	}
 	
 	private Collection<Participante> obtenerParticipantes(Collection<Long> participantesIds) throws ApuestaInvalidaException {
