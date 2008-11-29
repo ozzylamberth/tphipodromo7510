@@ -1,5 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
@@ -25,5 +27,11 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 			throw new MultiplesObjetosException();
 				
 		return (Carrera)listaCarreras.get(0);
+	}
+
+	@Override
+	public Collection<Carrera> buscarPorFecha(Date fecha) {
+		// TODO implementar logica
+		return null;
 	}
 }
