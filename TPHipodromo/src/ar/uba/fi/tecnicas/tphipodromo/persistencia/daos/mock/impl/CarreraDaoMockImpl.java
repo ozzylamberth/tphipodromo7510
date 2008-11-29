@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
 
@@ -22,14 +24,29 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexis
 
 public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements CarreraDao {
 	
+	private static Map<Long, Carrera> carreras = null;
+	private static Secuencia secuencia = new Secuencia();
+	
 	public CarreraDaoMockImpl() {
-		this.guardar(this.getCarrera1());
-		this.guardar(this.getCarrera2());
+		if (carreras == null) { // inicializo solo una vez
+			carreras = new HashMap<Long, Carrera>() ;
+			this.guardar(this.getCarrera1());
+			this.guardar(this.getCarrera2());
+		}
+	}
+	
+	@Override
+	protected Map<Long, Carrera> getDBMap() {
+		return carreras;
+	}
+	
+	@Override
+	protected Secuencia getSecuencia() {
+		return secuencia;
 	}
 	
 	private Carrera getCarrera1() {
 		Carrera carrera = new Carrera();
-		carrera.setId(new Long(1));
 		carrera.setDistancia(new BigDecimal(100));
 		carrera.setFechaYHora(new Date());
 		carrera.setNombre("Carrera 1");
@@ -44,7 +61,6 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 	
 	private Carrera getCarrera2() {
 		Carrera carrera = new Carrera();
-		carrera.setId(new Long(2));
 		carrera.setDistancia(new BigDecimal(400));
 		carrera.setFechaYHora(new Date());
 		carrera.setNombre("Carrera 2");
