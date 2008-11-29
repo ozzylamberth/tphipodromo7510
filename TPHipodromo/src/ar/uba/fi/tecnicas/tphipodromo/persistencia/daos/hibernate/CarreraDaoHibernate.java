@@ -37,4 +37,10 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 			Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora = :p").setTimestamp("p",  fecha).list();
 			return listaCarreras;
 	}
+
+	@Override
+	public Collection<Carrera> buscarCarrerasApostables(Date fecha) {
+		// TODO implementar logica
+		return null;
+	}
 }

@@ -11,6 +11,8 @@ public interface CarreraDao extends DAOGenerico<Carrera>{
 
 	public Carrera buscarPorNombre(String nombre) throws ObjetoInexistenteException, MultiplesObjetosException;
 	
-	public Collection<Carrera> buscarPorFecha(Date fecha) ;
+	public Collection<Carrera> buscarPorFecha(Date fecha);
+	
+	public Collection<Carrera> buscarCarrerasApostables(Date fecha);
 
 }

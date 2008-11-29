@@ -22,4 +22,10 @@ public interface ServicioCarreras extends RemoteService{
 	
 	public Collection<CarreraDTO> buscarPorFecha(Date fecha);
 	
+	/**
+	 * Retorna las carreras que estan en esa fecha y que tengan el estado
+	 * Abierta a Apuestas
+	 */
+	public Collection<CarreraDTO> buscarCarrerasApostables(Date fecha);
+	
 }

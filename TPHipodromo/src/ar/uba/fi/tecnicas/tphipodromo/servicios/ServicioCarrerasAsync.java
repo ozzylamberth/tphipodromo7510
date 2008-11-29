@@ -19,4 +19,6 @@ public interface ServicioCarrerasAsync {
 	
 	public void buscarPorFecha(Date fecha, AsyncCallback<Collection<CarreraDTO>> callback);
 	
+	public void buscarCarrerasApostables(Date fecha, AsyncCallback<Collection<CarreraDTO>> callback);
+	
 }
