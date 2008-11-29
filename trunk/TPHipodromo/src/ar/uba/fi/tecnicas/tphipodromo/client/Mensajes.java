@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	D:/Documents/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -347,6 +347,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Participantes de {0}")
   @Key("participantesDe")
   String participantesDe(String arg0);
+
+  /**
+   * Translated "Participantes Guardados correctamente".
+   * 
+   * @return translated "Participantes Guardados correctamente"
+   */
+  @DefaultMessage("Participantes Guardados correctamente")
+  @Key("participantesGuardados")
+  String participantesGuardados();
 
   /**
    * Translated "Pelaje".

@@ -158,7 +158,7 @@ public class EventoFactory {
 	public static Evento getEditarParticipantes() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
-				v.onEditarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1], (Collection<JockeyDTO>) args[2], (Collection<CaballoDTO>) args[3]); 
+				v.onEditarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1]); 
 			}
 		};
 	}
@@ -175,6 +175,22 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onListaTiposApuestaActualizada((Collection<String>)args[0]); 
+			}
+		};
+	}
+
+	public static Evento getMostrarCaballosParaCarrera() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarCaballosParaCarrera((Collection<CaballoDTO>)args[0]); 
+			}
+		};
+	}
+
+	public static Evento getMostrarJockeysParaCarrera() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarJockeysParaCarrera((Collection<JockeyDTO>)args[0]); 
 			}
 		};
 	}
