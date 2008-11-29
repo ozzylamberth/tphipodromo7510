@@ -33,7 +33,7 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 	@Override
 	public Collection<Carrera> buscarPorFecha(Date fecha)  {
 			
-			Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora = :p").setTimestamp("p",  fecha).list();
+			Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora = :p").setDate("p",  fecha).list();
 			return listaCarreras;
 	}
 

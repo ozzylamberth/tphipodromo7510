@@ -15,7 +15,7 @@ public class PersistenciaTestCase extends TestCase {
 			Statement statement = null;
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost/mysql", "root", "emmanueles");
+					"jdbc:mysql://localhost/mysql", "root", "1");
 
 			statement = connection.createStatement();
 			statement.executeUpdate("DROP DATABASE IF EXISTS hipo");
