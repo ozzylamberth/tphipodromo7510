@@ -3,63 +3,20 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 import java.util.HashMap;
 import java.util.Map;
 
-import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class Formulario extends DialogBox implements ClickListener {
-	
-	private Mensajes mensajes = GWT.create(Mensajes.class);
+public class Formulario {
 	
 	private FlexTable form = new FlexTable();
 	
-	private Button botonGuardar = new Button(mensajes.guardar());
-	
-	private Button botonCerrar = new Button(mensajes.cerrar());
-	
 	private Map<String, Campo> campos = new HashMap<String, Campo>();
-	
-	private FormularioListener listener;
 	
 	private int cantidadCampos = 0;
 	
-	private HorizontalPanel botonera;
-	
-	public Formulario(FormularioListener l) {
-		super(false);
-		
-		this.listener = l;
-		
-		this.botonGuardar.setTabIndex(98);
-		this.botonCerrar.setTabIndex(99);
-		
-		this.botonGuardar.addClickListener(this);
-		this.botonCerrar.addClickListener(this);
-		
-		botonera = new HorizontalPanel();
-		botonera.setSpacing(10);
-		botonera.add(botonGuardar);
-		botonera.add(botonCerrar);
-		
-		VerticalPanel principal = new VerticalPanel();
-		principal.add(form);
-		principal.add(botonera);
-		principal.setCellHorizontalAlignment(form,
-				VerticalPanel.ALIGN_CENTER);
-		principal.setCellHorizontalAlignment(botonera,
-				VerticalPanel.ALIGN_RIGHT);
-		
-		super.add(principal);
-	}
-	
+	private boolean editable = false;
+
 	public void add(String nombre, String label, Campo campo) {
 		campos.put(nombre, campo);
 		
@@ -138,14 +95,13 @@ public class Formulario extends DialogBox implements ClickListener {
 		campo.setValor(Utils.getFechaFormateada(fecha, Utils.FORMATO_ARG));
 	}
 	*/
-	
-	private void reset() {
+	public void reset() {
 		for(Campo campo: campos.values()) {
 			campo.reset();
 		}
 	}
 	
-	private boolean validar() {
+	public boolean validar() {
 		boolean invalido = false;
 		
 		for(Campo campo: campos.values()) {
@@ -160,22 +116,8 @@ public class Formulario extends DialogBox implements ClickListener {
 		return !invalido;
 	}
 	
-	public final void onClick(Widget sender) {
-		if( sender.equals(botonGuardar)) {
-			if( validar()) {
-				this.hide();
-				listener.onGuardar();
-			}
-		}
-		
-		if(sender.equals(botonCerrar)) {
-			this.hide();
-			this.reset();
-		}
-	}
-	
 	public void setEditable(boolean editable) {
-		botonGuardar.setVisible(editable);
+		this.editable = editable;
 		
 		for(Campo campo: campos.values()) {
 			campo.setEditable(editable);
@@ -183,14 +125,10 @@ public class Formulario extends DialogBox implements ClickListener {
 	}
 	
 	public boolean isEditable() {
-		return botonGuardar.isVisible();
+		return editable;
 	}
 
-	public HorizontalPanel getBotonera() {
-		return botonera;
-	}
-
-	public void setBotonera(HorizontalPanel botonera) {
-		this.botonera = botonera;
+	public Widget toWidget() {
+		return form;
 	}
 }

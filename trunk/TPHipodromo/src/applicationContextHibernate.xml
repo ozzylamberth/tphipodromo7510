@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 	<bean id="caballoDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.CaballoDaoHibernate"/>
-	<!--<bean id="apuestaDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate."/>-->
+	<bean id="apuestaDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.ApuestaDaoMockImpl"/>
 	<bean id="participanteDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.ParticipanteDaoHibernate"/>
 	<bean id="carreraDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.CarreraDaoHibernate"/>
 	<bean id="jockeyDao" class="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.JockeyDaoHibernate"/>

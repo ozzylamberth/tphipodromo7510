@@ -22,7 +22,9 @@ public class VistaABMCarreras extends VistaDefaultGWT {
 	private ControladorABMCarreras ctrlABMCarreras;
 
 	public VistaABMCarreras(HasWidgets padre, ControladorABMCarreras ctrlABMCarreras) {
-		super(padre, "Carreras");
+		super(padre);
+		
+		this.setTitulo(mensajes.carreras());
 		
 		this.ctrlABMCarreras = ctrlABMCarreras;
 		

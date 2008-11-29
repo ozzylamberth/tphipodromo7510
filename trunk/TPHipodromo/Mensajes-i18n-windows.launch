@@ -14,6 +14,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.i18n.tools.I18NSync"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out src ar.uba.fi.tecnicas.tphipodromo.client.Mensajes"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-createMessages -out src ar.uba.fi.tecnicas.tphipodromo.client.Mensajes"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TPHipodromo"/>
 </launchConfiguration>

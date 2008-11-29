@@ -12,8 +12,8 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoNoEditableDecorator;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopup;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopupListener;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
@@ -24,11 +24,11 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
-public class VistaCarreraGWT extends Vista implements FormularioListener {
+public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 
 	private ControladorABMCarreras ctrlABMCarreras;
 	
-	private Formulario formulario;
+	private FormularioPopup formulario;
 	
 	private CarreraDTO carrera;
 	
@@ -41,9 +41,9 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 	public VistaCarreraGWT(ControladorABMCarreras ctrlABMCarreras) {
 		this.ctrlABMCarreras = ctrlABMCarreras;
 		
-		this.formulario = new Formulario(this);
+		this.formulario = new FormularioPopup(this);
 		
-		this.formulario.setText(mensajes.carrera());
+		this.formulario.setTitulo(mensajes.carrera());
 
 		this.formulario.add("numero", mensajes.numero(), new CampoInteger(true));
 		this.formulario.add("nombre", mensajes.nombre(), new CampoString(false));
@@ -60,14 +60,13 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 	@Override
 	public void mostrar() {
 		super.mostrar();
-		this.formulario.center();
-		this.formulario.show();
+		this.formulario.mostrar();
 	}
 	
 	@Override
 	public void ocultar() {
 		super.ocultar();
-		this.formulario.hide();
+		this.formulario.ocultar();
 	}
 	
 	@Override

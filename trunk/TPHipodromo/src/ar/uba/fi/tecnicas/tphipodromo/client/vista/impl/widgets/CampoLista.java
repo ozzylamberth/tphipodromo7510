@@ -15,6 +15,14 @@ public class CampoLista extends Campo {
 		listBox = new ListBox();
 	}
 	
+	public void setStrings(Collection<String> items) {
+		listBox.clear();
+		
+		for(String item: items) {
+			listBox.addItem(item);
+		}
+	}
+	
 	public void setItems(Collection<CampoListaItem> items) {
 		listBox.clear();
 		

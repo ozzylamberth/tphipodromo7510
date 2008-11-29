@@ -136,7 +136,7 @@ public class VistaParticipantes extends DialogBox {
 	
 	private String obtenerTtulo(CarreraDTO carrera) {
 		if(carrera.getNombre() != null && !carrera.getNombre().equals("")) {
-			return mensajes.participantes() + " " + mensajes.de() + " " + carrera.getNombre();
+			return mensajes.participantesDe(carrera.getNombre());
 		}
 		return mensajes.participantes();
 	}

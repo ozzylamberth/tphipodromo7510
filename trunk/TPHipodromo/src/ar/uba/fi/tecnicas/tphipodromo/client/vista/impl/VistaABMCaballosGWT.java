@@ -22,7 +22,9 @@ public class VistaABMCaballosGWT extends VistaDefaultGWT {
 	private ControladorABMCaballos ctrlABMCaballos;
 
 	public VistaABMCaballosGWT(HasWidgets padre, ControladorABMCaballos ctrlABMCaballos) {
-		super(padre, "Caballos");
+		super(padre);
+		
+		this.setTitulo(mensajes.caballos());
 		
 		this.ctrlABMCaballos = ctrlABMCaballos;
 		

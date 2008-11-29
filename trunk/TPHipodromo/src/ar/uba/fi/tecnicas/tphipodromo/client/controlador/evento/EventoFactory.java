@@ -163,6 +163,22 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getMostrarNuevaApuesta() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarNuevaApuesta(); 
+			}
+		};
+	}
+	
+	public static Evento getListaTiposApuestaActualizada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onListaTiposApuestaActualizada((Collection<String>)args[0]); 
+			}
+		};
+	}
+	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
 		return new Evento() {

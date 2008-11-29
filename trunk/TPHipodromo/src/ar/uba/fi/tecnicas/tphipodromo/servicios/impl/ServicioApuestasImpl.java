@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaCuaterna;
@@ -36,7 +38,7 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TipoApuestaInvalidaE
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TransicionInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ApuestaTransformerToDTO;
 
-public class ServicioApuestasImpl implements ServicioApuestas {
+public class ServicioApuestasImpl extends RemoteServiceServlet implements ServicioApuestas {
 	
 	private ApuestaDao apuestaDao;
 	private ApuestaTransformerToDTO apuestaTransformerToDTO = new ApuestaTransformerToDTO();
