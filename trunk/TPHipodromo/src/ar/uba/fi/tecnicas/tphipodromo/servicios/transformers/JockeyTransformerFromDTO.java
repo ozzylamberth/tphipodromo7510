@@ -22,25 +22,18 @@ public class JockeyTransformerFromDTO implements Transformer {
 	}
 	public Object transform(Object arg0) {
 		JockeyDTO jockeyDTO = (JockeyDTO) arg0;
-
-		Jockey jockey;
-		if( !jockeyDTO.getId().equals(new Long(0)) ) {
-			jockey = buscarJockey(jockeyDTO.getId());
-		}else{
-			jockey = new Jockey();
-		}
-		
+		Jockey jockey = this.getJockey(jockeyDTO);
 		jockey.setNombre(jockeyDTO.getNombre());
 		jockey.setApellido(jockeyDTO.getApellido());
 		jockey.setPeso(new BigDecimal(jockeyDTO.getPeso().toString()));
 		return jockey;
 	}
 	
-	private Jockey buscarJockey(Long id) {
+	private Jockey getJockey(JockeyDTO jockeyDTO) {
 		try {
-			return this.getDao().buscarPorId(id);
+			return this.getDao().buscarPorId(jockeyDTO.getId());
 		} catch (ObjetoInexistenteException e) {
-			return null;
+			return new Jockey();
 		}
 	}
 }

@@ -8,44 +8,48 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ResultadoDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class ParticipanteTransformerFromDTO implements Transformer {
 	
-	private CaballoDao caballoDao;
-	private CarreraDao carreraDao;
-	private JockeyDao jockeyDao;
-	private ResultadoDao resultadoDao;
+	private ParticipanteDao participanteDao;
 	
-	public ParticipanteTransformerFromDTO() {
-		this.caballoDao = (CaballoDao) ServicioSpring.getInstance().getBean("caballoDao");
-		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
-		this.jockeyDao = (JockeyDao) ServicioSpring.getInstance().getBean("jockeyDao"); 
-		this.resultadoDao = (ResultadoDao) ServicioSpring.getInstance().getBean("resultadoDao");
+	public ParticipanteTransformerFromDTO() { 
+		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
 	}
 
 	public Object transform(Object arg0) {
 		ParticipanteDTO participanteDTO = (ParticipanteDTO) arg0;
 		try {
-			Caballo caballo = this.caballoDao.buscarPorId(participanteDTO.getCaballoDTO().getId());
-			Carrera carrera = this.carreraDao.buscarPorId(participanteDTO.getCarreraDTO().getId());
-			Jockey jockey = this.jockeyDao.buscarPorId(participanteDTO.getJockeyDTO().getId());
-			Resultado resultado = this.resultadoDao.buscarPorId(participanteDTO.getResultadoDTO().getId());
-			Participante participante = new Participante(caballo, jockey, carrera);
-			participante.setId(participanteDTO.getId());
+			Participante participante = this.getParticipante(participanteDTO);
 			participante.setNroParticipante(participanteDTO.getNroParticipante());
-			participante.setResultado(resultado);
+			participante.setCaballo((Caballo) new CaballoTransformerFromDTO().transform(participanteDTO.getCaballoDTO()));
+			participante.setCarrera((Carrera) new CarreraTransformerFromDTO().transform(participanteDTO.getCarreraDTO()));
+			participante.setJockey((Jockey) new JockeyTransformerFromDTO().transform(participanteDTO.getJockeyDTO()));
+			this.setResultado(participante, participanteDTO);
 			return participante;
 		} catch (TransicionInvalidaEstadoParticipanteException e) {
 			return null;
 		} catch (ObjetoInexistenteException e) {
 			return null;
+		}
+	}
+	
+	private Participante getParticipante(ParticipanteDTO participanteDTO) throws ObjetoInexistenteException {
+		try {
+			return this.participanteDao.buscarPorId(participanteDTO.getId());
+		} catch (ObjetoInexistenteException e) {
+			return new Participante();
+		}
+	}
+	
+	private void setResultado(Participante participante, ParticipanteDTO participanteDTO) throws TransicionInvalidaEstadoParticipanteException {
+		if (participanteDTO.getResultadoDTO() != null) {
+			Resultado resultado = (Resultado) new ResultadoTransformerFromDTO().transform(participanteDTO.getResultadoDTO());
+			participante.setResultado(resultado);
 		}
 	}
 

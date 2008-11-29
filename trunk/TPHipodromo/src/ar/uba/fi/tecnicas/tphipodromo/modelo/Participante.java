@@ -19,6 +19,10 @@ public class Participante implements Identificable {
 	private Jockey jockey;
 	private Carrera carrera;
 	private EstadoParticipante eestado;
+	
+	public Participante() {
+		this.eestado = EstadoParticipante.LARGADA_PENDIENTE;
+	}
 
 	public Participante(Caballo caballo, Jockey jockey, Carrera carrera) {
 		this.caballo = caballo;

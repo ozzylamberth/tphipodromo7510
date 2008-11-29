@@ -24,17 +24,7 @@ public class CaballoTransformerFromDTO implements Transformer {
 
 	public Object transform(Object arg0) {
 		CaballoDTO caballoDTO = (CaballoDTO) arg0;
-		
-		Caballo caballo;
-		if(!caballoDTO.getId().equals(new Long(0))){
-			caballo = buscarCaballo(caballoDTO.getId());
-		}else{
-			caballo = new Caballo();
-		}
-
-		if(caballo==null)
-			return null; //TODO: Crear una excepcion y tirarla
-
+		Caballo caballo = this.getCaballo(caballoDTO);
 		caballo.setId(caballoDTO.getId());
 		caballo.setCaballeriza(caballoDTO.getCaballeriza());
 		caballo.setCriador(caballoDTO.getCriador());
@@ -56,6 +46,14 @@ public class CaballoTransformerFromDTO implements Transformer {
 		}
 		
 		return caballo;
+	}
+	
+	private Caballo getCaballo(CaballoDTO caballoDTO) {
+		try {
+			return this.getDao().buscarPorId(caballoDTO.getId());
+		} catch (ObjetoInexistenteException e) {
+			return new Caballo();
+		}
 	}
 	
 	private Caballo buscarCaballo(Long id) {

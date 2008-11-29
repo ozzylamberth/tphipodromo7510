@@ -4,8 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.*;
-import org.hibernate.criterion.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Identificable;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
@@ -88,9 +93,12 @@ implements DAOGenerico<T>{
 	}
 
 	@SuppressWarnings("unchecked")
-	public T buscarPorId(Long id) {	
-		return (T) getSession().get(getClasePersistente(), id);
-		
+	public T buscarPorId(Long id) throws ObjetoInexistenteException {
+		T objeto = (T) getSession().get(getClasePersistente(), id);
+		if (objeto == null) {
+			throw new ObjetoInexistenteException();
+		}
+		return objeto;
 	}
 
 	public Collection<T> buscarTodos() {
