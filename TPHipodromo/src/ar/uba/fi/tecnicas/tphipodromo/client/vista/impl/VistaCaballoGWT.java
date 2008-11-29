@@ -14,15 +14,15 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoLista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopup;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopupListener;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 
-public class VistaCaballoGWT extends Vista implements FormularioListener {
+public class VistaCaballoGWT extends Vista implements FormularioPopupListener {
 	
 	private ControladorABMCaballos ctrlABMCaballos;
 	
-	private Formulario formulario;
+	private FormularioPopup formulario;
 	
 	private CaballoDTO caballo;
 	
@@ -35,9 +35,9 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	public VistaCaballoGWT(ControladorABMCaballos ctrlABMCaballos) {
 		this.ctrlABMCaballos = ctrlABMCaballos;
 		
-		this.formulario = new Formulario(this);
+		this.formulario = new FormularioPopup(this);
 		
-		this.formulario.setText(mensajes.caballo());
+		this.formulario.setTitulo(mensajes.caballo());
 		
 		this.campoPadre = new CampoLista();
 		this.campoMadre = new CampoLista();
@@ -57,14 +57,13 @@ public class VistaCaballoGWT extends Vista implements FormularioListener {
 	@Override
 	public void mostrar() {
 		super.mostrar();
-		this.formulario.center();
-		this.formulario.show();
+		this.formulario.mostrar();
 	}
 	
 	@Override
 	public void ocultar() {
 		super.ocultar();
-		this.formulario.hide();
+		this.formulario.ocultar();
 	}
 	
 	@Override

@@ -21,7 +21,9 @@ public class VistaABMJockeysGWT extends VistaDefaultGWT {
 	private Listado<JockeyDTO> listado;
 
 	public VistaABMJockeysGWT(HasWidgets padre, ControladorABMJockey ctrlABMJockey) {
-		super(padre, "Jockeys");
+		super(padre);
+		
+		this.setTitulo(mensajes.jockeys());
 		
 		this.ctrlABMJockey = ctrlABMJockey;
 		

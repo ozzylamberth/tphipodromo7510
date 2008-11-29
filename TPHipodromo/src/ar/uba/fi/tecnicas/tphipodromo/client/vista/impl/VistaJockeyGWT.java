@@ -4,24 +4,24 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMJockey;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoDouble;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopup;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioPopupListener;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 
-public class VistaJockeyGWT extends Vista implements FormularioListener {
+public class VistaJockeyGWT extends Vista implements FormularioPopupListener {
 
 	private ControladorABMJockey ctrlABMJockey;
 	
 	private JockeyDTO jockeyMostrado;
 	
-	private Formulario formulario;
+	private FormularioPopup formulario;
 	
 	public VistaJockeyGWT(ControladorABMJockey ctrlABMJockey) {
 		this.ctrlABMJockey = ctrlABMJockey;
 		
-		this.formulario = new Formulario(this);
+		this.formulario = new FormularioPopup(this);
 		
-		this.formulario.setText("Jockey");
+		this.formulario.setTitulo("Jockey");
 		
 		this.formulario.add("nombre", "Nombre", new CampoString(true));
 		this.formulario.add("apellido", "Apellido", new CampoString(true));
@@ -32,14 +32,13 @@ public class VistaJockeyGWT extends Vista implements FormularioListener {
 	@Override
 	public void mostrar() {
 		super.mostrar();
-		formulario.center();
-		formulario.show();
+		formulario.mostrar();
 	}
 
 	@Override
 	public void ocultar() {
 		super.ocultar();
-		formulario.hide();
+		formulario.ocultar();
 	}
 
 	public void onMostrarJockey(JockeyDTO jockeyDTO, Boolean editable) {

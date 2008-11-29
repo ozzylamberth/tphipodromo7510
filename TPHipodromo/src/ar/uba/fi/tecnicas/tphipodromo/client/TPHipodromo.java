@@ -11,6 +11,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMApuestasGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCaballosGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMJockeysGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaNuevaApuestaGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCaballoGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCarreraGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaHomeGWT;
@@ -47,9 +48,9 @@ public class TPHipodromo implements EntryPoint {
 	  VistaABMApuestasGWT vistaABMApuestas = new VistaABMApuestasGWT(vistaPrincipal.getPanelCentro());
 	  VistaABMCarreras vistaABMCarreras = new VistaABMCarreras(vistaPrincipal.getPanelCentro(), ctrlABMCarreras);
 	  VistaCarreraGWT vistaCarreraGWT = new VistaCarreraGWT(ctrlABMCarreras);
-	  
 	  VistaABMJockeysGWT vistaABMJockeys = new VistaABMJockeysGWT(vistaPrincipal.getPanelCentro(), ctrlABMJockey);
 	  VistaJockeyGWT vistaJockey = new VistaJockeyGWT(ctrlABMJockey);
+	  VistaNuevaApuestaGWT vistaApostar = new VistaNuevaApuestaGWT(vistaPrincipal.getPanelCentro(), ctrlABMApuestas);
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
 	  ctrlPrincipal.addObserver(vistaHome);
@@ -61,6 +62,7 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaABMJockeys);
 	  ctrlMenu.addObserver(vistaPrincipal);
 	  ctrlMenu.addObserver(vistaABMCarreras);
+	  ctrlMenu.addObserver(vistaApostar);
 	  
 	  ctrlABMCaballos.addObserver(vistaABMCaballos);
 	  ctrlABMCaballos.addObserver(vistaCaballo);
@@ -73,6 +75,9 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlABMCarreras.addObserver(vistaABMCarreras);
 	  ctrlABMCarreras.addObserver(vistaPrincipal);
 	  ctrlABMCarreras.addObserver(vistaCarreraGWT);
+	  
+	  ctrlABMApuestas.addObserver(vistaPrincipal);
+	  ctrlABMApuestas.addObserver(vistaApostar);
 	  
 	  ctrlPrincipal.doMostrarPrincipal();
   }

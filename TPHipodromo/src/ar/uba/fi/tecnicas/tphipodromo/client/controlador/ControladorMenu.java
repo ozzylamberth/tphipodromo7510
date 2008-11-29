@@ -13,6 +13,11 @@ public class ControladorMenu extends Controlador {
 		notifyObservers(EventoFactory.getOcultarMensaje());
 		notifyObservers(EventoFactory.getMostrarABMApuestas());
 	}
+	
+	public void doMostrarNuevaApuesta() {
+		notifyObservers(EventoFactory.getOcultarMensaje());
+		notifyObservers(EventoFactory.getMostrarNuevaApuesta());
+	}
 
 	public void doABMJockeys() {
 		notifyObservers(EventoFactory.getOcultarMensaje());

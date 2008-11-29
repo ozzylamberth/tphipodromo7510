@@ -8,21 +8,27 @@ import com.google.gwt.user.client.ui.Widget;
 public abstract class VistaDefaultGWT extends VistaGWT {
 	
 	private VerticalPanel cuerpo;
+	
+	private Label titulo;
 
-	public VistaDefaultGWT(HasWidgets padre, String titulo) {
+	public VistaDefaultGWT(HasWidgets padre) {
 		super(padre);
 		
 		cuerpo = new VerticalPanel();
 		cuerpo.setSpacing(20);
 		
-		Label lblTitulo = new Label(titulo);
-		lblTitulo.setStyleName("titulo");
-		cuerpo.add(lblTitulo);
-		cuerpo.setCellHorizontalAlignment(lblTitulo, VerticalPanel.ALIGN_CENTER);
+		titulo = new Label();
+		titulo.setStyleName("titulo");
+		cuerpo.add(titulo);
+		cuerpo.setCellHorizontalAlignment(titulo, VerticalPanel.ALIGN_CENTER);
 	}
 	
 	protected VerticalPanel getCuerpo() {
 		return cuerpo;
+	}
+	
+	public void setTitulo(String s) {
+		this.titulo.setText(s);
 	}
 	
 	public final Widget toWidget() {
