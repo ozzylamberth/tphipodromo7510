@@ -194,6 +194,14 @@ public class EventoFactory {
 			}
 		};
 	}
+
+	public static Evento getMostrarLiquidacionApuestas() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarLiquidacionApuestas(); 
+			}
+		};
+	}
 	
 	/*
 	public static Evento getEventoPedirDatosLogin() {

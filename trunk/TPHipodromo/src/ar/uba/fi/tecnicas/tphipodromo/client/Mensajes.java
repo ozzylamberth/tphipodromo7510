@@ -34,6 +34,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String borrar();
 
   /**
+   * Translated "Buscar".
+   * 
+   * @return translated "Buscar"
+   */
+  @DefaultMessage("Buscar")
+  @Key("buscar")
+  String buscar();
+
+  /**
    * Translated "Caballeriza".
    * 
    * @return translated "Caballeriza"
@@ -122,6 +131,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Cerrar")
   @Key("cerrar")
   String cerrar();
+
+  /**
+   * Translated "Cobrar Apuestas".
+   * 
+   * @return translated "Cobrar Apuestas"
+   */
+  @DefaultMessage("Cobrar Apuestas")
+  @Key("cobrarApuestas")
+  String cobrarApuestas();
 
   /**
    * Translated "¿Está seguro que desea borrar el caballo?".
@@ -259,6 +277,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String insertar();
 
   /**
+   * Translated "Jockey".
+   * 
+   * @return translated "Jockey"
+   */
+  @DefaultMessage("Jockey")
+  @Key("jockey")
+  String jockey();
+
+  /**
    * Translated "Jockeys".
    * 
    * @return translated "Jockeys"
@@ -302,6 +329,24 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Nombre")
   @Key("nombre")
   String nombre();
+
+  /**
+   * Translated "Nro".
+   * 
+   * @return translated "Nro"
+   */
+  @DefaultMessage("Nro")
+  @Key("nroParticipante")
+  String nroParticipante();
+
+  /**
+   * Translated "N�mero de Ticket".
+   * 
+   * @return translated "N�mero de Ticket"
+   */
+  @DefaultMessage("N�mero de Ticket")
+  @Key("nroTicket")
+  String nroTicket();
 
   /**
    * Translated "Nuevo".
@@ -374,6 +419,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Peso")
   @Key("peso")
   String peso();
+
+  /**
+   * Translated "Resultado".
+   * 
+   * @return translated "Resultado"
+   */
+  @DefaultMessage("Resultado")
+  @Key("resultado")
+  String resultado();
 
   /**
    * Translated "Si".

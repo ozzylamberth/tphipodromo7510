@@ -11,13 +11,14 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMApuestasGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCaballosGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaABMJockeysGWT;
-import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaNuevaApuestaGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCaballoGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaCarreraGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaHomeGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaJockeyGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaLiquidacionApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaLoginGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaMenuGWT;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaNuevaApuestaGWT;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.VistaPrincipalGWT;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -51,6 +52,7 @@ public class TPHipodromo implements EntryPoint {
 	  VistaABMJockeysGWT vistaABMJockeys = new VistaABMJockeysGWT(vistaPrincipal.getPanelCentro(), ctrlABMJockey);
 	  VistaJockeyGWT vistaJockey = new VistaJockeyGWT(ctrlABMJockey);
 	  VistaNuevaApuestaGWT vistaApostar = new VistaNuevaApuestaGWT(vistaPrincipal.getPanelCentro(), ctrlABMApuestas);
+	  VistaLiquidacionApuestas vistaLiquidacion = new VistaLiquidacionApuestas(vistaPrincipal.getPanelCentro());
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
 	  ctrlPrincipal.addObserver(vistaHome);
@@ -63,6 +65,7 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaPrincipal);
 	  ctrlMenu.addObserver(vistaABMCarreras);
 	  ctrlMenu.addObserver(vistaApostar);
+	  ctrlMenu.addObserver(vistaLiquidacion);
 	  
 	  ctrlABMCaballos.addObserver(vistaABMCaballos);
 	  ctrlABMCaballos.addObserver(vistaCaballo);

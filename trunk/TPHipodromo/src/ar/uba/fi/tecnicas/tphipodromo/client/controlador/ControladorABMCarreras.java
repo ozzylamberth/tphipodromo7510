@@ -108,6 +108,8 @@ public class ControladorABMCarreras extends Controlador {
 	}
 	
 	public void doMostrarJockeysParaCarrera(CarreraDTO carrera) {
+		//TODO Buscar solo los jockeys que NO estan en la carrera
+		
 		servicioJockeys.buscarTodos(new AsyncCallback<Collection<JockeyDTO>>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
