@@ -78,8 +78,11 @@ public abstract class Vista {
 	public void onMostrarNuevaApuesta() {};
 	
 	public void onEditarParticipantesCarrera(CarreraDTO carreraDTO,
-			Collection<ParticipanteDTO> participantes, Collection<JockeyDTO> jockeys, 
-			Collection<CaballoDTO> caballos) {}
+			Collection<ParticipanteDTO> participantes) {}
 	
 	public void onListaTiposApuestaActualizada(Collection<String> lista) {}
+
+	public void onMostrarCaballosParaCarrera(Collection<CaballoDTO> collection) {}
+
+	public void onMostrarJockeysParaCarrera(Collection<JockeyDTO> collection) {}
 }

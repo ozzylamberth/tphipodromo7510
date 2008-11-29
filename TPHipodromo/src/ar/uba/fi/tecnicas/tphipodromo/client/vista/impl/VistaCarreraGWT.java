@@ -53,8 +53,9 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 		
 		this.botonParticipantes = new Button(mensajes.participantes());
 		this.botonParticipantes.addClickListener(new ParticipantesClickListener());
+		this.botonParticipantes.setVisible(false);
 		this.formulario.getBotonera().add(this.botonParticipantes);
-		this.vistaParticipantes = new VistaParticipantes();
+		this.vistaParticipantes = new VistaParticipantes(ctrlABMCarreras);
 	}
 	
 	@Override
@@ -95,6 +96,11 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 //		this.formulario.setString("fechaYHora", Utils.getFechaFormateada(carrera.getFechaYHora(), Utils.FORMATO_ARG));
 		this.formulario.setDouble("distancia", carrera.getDistancia());
 		this.formulario.setString("estado", carrera.getEstado());
+		if(carrera.getId() == null || carrera.getId().equals(new Long(0))) {
+			botonParticipantes.setVisible(false);
+		}else{
+			botonParticipantes.setVisible(true);
+		}
 		
 		mostrar();
 	}
@@ -106,12 +112,15 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 		carrera.setDistancia(formulario.getDouble("distancia"));
 		carrera.setEstado(formulario.getString("estado"));
 		ctrlABMCarreras.doGuadarCarrera(carrera);
+		botonParticipantes.setVisible(true);
 	}
 	
 	private class ParticipantesClickListener implements ClickListener {
 		public void onClick(Widget sender) {
 			if(formulario.isEditable()) {
 				ctrlABMCarreras.doEditarParticipantes(carrera);
+				ctrlABMCarreras.doMostrarCaballosParaCarrera(carrera);
+				ctrlABMCarreras.doMostrarJockeysParaCarrera(carrera);
 			}else {
 				ctrlABMCarreras.doMostrarParticipantes(carrera);
 			}
@@ -123,16 +132,22 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 	@Override
 	public void onMostrarParticipantesCarrera(CarreraDTO carreraDTO,
 			Collection<ParticipanteDTO> participantes) {
-		System.out.println("Estoy mostrando participantes");
 		vistaParticipantes.mostrarParticipantes(carrera, participantes);
 	}
 	
 	@Override
 	public void onEditarParticipantesCarrera(CarreraDTO carreraDTO,
-			Collection<ParticipanteDTO> participantes, Collection<JockeyDTO> jockeys, 
-			Collection<CaballoDTO> caballos) {
-		System.out.println("EStoy editando participantes");
-		vistaParticipantes.editarParticipantes(carrera, participantes, caballos, jockeys);
+			Collection<ParticipanteDTO> participantes) {
+		vistaParticipantes.editarParticipantes(carrera, participantes);
 	}
-
+	
+	@Override
+	public void onMostrarCaballosParaCarrera(Collection<CaballoDTO> collection) {
+		vistaParticipantes.actualizarCaballos(collection);
+	}
+	
+	@Override
+	public void onMostrarJockeysParaCarrera(Collection<JockeyDTO> collection) {
+		vistaParticipantes.actualizarJockeys(collection);
+	}
 }

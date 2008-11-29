@@ -1,13 +1,15 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballosAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarrerasAsync;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioJockeys;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioJockeysAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantes;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantesAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
@@ -25,6 +27,10 @@ public class ControladorABMCarreras extends Controlador {
 	private ServicioCarrerasAsync servicioCarreras = GWT.create(ServicioCarreras.class);
 	
 	private ServicioParticipantesAsync servicioParticipantes = GWT.create(ServicioParticipantes.class);
+	
+	private ServicioJockeysAsync servicioJockeys = GWT.create(ServicioJockeys.class);
+	
+	private ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
 	
 	public void doActualizarListadoCarrera() {
 		servicioCarreras.buscarTodos(new AsyncCallback<Collection<CarreraDTO>>() {
@@ -87,10 +93,6 @@ public class ControladorABMCarreras extends Controlador {
 				notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, result);
 			}
 		});
-		/*
-		List<ParticipanteDTO> participantes = new LinkedList<ParticipanteDTO>(); 
-		notifyObservers(EventoFactory.getMostrarParticipantes(), carrera, participantes);
-		*/
 	}
 	
 	public void doEditarParticipantes(final CarreraDTO carrera) {
@@ -100,45 +102,47 @@ public class ControladorABMCarreras extends Controlador {
 			}
 			
 			public void onSuccess(Collection<ParticipanteDTO> result) {
-				notifyObservers(EventoFactory.getEditarParticipantes(), carrera, result, new LinkedList<JockeyDTO>(), new LinkedList<CaballoDTO>());
+				notifyObservers(EventoFactory.getEditarParticipantes(), carrera, result);
 			}
 		});
-		/*
-		List<JockeyDTO> jockeys = new LinkedList<JockeyDTO>();
-		JockeyDTO jockey = new JockeyDTO();
-		
-		for(int i = 0; i< 10; i++) {
-			jockey = new JockeyDTO();
-			jockey.setNombre("Juan " + i);
-			jockey.setPeso(new Double(40 + i));
-			jockey.setId(new Long(i));
-			jockeys.add(jockey);
+	}
+	
+	public void doMostrarJockeysParaCarrera(CarreraDTO carrera) {
+		servicioJockeys.buscarTodos(new AsyncCallback<Collection<JockeyDTO>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			public void onSuccess(Collection<JockeyDTO> result) {
+				notifyObservers(EventoFactory.getMostrarJockeysParaCarrera(), result);
+			}
+			
+		});
+	}
+	
+	public void doMostrarCaballosParaCarrera(CarreraDTO carrera) {
+		servicioCaballos.buscarTodos(new AsyncCallback<Collection<CaballoDTO>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			public void onSuccess(Collection<CaballoDTO> result) {
+				notifyObservers(EventoFactory.getMostrarCaballosParaCarrera(), result);
+			}
+			
+		});
+	}
+	
+	public void doGuardarParticipantes(Collection<ParticipanteDTO> participantesCarrera) {
+		for(ParticipanteDTO participante:participantesCarrera ) {
+			servicioParticipantes.guardar(participante, new AsyncCallback<Long>() {
+				public void onFailure(Throwable caught) {
+					notifyObservers(EventoFactory.getErrorRPC(), caught);
+				}
+				public void onSuccess(Long result) {
+					notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.participantesGuardados(), result);
+				}
+				
+			});
 		}
-		
-		List<CaballoDTO> caballos = new LinkedList<CaballoDTO>();
-		for(int i = 0; i< 10; i++) {
-			CaballoDTO caballo = new CaballoDTO();
-			caballo.setNombre("Caballo " + i);
-			caballo.setId(new Long(i));
-			caballos.add(caballo);
-		}
-		
-		
-		List<ParticipanteDTO> participantes = new LinkedList<ParticipanteDTO>();
-		ParticipanteDTO participante = new ParticipanteDTO();
-		
-		for(int i = 0; i< 5; i++) {
-			participante = new ParticipanteDTO();
-			participante.setCaballoDTO(caballos.get(i));
-			participante.setJockeyDTO(jockeys.get(i));
-			participante.setNroParticipante(i);
-			participante.setEstado("Corriendo");
-			participantes.add(participante);
-		}
-		
-		
-		notifyObservers(EventoFactory.getEditarParticipantes(), carrera, participantes, jockeys, caballos);
-		*/
 	}
 
 }

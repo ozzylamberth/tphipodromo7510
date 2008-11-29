@@ -1,14 +1,18 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.BotonChico;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ResultadoDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Button;
@@ -24,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
  * NO esta terminado, por eso no funciona
  *
  */
-public class VistaParticipantes extends DialogBox {
+public class VistaParticipantes extends DialogBox  {
 	
 	private Label labelNumeroCarrera;
 	
@@ -42,17 +46,27 @@ public class VistaParticipantes extends DialogBox {
 	
 	private Collection<ParticipanteDTO> participantes;
 	
-	private Collection<JockeyDTO> jockeyMostrados;
+	private Map<Long, JockeyDTO> jockeysMostrados;
 	
-	private Collection<CaballoDTO> caballosMostrados;
+	private Map<Long, CaballoDTO> caballosMostrados;
 	
 	private CarreraDTO carreraMostrada;
 	
-	public VistaParticipantes() {
-		super(true);
+	private Button botonGuardar;
+	
+	private Button botonCerrar;
+	
+	private boolean editable;
+	
+	private ControladorABMCarreras controladorCarreras;
+	
+	public VistaParticipantes(ControladorABMCarreras controladorCarreras) {
+		super(false);
 		mensajes = GWT.create(Mensajes.class);
+		this.controladorCarreras = controladorCarreras;
 		
 		this.setText(mensajes.participantes());
+//		this.setSize("200", "300");
 		
 		labelNombreCarrera = new Label();
 		labelNumeroCarrera = new Label();
@@ -60,6 +74,12 @@ public class VistaParticipantes extends DialogBox {
 		listaJockeys = new ListBox();
 		
 		listaCaballos = new ListBox();
+		jockeysMostrados = new HashMap<Long, JockeyDTO>();
+		caballosMostrados = new HashMap<Long, CaballoDTO>();
+		botonGuardar = new Button(mensajes.guardar());
+		botonCerrar = new Button(mensajes.cerrar());
+		this.botonGuardar.addClickListener(new GuardarParticipantesListener());
+		this.botonCerrar.addClickListener(new CerrarListener());
 		
 		listado = new Listado<ParticipanteDTO>() {
 			public Widget[] getAtributos(ParticipanteDTO obj) {
@@ -68,9 +88,16 @@ public class VistaParticipantes extends DialogBox {
 						new Label(obj.getJockeyDTO().getApellido().toString()),
 						new Label(String.valueOf(obj.getNroParticipante())),
 						new Label(obj.getEstado()),
-//						new Label(String.valueOf(obj.getResultadoDTO().getOrdenLlegada())),
+						new Label(this.obtenerResultado(obj.getResultadoDTO())),
 						new BotonChico(mensajes.eliminar(), new EliminarPrticipanteListener(obj))
 				};
+			}
+
+			private String obtenerResultado(ResultadoDTO resultado) {
+				if(resultado == null) {
+					return "-";
+				}
+				return String.valueOf(resultado.getOrdenLlegada());
 			}
 
 			public String[] getTitulos() {
@@ -106,30 +133,34 @@ public class VistaParticipantes extends DialogBox {
 		panel.add(panelHorizontal);
 		
 		panel.add(listado);
+		
+		HorizontalPanel botonera = new HorizontalPanel();
+		botonera.setSpacing(10);
+		botonera.add(botonGuardar);
+		botonera.add(botonCerrar);
+		panel.add(botonera);
 		this.add(panel);
 	}
 	
-	private void actualizar(boolean editable) {
+	private void actualizar() {
 		listado.update(participantes);
 		labelNombreCarrera.setText(carreraMostrada.getNombre());
 		labelNumeroCarrera.setText(String.valueOf(carreraMostrada.getNumero()));
-		this.setEditable(editable);
-		if(editable) {
-			popularComboCaballos(caballosMostrados);
-			popularComboJockeys(jockeyMostrados);
-		}
 	}
 	
 	private void setEditable(boolean editable) {
+		this.editable = editable;
 		listaCaballos.setVisible(editable);
 		listaJockeys.setVisible(editable);
 		agregar.setVisible(editable);
+		botonGuardar.setVisible(editable);
 	}
 
 	public void mostrarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
 		this.participantes = participantes;
 		this.carreraMostrada = carrera;
-		this.actualizar(false);
+		this.setEditable(false);
+		this.actualizar();
 		this.mostrar(this.obtenerTtulo(carrera));
 		
 	}
@@ -147,46 +178,60 @@ public class VistaParticipantes extends DialogBox {
 		this.show();
 	}
 
-	public void editarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes, 
-			Collection<CaballoDTO> caballos, Collection<JockeyDTO> jockeys) {
+	public void editarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
 		this.participantes = participantes;
 		this.carreraMostrada = carrera;
-		this.caballosMostrados = caballos;
-		this.jockeyMostrados = jockeys;
-		this.actualizar(true);
+		this.setEditable(true);
+		this.actualizar();
 		this.mostrar(this.obtenerTtulo(carrera));
 	}
 	
+	public void actualizarCaballos(Collection<CaballoDTO> collection) {
+		popularComboCaballos(collection);
+	}
+	
+	public void actualizarJockeys(Collection<JockeyDTO> collection) {
+		popularComboJockeys(collection);
+	}
+	
 	private void popularComboCaballos(Collection<CaballoDTO> caballos) {
+		caballosMostrados.clear();
 		listaCaballos.clear();
 		for(CaballoDTO caballo:caballos) {
 			listaCaballos.addItem(caballo.getNombre(), caballo.getId().toString());
+			caballosMostrados.put(caballo.getId(), caballo);
+			
 		}
 	}
 	
 	private void popularComboJockeys(Collection<JockeyDTO> jockeys) {
 		listaJockeys.clear();
+		jockeysMostrados.clear();
 		for(JockeyDTO jockey:jockeys) {
 			listaJockeys.addItem(jockey.getNombre(), jockey.getId().toString());
+			jockeysMostrados.put(jockey.getId(), jockey);
 		}
+	}
+	
+	private void ocultar() {
+		this.hide();
 	}
 	
 	private void agregarSeleccion() {
 		System.out.println("Agrego el jockey " + listaJockeys.getValue(listaJockeys.getSelectedIndex()));
 		ParticipanteDTO participante = new ParticipanteDTO();
-//		participante.setCaballoId(new Long(listaCaballos.getValue(listaCaballos.getSelectedIndex())));
-//		participante.setJockeyId(new Long(listaJockeys.getValue(listaJockeys.getSelectedIndex())));
-//		participante.setCarreraId(carreraMostrada.getId());
-//		TODO: 
-//		participante.setNroParticipante(nroParticipante)
-		participante.setEstado("Creado");
+		participante.setCaballoDTO(caballosMostrados.get(new Long(listaCaballos.getValue(listaCaballos.getSelectedIndex()))));
+		participante.setJockeyDTO(jockeysMostrados.get(new Long(listaJockeys.getValue(listaJockeys.getSelectedIndex()))));
+		participante.setCarreraDTO(carreraMostrada);
+		//TDO modificar la forma que se obtiene el nro
+		participante.setNroParticipante(participantes.size() + 1);
+		participante.setEstado("");
 //		TODO sacar el caballo y el jockey de los mostrados
 		participantes.add(participante);
-		actualizar(agregar.isVisible());
+		actualizar();
 	}
 	
 	private class AgregarParticipanteListener implements ClickListener {
-
 		public void onClick(Widget sender) {
 			agregarSeleccion();
 		}
@@ -194,14 +239,32 @@ public class VistaParticipantes extends DialogBox {
 	}
 
 	private class EliminarPrticipanteListener implements ClickListener {
-
+		ParticipanteDTO participante;
+		
 		public EliminarPrticipanteListener(ParticipanteDTO participante) {
-			
+			this.participante = participante;
 		}
 		
 		public void onClick(Widget sender) {
-			// TODO Auto-generated method stub
-			
+			if(editable) {
+				participante.setCarreraDTO(null);
+				participantes.remove(participante);
+				actualizar();
+			}
+		}
+		
+	}
+	
+	private class CerrarListener implements ClickListener {
+		public void onClick(Widget sender) {
+			ocultar();
+		}	
+	}
+	
+	private class GuardarParticipantesListener implements ClickListener {
+		public void onClick(Widget sender) {
+			controladorCarreras.doGuardarParticipantes(participantes);
+			ocultar();
 		}
 		
 	}
