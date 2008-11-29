@@ -161,7 +161,6 @@ public class DateBox extends Composite implements SourcesChangeEvents, ChangeLis
 				deshabilitarMes();
 			} else {
 				habilitarMes();
-				habilitarDia();
 			}
 		} else if( mes.equals(sender)) {
 			if( mes.getSelectedIndex()==0) {
