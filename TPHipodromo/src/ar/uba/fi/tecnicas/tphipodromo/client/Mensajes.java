@@ -7,6 +7,15 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   
   /**
+   * Translated "Agregar".
+   * 
+   * @return translated "Agregar"
+   */
+  @DefaultStringValue("Agregar")
+  @Key("agregar")
+  String agregar();
+
+  /**
    * Translated "Borrar".
    * 
    * @return translated "Borrar"
@@ -124,6 +133,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   String criador();
 
   /**
+   * Translated "de".
+   * 
+   * @return translated "de"
+   */
+  @DefaultStringValue("de")
+  @Key("de")
+  String de();
+
+  /**
    * Translated "Distancia".
    * 
    * @return translated "Distancia"
@@ -221,6 +239,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Insertar")
   @Key("insertar")
   String insertar();
+
+  /**
+   * Translated "Jockeys".
+   * 
+   * @return translated "Jockeys"
+   */
+  @DefaultStringValue("Jockeys")
+  @Key("jockeys")
+  String jockeys();
 
   /**
    * Translated "Madre".

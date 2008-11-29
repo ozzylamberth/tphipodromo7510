@@ -150,7 +150,15 @@ public class EventoFactory {
 	public static Evento getMostrarParticipantes() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
-				v.onMostrarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1],(Boolean)args[2]); 
+				v.onMostrarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1]); 
+			}
+		};
+	}
+
+	public static Evento getEditarParticipantes() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onEditarParticipantesCarrera((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1], (Collection<JockeyDTO>) args[2], (Collection<CaballoDTO>) args[3]); 
 			}
 		};
 	}

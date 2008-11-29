@@ -14,7 +14,9 @@ import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoNoEditableD
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoString;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Formulario;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.FormularioListener;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 import com.google.gwt.core.client.GWT;
@@ -47,12 +49,12 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 		this.formulario.add("nombre", mensajes.nombre(), new CampoString(false));
 //		this.formulario.add("fechaYHora", mensajes.fechaYHora(), new CampoFecha(true));
 		this.formulario.add("distancia", mensajes.distancia(), new CampoDouble(true));
-		this.formulario.add("estado", mensajes.estado(), new CampoNoEditableDecorator( new CampoString(true)));
+		this.formulario.add("estado", mensajes.estado(), new CampoNoEditableDecorator( new CampoString(false)));
 		
-		botonParticipantes = new Button(mensajes.participantes());
-		botonParticipantes.addClickListener(new ParticipantesClickListener());
+		this.botonParticipantes = new Button(mensajes.participantes());
+		this.botonParticipantes.addClickListener(new ParticipantesClickListener());
 		this.formulario.getBotonera().add(this.botonParticipantes);
-		vistaParticipantes = new VistaParticipantes();
+		this.vistaParticipantes = new VistaParticipantes();
 	}
 	
 	@Override
@@ -108,17 +110,30 @@ public class VistaCarreraGWT extends Vista implements FormularioListener {
 	}
 	
 	private class ParticipantesClickListener implements ClickListener {
-
 		public void onClick(Widget sender) {
-			ctrlABMCarreras.doMostrarParticipantes(carrera);
+			if(formulario.isEditable()) {
+				ctrlABMCarreras.doEditarParticipantes(carrera);
+			}else {
+				ctrlABMCarreras.doMostrarParticipantes(carrera);
+			}
+				
 		}
 		
 	}
 
 	@Override
 	public void onMostrarParticipantesCarrera(CarreraDTO carreraDTO,
-			Collection<ParticipanteDTO> participantes, Boolean editable) {
-		
+			Collection<ParticipanteDTO> participantes) {
+		System.out.println("Estoy mostrando participantes");
+		vistaParticipantes.mostrarParticipantes(carrera, participantes);
+	}
+	
+	@Override
+	public void onEditarParticipantesCarrera(CarreraDTO carreraDTO,
+			Collection<ParticipanteDTO> participantes, Collection<JockeyDTO> jockeys, 
+			Collection<CaballoDTO> caballos) {
+		System.out.println("EStoy editando participantes");
+		vistaParticipantes.editarParticipantes(carrera, participantes, caballos, jockeys);
 	}
 
 }

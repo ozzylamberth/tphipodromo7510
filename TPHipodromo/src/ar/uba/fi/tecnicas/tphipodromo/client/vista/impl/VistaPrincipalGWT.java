@@ -4,6 +4,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
@@ -78,7 +79,9 @@ public class VistaPrincipalGWT extends VistaGWT {
 		DialogBox dialog = new DialogBox(true);
 		
 		dialog.setText("Error!");
-		dialog.add(new Label(e.getLocalizedMessage()));
+		HTML html = new HTML();
+		html.setHTML(e.getLocalizedMessage());
+		dialog.add(html);
 		dialog.center();
 		dialog.show();
 		
