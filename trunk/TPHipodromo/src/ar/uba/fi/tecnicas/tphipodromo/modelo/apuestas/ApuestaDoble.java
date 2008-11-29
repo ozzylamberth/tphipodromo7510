@@ -9,12 +9,10 @@ import java.util.List;
  * 2 caballos para apostar, que deberan llegar primero en 2 carreras
  * consecutivas para ganar la apuesta
  */
-public class ApuestaDoble extends Apuesta {
-	
-	public static final String TIPO_APUESTA = "Apuesta Doble"; 
+public class ApuestaDoble extends Apuesta { 
 	
 	public ApuestaDoble() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.DOBLE);
 	}
 	
 	public int getCantidadParticipantes() {

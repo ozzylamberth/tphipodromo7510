@@ -20,10 +20,8 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistinta
  */
 public class ApuestaImperfecta extends Apuesta {
 	
-	public static final String TIPO_APUESTA = "Apuesta Imperfecta"; 
-	
 	public ApuestaImperfecta() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.IMPERFECTA);
 	}
 	
 	/** TODO Eliminar este código duplicado en ApuestaExacta, ApuestaTrifecta y ApuestaImperfecta */

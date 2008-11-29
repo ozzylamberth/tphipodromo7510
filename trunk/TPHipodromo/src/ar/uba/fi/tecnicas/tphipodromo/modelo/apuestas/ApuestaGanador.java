@@ -9,12 +9,10 @@ import java.util.List;
  * seleccionar 1 caballo para apostar en una carrera, que debera llegar en
  * primer lugar para ganar la apuesta
  */
-public class ApuestaGanador extends Apuesta {
-	
-	public static final String TIPO_APUESTA = "Apuesta Ganador"; 
+public class ApuestaGanador extends Apuesta { 
 	
 	public ApuestaGanador() {
-		super(TIPO_APUESTA);
+		super(TipoApuesta.GANADOR);
 	}
 
 	public int getCantidadParticipantes() {

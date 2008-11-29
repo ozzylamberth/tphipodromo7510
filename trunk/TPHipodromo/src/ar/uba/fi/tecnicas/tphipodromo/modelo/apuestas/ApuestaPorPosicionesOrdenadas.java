@@ -14,7 +14,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ResultadosCarreraInvali
  */
 public abstract class ApuestaPorPosicionesOrdenadas extends Apuesta {
 	
-	public ApuestaPorPosicionesOrdenadas(String tipoApuesta) {
+	public ApuestaPorPosicionesOrdenadas(TipoApuesta tipoApuesta) {
 		super(tipoApuesta);
 	}
 
