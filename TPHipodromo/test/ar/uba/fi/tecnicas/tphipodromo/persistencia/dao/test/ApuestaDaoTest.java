@@ -16,6 +16,8 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistinta
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 
 public class ApuestaDaoTest extends PersistenciaTestCase{
@@ -56,5 +58,29 @@ public class ApuestaDaoTest extends PersistenciaTestCase{
 		ApuestaDao dao = HibernateDaoFactory.getInstance().getApuestaDAO();
 		dao.guardar(apuesta);
 		
+	}
+	
+	public void testApuestaPorNroTicket() throws ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, TransicionInvalidaEstadoParticipanteException, InscripcionCarreraCerradaException{
+		testApuesta();
+		ApuestaDao dao = HibernateDaoFactory.getInstance().getApuestaDAO();
+		try {
+			Apuesta listApu = dao.buscarPorNroTicket(new Long(1340));
+			assertEquals(listApu.getNroTicket(), 1340);
+		} catch (ObjetoInexistenteException e) {
+			fail(e.getMessage());
+		} catch (MultiplesObjetosException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public void testApuestaMaxNroTicketSinTickets() throws ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, TransicionInvalidaEstadoParticipanteException, InscripcionCarreraCerradaException{
+		//testApuesta();
+		ApuestaDao dao = HibernateDaoFactory.getInstance().getApuestaDAO();
+		try {
+			Long maxId = dao.buscarMayorNroTicket();
+			assertEquals(maxId, new Long(0));
+		} catch (MultiplesObjetosException e) {
+			fail(e.getMessage());
+		}
 	}
 }
