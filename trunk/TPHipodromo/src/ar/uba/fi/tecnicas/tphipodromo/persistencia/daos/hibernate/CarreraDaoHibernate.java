@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +33,17 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Carrera> buscarPorFecha(Date fecha)  {
-			
-			Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora = :p").setDate("p",  fecha).list();
-			return listaCarreras;
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2;
+		calendar1.setTime(fecha);
+		calendar1.set(Calendar.HOUR, 0);
+		calendar1.set(Calendar.MINUTE, 0);
+		calendar1.set(Calendar.SECOND, 0);
+		
+		calendar2 = (Calendar)calendar1.clone();
+		calendar2.add(Calendar.DAY_OF_YEAR, 1);
+		Collection<Carrera> listaCarreras = getSession().createQuery("from Carrera c where c.fechaYHora > :p and c.fechaYHora < :d").setDate("p",  calendar1.getTime()).setDate("d", calendar2.getTime()).list();
+		return listaCarreras;
 	}
 
 	@Override
