@@ -7,13 +7,9 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFa
 public class BolsaApuestasDaoTest extends PersistenciaTestCase {
 	
 	public void testDao(){
-		
 		BolsaApuestasDao dao = HibernateDaoFactory.getInstance().getBolsaApuestasDAO();
-		
 		BolsaApuestasConcreta bolsa = new BolsaApuestasConcreta();
-
 		dao.guardar(bolsa);
-
 	}
 
 }

@@ -7,7 +7,6 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 
 public class JockeyDaoTest extends PersistenciaTestCase{
 	
@@ -19,10 +18,7 @@ public class JockeyDaoTest extends PersistenciaTestCase{
 			
 			JockeyDao dao = HibernateDaoFactory.getInstance().getJockeyDAO();
 			
-			
 			dao.guardar(jockey1);
-			
-			HibernateUtil.getCurrentSession().clear();
 			
 			Collection<Jockey> lista = dao.buscarTodos();
 			
