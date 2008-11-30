@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	D:/Documents/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -41,6 +41,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Apuesta creada satisfactoriamente.")
   @Key("apuestaCreada")
   String apuestaCreada();
+
+  /**
+   * Translated "Apuesta Liquidada Correctamente".
+   * 
+   * @return translated "Apuesta Liquidada Correctamente"
+   */
+  @DefaultMessage("Apuesta Liquidada Correctamente")
+  @Key("apuestaLiquidadaExitosamente")
+  String apuestaLiquidadaExitosamente();
 
   /**
    * Translated "Borrar".
@@ -349,6 +358,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String jockeys();
 
   /**
+   * Translated "Liquidar".
+   * 
+   * @return translated "Liquidar"
+   */
+  @DefaultMessage("Liquidar")
+  @Key("liquidar")
+  String liquidar();
+
+  /**
    * Translated "No hay elementos para mostrar".
    * 
    * @return translated "No hay elementos para mostrar"
@@ -374,6 +392,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Mes")
   @Key("mes")
   String mes();
+
+  /**
+   * Translated "Modificar".
+   * 
+   * @return translated "Modificar"
+   */
+  @DefaultMessage("Modificar")
+  @Key("modificar")
+  String modificar();
 
   /**
    * Translated "Monto".
@@ -511,6 +538,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String resultado();
 
   /**
+   * Translated "Resultados".
+   * 
+   * @return translated "Resultados"
+   */
+  @DefaultMessage("Resultados")
+  @Key("resultados")
+  String resultados();
+
+  /**
    * Translated "Si".
    * 
    * @return translated "Si"
@@ -529,6 +565,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String tipo();
 
   /**
+   * Translated "Tipo de Apuesta".
+   * 
+   * @return translated "Tipo de Apuesta"
+   */
+  @DefaultMessage("Tipo de Apuesta")
+  @Key("tipoApuesta")
+  String tipoApuesta();
+
+  /**
    * Translated "Ver".
    * 
    * @return translated "Ver"
@@ -536,23 +581,4 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Ver")
   @Key("ver")
   String ver();
-  
-
-  /**
-   * Translated "Resultados".
-   * 
-   * @return translated "Resultados"
-   */
-  @DefaultMessage("Resultados")
-  @Key("resultados")
-  String resultados();
-  
-  /**
-   * Translated "Modificar".
-   * 
-   * @return translated "Modificar"
-   */
-  @DefaultMessage("Modificar")
-  @Key("modificar")
-  String modificar();
 }

@@ -18,16 +18,17 @@ public class LabelDoble extends SimplePanel {
 	public LabelDoble(String variable, String valor){
 		super();
 		HorizontalPanel panel = new HorizontalPanel();
-		labelValor = new Label(variable + ": ");
-		labelValor.setStyleName("label_valor");
+		labelValor = new Label(variable + ":\t ");
+		labelValor.addStyleName("label_valor");
 		labelVariable = new Label(valor);
-		labelVariable.setStyleName("label_variable");
-		panel.add(labelVariable);
+		labelVariable.addStyleName("label_variable");
 		panel.add(labelValor);
+		panel.add(labelVariable);
+		this.add(panel);
 	}
 	
 	public void setVariable(String variable) {
-		this.labelVariable.setText(variable + ": ");
+		this.labelVariable.setText(variable + ":\t");
 	}
 	
 	public void setValor(String valor) {
