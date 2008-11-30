@@ -15,7 +15,6 @@ public class ParticipanteTransformerToDTO implements Transformer {
 	public Object transform(Object arg0) {
 		Participante participante = (Participante) arg0;
 		ParticipanteDTO participanteDTO = new ParticipanteDTO();
-		participanteDTO.setId(participante.getId());
 		participanteDTO.setNroParticipante(participante.getNroParticipante());
 		participanteDTO.setResultadoDTO(this.getResultadoDTO(participante));
 		participanteDTO.setCaballoDTO(this.getCaballoDTO(participante));

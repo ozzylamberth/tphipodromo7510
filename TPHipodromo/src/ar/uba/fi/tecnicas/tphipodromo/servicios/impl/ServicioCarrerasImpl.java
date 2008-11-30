@@ -9,6 +9,7 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CarreraTransformerFromDTO;
@@ -22,7 +23,7 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 	private CarreraTransformerToDTO carreraTransformerToDTO = new CarreraTransformerToDTO();
 	
 	public ServicioCarrerasImpl() {
-		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
+		this.carreraDao = HibernateDaoFactory.getInstance().getCarreraDAO();
 	}
 
 	public DAOGenerico<Carrera> getDao() {

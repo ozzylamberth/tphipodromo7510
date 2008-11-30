@@ -4,8 +4,10 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFa
 
 public abstract class DaoFactory {
 	
+	@SuppressWarnings("unchecked")
 	public static final Class HIBERNATE=HibernateDaoFactory.class;
 	
+	@SuppressWarnings("unchecked")
 	public static DaoFactory instance(Class factory){
 		try {
 			return (DaoFactory) factory.newInstance();
@@ -19,4 +21,6 @@ public abstract class DaoFactory {
 	public abstract JockeyDao getJockeyDAO();
 	public abstract ParticipanteDao getParticipanteDAO();
 	public abstract BolsaApuestasDao getBolsaApuestasDAO();
+	public abstract ResultadoDao getResultadoDAO();
+	public abstract ApuestaDao getApuestaDAO();
 }

@@ -7,15 +7,15 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class CaballoTransformerFromDTO implements Transformer {
 	
 	private CaballoDao caballoDao;
 	
 	public CaballoTransformerFromDTO() {
-		this.caballoDao = (CaballoDao) ServicioSpring.getInstance().getBean("caballoDao");
+		this.caballoDao = HibernateDaoFactory.getInstance().getCaballoDAO();
 	}
 	
 	public CaballoDao getDao(){
@@ -25,7 +25,6 @@ public class CaballoTransformerFromDTO implements Transformer {
 	public Object transform(Object arg0) {
 		CaballoDTO caballoDTO = (CaballoDTO) arg0;
 		Caballo caballo = this.getCaballo(caballoDTO);
-		caballo.setId(caballoDTO.getId());
 		caballo.setCaballeriza(caballoDTO.getCaballeriza());
 		caballo.setCriador(caballoDTO.getCriador());
 		caballo.setEdad(caballoDTO.getEdad());

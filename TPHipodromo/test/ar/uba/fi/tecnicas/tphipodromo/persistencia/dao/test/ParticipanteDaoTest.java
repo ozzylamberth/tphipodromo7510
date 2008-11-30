@@ -2,12 +2,16 @@ package ar.uba.fi.tecnicas.tphipodromo.persistencia.dao.test;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import ar.uba.fi.tecnicas.tphipodromo.modelo.*;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoParticipante;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.InscripcionCarreraCerradaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipanteNoCalificadoException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistintasCarrerasException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
@@ -43,8 +47,7 @@ public class ParticipanteDaoTest extends PersistenciaTestCase{
 		carrera.setEstadoCarrera(EstadoCarrera.INSCRIPCION_PARTICIPANTES);
 		carrera.addParticipante(part1);
 		
-		DaoFactory factory= new HibernateDaoFactory();
-		ParticipanteDao dao = factory.getParticipanteDAO();
+		ParticipanteDao dao = HibernateDaoFactory.getInstance().getParticipanteDAO();
 			//TODO
 		dao.guardar(part1);	
 		dao.borrar(part1);
@@ -52,8 +55,7 @@ public class ParticipanteDaoTest extends PersistenciaTestCase{
 		}
 	
 		public void testParticipanteGetPorId() throws ObjetoInexistenteException{
-			DaoFactory factory= new HibernateDaoFactory();
-			ParticipanteDao dao = factory.getParticipanteDAO();
+			ParticipanteDao dao = HibernateDaoFactory.getInstance().getParticipanteDAO();
 			Participante part = dao.buscarPorId(new Long(0));
 			assertEquals(part,null);
 			

@@ -22,6 +22,7 @@ implements DAOGenerico<T>{
 	private Class<T> clasePersistente;
 	private Session session;
 	
+	@SuppressWarnings("unchecked")
 	public HibernateDaoGenerico(){
 		this.clasePersistente = (Class<T>)((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
@@ -132,7 +133,6 @@ implements DAOGenerico<T>{
 		return obtenerPorEjemploOrdenado(ascendente ? Order.asc(clave) : Order.desc(clave));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<T> obtenerPorEjemploOrdenado(T entidad,String clave, String... excluirProps) {
 		Example ejemplo =  Example.create(entidad);
 		

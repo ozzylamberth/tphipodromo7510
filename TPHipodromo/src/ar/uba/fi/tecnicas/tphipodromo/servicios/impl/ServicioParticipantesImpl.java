@@ -11,6 +11,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantes;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
@@ -27,8 +28,8 @@ public class ServicioParticipantesImpl extends ServicioIdentificableImpl<Partici
 	private ParticipanteTransformerToDTO participanteTransformerToDTO = new ParticipanteTransformerToDTO();
 	
 	public ServicioParticipantesImpl() {
-		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
-		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
+		this.participanteDao = HibernateDaoFactory.getInstance().getParticipanteDAO();
+		this.carreraDao = HibernateDaoFactory.getInstance().getCarreraDAO();
 	}
 
 	public DAOGenerico<Participante> getDao() {

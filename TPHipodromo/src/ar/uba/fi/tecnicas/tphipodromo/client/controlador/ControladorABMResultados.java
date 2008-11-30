@@ -3,8 +3,6 @@ package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestasAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarrerasAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantes;
