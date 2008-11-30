@@ -21,12 +21,14 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexis
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ApuestaInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ErrorHipodromoException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TipoApuestaInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.TransicionInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ApuestaTransformerToDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.ParticipanteTransformerToDTO;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -40,6 +42,12 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	public ServicioApuestasImpl() {
 		this.apuestaDao = HibernateDaoFactory.getInstance().getApuestaDAO();
 		this.participanteDao = HibernateDaoFactory.getInstance().getParticipanteDAO();
+		this.initSiguienteNroTicket();
+	}
+	
+	private void initSiguienteNroTicket() {
+		long siguienteNroTicket = this.apuestaDao.buscarMayorNroTicket().longValue() + 1;
+		ApuestaFactory.initSiguienteNroTicket(siguienteNroTicket);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -136,10 +144,20 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	}
 
 	@Override
-	public ApuestaDTO buscarPorNroTicket(Long nroTicket)
-			throws EntidadInexistenteException {
+	public ApuestaDTO buscarPorNroTicket(Long nroTicket) throws EntidadInexistenteException {
 		//TODO implementar
 		return this.buscarPorId(nroTicket);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Collection<ParticipanteDTO> obtenerParticipantesApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException {
+		try {
+			Apuesta apuesta = this.apuestaDao.buscarPorId(apuestaDTO.getId());
+			return CollectionUtils.collect(apuesta.getParticipantes(), new ParticipanteTransformerToDTO());
+		} catch (ObjetoInexistenteException e) {
+			throw new EntidadInexistenteException();
+		}
 	}
 
 }

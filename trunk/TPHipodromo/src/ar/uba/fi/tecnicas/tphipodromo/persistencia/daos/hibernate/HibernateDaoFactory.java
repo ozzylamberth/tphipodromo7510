@@ -8,6 +8,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ResultadoDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.mock.impl.ApuestaDaoMockImpl;
 
 public class HibernateDaoFactory extends DaoFactory {
 	
@@ -88,7 +89,8 @@ public class HibernateDaoFactory extends DaoFactory {
 	
 	public ApuestaDao getApuestaDAO() {
 		if (this.apuestaDao == null) {
-			// TODO: implementar logica
+			// TODO: cambiar por el dao real
+			this.apuestaDao = new ApuestaDaoMockImpl();
 		}
 		return this.apuestaDao;
 	}
