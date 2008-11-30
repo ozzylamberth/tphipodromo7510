@@ -6,6 +6,8 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios.facades;
 
 import java.util.Collection;
 import java.util.Date;
+
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
@@ -30,7 +32,7 @@ public class FacadeServicios implements FacadeAgenciaApuestas,FacadeAgenciaNotic
 	private ServicioCarrerasImpl servicioCarreras;
 	private ServicioParticipantesImpl servicioParticipantes;
 	
-	public FacadeServicios() {
+	public FacadeServicios() throws MultiplesObjetosException {
 		super();
 		this.servicioApuesta = new ServicioApuestasImpl();
 		this.servicioCarreras = new ServicioCarrerasImpl();
@@ -85,7 +87,7 @@ public class FacadeServicios implements FacadeAgenciaApuestas,FacadeAgenciaNotic
 		Collection<ParticipanteDTO> participantes = buscarParticipantesPorCarrera(carreraDTO);
 		
 		for(ParticipanteDTO participante : participantes)
-			if(participante.getCarreraDTO().getId()==carreraDTO.getId())
+			if(participante.getCarreraDTO().getId()== carreraDTO.getId())
 				return participante;
 		
 		throw new EntidadInexistenteException();
