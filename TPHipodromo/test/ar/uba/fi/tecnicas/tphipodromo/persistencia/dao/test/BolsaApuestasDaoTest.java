@@ -11,11 +11,9 @@ public class BolsaApuestasDaoTest extends PersistenciaTestCase {
 		BolsaApuestasDao dao = factory.getBolsaApuestasDAO();
 		
 		BolsaApuestasConcreta bolsa = new BolsaApuestasConcreta();
-		
 
 		dao.guardar(bolsa);
-		
-		
+
 	}
 
 }

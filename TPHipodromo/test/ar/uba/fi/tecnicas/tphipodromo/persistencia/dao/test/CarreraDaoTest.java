@@ -16,8 +16,10 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistinta
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 
 public class CarreraDaoTest extends PersistenciaTestCase {
@@ -26,8 +28,8 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 		Carrera carreraLeida;
 
 		Carrera carrera = new Carrera();
-		DaoFactory factory= DaoFactory.instance(DaoFactory.HIBERNATE);
-		CarreraDao dao = factory.getCarreraDAO();
+		
+		CarreraDao dao =  HibernateDaoFactory.getInstance().getCarreraDAO();
 		
 		Jockey jockey1 = new Jockey();
 		jockey1.setApellido("Wasserman");
@@ -65,7 +67,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 			carreraLeida = dao.buscarPorNombre("ssss3");
 			assertEquals(carrera.getNumero(), carreraLeida.getNumero());
 			assertEquals(carrera.getDistancia().doubleValue(), carreraLeida.getDistancia().doubleValue());
-			assertEquals(carrera.getFechaYHora(), carreraLeida.getFechaYHora()); //la base no guarda nanosegundos
+			assertEquals(carrera.getFechaYHora().getTime()/1000, carreraLeida.getFechaYHora().getTime()/1000); //la base no guarda nanosegundos
 			assertEquals(carrera.getNombre(), carreraLeida.getNombre());
 			dao.borrar(carreraLeida);
 		} catch (ObjetoInexistenteException e) {
@@ -79,8 +81,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 	
 	public void testDaoPorFecha() throws TransicionInvalidaEstadoParticipanteException, ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, InscripcionCarreraCerradaException, ObjetoInexistenteException{
 		Carrera carrera = new Carrera();
-		DaoFactory factory= DaoFactory.instance(DaoFactory.HIBERNATE);
-		CarreraDao dao = factory.getCarreraDAO();
+		CarreraDao dao = HibernateDaoFactory.getInstance().getCarreraDAO();
 		
 		Jockey jockey1 = new Jockey();
 		jockey1.setApellido("Wasserman");
