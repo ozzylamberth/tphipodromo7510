@@ -5,11 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
+
 import junit.framework.TestCase;
 
 public class PersistenciaTestCase extends TestCase {
 	
-	public void setUp(){
+	public void setUp() throws Exception {
 		try {
 			Connection connection = null;
 			Statement statement = null;
@@ -30,5 +32,16 @@ public class PersistenciaTestCase extends TestCase {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		HibernateUtil.init();
+		
+		super.setUp();
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		HibernateUtil.getSessionFactory().close();
+		
+		super.tearDown();
 	}
 }
