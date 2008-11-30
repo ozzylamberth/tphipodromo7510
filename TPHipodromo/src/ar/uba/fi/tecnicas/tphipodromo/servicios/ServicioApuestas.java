@@ -22,7 +22,10 @@ public interface ServicioApuestas extends RemoteService {
 	
 	public ApuestaDTO buscarPorNroTicket(Long nroTicket) throws EntidadInexistenteException;
 	
-	public void crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException;
+	/**
+	 * Crea la apuesta y retorna el numero de ticket de la misma
+	 */
+	public Long crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException;
 	
 	public Collection<String> obtenerTiposApuesta();
 	

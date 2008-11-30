@@ -24,6 +24,7 @@
       <source path="servicios">
           <exclude name="impl/**"/>
           <exclude name="transformers/**"/>
+          <exclude name="facades/**"/>
       </source>
 	
 </module>

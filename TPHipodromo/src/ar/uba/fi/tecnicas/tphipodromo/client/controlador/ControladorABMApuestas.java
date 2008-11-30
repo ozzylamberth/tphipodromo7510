@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
@@ -20,6 +17,9 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioParticipantesAsync;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
 public class ControladorABMApuestas extends Controlador {
@@ -84,14 +84,14 @@ public class ControladorABMApuestas extends Controlador {
 	}
 
 	public void doCrearApuesta(ApuestaDTO apuesta) {
-		servicioApuestas.crearApuesta(apuesta, new AsyncCallback<Void>() {
+		servicioApuestas.crearApuesta(apuesta, new AsyncCallback<Long>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
 			
-			public void onSuccess(Void result) {
+			public void onSuccess(Long nroTicket) {
 				notifyObservers(EventoFactory.getMostrarMensaje(),
-						mensajes.apuestaCreada());
+						mensajes.apuestaCreada(nroTicket.toString()));
 				
 				notifyObservers(EventoFactory.getApuestaCreada());
 			}

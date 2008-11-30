@@ -15,7 +15,7 @@ public interface ServicioApuestasAsync {
 	
 	public void buscarPorNroTicket(Long nroTicket, AsyncCallback<ApuestaDTO> callback);
 	
-	public void crearApuesta(ApuestaDTO apuestaDTO, AsyncCallback<Void> callback);
+	public void crearApuesta(ApuestaDTO apuestaDTO, AsyncCallback<Long> callback);
 	
 	public void obtenerTiposApuesta(AsyncCallback<Collection<String>> callback);
 	
