@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.servicios.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
@@ -79,6 +81,48 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 		} catch (ObjetoInexistenteException e) {
 			throw new EntidadInexistenteException();
 		}
+	}
+	
+	/**
+	 * Este metodo no es nada lindo, pero como era solo una linea por opcion,
+	 * no tenia mucho sentido hacer un strategy
+	 */
+	private void cambiarEstadoCarrera(Carrera carrera, String estado) throws HipodromoException {
+		if (EstadoCarrera.ABIERTA_A_APUESTAS.getNombre().equals(estado)){
+			carrera.abrirApuestas();
+		} else if (EstadoCarrera.CERRADA_A_APUESTAS.getNombre().equals(estado)){
+			carrera.cerrarApuestas();
+		} else if (EstadoCarrera.EN_CURSO.getNombre().equals(estado)){
+			carrera.comenzar();
+		} else if (EstadoCarrera.A_AUDITAR.getNombre().equals(estado)){
+			carrera.terminar();
+		} else if (EstadoCarrera.FINALIZADA.getNombre().equals(estado)){
+			carrera.aprobarResultados();
+		} else if (EstadoCarrera.CANCELADA.getNombre().equals(estado)){
+			carrera.cancelar();
+		}
+	}
+
+	@Override
+	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado) throws ErrorHipodromoException {
+		try {
+			Carrera carrera = (Carrera) this.getTransformerFromDTO().transform(carreraDTO);
+			this.cambiarEstadoCarrera(carrera, estado);
+			this.carreraDao.guardar(carrera);
+		} catch (HipodromoException e) {
+			throw new ErrorHipodromoException();
+		}
+	}
+
+	@Override
+	public Collection<String> obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO) {
+		Collection<String> result = new ArrayList<String>();
+		Carrera carrera = (Carrera) this.getTransformerFromDTO().transform(carreraDTO);
+		EstadoCarrera[] estadosSiguientes = carrera.getEstadoCarrera().getEstadosValidos();
+		for (int i = 0; i < estadosSiguientes.length; i++) {
+			result.add(estadosSiguientes[i].getNombre());
+		}
+		return result;
 	}
 
 }
