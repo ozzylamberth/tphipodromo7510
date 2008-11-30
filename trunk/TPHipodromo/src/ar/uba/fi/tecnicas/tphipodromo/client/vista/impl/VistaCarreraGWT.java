@@ -8,6 +8,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoDouble;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoFecha;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoInteger;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoListaItem;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.CampoNoEditableDecorator;
@@ -20,6 +21,7 @@ import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
@@ -47,7 +49,7 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 
 		this.formulario.add("numero", mensajes.numero(), new CampoInteger(true));
 		this.formulario.add("nombre", mensajes.nombre(), new CampoString(false));
-//		this.formulario.add("fechaYHora", mensajes.fechaYHora(), new CampoFecha(true));
+		this.formulario.add("fechaYHora", mensajes.fechaYHora(), new CampoFecha(true));
 		this.formulario.add("distancia", mensajes.distancia(), new CampoDouble(true));
 		this.formulario.add("estado", mensajes.estado(), new CampoNoEditableDecorator( new CampoString(false)));
 		
@@ -93,7 +95,7 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 		
 		this.formulario.setInteger("numero", carrera.getNumero());
 		this.formulario.setString("nombre", carrera.getNombre());
-//		this.formulario.setString("fechaYHora", Utils.getFechaFormateada(carrera.getFechaYHora(), Utils.FORMATO_ARG));
+		this.formulario.setString("fechaYHora", DateTimeFormat.getShortDateFormat().format(carrera.getFechaYHora()));
 		this.formulario.setDouble("distancia", carrera.getDistancia());
 		this.formulario.setString("estado", carrera.getEstado());
 		if(carrera.getId() == null || carrera.getId().equals(new Long(0))) {
@@ -108,7 +110,7 @@ public class VistaCarreraGWT extends Vista implements FormularioPopupListener {
 	public void onGuardar() {
 		carrera.setNombre(formulario.getString("nombre"));
 		carrera.setNumero(formulario.getInteger("numero"));
-		carrera.setFechaYHora(new Date());
+		carrera.setFechaYHora(formulario.getFecha("fechaYHora"));
 		carrera.setDistancia(formulario.getDouble("distancia"));
 		carrera.setEstado(formulario.getString("estado"));
 		ctrlABMCarreras.doGuadarCarrera(carrera);

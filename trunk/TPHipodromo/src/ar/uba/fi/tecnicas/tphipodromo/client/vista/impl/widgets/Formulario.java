@@ -1,8 +1,10 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -75,26 +77,17 @@ public class Formulario {
 		Campo campo = campos.get(nombre);
 		campo.setValor(String.valueOf(valor));
 	}
-	/*
+	
 	public Date getFecha(String nombre) {
-		Campo campo = campos.get(nombre);
-		try {
-			if(campo.getValor()== null) {
-				return null;
-			}
-			return Utils.parsearFecha(campo.getValor(), Utils.FORMATO_ARG);
-		} catch (ParseException e) {
-			//Esta excepcion no deberia darse
-			e.printStackTrace();
-			return null;
-		}
+		CampoFecha campo = (CampoFecha)campos.get(nombre);
+		return campo.getDate();
 	}
 	
 	public void setFecha(String nombre, Date fecha) {
 		Campo campo = campos.get(nombre);
-		campo.setValor(Utils.getFechaFormateada(fecha, Utils.FORMATO_ARG));
+		campo.setValor(DateTimeFormat.getShortDateFormat().format(fecha));
 	}
-	*/
+	
 	public void reset() {
 		for(Campo campo: campos.values()) {
 			campo.reset();

@@ -5,6 +5,7 @@ import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMJockey;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMResultados;
+import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorLiquidacionApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorLogin;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorPrincipal;
@@ -42,6 +43,7 @@ public class TPHipodromo implements EntryPoint {
 	  ControladorABMApuestas ctrlABMApuestas = new ControladorABMApuestas();
 	  ControladorABMCarreras ctrlABMCarreras = new ControladorABMCarreras();
 	  ControladorABMResultados ctrlABMResultados = new ControladorABMResultados();
+	  ControladorLiquidacionApuestas controladorLiquidacion = new ControladorLiquidacionApuestas();
 	  
 	  VistaLoginGWT vistaLogin = new VistaLoginGWT(ctrlLogin);
 	  VistaPrincipalGWT vistaPrincipal = new VistaPrincipalGWT();
@@ -56,8 +58,7 @@ public class TPHipodromo implements EntryPoint {
 	  VistaJockeyGWT vistaJockey = new VistaJockeyGWT(ctrlABMJockey);
 	  VistaNuevaApuestaGWT vistaApostar = new VistaNuevaApuestaGWT(vistaPrincipal.getPanelCentro(), ctrlABMApuestas);
 	  VistaABMResultados vistaABMResultados = new VistaABMResultados(vistaPrincipal.getPanelCentro(), ctrlABMResultados);
-	  //VistaLiquidacionApuestas vistaLiquidacion = new VistaLiquidacionApuestas(vistaPrincipal.getPanelCentro());
-	  VistaLiquidacionApuestas vistaLiquidacion = new VistaLiquidacionApuestas(vistaPrincipal.getPanelCentro());
+	  VistaLiquidacionApuestas vistaLiquidacion = new VistaLiquidacionApuestas(vistaPrincipal.getPanelCentro(), controladorLiquidacion);
 	  
 	  ctrlPrincipal.addObserver(vistaPrincipal);
 	  ctrlPrincipal.addObserver(vistaHome);
@@ -71,7 +72,6 @@ public class TPHipodromo implements EntryPoint {
 	  ctrlMenu.addObserver(vistaABMCarreras);
 	  ctrlMenu.addObserver(vistaApostar);
 	  ctrlMenu.addObserver(vistaABMResultados);
-	  //ctrlMenu.addObserver(vistaLiquidacion);
 	  ctrlMenu.addObserver(vistaLiquidacion);
 	  
 	  ctrlABMCaballos.addObserver(vistaABMCaballos);
@@ -91,6 +91,9 @@ public class TPHipodromo implements EntryPoint {
 	  
 	  ctrlABMResultados.addObserver(vistaABMResultados);
 	  ctrlABMResultados.addObserver(vistaPrincipal);
+	  
+	  controladorLiquidacion.addObserver(vistaLiquidacion);
+	  controladorLiquidacion.addObserver(vistaPrincipal);
 	  
 	  ctrlPrincipal.doMostrarPrincipal();
   }
