@@ -10,8 +10,6 @@ public interface ApuestaDao extends DAOGenerico<Apuesta> {
 	
 	/**
 	 * Retorna el mayor numero de ticket que esta asignado a una apuesta
-	 * @throws ObjetoInexistenteException 
-	 * @throws MultiplesObjetosException 
 	 */
 	public Long buscarMayorNroTicket() throws MultiplesObjetosException;
 	

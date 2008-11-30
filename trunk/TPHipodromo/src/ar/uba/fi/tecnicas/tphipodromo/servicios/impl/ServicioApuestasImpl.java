@@ -17,6 +17,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoApuestaException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
@@ -46,7 +47,12 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	}
 	
 	private void initSiguienteNroTicket() {
-		long siguienteNroTicket = this.apuestaDao.buscarMayorNroTicket().longValue() + 1;
+		long siguienteNroTicket;
+		try {
+			siguienteNroTicket = this.apuestaDao.buscarMayorNroTicket().longValue() + 1;
+		} catch (MultiplesObjetosException e) {
+			siguienteNroTicket = 1;
+		}
 		ApuestaFactory.initSiguienteNroTicket(siguienteNroTicket);
 	}
 
@@ -76,7 +82,8 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 			if(participantes.size()==0)
 				throw new ApuestaInvalidaException();
 			
-			ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
+			Apuesta apuesta = ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
+			this.apuestaDao.guardar(apuesta);
 		} catch (ApuestaException e) {
 			throw new ApuestaInvalidaException();
 		} catch (CarreraException e) {

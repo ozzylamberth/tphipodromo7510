@@ -6,6 +6,8 @@ import java.util.Map;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 
 public class ApuestaDaoMockImpl extends DAOGenericoMockImpl<Apuesta> implements ApuestaDao {
 	
@@ -23,7 +25,7 @@ public class ApuestaDaoMockImpl extends DAOGenericoMockImpl<Apuesta> implements 
 	}
 
 	@Override
-	public Apuesta buscarPorNroTicket(Long nroTicket) {
+	public Apuesta buscarPorNroTicket(Long nroTicket) throws ObjetoInexistenteException, MultiplesObjetosException {
 		Iterator<Apuesta> it = this.buscarTodos().iterator();
 		while (it.hasNext()) {
 			Apuesta apuesta = (Apuesta) it.next();
@@ -31,7 +33,7 @@ public class ApuestaDaoMockImpl extends DAOGenericoMockImpl<Apuesta> implements 
 				return apuesta;
 			}
 		}
-		return null;
+		throw new ObjetoInexistenteException();
 	}
 
 	@Override
