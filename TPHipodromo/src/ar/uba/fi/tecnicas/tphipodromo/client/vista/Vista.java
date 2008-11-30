@@ -91,5 +91,5 @@ public abstract class Vista {
 	
 	public void onApuestaCreada() {};
 	
-		public void onMostrarLiquidacionApuestas() {}
+	public void onMostrarLiquidacionApuestas() {}
 }
