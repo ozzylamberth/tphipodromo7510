@@ -2,6 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
 import java.util.Collection;
 
+import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarrerasAsync;
@@ -14,6 +15,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ControladorABMResultados extends Controlador {
+	
+	private Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private ServicioCarrerasAsync servicioCarreras = GWT.create(ServicioCarreras.class);
 	
