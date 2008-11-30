@@ -7,7 +7,6 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 
 public class CaballoDaoTest extends PersistenciaTestCase {
 	
@@ -49,9 +48,7 @@ public class CaballoDaoTest extends PersistenciaTestCase {
 		nuevoCaballo.getEstadisticas().agregarResultado(9);
 		nuevoCaballo.getEstadisticas().agregarResultado(10);
 		
-		dao.guardar(nuevoCaballo);		
-		
-		HibernateUtil.getCurrentSession().clear();	
+		dao.guardar(nuevoCaballo);	
 		
 		try {
 			Caballo caballoLeido = dao.buscarPorNombre("pepeHijop");

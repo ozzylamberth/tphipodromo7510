@@ -56,8 +56,11 @@ public class ParticipanteDaoTest extends PersistenciaTestCase{
 	
 		public void testParticipanteGetPorId() throws ObjetoInexistenteException{
 			ParticipanteDao dao = HibernateDaoFactory.getInstance().getParticipanteDAO();
-			Participante part = dao.buscarPorId(new Long(0));
-			assertEquals(part,null);
-			
+			try {
+				dao.buscarPorId(new Long(0));
+				fail("Deberia haber lanzado la excepcion");
+			} catch (ObjetoInexistenteException e) {
+				// camino correcto
+			}
 		}
 	}

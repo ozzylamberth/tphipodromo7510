@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>       
+	<session-factory>
+		<property name="connection.url">jdbc:mysql://localhost/hipoTest</property>
+		<property name="connection.username">root</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.password">emmanueles</property>
+    	<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+	    
+		<property name="current_session_context_class">thread</property>
+	 	<property name="hibernate.show_sql">false</property>
+		<property name="hbm2ddl.auto">create-drop</property>
+        <!--property name="current_session_context_class">org.hibernate.context.ManagedSessionContext</property-->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<property name="hibernate.format_sql">false</property>	
+		<property name="hibernate.use_sql_comments">false</property>
+        
+        
+        
+        <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Caballo.hbm.xml"/>
+        <mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Jockey.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Carrera.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Participante.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Resultado.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/BolsaApuesta.hbm.xml"/>
+		<mapping resource="ar/uba/fi/tecnicas/tphipodromo/persistencia/daos/hibernate/Apuesta.hbm.xml"/>
+
+    </session-factory>
+    </hibernate-configuration>

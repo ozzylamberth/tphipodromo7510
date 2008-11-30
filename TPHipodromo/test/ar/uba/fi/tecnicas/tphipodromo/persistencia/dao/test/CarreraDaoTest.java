@@ -15,8 +15,6 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipanteNoCalificad
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistintasCarrerasException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
@@ -59,9 +57,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 		carrera.setEstadoCarrera(EstadoCarrera.INSCRIPCION_PARTICIPANTES);
 		carrera.addParticipante(part1);
 		
-		dao.guardar(carrera);
-		
-		HibernateUtil.getCurrentSession().clear();		
+		dao.guardar(carrera);		
 		
 		try {
 			carreraLeida = dao.buscarPorNombre("ssss3");
