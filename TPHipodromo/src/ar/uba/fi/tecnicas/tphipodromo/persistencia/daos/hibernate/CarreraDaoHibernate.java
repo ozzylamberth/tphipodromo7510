@@ -48,7 +48,7 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 			cal.add(Calendar.DATE, 1);
 			fecha1 = cal.getTime();
 			
-			Query q = getSession().createQuery("from Carrera c where c.fechaYHora > :p and c.fechaYHora< :q");
+			Query q = getSession().createQuery("from Carrera c where c.fechaYHora >= :p and c.fechaYHora < :q");
 			q.setDate("p",  fecha);
 			q.setDate("q",  fecha1);
 			Collection<Carrera> listaCarreras = q.list();

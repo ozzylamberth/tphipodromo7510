@@ -2,7 +2,6 @@ package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
 import java.util.List;
 
-import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
