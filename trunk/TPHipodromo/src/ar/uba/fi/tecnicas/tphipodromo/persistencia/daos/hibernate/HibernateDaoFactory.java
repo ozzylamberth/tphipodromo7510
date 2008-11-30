@@ -13,6 +13,14 @@ public class HibernateDaoFactory extends DaoFactory {
 	
 	public static HibernateDaoFactory instance = new HibernateDaoFactory();
 	
+	private CaballoDao caballoDao = null;
+	private CarreraDao carreraDao = null;
+	private JockeyDao jockeyDao = null;
+	private ParticipanteDao participanteDao = null;
+	private BolsaApuestasDao bolsaApuestasDao = null;
+	private ResultadoDao resultadoDao = null;
+	private ApuestaDao apuestaDao = null;
+	
 	private HibernateDaoFactory() {
 	}
 	
@@ -29,8 +37,6 @@ public class HibernateDaoFactory extends DaoFactory {
 			throw new RuntimeException("No se pudo generar el DAO: " + claseDao, ex);
 		}
 	}
-	
-	private CaballoDao caballoDao = null;
 
 	@Override
 	public CaballoDao getCaballoDAO() {
@@ -42,32 +48,49 @@ public class HibernateDaoFactory extends DaoFactory {
 
 	@Override
 	public CarreraDao getCarreraDAO() {
-		return (CarreraDao) generarHiberanteDao(CarreraDaoHibernate.class);
+		if (this.carreraDao == null) {
+			this.carreraDao = (CarreraDao) generarHiberanteDao(CarreraDaoHibernate.class); 
+		}
+		return this.carreraDao;
 	}
 
 	@Override
 	public JockeyDao getJockeyDAO() {
-		return (JockeyDao) generarHiberanteDao(JockeyDaoHibernate.class);
+		if (this.jockeyDao == null) {
+			this.jockeyDao = (JockeyDao) generarHiberanteDao(JockeyDaoHibernate.class);
+		}
+		return this.jockeyDao;
 	}
 
 	@Override
 	public ParticipanteDao getParticipanteDAO() {
-		return (ParticipanteDao) generarHiberanteDao(ParticipanteDaoHibernate.class);
+		if (this.participanteDao == null) {
+			this.participanteDao = (ParticipanteDao) generarHiberanteDao(ParticipanteDaoHibernate.class);
+		}
+		return this.participanteDao;
 	}
 
 	@Override
 	public BolsaApuestasDao getBolsaApuestasDAO() {
-		return (BolsaApuestasDao) generarHiberanteDao(BolsaApuestasDaoHibernate.class);
+		if (this.bolsaApuestasDao == null) {
+			this.bolsaApuestasDao = (BolsaApuestasDao) generarHiberanteDao(BolsaApuestasDaoHibernate.class);
+		}
+		return this.bolsaApuestasDao;
 	}
 
 	@Override
 	public ResultadoDao getResultadoDAO() {
-		return (ResultadoDao) generarHiberanteDao(ResultadoDaoHibernate.class);
+		if (this.resultadoDao == null) {
+			this.resultadoDao = (ResultadoDao) generarHiberanteDao(ResultadoDaoHibernate.class);
+		}
+		return this.resultadoDao;
 	}
 	
 	public ApuestaDao getApuestaDAO() {
-		// TODO: implementar logica
-		return null;
+		if (this.apuestaDao == null) {
+			// TODO: implementar logica
+		}
+		return this.apuestaDao;
 	}
 
 }

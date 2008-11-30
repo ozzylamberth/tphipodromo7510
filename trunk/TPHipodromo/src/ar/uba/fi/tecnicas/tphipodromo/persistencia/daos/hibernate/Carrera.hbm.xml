@@ -14,10 +14,9 @@
 		
 		<property name="estadoCarrera" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoCarrera" not-null="true" /> 
 		
-		<list name="lstParticipantes" inverse="true" lazy="false" cascade="all-delete-orphan">
+		<bag name="lstParticipantes" lazy="false" cascade="all-delete-orphan">
 		      <key column="carreraId"/>
-		      <list-index column="id"/>
 		      <one-to-many class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
-		  </list>		
+		  </bag>		
 	</class>
 </hibernate-mapping>
