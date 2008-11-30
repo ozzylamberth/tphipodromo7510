@@ -19,6 +19,7 @@ public class JockeyDaoTest extends PersistenciaTestCase{
 			
 			JockeyDao dao = HibernateDaoFactory.getInstance().getJockeyDAO();
 			
+			
 			dao.guardar(jockey1);
 			
 			HibernateUtil.getCurrentSession().clear();
