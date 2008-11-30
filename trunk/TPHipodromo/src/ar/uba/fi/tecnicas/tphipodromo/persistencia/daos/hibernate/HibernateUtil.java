@@ -1,7 +1,8 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate;
 
-import org.hibernate.*;
-import org.hibernate.cfg.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 		
@@ -18,8 +19,10 @@ public class HibernateUtil {
 			 }
 		}
 		
+		@SuppressWarnings("unchecked")
 		public static final ThreadLocal session = new ThreadLocal();
 		
+		@SuppressWarnings("unchecked")
 		public static Session currentSession() {
 			Session s = (Session) session.get();
 			// Open a new Session, if this Thread has none yet
@@ -30,6 +33,7 @@ public class HibernateUtil {
 			return s;
 		}
 		
+		@SuppressWarnings("unchecked")
 		public static void closeSession() {
 			Session s = (Session) session.get();
 			if (s != null)

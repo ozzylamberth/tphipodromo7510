@@ -7,21 +7,20 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class CarreraTransformerFromDTO implements Transformer {
 	
 	private CarreraDao carreraDao;
 	
 	public CarreraTransformerFromDTO() {
-		this.carreraDao = (CarreraDao) ServicioSpring.getInstance().getBean("carreraDao");
+		this.carreraDao = HibernateDaoFactory.getInstance().getCarreraDAO();
 	}
 
 	public Object transform(Object arg0) {
 		CarreraDTO carreraDTO = (CarreraDTO) arg0;
 		Carrera carrera = this.getCarrera(carreraDTO);
-		carrera.setId(carreraDTO.getId());
 		carrera.setDistancia(new BigDecimal(carreraDTO.getDistancia().toString()));
 		carrera.setFechaYHora(carreraDTO.getFechaYHora());
 		carrera.setNombre(carreraDTO.getNombre());

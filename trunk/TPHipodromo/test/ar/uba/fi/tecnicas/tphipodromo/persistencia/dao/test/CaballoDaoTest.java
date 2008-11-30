@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
-import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.MultiplesObjetosException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
@@ -13,8 +12,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateUtil;
 public class CaballoDaoTest extends PersistenciaTestCase {
 	
 	public void testDao(){
-		DaoFactory factory= new HibernateDaoFactory();
-		CaballoDao dao = factory.getCaballoDAO();
+		CaballoDao dao = HibernateDaoFactory.getInstance().getCaballoDAO();
 		
 		Caballo nuevoCaballo = new Caballo();
 		nuevoCaballo.setCaballeriza("Hijop");

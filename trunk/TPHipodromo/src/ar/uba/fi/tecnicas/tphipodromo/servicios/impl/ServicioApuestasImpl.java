@@ -18,6 +18,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstad
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ApuestaDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioApuestas;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ApuestaInvalidaException;
@@ -37,8 +38,8 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	private ParticipanteDao participanteDao;
 	
 	public ServicioApuestasImpl() {
-		this.apuestaDao = (ApuestaDao) ServicioSpring.getInstance().getBean("apuestaDao");
-		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
+		this.apuestaDao = HibernateDaoFactory.getInstance().getApuestaDAO();
+		this.participanteDao = HibernateDaoFactory.getInstance().getParticipanteDAO();
 	}
 
 	@SuppressWarnings("unchecked")

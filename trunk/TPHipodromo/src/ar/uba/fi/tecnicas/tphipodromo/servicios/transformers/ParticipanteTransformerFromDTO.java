@@ -10,15 +10,15 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioSpring;
 
 public class ParticipanteTransformerFromDTO implements Transformer {
 	
 	private ParticipanteDao participanteDao;
 	
 	public ParticipanteTransformerFromDTO() { 
-		this.participanteDao = (ParticipanteDao) ServicioSpring.getInstance().getBean("participanteDao");
+		this.participanteDao = HibernateDaoFactory.getInstance().getParticipanteDAO();
 	}
 
 	public Object transform(Object arg0) {
