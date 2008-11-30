@@ -221,6 +221,22 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getMostrarABMResultados() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarABMResultados(); 
+			}
+		};
+	}
+	
+	public static Evento getListaCarrerasActualizada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onListaCarrerasActualizada((Collection<CarreraDTO>)args[0]); 
+			}
+		};
+	}
+	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
 		return new Evento() {

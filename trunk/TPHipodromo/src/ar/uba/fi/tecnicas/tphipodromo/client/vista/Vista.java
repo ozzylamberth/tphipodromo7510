@@ -90,6 +90,11 @@ public abstract class Vista {
 	public void onMapaCarrerasActualizado(Map<CarreraDTO, Collection<ParticipanteDTO>> mapa) {}
 	
 	public void onApuestaCreada() {};
-	
+		
+	public void onMostrarABMResultados() {};
+		
+	public void onListaCarrerasActualizada(Collection<CarreraDTO> lista) {}
+
 	public void onMostrarLiquidacionApuestas() {}
+
 }
