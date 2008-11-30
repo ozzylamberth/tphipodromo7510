@@ -157,6 +157,7 @@ public class VistaParticipantes extends DialogBox  {
 	}
 
 	public void mostrarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
+		this.participantes.clear();
 		this.participantes.addAll(participantes);
 		this.carreraMostrada = carrera;
 		this.setEditable(false);
@@ -179,6 +180,7 @@ public class VistaParticipantes extends DialogBox  {
 	}
 
 	public void editarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> participantes) {
+		this.participantes.clear();
 		this.participantes.addAll(participantes);
 		this.carreraMostrada = carrera;
 		this.setEditable(true);
