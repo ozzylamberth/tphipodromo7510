@@ -1,5 +1,6 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
@@ -32,6 +33,8 @@ public class ControladorABMCarreras extends Controlador {
 	
 	private ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
 	
+	private Collection<ParticipanteDTO> participantesCarreraEditada = new ArrayList<ParticipanteDTO>();
+	
 	public void doActualizarListadoCarrera() {
 		servicioCarreras.buscarTodos(new AsyncCallback<Collection<CarreraDTO>>() {
 			public void onFailure(Throwable caught) {
@@ -45,6 +48,7 @@ public class ControladorABMCarreras extends Controlador {
 	}
 
 	public void doEditarCrrera(CarreraDTO carrera) {
+		this.participantesCarreraEditada.clear();
 		notifyObservers(EventoFactory.getMostrarDatosCarrera(), carrera, Boolean.TRUE);
 	}
 
@@ -70,15 +74,27 @@ public class ControladorABMCarreras extends Controlador {
 		notifyObservers(EventoFactory.getMostrarDatosCarrera(), new CarreraDTO(), Boolean.TRUE);
 	}
 
-	public void doGuadarCarrera(CarreraDTO carrera) {
+	public void doGuadarCarrera(final CarreraDTO carrera) {
 		servicioCarreras.guardar(carrera, new AsyncCallback<Long>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
 			
 			public void onSuccess(Long result) {
+				doAsignarParticipantes(carrera);
+			}
+		});
+	}
+	
+	public void doAsignarParticipantes(CarreraDTO carreraDTO) {
+		servicioCarreras.asignarParticipantes(carreraDTO, this.participantesCarreraEditada, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Void v) {
 				doActualizarListadoCarrera();
-				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.carreraGuardada(), result);
+				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.carreraGuardada());
 			}
 		});
 	}
@@ -96,15 +112,21 @@ public class ControladorABMCarreras extends Controlador {
 	}
 	
 	public void doEditarParticipantes(final CarreraDTO carrera) {
-		servicioParticipantes.buscarPorCarrera(carrera, new AsyncCallback<Collection<ParticipanteDTO>>() {
-			public void onFailure(Throwable caught) {
-				notifyObservers(EventoFactory.getErrorRPC(), caught);
-			}
-			
-			public void onSuccess(Collection<ParticipanteDTO> result) {
-				notifyObservers(EventoFactory.getEditarParticipantes(), carrera, result);
-			}
-		});
+		// si ya edite los participantes de la carrera y todavia no se guardaron los cambios
+		if (!this.participantesCarreraEditada.isEmpty()) {
+			notifyObservers(EventoFactory.getEditarParticipantes(), carrera, this.participantesCarreraEditada);
+		} else {
+			// si es la primera vez que edito los participantes de la carrera
+			servicioParticipantes.buscarPorCarrera(carrera, new AsyncCallback<Collection<ParticipanteDTO>>() {
+				public void onFailure(Throwable caught) {
+					notifyObservers(EventoFactory.getErrorRPC(), caught);
+				}
+				
+				public void onSuccess(Collection<ParticipanteDTO> result) {
+					notifyObservers(EventoFactory.getEditarParticipantes(), carrera, result);
+				}
+			});
+		}
 	}
 	
 	public void doMostrarJockeysParaCarrera(CarreraDTO carrera) {
@@ -134,17 +156,8 @@ public class ControladorABMCarreras extends Controlador {
 	}
 	
 	public void doGuardarParticipantes(Collection<ParticipanteDTO> participantesCarrera) {
-		for(ParticipanteDTO participante:participantesCarrera ) {
-			servicioParticipantes.guardar(participante, new AsyncCallback<Long>() {
-				public void onFailure(Throwable caught) {
-					notifyObservers(EventoFactory.getErrorRPC(), caught);
-				}
-				public void onSuccess(Long result) {
-					notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.participantesGuardados(), result);
-				}
-				
-			});
-		}
+		this.participantesCarreraEditada.clear();
+		this.participantesCarreraEditada.addAll(participantesCarrera);
 	}
 
 }
