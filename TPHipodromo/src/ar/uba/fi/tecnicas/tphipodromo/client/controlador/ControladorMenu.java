@@ -33,4 +33,9 @@ public class ControladorMenu extends Controlador {
 		notifyObservers(EventoFactory.getOcultarMensaje());
 		notifyObservers(EventoFactory.getMostrarLiquidacionApuestas());
 	}	
+	
+	public void doABMResultados() {
+		notifyObservers(EventoFactory.getOcultarMensaje());
+		notifyObservers(EventoFactory.getMostrarABMResultados());
+	}
 }
