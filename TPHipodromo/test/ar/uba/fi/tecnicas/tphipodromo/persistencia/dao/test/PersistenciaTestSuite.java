@@ -12,6 +12,7 @@ public class PersistenciaTestSuite extends TestSuite {
 		suite.addTestSuite(CarreraDaoTest.class);
 		suite.addTestSuite(JockeyDaoTest.class);
 		suite.addTestSuite(ParticipanteDaoTest.class);
+		suite.addTestSuite(ApuestaDaoTest.class);
 		
 		return suite;
 	}

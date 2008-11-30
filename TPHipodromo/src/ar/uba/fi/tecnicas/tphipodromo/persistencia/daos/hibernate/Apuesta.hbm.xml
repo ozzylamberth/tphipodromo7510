@@ -9,7 +9,7 @@
 		
 		<discriminator column="BOLSA_TIPO" type="string" force="true" />
 		
-		<property name="tipoApuesta" type="string" />
+		<property name="tipoApuesta" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoApuesta" />
 		<property name="montoApostado" type="big_decimal" />
 		<property name="nroTicket" type="long" />
 		<property name="fechaCreacion" type="timestamp" />

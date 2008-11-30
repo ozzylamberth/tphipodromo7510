@@ -89,8 +89,7 @@ public class HibernateDaoFactory extends DaoFactory {
 	
 	public ApuestaDao getApuestaDAO() {
 		if (this.apuestaDao == null) {
-			// TODO: cambiar por el dao real
-			this.apuestaDao = new ApuestaDaoMockImpl();
+			this.apuestaDao = (ApuestaDao) generarHiberanteDao(ApuestaDaoHibernate.class);
 		}
 		return this.apuestaDao;
 	}
