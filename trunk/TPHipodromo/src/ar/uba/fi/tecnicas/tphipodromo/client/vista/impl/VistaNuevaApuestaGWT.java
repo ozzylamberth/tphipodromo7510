@@ -94,10 +94,7 @@ public class VistaNuevaApuestaGWT extends VistaDefaultGWT implements ClickListen
 	@Override
 	public void onMostrarNuevaApuesta() {
 		super.onMostrarNuevaApuesta();
-		this.listado.limpiar();
-		this.formulario.reset();
-		this.botonApostar.setEnabled(true);
-		this.ctrlApuestas.doActualizarListaTiposApuesta();
+		this.reset();
 		this.mostrar();
 	}
 	
@@ -130,8 +127,7 @@ public class VistaNuevaApuestaGWT extends VistaDefaultGWT implements ClickListen
 	
 	@Override
 	public void onApuestaCreada() {
-		this.formulario.reset();
-		this.botonApostar.setEnabled(true);
+		this.reset();
 		super.onApuestaCreada();
 	}
 	
@@ -166,6 +162,13 @@ public class VistaNuevaApuestaGWT extends VistaDefaultGWT implements ClickListen
 		this.actualizarParticipantes(mapa);
 		listado.update(mapa.keySet());
 	};
+	
+	public void reset() {
+		this.listado.limpiar();
+		this.formulario.reset();
+		this.botonApostar.setEnabled(true);
+		this.ctrlApuestas.doActualizarListaTiposApuesta();
+	}
 	
 	public void onChange(Widget sender) {
 		if(sender.equals(fecha.toWidget())) {
