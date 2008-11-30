@@ -36,7 +36,7 @@ public abstract class Apuesta implements Identificable {
 	 */
 	private final static int CANT_DECIMALES = 2;
 	
-	private Long id;
+	private Long id = new Long(0);
 	private TipoApuesta tipoApuesta;
 	private BolsaApuestasAbstracta bolsaApuestas;
 	private EstadoApuesta estadoApuesta;
