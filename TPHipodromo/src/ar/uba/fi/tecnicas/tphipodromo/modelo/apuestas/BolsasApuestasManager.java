@@ -141,8 +141,7 @@ public class BolsasApuestasManager {
 		Logger.getLogger(getClass()).trace("1) " + className);
 
 		if (className != null) {
-			return (Class<? extends BolsaApuestasAbstracta>) ClassLoader
-					.getSystemClassLoader().loadClass(className);
+			return (Class<? extends BolsaApuestasAbstracta>) Class.forName(className);
 		}
 		
 		throw new ClassNotFoundException();
