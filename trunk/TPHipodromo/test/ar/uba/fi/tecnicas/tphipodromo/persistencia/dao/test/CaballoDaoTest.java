@@ -51,7 +51,7 @@ public class CaballoDaoTest extends PersistenciaTestCase {
 		
 		dao.guardar(nuevoCaballo);		
 		
-		HibernateUtil.currentSession().clear();	
+		HibernateUtil.getCurrentSession().clear();	
 		
 		try {
 			Caballo caballoLeido = dao.buscarPorNombre("pepeHijop");

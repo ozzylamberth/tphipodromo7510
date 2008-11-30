@@ -5,39 +5,24 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-		
-		private static final SessionFactory sessionFactory;
-		
-		static {
-			try {
-				// Create the SessionFactory
-				sessionFactory = new Configuration().configure().buildSessionFactory();
-			}
-			 catch (Throwable ex) {
-				 // Make sure we log the exception, as it might be swallowed
-				 throw new ExceptionInInitializerError(ex);
-			 }
+
+	private static SessionFactory sessionFactory;
+
+	public static void init() {
+		try {
+			// Create the SessionFactory
+			sessionFactory = new Configuration().configure().buildSessionFactory();
+		} catch (Throwable ex) {
+			// Make sure we log the exception, as it might be swallowed
+			throw new ExceptionInInitializerError(ex);
 		}
-		
-		@SuppressWarnings("unchecked")
-		public static final ThreadLocal session = new ThreadLocal();
-		
-		@SuppressWarnings("unchecked")
-		public static Session currentSession() {
-			Session s = (Session) session.get();
-			// Open a new Session, if this Thread has none yet
-			if (s == null) {
-				s = sessionFactory.openSession();
-				session.set(s);
-			}
-			return s;
-		}
-		
-		@SuppressWarnings("unchecked")
-		public static void closeSession() {
-			Session s = (Session) session.get();
-			if (s != null)
-				s.close();
-			session.set(null);
-		}
+	}
+
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public static Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
 }

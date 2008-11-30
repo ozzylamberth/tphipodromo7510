@@ -9,6 +9,10 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 		<welcome-file>TPHipodromo.html</welcome-file>
 	</welcome-file-list>
 	
+	<listener>
+    	<listener-class>ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateListener</listener-class>
+	</listener>
+	
 	<servlet>
 		<servlet-name>XFire</servlet-name>
 		<display-name>XFire Servlet</display-name>
