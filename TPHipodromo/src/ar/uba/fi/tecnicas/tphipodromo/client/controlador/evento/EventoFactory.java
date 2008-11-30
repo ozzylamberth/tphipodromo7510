@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.Vista;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
@@ -233,6 +234,14 @@ public class EventoFactory {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
 				v.onListaCarrerasActualizada((Collection<CarreraDTO>)args[0]); 
+			}
+		};
+	}
+
+	public static Evento getApuestaEncontrada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarApuestaBuscada((ApuestaDTO)args[0]); 
 			}
 		};
 	}

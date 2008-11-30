@@ -19,6 +19,8 @@ public interface ServicioApuestas extends RemoteService {
 	
 	public ApuestaDTO buscarPorId(Long id) throws EntidadInexistenteException;
 	
+	public ApuestaDTO buscarPorNroTicket(Long nroTicket) throws EntidadInexistenteException;
+	
 	public void crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException;
 	
 	public Collection<String> obtenerTiposApuesta();

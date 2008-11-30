@@ -135,4 +135,11 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 		}
 	}
 
+	@Override
+	public ApuestaDTO buscarPorNroTicket(Long nroTicket)
+			throws EntidadInexistenteException {
+		//TODO implementar
+		return this.buscarPorId(nroTicket);
+	}
+
 }

@@ -57,6 +57,15 @@ td.listado-cuerpo {
 }
 
 .campo-invalido {
-	background: red;
+	background: #CA2424;
 	color: white;
+}
+
+.label_variable {
+	color: #0A0A2A;
+	font-style: bold;
+}
+
+.label_valor {
+	color: black;
 }

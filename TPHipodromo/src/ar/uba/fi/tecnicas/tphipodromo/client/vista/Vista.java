@@ -3,6 +3,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista;
 import java.util.Collection;
 import java.util.Map;
 
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
@@ -96,5 +97,7 @@ public abstract class Vista {
 	public void onListaCarrerasActualizada(Collection<CarreraDTO> lista) {}
 
 	public void onMostrarLiquidacionApuestas() {}
+
+	public void onMostrarApuestaBuscada(ApuestaDTO apuestaDTO) {}
 
 }
