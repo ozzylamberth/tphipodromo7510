@@ -3,6 +3,7 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ApuestaDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ApuestaInvalidaException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ErrorHipodromoException;
@@ -28,5 +29,7 @@ public interface ServicioApuestas extends RemoteService {
 	public Double liquidarApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException, ErrorHipodromoException;
 	
 	public void pagarApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException, TransicionInvalidaException;
+	
+	public Collection<ParticipanteDTO> obtenerParticipantesApuesta(ApuestaDTO apuestaDTO) throws EntidadInexistenteException;
 
 }

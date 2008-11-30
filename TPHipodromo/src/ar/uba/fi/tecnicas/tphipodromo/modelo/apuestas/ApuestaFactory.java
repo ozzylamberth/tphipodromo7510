@@ -31,12 +31,18 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TipoApuestaInvalidoExce
  */
 public class ApuestaFactory {
 	private static final ApuestaFactory instance = new ApuestaFactory();
+	
+	private static long siguienteNroTicket = 1;
 
 	public ApuestaFactory() {
 	}
 
 	public static ApuestaFactory getInstance() {
 		return instance;
+	}
+	
+	public static void initSiguienteNroTicket(long nroTicket) {
+		siguienteNroTicket = nroTicket;
 	}
 
 	public <T extends Apuesta> Apuesta crear(Class<T> clazz, Participante participante, BigDecimal montoApostado)
@@ -84,6 +90,8 @@ public class ApuestaFactory {
 				T apuesta = constructor.newInstance();
 				apuesta.setParticipantes(participantes);
 				apuesta.setMontoApostado(montoApostado);
+				apuesta.setNroTicket(siguienteNroTicket);
+				siguienteNroTicket++;
 
 				BolsaApuestasAbstracta bolsaApuestas = BolsasApuestasManager
 						.getInstance().getBolsaApuestas(clazz, carreras,
