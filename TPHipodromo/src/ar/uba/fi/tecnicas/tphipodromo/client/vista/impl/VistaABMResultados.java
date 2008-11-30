@@ -30,9 +30,13 @@ public class VistaABMResultados extends VistaDefaultGWT {
 	
 	private Collection<ParticipanteDTO> participantes = new ArrayList<ParticipanteDTO>();
 
-	private ListBox listaCarreras;
+	private ListBox listaCarreras, listaEstadosValidos;
 	
-	private Button ver;
+	private Map<Long, ListBox> resultadosMostrados;
+	
+	private Button ver, editar;
+	
+	private Label labelEstadoActual;
 	
 	private ControladorABMResultados ctrlABMResultados;
 
@@ -44,7 +48,11 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		this.ctrlABMResultados = ctrlABMResultados;
 		
 		listaCarreras = new ListBox();
+		listaEstadosValidos = new ListBox();
 		carrerasMostradas = new HashMap<Long, CarreraDTO>();
+		labelEstadoActual = new Label();
+		
+		resultadosMostrados = new HashMap<Long, ListBox>();
 		
 		listado = new Listado<ParticipanteDTO>() {
 			public Widget[] getAtributos(ParticipanteDTO obj) {
@@ -53,15 +61,9 @@ public class VistaABMResultados extends VistaDefaultGWT {
 						new Label(obj.getCaballoDTO().getNombre().toString()),
 						new Label(obj.getJockeyDTO().getApellido().toString()),
 						new Label(obj.getEstado()),
-						new Label(this.obtenerResultado(obj.getResultadoDTO())),
+						resultadosMostrados.get(new Long(obj.getNroParticipante())),
+						//resultadosMostrados.get(obj.getId()),
 				};
-			}
-
-			private String obtenerResultado(ResultadoDTO resultado) {
-				if(resultado == null) {
-					return "-";
-				}
-				return String.valueOf(resultado.getOrdenLlegada());
 			}
 
 			public String[] getTitulos() {
@@ -78,18 +80,43 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		ver = new Button(mensajes.ver());
 		ver.addClickListener(new VerResultadosCarreraListener());
 		
+		editar = new Button(mensajes.modificar());
+		editar.addClickListener(new EditarEstadosCarreraListener());
+		
 		VerticalPanel panel = new VerticalPanel();
 		HorizontalPanel panelHorizontal = new HorizontalPanel();
-		panelHorizontal.add(new Label(mensajes.carreras() + " "));
+		panelHorizontal.add(new Label(mensajes.carrera() + "   "));
 		panelHorizontal.add(listaCarreras);
 		panelHorizontal.add(ver);
 		panel.add(panelHorizontal);
 		
+		panelHorizontal = new HorizontalPanel();
+		panelHorizontal.add(new Label(mensajes.estado() + ":   "));
+		//panelHorizontal.setSpacing(10);
+		panelHorizontal.add(labelEstadoActual);
+		panel.add(panelHorizontal);
+
+		//panelHorizontal = new HorizontalPanel();
+		//panelHorizontal.add(new Label("Siguientes estados validos" + ":   "));
+		//panelHorizontal.add(listaEstadosValidos);
+		//panelHorizontal.add(editar);
+		//panel.add(panelHorizontal);
+		
+		panelHorizontal = new HorizontalPanel();
+		panelHorizontal.add(new Label(mensajes.participantes()));
+		panel.add(panelHorizontal);
+		
 		panel.add(listado.toWidget());
 		
-		getCuerpo().add(panel);
-		getCuerpo().setCellHorizontalAlignment(ver,
+		Button botonGuardar = new Button(mensajes.guardar(), new GuardarResultadosListener());
+		panel.add(botonGuardar);
+		
+		panel.setCellHorizontalAlignment(ver,
 				HasHorizontalAlignment.ALIGN_RIGHT);
+		panel.setCellHorizontalAlignment(botonGuardar,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		
+		getCuerpo().add(panel);
 	}
 	
 	@Override
@@ -127,8 +154,7 @@ public class VistaABMResultados extends VistaDefaultGWT {
 	
 		CarreraDTO carreraDTO = carrerasMostradas.get(new Long(listaCarreras.getValue(listaCarreras.getSelectedIndex())));
 		
-		System.out.println(carreraDTO.getNombre());
-		
+		labelEstadoActual.setText(carreraDTO.getEstado());
 		ctrlABMResultados.doMostrarParticipantes(carreraDTO);
 	}
 	
@@ -136,13 +162,36 @@ public class VistaABMResultados extends VistaDefaultGWT {
 			Collection<ParticipanteDTO> listaParticipantes) {
 		
 		participantes.clear();
+		resultadosMostrados.clear();
 		Iterator<ParticipanteDTO> it = listaParticipantes.iterator();
-		while (it.hasNext()) {
-			ParticipanteDTO participanteDTO = (ParticipanteDTO) it.next();
-			
-			participantes.add(participanteDTO);
-		}
 		
+		while (it.hasNext())
+		{
+			ListBox resultados = new ListBox();
+			for (int i = 1; i <= listaParticipantes.size(); i++)
+				resultados.addItem(String.valueOf(i));
+			
+			ParticipanteDTO participanteDTO = (ParticipanteDTO)it.next();
+			participantes.add(participanteDTO);
+			
+			//resultadosMostrados.put(participanteDTO.getId(), resultados);
+			resultadosMostrados.put(new Long(participanteDTO.getNroParticipante()), resultados);
+		}
+				
+		listado.update(participantes);
+	}
+	
+	private class EditarEstadosCarreraListener implements ClickListener {
+		public void onClick(Widget sender) {
+			verSeleccion();
+		}
+	}
+	
+	private class GuardarResultadosListener implements ClickListener {
+		public void onClick(Widget sender) {
+
+
+		}
 	}
 	
 }

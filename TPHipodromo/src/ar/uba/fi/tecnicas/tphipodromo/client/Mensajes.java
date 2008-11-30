@@ -546,4 +546,13 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Resultados")
   @Key("resultados")
   String resultados();
+  
+  /**
+   * Translated "Modificar".
+   * 
+   * @return translated "Modificar"
+   */
+  @DefaultMessage("Modificar")
+  @Key("modificar")
+  String modificar();
 }
