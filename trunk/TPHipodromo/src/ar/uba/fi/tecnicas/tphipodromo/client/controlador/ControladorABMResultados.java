@@ -2,7 +2,6 @@ package ar.uba.fi.tecnicas.tphipodromo.client.controlador;
 
 import java.util.Collection;
 
-import ar.uba.fi.tecnicas.tphipodromo.client.Mensajes;
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.evento.EventoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarrerasAsync;
@@ -15,8 +14,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ControladorABMResultados extends Controlador {
-	
-	//private Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private ServicioCarrerasAsync servicioCarreras = GWT.create(ServicioCarreras.class);
 	
@@ -69,9 +66,16 @@ public class ControladorABMResultados extends Controlador {
 			}
 		});
 	}
-	/*
-	 * public void obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO, AsyncCallback<Collection<String>> callback);
-	 * 	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO, AsyncCallback<Void> callback);
-	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado, AsyncCallback<Void> callback);
-	 * */
+	
+	public void doAsignarParticipantes(final CarreraDTO carrera, final Collection<ParticipanteDTO> participantes) {
+		servicioCarreras.asignarParticipantes(carrera, participantes, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+
+			public void onSuccess(Void result) {
+				notifyObservers(EventoFactory.getAsignarParticipantes(), carrera, participantes);
+			}
+		});
+	}
 }
