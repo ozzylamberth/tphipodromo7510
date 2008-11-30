@@ -21,7 +21,7 @@ public class JockeyDaoTest extends PersistenciaTestCase{
 			
 			dao.guardar(jockey1);
 			
-			HibernateUtil.currentSession().clear();
+			HibernateUtil.getCurrentSession().clear();
 			
 			Collection<Jockey> lista = dao.buscarTodos();
 			

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
@@ -20,22 +19,14 @@ public class HibernateDaoGenerico<T extends Identificable>
 implements DAOGenerico<T>{
 	
 	private Class<T> clasePersistente;
-	private Session session;
 	
 	@SuppressWarnings("unchecked")
 	public HibernateDaoGenerico(){
 		this.clasePersistente = (Class<T>)((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
-	public void setSession(Session s){
-		session = s;
-	}
-	
-	public Session getSession(){
-		if (session==null)
-			session = HibernateUtil.currentSession();
-		
-		return session;
+	public Session getSession() {
+		return HibernateUtil.getCurrentSession();
 	}
 	
 	public Class<T> getClasePersistente(){
@@ -51,22 +42,16 @@ implements DAOGenerico<T>{
 	}
 
 	public T guardar(T obj) {
-		Transaction t = getSession().beginTransaction();
 		getSession().saveOrUpdate(obj);
-		t.commit();
 		return obj;
 	}
 
 	public void refresh(T entidad){
-		Transaction t = getSession().beginTransaction();
 		getSession().refresh(entidad);
-		t.commit();		
 	}
 	
 	public void borrar(T entidad) {
-		Transaction t = getSession().beginTransaction();
 		getSession().delete(entidad);
-		t.commit();
 	}
 
 	@SuppressWarnings("unchecked")

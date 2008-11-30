@@ -1,11 +1,15 @@
 package ar.uba.fi.tecnicas.tphipodromo.persistencia.dao.test;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
-import java.util.Collection;
-
-import ar.uba.fi.tecnicas.tphipodromo.modelo.*;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoParticipante;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.InscripcionCarreraCerradaException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipanteNoCalificadoException;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.ParticipantesEnDistintasCarrerasException;
@@ -55,7 +59,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 		
 		dao.guardar(carrera);
 		
-		HibernateUtil.currentSession().clear();		
+		HibernateUtil.getCurrentSession().clear();		
 		
 		try {
 			carreraLeida = dao.buscarPorNombre("ssss3");
@@ -74,8 +78,6 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 	
 	
 	public void testDaoPorFecha() throws TransicionInvalidaEstadoParticipanteException, ParticipanteNoCalificadoException, ParticipantesEnDistintasCarrerasException, InscripcionCarreraCerradaException, ObjetoInexistenteException{
-		Carrera carreraLeida;
-
 		Carrera carrera = new Carrera();
 		DaoFactory factory= DaoFactory.instance(DaoFactory.HIBERNATE);
 		CarreraDao dao = factory.getCarreraDAO();
@@ -110,7 +112,7 @@ public class CarreraDaoTest extends PersistenciaTestCase {
 		
 		dao.guardar(carrera);
 		
-		HibernateUtil.currentSession().clear();		
+		HibernateUtil.getCurrentSession().clear();		
 		
 		Collection<Carrera> carrerasLeida =  dao.buscarPorFecha(new Date());
 		
