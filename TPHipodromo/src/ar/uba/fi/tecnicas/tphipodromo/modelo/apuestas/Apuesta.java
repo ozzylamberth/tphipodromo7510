@@ -45,6 +45,7 @@ public abstract class Apuesta implements Identificable {
 	private Collection<Participante> participantes = new ArrayList<Participante>();
 	private Date fechaCreacion;
 	private int diasPlazoMaxDeCobro;
+	private BigDecimal montoAPagar = null;
 
 	public Apuesta(TipoApuesta tipoApuesta) {
 		this.tipoApuesta = tipoApuesta;
@@ -95,10 +96,12 @@ public abstract class Apuesta implements Identificable {
 	 *             bien no se pueda realizar el cambio de estado de la apuesta.
 	 */
 	public BigDecimal liquidar() throws HipodromoException {
-		this.validarEstadoLiquidacion();
-		BigDecimal montoAPagar = this.calcularMontoAPagar();
-		this.cambiarEstado(EstadoApuesta.LIQUIDADA);
-		return montoAPagar;
+		if (this.montoAPagar == null) {
+			this.validarEstadoLiquidacion();
+			this.montoAPagar = this.calcularMontoAPagar();
+			this.cambiarEstado(EstadoApuesta.LIQUIDADA);
+		}
+		return this.montoAPagar;
 	}
 
 	/**
@@ -207,6 +210,18 @@ public abstract class Apuesta implements Identificable {
 
 	protected void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+	// esto es por hibernate
+	@SuppressWarnings("unused")
+	private BigDecimal getMontoAPagar() {
+		return this.montoAPagar;
+	}
+	
+	// esto es por hibernate
+	@SuppressWarnings("unused")
+	private void setMontoAPagar(BigDecimal montoAPagar) {
+		this.montoAPagar = montoAPagar;
 	}
 
 	// -----------------------------------------------------------------------------

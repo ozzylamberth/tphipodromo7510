@@ -14,6 +14,7 @@
 		<property name="nroTicket" type="long" />
 		<property name="fechaCreacion" type="timestamp" />
 		<property name="diasPlazoMaxDeCobro" type="int" />
+		<property name="montoAPagar" type="big_decimal" />
 		
 		<!--  private BolsaApuestasAbstracta bolsaApuestas;  -->
 		<!-- private EstadoApuesta estadoApuesta; -->
