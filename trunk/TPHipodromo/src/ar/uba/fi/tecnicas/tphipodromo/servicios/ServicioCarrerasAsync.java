@@ -3,7 +3,9 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 import java.util.Collection;
 import java.util.Date;
 
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -27,5 +29,9 @@ public interface ServicioCarrerasAsync {
 	public void obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO, AsyncCallback<Collection<String>> callback);
 	
 	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado, AsyncCallback<Void> callback);
+	
+	public void buscarJockeysFueraDeCarrera(CarreraDTO carreraDTO, AsyncCallback<Collection<JockeyDTO>> callback);
+	
+	public void buscarCaballosFueraDeCarrera(CarreraDTO carreraDTO, AsyncCallback<Collection<CaballoDTO>> callback);
 	
 }

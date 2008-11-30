@@ -34,7 +34,7 @@ public class ParticipanteTransformerToDTO implements Transformer {
 	}
 	
 	private CaballoDTO getCaballoDTO(Participante participante) {
-		return (CaballoDTO) (new CaballoTrasnformerToDTO().transform(participante.getCaballo()));
+		return (CaballoDTO) (new CaballoTransformerToDTO().transform(participante.getCaballo()));
 	}
 	
 	private JockeyDTO getJockeyDTO(Participante participante) {

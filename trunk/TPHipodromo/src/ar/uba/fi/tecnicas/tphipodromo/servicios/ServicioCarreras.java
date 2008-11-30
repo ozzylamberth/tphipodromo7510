@@ -3,7 +3,9 @@ package ar.uba.fi.tecnicas.tphipodromo.servicios;
 import java.util.Collection;
 import java.util.Date;
 
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.JockeyDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ErrorHipodromoException;
@@ -40,5 +42,9 @@ public interface ServicioCarreras extends RemoteService{
 	public Collection<String> obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO);
 	
 	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado) throws ErrorHipodromoException;
+	
+	public Collection<JockeyDTO> buscarJockeysFueraDeCarrera(CarreraDTO carreraDTO);
+	
+	public Collection<CaballoDTO> buscarCaballosFueraDeCarrera(CarreraDTO carreraDTO);
 	
 }

@@ -135,9 +135,8 @@ public class ControladorABMCarreras extends Controlador {
 	}
 	
 	public void doMostrarJockeysParaCarrera(CarreraDTO carrera) {
-		//TODO Buscar solo los jockeys que NO estan en la carrera
 		
-		servicioJockeys.buscarTodos(new AsyncCallback<Collection<JockeyDTO>>() {
+		servicioCarreras.buscarJockeysFueraDeCarrera(carrera, new AsyncCallback<Collection<JockeyDTO>>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
@@ -149,7 +148,7 @@ public class ControladorABMCarreras extends Controlador {
 	}
 	
 	public void doMostrarCaballosParaCarrera(CarreraDTO carrera) {
-		servicioCaballos.buscarTodos(new AsyncCallback<Collection<CaballoDTO>>() {
+		servicioCarreras.buscarCaballosFueraDeCarrera(carrera, new AsyncCallback<Collection<CaballoDTO>>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}

@@ -8,13 +8,13 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFa
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTransformerFromDTO;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTrasnformerToDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTransformerToDTO;
 
 @SuppressWarnings("serial")
 public class ServicioCaballosImpl extends ServicioIdentificableImpl<Caballo, CaballoDTO> implements ServicioCaballos {
 	
 	private CaballoDao caballoDao;
-	private CaballoTrasnformerToDTO caballoTrasnformerToDTO = new CaballoTrasnformerToDTO();
+	private CaballoTransformerToDTO caballoTrasnformerToDTO = new CaballoTransformerToDTO();
 	private CaballoTransformerFromDTO caballoTransformerFromDTO = new CaballoTransformerFromDTO();
 	
 	public ServicioCaballosImpl() {

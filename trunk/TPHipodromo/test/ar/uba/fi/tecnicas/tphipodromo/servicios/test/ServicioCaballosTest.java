@@ -9,7 +9,7 @@ import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CaballoDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioCaballosImpl;
-import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTrasnformerToDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.transformers.CaballoTransformerToDTO;
 import junit.framework.TestCase;
 
 public class ServicioCaballosTest extends TestCase {
@@ -55,7 +55,7 @@ public class ServicioCaballosTest extends TestCase {
 		caballoPegazo.setPeso(new BigDecimal(150));
 		caballoPegazo.setPuraSangre(Boolean.TRUE);
 
-		CaballoTrasnformerToDTO caballoTrasnformerToDTO = new CaballoTrasnformerToDTO();
+		CaballoTransformerToDTO caballoTrasnformerToDTO = new CaballoTransformerToDTO();
 		
 		Long id;
 		
