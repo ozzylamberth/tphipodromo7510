@@ -93,8 +93,10 @@ public abstract class Vista {
 	public void onApuestaCreada() {};
 		
 	public void onMostrarABMResultados() {};
-		
-	public void onListaCarrerasActualizada(Collection<CarreraDTO> lista) {}
+	
+	public void onGetSiguientesEstadosValidos(Collection<String> lista) {};
+	
+	public void onCambiarEstadoCarrera(CarreraDTO carrera, String estado) {};
 
 	public void onMostrarLiquidacionApuestas() {}
 

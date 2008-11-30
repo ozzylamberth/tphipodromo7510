@@ -230,14 +230,22 @@ public class EventoFactory {
 		};
 	}
 	
-	public static Evento getListaCarrerasActualizada() {
+	public static Evento getSiguientesEstadosValidos() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
-				v.onListaCarrerasActualizada((Collection<CarreraDTO>)args[0]); 
+				v.onGetSiguientesEstadosValidos((Collection<String>)args[0]); 
 			}
 		};
 	}
-
+	
+	public static Evento getCambiarEstadoCarrera() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCambiarEstadoCarrera((CarreraDTO)args[0], (String)args[1]); 
+			}
+		};
+	}
+	
 	public static Evento getApuestaEncontrada() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 

@@ -16,20 +16,20 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ControladorABMResultados extends Controlador {
 	
-	private Mensajes mensajes = GWT.create(Mensajes.class);
+	//private Mensajes mensajes = GWT.create(Mensajes.class);
 	
 	private ServicioCarrerasAsync servicioCarreras = GWT.create(ServicioCarreras.class);
 	
 	private ServicioParticipantesAsync servicioParticipantes = GWT.create(ServicioParticipantes.class);
 	
-	public void doActualizarListaCarreras() {
+	public void doActualizarListadoCarrera() {
 		servicioCarreras.buscarTodos(new AsyncCallback<Collection<CarreraDTO>>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
 			
 			public void onSuccess(Collection<CarreraDTO> result) {
-				notifyObservers(EventoFactory.getListaCarrerasActualizada(), result);
+				notifyObservers(EventoFactory.getListaCarreraActualizada(), result);
 			}
 		});
 	}
@@ -45,5 +45,33 @@ public class ControladorABMResultados extends Controlador {
 			}
 		});
 	}
+	
+	public void doObtenerSiguientesEstadosValidos(final CarreraDTO carrera) {
+		servicioCarreras.obtenerSiguientesEstadosPosibles(carrera, new AsyncCallback<Collection<String>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			
+			public void onSuccess(Collection<String> result) {
+				notifyObservers(EventoFactory.getSiguientesEstadosValidos(), result);
+			}
+		});
+	}
+	
+	public void doCambiarEstadoCarrera(final CarreraDTO carrera, final String estado) {
+		servicioCarreras.cambiarEstadoCarrera(carrera, estado, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
 
+			public void onSuccess(Void result) {
+				notifyObservers(EventoFactory.getCambiarEstadoCarrera(), carrera, estado);
+			}
+		});
+	}
+	/*
+	 * public void obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO, AsyncCallback<Collection<String>> callback);
+	 * 	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO, AsyncCallback<Void> callback);
+	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado, AsyncCallback<Void> callback);
+	 * */
 }
