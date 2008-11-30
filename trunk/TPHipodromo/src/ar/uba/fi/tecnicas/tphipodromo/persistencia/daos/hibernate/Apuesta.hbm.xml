@@ -20,14 +20,14 @@
 		<!-- private EstadoApuesta estadoApuesta; -->
 		<!-- private Collection<Participante> participantes = new ArrayList<Participante>(); -->
 		
-		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTriplo" discriminator-value="TRIPLO" />
-		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTrifecta" discriminator-value="TRIFECTA" />
-		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTercero" discriminator-value="TERCERO" />
-		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaImperfecta" discriminator-value="IMPERFECTA" />
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaGanador" discriminator-value="GANADOR" />
-		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaExacta" discriminator-value="EXACTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaSegundo" discriminator-value="SEGUNDO" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTercero" discriminator-value="TERCERO" />
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaDoble" discriminator-value="DOBLE" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTriplo" discriminator-value="TRIPLO" />
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaCuaterna" discriminator-value="CUATERNA" />
-			
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaExacta" discriminator-value="EXACTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaImperfecta" discriminator-value="IMPERFECTA" />
+		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaTrifecta" discriminator-value="TRIFECTA" />
 	</class>
 </hibernate-mapping>
