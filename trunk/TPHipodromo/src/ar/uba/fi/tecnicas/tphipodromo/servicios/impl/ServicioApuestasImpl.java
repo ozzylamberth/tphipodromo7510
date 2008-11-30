@@ -73,7 +73,7 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException {
+	public Long crearApuesta(ApuestaDTO apuestaDTO) throws ApuestaInvalidaException, TipoApuestaInvalidaException {
 		try {
 			Class tipoApuesta = this.obtenerTipoApuestaClass(apuestaDTO.getTipoApuesta());
 			BigDecimal montoApostado = new BigDecimal(apuestaDTO.getMontoApostado().toString());
@@ -84,6 +84,7 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 			
 			Apuesta apuesta = ApuestaFactory.getInstance().crear(tipoApuesta, participantes, montoApostado);
 			this.apuestaDao.guardar(apuesta);
+			return apuesta.getNroTicket();
 		} catch (ApuestaException e) {
 			throw new ApuestaInvalidaException();
 		} catch (CarreraException e) {

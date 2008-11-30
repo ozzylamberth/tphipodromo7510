@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	D:/Documents/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	E:/Mis documentos/UBA/Materias/75.10 Tecnicas de Diseño/TP Grupal/Workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -34,13 +34,13 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String apostar();
 
   /**
-   * Translated "Apuesta creada satisfactoriamente.".
+   * Translated "Apuesta creada satisfactoriamente. NroTicket: {0}".
    * 
-   * @return translated "Apuesta creada satisfactoriamente."
+   * @return translated "Apuesta creada satisfactoriamente. NroTicket: {0}"
    */
-  @DefaultMessage("Apuesta creada satisfactoriamente.")
+  @DefaultMessage("Apuesta creada satisfactoriamente. NroTicket: {0}")
   @Key("apuestaCreada")
-  String apuestaCreada();
+  String apuestaCreada(String arg0);
 
   /**
    * Translated "Apuesta Liquidada Correctamente".
