@@ -98,6 +98,8 @@ public abstract class Vista {
 	
 	public void onCambiarEstadoCarrera(CarreraDTO carrera, String estado) {};
 
+	public void onAsignarParticipantes(CarreraDTO carrera, Collection<ParticipanteDTO> lista) {};
+
 	public void onMostrarLiquidacionApuestas() {}
 
 	public void onMostrarApuestaBuscada(ApuestaDTO apuestaDTO) {}

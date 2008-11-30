@@ -246,6 +246,14 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getAsignarParticipantes() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onAsignarParticipantes((CarreraDTO)args[0], (Collection<ParticipanteDTO>)args[1]); 
+			}
+		};
+	}
+	
 	public static Evento getApuestaEncontrada() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
