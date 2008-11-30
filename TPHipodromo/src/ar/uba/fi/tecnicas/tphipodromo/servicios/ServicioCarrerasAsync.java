@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -20,5 +21,7 @@ public interface ServicioCarrerasAsync {
 	public void buscarPorFecha(Date fecha, AsyncCallback<Collection<CarreraDTO>> callback);
 	
 	public void buscarCarrerasApostablesPorFecha(Date fecha, AsyncCallback<Collection<CarreraDTO>> callback);
+	
+	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO, AsyncCallback<Void> callback);
 	
 }

@@ -13,10 +13,6 @@ public interface ServicioParticipantesAsync {
 	
 	public void buscarPorId(Long id, AsyncCallback<ParticipanteDTO> callback);
 	
-	public void guardar(ParticipanteDTO participanteDTO, AsyncCallback<Long> callback);
-	
-	public void borrar(Long id, AsyncCallback<Void> callback);
-	
 	public void buscarPorCarrera(CarreraDTO carrera, AsyncCallback<Collection<ParticipanteDTO>> callback);
 	
 }

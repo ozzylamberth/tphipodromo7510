@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.ParticipanteDTO;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.EntidadInexistenteException;
+import ar.uba.fi.tecnicas.tphipodromo.servicios.excepciones.ErrorHipodromoException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -27,5 +29,12 @@ public interface ServicioCarreras extends RemoteService{
 	 * Abierta a Apuestas
 	 */
 	public Collection<CarreraDTO> buscarCarrerasApostablesPorFecha(Date fecha);
+	
+	/**
+	 * Desasigna todos los participantes que tiene la carrera y asigna la
+	 * nueva coleccion de participantes
+	 */
+	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO)
+		throws ErrorHipodromoException, EntidadInexistenteException;
 	
 }
