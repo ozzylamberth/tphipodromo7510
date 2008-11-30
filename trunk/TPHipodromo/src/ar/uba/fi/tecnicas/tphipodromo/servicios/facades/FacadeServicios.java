@@ -82,7 +82,14 @@ public class FacadeServicios implements FacadeAgenciaApuestas,FacadeAgenciaNotic
 	public ParticipanteDTO buscarParticipante(CarreraDTO carreraDTO)
 			throws EntidadInexistenteException {
 		
-		return null;
+		Collection<ParticipanteDTO> participantes = buscarParticipantesPorCarrera(carreraDTO);
+		
+		for(ParticipanteDTO participante : participantes)
+			if(participante.getCarreraDTO().getId()==carreraDTO.getId())
+				return participante;
+		
+		throw new EntidadInexistenteException();
+
 	}
 		
 }
