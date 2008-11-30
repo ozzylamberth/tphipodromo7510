@@ -1,7 +1,13 @@
 <beans>
   <service xmlns="http://xfire.codehaus.org/config/1.0">
-    <name>ServicioCaballos</name>
-    <serviceClass>ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCaballos</serviceClass>
-    <implementationClass>ar.uba.fi.tecnicas.tphipodromo.servicios.impl.ServicioCaballosImpl</implementationClass>
+    <name>facadeAgenciaApuestas</name>
+    <serviceClass>ar.uba.fi.tecnicas.tphipodromo.servicios.facades.FacadeAgenciaApuestas</serviceClass>
+    <implementationClass>ar.uba.fi.tecnicas.tphipodromo.servicios.facades.FacadeServicios</implementationClass>
+  </service>
+  
+  <service xmlns="http://xfire.codehaus.org/config/1.0">
+    <name>facadeAgenciaNoticias</name>
+    <serviceClass>ar.uba.fi.tecnicas.tphipodromo.servicios.facades.FacadeAgenciaNoticias</serviceClass>
+    <implementationClass>ar.uba.fi.tecnicas.tphipodromo.servicios.facades.FacadeServicios</implementationClass>
   </service>
 </beans>
