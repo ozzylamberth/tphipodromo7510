@@ -81,7 +81,12 @@ public class ControladorABMCarreras extends Controlador {
 			}
 			
 			public void onSuccess(Long result) {
-				doAsignarParticipantes(carrera);
+				if (!participantesCarreraEditada.isEmpty()) {
+					doAsignarParticipantes(carrera);
+				} else {
+					doActualizarListadoCarrera();
+					notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.carreraGuardada());
+				}
 			}
 		});
 	}
