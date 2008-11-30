@@ -28,6 +28,10 @@ public enum EstadoCarrera {
 	public String getNombre() {
 		return this.nombre;
 	}
+	
+	public EstadoCarrera[] getEstadosValidos() {
+		return this.estadosValidos;
+	}
 
 	/**
 	 * @return Devuelve el estado asociado a la cancelación de carrera.

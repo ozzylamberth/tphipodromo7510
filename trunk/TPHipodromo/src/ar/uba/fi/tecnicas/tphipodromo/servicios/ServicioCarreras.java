@@ -37,4 +37,8 @@ public interface ServicioCarreras extends RemoteService{
 	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO)
 		throws ErrorHipodromoException, EntidadInexistenteException;
 	
+	public Collection<String> obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO);
+	
+	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado) throws ErrorHipodromoException;
+	
 }

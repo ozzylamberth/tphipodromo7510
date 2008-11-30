@@ -24,4 +24,8 @@ public interface ServicioCarrerasAsync {
 	
 	public void asignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participatesDTO, AsyncCallback<Void> callback);
 	
+	public void obtenerSiguientesEstadosPosibles(CarreraDTO carreraDTO, AsyncCallback<Collection<String>> callback);
+	
+	public void cambiarEstadoCarrera(CarreraDTO carreraDTO, String estado, AsyncCallback<Void> callback);
+	
 }
