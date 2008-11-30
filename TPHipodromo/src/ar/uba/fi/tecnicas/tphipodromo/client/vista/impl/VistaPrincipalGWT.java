@@ -38,6 +38,7 @@ public class VistaPrincipalGWT extends VistaGWT {
 		this.mensajeDecorado = new DecoratorPanel();
 		this.mensajeDecorado.add(this.mensaje);
 		this.mensajeDecorado.setVisible(false);
+		this.mensajeDecorado.addStyleName("dialogo-mensajes");
 		this.mensajeDecorado.setWidth("100%");
 		
 		VerticalPanel panelCentro = new VerticalPanel();

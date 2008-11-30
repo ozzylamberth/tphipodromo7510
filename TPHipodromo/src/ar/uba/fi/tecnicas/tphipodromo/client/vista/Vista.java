@@ -102,4 +102,6 @@ public abstract class Vista {
 
 	public void onMostrarApuestaBuscada(ApuestaDTO apuestaDTO) {}
 
+	public void onApuestaLiquidada(Double monto) {}
+
 }
