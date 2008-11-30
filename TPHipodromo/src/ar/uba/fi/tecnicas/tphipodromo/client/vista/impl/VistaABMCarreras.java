@@ -3,6 +3,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 import java.util.Collection;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorABMCarreras;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.Utils;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.BotonChico;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.widgets.Listado;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.dtos.CarreraDTO;
@@ -33,7 +34,8 @@ public class VistaABMCarreras extends VistaDefaultGWT {
 				return new Widget[] {
 						new Label(String.valueOf(obj.getNumero())),
 						new Label(obj.getNombre()),
-						new Label(obj.getFechaYHora().toString()),
+						new Label(Utils.getFechaFormateada(obj.getFechaYHora(), Utils.FORMATO_ARG)),
+						new Label(Utils.getFechaFormateada(obj.getFechaYHora(), Utils.FORMATO_HORA_24)),
 						new Label(obj.getDistancia().toString()),
 						new Label(obj.getEstado().toString()),
 						new BotonChico(mensajes.ver(), new VerCarreraListener(obj)),
@@ -46,7 +48,8 @@ public class VistaABMCarreras extends VistaDefaultGWT {
 				return new String[] {
 						mensajes.numero(),
 						mensajes.nombre(),
-						mensajes.fechaYHora(), 
+						mensajes.fecha(),
+						mensajes.hora(),
 						mensajes.distancia(),
 						mensajes.estado(),
 						"", 
