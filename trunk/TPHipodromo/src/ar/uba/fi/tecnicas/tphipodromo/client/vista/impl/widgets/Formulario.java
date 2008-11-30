@@ -88,6 +88,16 @@ public class Formulario {
 		campo.setValor(DateTimeFormat.getShortDateFormat().format(fecha));
 	}
 	
+	public Date getHora(String nombre) {
+		CampoHora campo = (CampoHora)campos.get(nombre);
+		return campo.getDate();
+	}
+	
+	public void setHora(String nombre, Date fecha) {
+		Campo campo = campos.get(nombre);
+		campo.setValor(CampoHora.formato.format(fecha));
+	}
+	
 	public void reset() {
 		for(Campo campo: campos.values()) {
 			campo.reset();
