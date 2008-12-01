@@ -31,30 +31,6 @@ public class ControladorABMResultados extends Controlador {
 		});
 	}
 	
-	public void doObtenerSiguientesEstadosValidos(final CarreraDTO carrera) {
-		servicioCarreras.obtenerSiguientesEstadosPosibles(carrera, new AsyncCallback<Collection<String>>() {
-			public void onFailure(Throwable caught) {
-				notifyObservers(EventoFactory.getErrorRPC(), caught);
-			}
-			
-			public void onSuccess(Collection<String> result) {
-				notifyObservers(EventoFactory.getSiguientesEstadosValidos(), result);
-			}
-		});
-	}
-	
-	public void doCambiarEstadoCarrera(final CarreraDTO carrera, final String estado) {
-		servicioCarreras.cambiarEstadoCarrera(carrera, estado, new AsyncCallback<Void>() {
-			public void onFailure(Throwable caught) {
-				notifyObservers(EventoFactory.getErrorRPC(), caught);
-			}
-
-			public void onSuccess(Void result) {
-				notifyObservers(EventoFactory.getCambiarEstadoCarrera(), carrera, estado);
-			}
-		});
-	}
-	
 	public void doCargarResultados(final CarreraDTO carrera, final Collection<ParticipanteDTO> participantes) {
 		servicioCarreras.cargarResultados(carrera, participantes, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
@@ -75,7 +51,8 @@ public class ControladorABMResultados extends Controlador {
 			}
 
 			public void onSuccess(Collection<CarreraDTO> result) {
-				notifyObservers(EventoFactory.getBuscarCarrerasEnCurso(), result);	
+				notifyObservers(EventoFactory.getBuscarCarrerasEnCurso(), result);
+				doBuscarCarrerasEnCurso();
 			}
 		});
 	}
