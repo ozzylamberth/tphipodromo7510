@@ -13,18 +13,18 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class VistaCerrarInscripcion extends VistaDefaultGWT {
+public class VistaCerrarApuestasGWT extends VistaDefaultGWT {
 	
 	private Listado<CarreraDTO> listado;
 	
 	private ControladorInscripcion ctrlInscripcion;
 	
-	public VistaCerrarInscripcion(HasWidgets padre, ControladorInscripcion ctrlInscripcion) {
+	public VistaCerrarApuestasGWT(HasWidgets padre, ControladorInscripcion ctrlInscripcion) {
 		super(padre);
 		
 		this.ctrlInscripcion = ctrlInscripcion;
 		
-		setTitulo(mensajes.cerrarInscripcion());
+		setTitulo(mensajes.cerrarApuestas());
 		
 		listado = new Listado<CarreraDTO>() {
 			@Override
@@ -32,7 +32,7 @@ public class VistaCerrarInscripcion extends VistaDefaultGWT {
 				return new Widget [] {
 					new Label(String.valueOf(obj.getNumero())),
 					new Label(obj.getNombre()),
-					new BotonChico(mensajes.cerrarInscripcion(), new CerrarInscripcionListener(obj))
+					new BotonChico(mensajes.cerrarApuestas(), new CerrarApuestasListener(obj))
 				};
 			}
 			
@@ -41,7 +41,7 @@ public class VistaCerrarInscripcion extends VistaDefaultGWT {
 				return new String[] {
 						mensajes.numero(),
 						mensajes.nombre(),
-						mensajes.cerrarInscripcion()
+						mensajes.cerrarApuestas()
 				};
 			}
 		};
@@ -50,29 +50,30 @@ public class VistaCerrarInscripcion extends VistaDefaultGWT {
 	}
 	
 	@Override
-	public void onMostrarCerrarInscripcion() {
+	public void onMostrarCerrarApuestas() {
 		this.listado.limpiar();
 		this.listado.setCargando(true);
-		ctrlInscripcion.doActualizarCarrerasEnInscripcion();
+		ctrlInscripcion.doActualizarCarrerasApostables();
 		this.mostrar();
-		super.onMostrarCerrarInscripcion();
+		super.onMostrarCerrarApuestas();
 	}
 	
-	public void onCarrerasEnInscripcionActualizadas(Collection<CarreraDTO> lista) {
+	@Override
+	public void onCarrerasApostablesActualizadas(Collection<CarreraDTO> lista) {
 		listado.update(lista);
 		listado.setCargando(false);
-		super.onCarrerasEnInscripcionActualizadas(lista);
+		super.onCarrerasApostablesActualizadas(lista);
 	}
 	
-	private class CerrarInscripcionListener implements ClickListener {
+	private class CerrarApuestasListener implements ClickListener {
 		CarreraDTO carrera;
 		
-		public CerrarInscripcionListener(CarreraDTO carrera) {
+		public CerrarApuestasListener(CarreraDTO carrera) {
 			this.carrera = carrera;
 		}
 		
 		public void onClick(Widget sender) {
-			ctrlInscripcion.doCerrarInscripcion(carrera);
+			ctrlInscripcion.doCerrarApuestas(carrera);
 		}
 	}
 

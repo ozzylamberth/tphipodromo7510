@@ -52,6 +52,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String apuestaLiquidadaExitosamente();
 
   /**
+   * Translated "Apuestas cerradas para la carrera {0}".
+   * 
+   * @return translated "Apuestas cerradas para la carrera {0}"
+   */
+  @DefaultMessage("Apuestas cerradas para la carrera {0}")
+  @Key("apuestasCerradas")
+  String apuestasCerradas(String arg0);
+
+  /**
    * Translated "Borrar".
    * 
    * @return translated "Borrar"
@@ -167,6 +176,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Cerrar")
   @Key("cerrar")
   String cerrar();
+
+  /**
+   * Translated "Cerrar apuestas".
+   * 
+   * @return translated "Cerrar apuestas"
+   */
+  @DefaultMessage("Cerrar apuestas")
+  @Key("cerrarApuestas")
+  String cerrarApuestas();
 
   /**
    * Translated "Cerrar inscripción".
@@ -338,6 +356,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("0")
   @Key("idNulo")
   String idNulo();
+
+  /**
+   * Translated "Inscripciones cerradas para la carrera {0}".
+   * 
+   * @return translated "Inscripciones cerradas para la carrera {0}"
+   */
+  @DefaultMessage("Inscripciones cerradas para la carrera {0}")
+  @Key("inscripcionesCerradas")
+  String inscripcionesCerradas(String arg0);
 
   /**
    * Translated "Insertar".

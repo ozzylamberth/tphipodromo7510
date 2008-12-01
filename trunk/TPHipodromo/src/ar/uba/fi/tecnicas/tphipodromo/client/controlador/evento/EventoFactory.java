@@ -287,6 +287,23 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getCarrerasApostablesActualizadas() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCarrerasApostablesActualizadas(
+						(Collection<CarreraDTO>) args[0]); 
+			}
+		};
+	}
+	
+	public static Evento getMostrarCerrarApuestas() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarCerrarApuestas(); 
+			}
+		};
+	}
+	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
 		return new Evento() {

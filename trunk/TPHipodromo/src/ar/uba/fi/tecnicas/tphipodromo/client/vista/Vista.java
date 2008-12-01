@@ -109,4 +109,9 @@ public abstract class Vista {
 	public void onCarrerasEnInscripcionActualizadas(Collection<CarreraDTO> lista) {}
 	
 	public void onMostrarCerrarInscripcion() {}
+	
+	public void onCarrerasApostablesActualizadas(Collection<CarreraDTO> lista) {}
+	
+	public void onMostrarCerrarApuestas() {}
+	
 }
