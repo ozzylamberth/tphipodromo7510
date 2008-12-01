@@ -17,7 +17,7 @@ public class PanelPie extends SimplePanel {
 		this.setSize("100%", "5%");
 		this.
 		//labelMensaje = new Label("@2008 - Realizado por el Grupo 7");
-		labelMensaje = new Label("@2008 - Realizado por el Grupo 7");
+		labelMensaje = new Label();
 		this.add(labelMensaje);
 	}
 
