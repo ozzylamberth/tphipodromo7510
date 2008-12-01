@@ -112,6 +112,7 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		carrerasMostradas.clear();
 		listaCarreras.clear();
 		
+		listaCarreras.addItem("");
 		Iterator<CarreraDTO> it = lista.iterator();
 		while (it.hasNext()) {
 			CarreraDTO carreraDTO = (CarreraDTO) it.next();
