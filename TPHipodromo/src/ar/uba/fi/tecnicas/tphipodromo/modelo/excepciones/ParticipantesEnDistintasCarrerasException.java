@@ -4,4 +4,7 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 @SuppressWarnings("serial")
 public class ParticipantesEnDistintasCarrerasException extends ApuestaException {
 
+	public ParticipantesEnDistintasCarrerasException() {
+		super("Participantes en distintas carreras");
+	}
 }

@@ -10,4 +10,8 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class TipoApuestaInvalidoException extends ApuestaException {
 	private static final long serialVersionUID = -6205635509178866861L;
 
+	public TipoApuestaInvalidoException() {
+		super("Tipo de apuesta invalido");
+	}
+	
 }

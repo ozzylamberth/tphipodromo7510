@@ -15,6 +15,7 @@ public class TransicionInvalidaEstadoParticipanteException extends
 	private EstadoParticipante estadoPretendido = null;
 
 	public TransicionInvalidaEstadoParticipanteException() {
+		super("");
 	}
 
 	/**
@@ -24,6 +25,8 @@ public class TransicionInvalidaEstadoParticipanteException extends
 	public TransicionInvalidaEstadoParticipanteException(
 			EstadoParticipante estadoOriginal,
 			EstadoParticipante estadoPretendido) {
+		
+		super("");
 		this.estadoOriginal = estadoOriginal;
 		this.estadoPretendido = estadoPretendido;
 	}

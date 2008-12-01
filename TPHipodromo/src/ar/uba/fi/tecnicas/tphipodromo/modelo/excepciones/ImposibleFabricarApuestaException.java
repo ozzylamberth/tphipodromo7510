@@ -4,10 +4,11 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class ImposibleFabricarApuestaException extends ApuestaException {
 	
 	public ImposibleFabricarApuestaException() {
-		
+		super("");
 	}
 	
 	public ImposibleFabricarApuestaException(Throwable cause) {
+		super("");
 		this.initCause(cause);
 	}
 

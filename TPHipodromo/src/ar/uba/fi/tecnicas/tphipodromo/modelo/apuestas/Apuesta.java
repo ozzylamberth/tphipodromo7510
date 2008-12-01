@@ -267,6 +267,8 @@ public abstract class Apuesta implements Identificable {
 			this.validarCarrerasFinalizadas();
 		} catch (HipodromoException ex) {
 			composedException.add(ex);
+			// no tiene sentido validar las demas cosas
+			throw composedException;
 		}
 		try {
 			this.validarApuestaGanada();

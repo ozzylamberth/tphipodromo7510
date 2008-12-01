@@ -8,5 +8,8 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
  */
 public class ConfiguracionInvalidaException extends HipodromoException {
 	private static final long serialVersionUID = -4750406281711814248L;
-
+	
+	public ConfiguracionInvalidaException() {
+		super("");
+	}
 }

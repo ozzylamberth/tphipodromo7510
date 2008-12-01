@@ -12,4 +12,8 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
  */
 public class ParticipanteNoCalificadoException extends CarreraException {
 	private static final long serialVersionUID = -8653423990281199299L;
+	
+	public ParticipanteNoCalificadoException() {
+		super("Participante no calificado");
+	}
 }
