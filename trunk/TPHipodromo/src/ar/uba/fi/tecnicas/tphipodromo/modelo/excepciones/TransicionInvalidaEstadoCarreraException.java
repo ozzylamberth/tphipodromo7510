@@ -9,4 +9,7 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class TransicionInvalidaEstadoCarreraException extends CarreraException {
 	private static final long serialVersionUID = -5882960841475900896L;
 
+	public TransicionInvalidaEstadoCarreraException() {
+		super("Transicion invalida de estado de carrera");
+	}
 }

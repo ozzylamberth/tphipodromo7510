@@ -9,5 +9,9 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class TransicionInvalidaEstadoApuestaException extends ApuestaException {
 
 	private static final long serialVersionUID = 7334088373021352341L;
-
+	
+	public TransicionInvalidaEstadoApuestaException() {
+		super("Transicion invalida de estado de apuesta");
+	}
+	
 }

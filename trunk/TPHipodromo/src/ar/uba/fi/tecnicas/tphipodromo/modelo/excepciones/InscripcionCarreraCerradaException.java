@@ -13,4 +13,7 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class InscripcionCarreraCerradaException extends HipodromoException {
 	private static final long serialVersionUID = 1160250031825759800L;
 
+	public InscripcionCarreraCerradaException() {
+		super("Incripcion a carrera cerrada");
+	}
 }

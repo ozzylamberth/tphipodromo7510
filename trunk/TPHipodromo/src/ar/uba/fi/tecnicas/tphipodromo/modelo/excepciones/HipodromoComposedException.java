@@ -8,6 +8,10 @@ public class HipodromoComposedException extends HipodromoException {
 
 	private static final long serialVersionUID = 5894673280365057096L;
 	List<HipodromoException> excepciones = new LinkedList<HipodromoException>();
+	
+	public HipodromoComposedException() {
+		super("");
+	}
 
 	public void add(HipodromoException e) {
 		excepciones.add(e);
@@ -33,6 +37,17 @@ public class HipodromoComposedException extends HipodromoException {
 
 	public boolean hasExceptions() {
 		return !excepciones.isEmpty();
+	}
+	
+	@Override
+	public String getMessage() {
+		String msg = "";
+		Iterator<HipodromoException> it = this.excepciones.iterator();
+		while (it.hasNext()) {
+			HipodromoException hipodromoException = (HipodromoException) it.next();
+			msg += hipodromoException.getMessage() + "\n";
+		}
+		return msg;
 	}
 
 }

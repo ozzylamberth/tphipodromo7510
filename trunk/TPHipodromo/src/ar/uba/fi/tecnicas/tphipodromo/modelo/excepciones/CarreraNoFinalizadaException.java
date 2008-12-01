@@ -5,7 +5,7 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 public class CarreraNoFinalizadaException extends CarreraException {
 
 	public CarreraNoFinalizadaException(){
-
+		super("La carrera no finalizo");
 	}
 
 	public void finalize() throws Throwable {

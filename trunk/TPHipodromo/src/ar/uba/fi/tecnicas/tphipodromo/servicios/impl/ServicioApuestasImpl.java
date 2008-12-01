@@ -135,7 +135,7 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 		} catch (ObjetoInexistenteException e) {
 			throw new EntidadInexistenteException();
 		} catch (HipodromoException e) {
-			throw new ErrorHipodromoException();
+			throw new ErrorHipodromoException(e.getMessage());
 		}
 	}
 

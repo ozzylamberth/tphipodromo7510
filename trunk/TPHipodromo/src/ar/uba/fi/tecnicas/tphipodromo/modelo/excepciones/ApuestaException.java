@@ -8,5 +8,8 @@ package ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones;
 //Suppress warnings about missing serialVersionUID
 @SuppressWarnings("serial")
 public abstract class ApuestaException extends HipodromoException {
-
+	
+	public ApuestaException(String msg) {
+		super(msg);
+	}
 }
