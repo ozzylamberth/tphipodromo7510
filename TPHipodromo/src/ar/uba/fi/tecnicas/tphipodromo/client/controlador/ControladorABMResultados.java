@@ -19,18 +19,6 @@ public class ControladorABMResultados extends Controlador {
 	
 	private ServicioParticipantesAsync servicioParticipantes = GWT.create(ServicioParticipantes.class);
 	
-	public void doActualizarListadoCarrera() {
-		servicioCarreras.buscarTodos(new AsyncCallback<Collection<CarreraDTO>>() {
-			public void onFailure(Throwable caught) {
-				notifyObservers(EventoFactory.getErrorRPC(), caught);
-			}
-			
-			public void onSuccess(Collection<CarreraDTO> result) {
-				notifyObservers(EventoFactory.getListaCarreraActualizada(), result);
-			}
-		});
-	}
-	
 	public void doMostrarParticipantes(final CarreraDTO carrera) {
 		servicioParticipantes.buscarPorCarrera(carrera, new AsyncCallback<Collection<ParticipanteDTO>>() {
 			public void onFailure(Throwable caught) {
@@ -75,6 +63,19 @@ public class ControladorABMResultados extends Controlador {
 
 			public void onSuccess(Void result) {
 				notifyObservers(EventoFactory.getAsignarParticipantes(), carrera, participantes);
+			}
+		});
+	}
+	
+	
+	public void doBuscarCarrerasEnCurso() {
+		servicioCarreras.buscarCarrerasEnCurso(new AsyncCallback<Collection<CarreraDTO>>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+
+			public void onSuccess(Collection<CarreraDTO> result) {
+				notifyObservers(EventoFactory.getBuscarCarrerasEnCurso(), result);	
 			}
 		});
 	}

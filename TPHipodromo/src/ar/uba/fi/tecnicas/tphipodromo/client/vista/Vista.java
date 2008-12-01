@@ -114,4 +114,6 @@ public abstract class Vista {
 	
 	public void onMostrarCerrarApuestas() {}
 	
+	public void onBuscarCarrerasEnCurso(Collection<CarreraDTO> lista) {}
+	
 }

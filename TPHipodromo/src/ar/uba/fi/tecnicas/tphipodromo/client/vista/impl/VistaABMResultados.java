@@ -30,13 +30,11 @@ public class VistaABMResultados extends VistaDefaultGWT {
 	
 	private Collection<ParticipanteDTO> participantes = new ArrayList<ParticipanteDTO>();
 
-	private ListBox listaCarreras, listaEstadosValidos;
+	private ListBox listaCarreras;
 	
 	private Map<Long, ListBox> resultadosMostrados;
 	
-	private Button ver, editar;
-	
-	private Label labelEstadoActual;
+	private Button ver;
 	
 	private ControladorABMResultados ctrlABMResultados;
 
@@ -47,10 +45,8 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		
 		this.ctrlABMResultados = ctrlABMResultados;
 		
-		listaCarreras = new ListBox();
-		listaEstadosValidos = new ListBox();
+		listaCarreras = new ListBox();	
 		carrerasMostradas = new HashMap<Long, CarreraDTO>();
-		labelEstadoActual = new Label();
 		
 		resultadosMostrados = new HashMap<Long, ListBox>();
 		
@@ -79,30 +75,11 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		ver = new Button(mensajes.ver());
 		ver.addClickListener(new VerResultadosCarreraListener());
 		
-		editar = new Button(mensajes.modificar());
-		editar.addClickListener(new CambiarEstadosCarreraListener());
-		
 		VerticalPanel panel = new VerticalPanel();
 		HorizontalPanel panelHorizontal = new HorizontalPanel();
 		panelHorizontal.add(new Label(mensajes.carrera() + "   "));
 		panelHorizontal.add(listaCarreras);
 		panelHorizontal.add(ver);
-		panel.add(panelHorizontal);
-		
-		panelHorizontal = new HorizontalPanel();
-		panelHorizontal.add(new Label(mensajes.estado() + ":   "));
-		//panelHorizontal.setSpacing(10);
-		panelHorizontal.add(labelEstadoActual);
-		panel.add(panelHorizontal);
-
-		panelHorizontal = new HorizontalPanel();
-		panelHorizontal.add(new Label("Siguientes estados validos" + ":   "));
-		panelHorizontal.add(listaEstadosValidos);
-		panelHorizontal.add(editar);
-		panel.add(panelHorizontal);
-		
-		panelHorizontal = new HorizontalPanel();
-		panelHorizontal.add(new Label(mensajes.participantes()));
 		panel.add(panelHorizontal);
 		
 		panel.add(listado.toWidget());
@@ -122,20 +99,14 @@ public class VistaABMResultados extends VistaDefaultGWT {
 	@Override
 	public void onMostrarABMResultados() {
 	
-		limpiar();
-		ctrlABMResultados.doActualizarListadoCarrera();
+		listado.limpiar();
+		//ctrlABMResultados.doActualizarListadoCarrera();
+		ctrlABMResultados.doBuscarCarrerasEnCurso();
 		super.onMostrarABMResultados();
 		this.mostrar();
 	}
 	
-	private void limpiar() {
-	
-		listado.limpiar();
-		labelEstadoActual.setText("");
-		listaEstadosValidos.clear();
-	}
-	
-	public void onListaCarreraActualizada(Collection<CarreraDTO> lista) {
+	public void onBuscarCarrerasEnCurso(Collection<CarreraDTO> lista) {
 
 		super.onListaCarreraActualizada(lista);
 		
@@ -151,28 +122,13 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		}
 
 	}
-	
+		
 	private class VerResultadosCarreraListener implements ClickListener {
 		public void onClick(Widget sender) {
-			verSeleccion();
-		}
-	}
-	
-	private void verSeleccion() {
-	
-		CarreraDTO carreraDTO = carrerasMostradas.get(new Long(listaCarreras.getValue(listaCarreras.getSelectedIndex())));
-		
-		ctrlABMResultados.doObtenerSiguientesEstadosValidos(carreraDTO);
-		ctrlABMResultados.doMostrarParticipantes(carreraDTO);
-		
-		labelEstadoActual.setText(carreraDTO.getEstado());
-	}
-	
-	public void onGetSiguientesEstadosValidos(Collection<String> lista) {
-		
-		listaEstadosValidos.clear();
-		for (String estadoValido: lista) {
-			listaEstadosValidos.addItem(estadoValido);
+			
+			CarreraDTO carreraDTO = carrerasMostradas.get(new Long(listaCarreras.getValue(listaCarreras.getSelectedIndex())));
+			
+			ctrlABMResultados.doMostrarParticipantes(carreraDTO);
 		}
 	}
 	
@@ -203,34 +159,6 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		}
 				
 		listado.update(participantes);
-	}
-	
-	private class CambiarEstadosCarreraListener implements ClickListener {
-		public void onClick(Widget sender) {
-			
-			CarreraDTO carreraDTO = carrerasMostradas.get(new Long(listaCarreras.getValue(listaCarreras.getSelectedIndex())));
-			String estadoValido = listaEstadosValidos.getValue(listaEstadosValidos.getSelectedIndex());
-			
-			ctrlABMResultados.doCambiarEstadoCarrera(carreraDTO, estadoValido);
-		}
-	}
-	
-	
-	public void onCambiarEstadoCarrera(CarreraDTO carrera, String estado) {
-	
-		ctrlABMResultados.doActualizarListadoCarrera();
-		
-		int index = 0;
-		for (CarreraDTO carr: carrerasMostradas.values()) {
-			if (carr.getId().equals(carrera.getId()))
-			{
-				listaCarreras.setSelectedIndex(index);
-				break;
-			}
-			index++;
-		}
-		
-		verSeleccion();
 	}
 	
 	private class GuardarResultadosListener implements ClickListener {
