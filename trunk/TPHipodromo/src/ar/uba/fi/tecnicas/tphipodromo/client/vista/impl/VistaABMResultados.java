@@ -185,12 +185,19 @@ public class VistaABMResultados extends VistaDefaultGWT {
 		Iterator<ParticipanteDTO> it = listaParticipantes.iterator();
 		while (it.hasNext())
 		{
-			ListBox resultados = new ListBox();
-			for (int i = 1; i <= listaParticipantes.size(); i++)
-				resultados.addItem(String.valueOf(i));
-			
 			ParticipanteDTO participanteDTO = (ParticipanteDTO)it.next();
 			participantes.add(participanteDTO);
+			
+			ListBox resultados = new ListBox();
+			
+			if (participanteDTO.getResultadoDTO() != null) {
+				resultados.addItem(String.valueOf(participanteDTO.getResultadoDTO().getOrdenLlegada()));
+				resultados.setEnabled(false);
+			}
+			else {
+				for (int i = 1; i <= listaParticipantes.size(); i++)
+					resultados.addItem(String.valueOf(i));
+			}
 			
 			resultadosMostrados.put(participanteDTO.getId(), resultados);
 		}
@@ -231,7 +238,6 @@ public class VistaABMResultados extends VistaDefaultGWT {
 			
 			CarreraDTO carreraDTO = carrerasMostradas.get(new Long(listaCarreras.getValue(listaCarreras.getSelectedIndex())));
 			
-			Collection<ParticipanteDTO> listaParticipantes = new ArrayList<ParticipanteDTO>();
 			for (ParticipanteDTO part : participantes) {
 			
 				ListBox listResultado = resultadosMostrados.get(part.getId());
@@ -239,24 +245,13 @@ public class VistaABMResultados extends VistaDefaultGWT {
 				
 				Integer ordenLlegada = new Integer(listResultado.getValue(listResultado.getSelectedIndex())).intValue();
 				resultadoDTO.setOrdenLlegada(ordenLlegada.intValue());
-				
-				//System.out.println(resultadoDTO.getOrdenLlegada());
+
 				part.setResultadoDTO(resultadoDTO);
-				listaParticipantes.add(part);
 			}
-			
-			participantes.clear();
-			participantes.addAll(listaParticipantes);
 			
 			ctrlABMResultados.doCargarResultados(carreraDTO, participantes);
 		}
 	}
-	
-	/*
-	public void onAsignarParticipantes(CarreraDTO carreraDTO, Collection<ParticipanteDTO> lista) {
-	
-	}
-	*/
 	
 }
 
