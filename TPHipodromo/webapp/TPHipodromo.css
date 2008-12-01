@@ -7,7 +7,7 @@
 
 .titulo {
 	font-size: large;
-	font: 130% georgia, sans-serif;
+	font-family: sans-serif;
 	font-style: bold;
 }
 
@@ -49,6 +49,8 @@ td.listado-cuerpo {
 	border: none;
 	font-size: small;
 	cursor: hand;
+	color: red;
+	font-decoration: underline;
 }
 
 .gwt-DecoratorPanel .middleCenter {
