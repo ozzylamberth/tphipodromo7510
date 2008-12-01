@@ -10,7 +10,7 @@
 		<property name="nroParticipante" type="integer"  />
 		<property name="eestado" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoParticipante" not-null="true"/>
 		
-		<one-to-one name="rresultado" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado" cascade="save-update" />
+		<many-to-one name="rresultado" column="resultadoId" unique="true" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Resultado" cascade="save-update" />
 		<many-to-one name="caballo" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo" column="caballoId" cascade="save-update" />
 		<many-to-one name="jockey" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey" column="jockeyId" cascade="save-update" />
 		<many-to-one name="carrera" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera" column="carreraId" cascade="save-update" />		
