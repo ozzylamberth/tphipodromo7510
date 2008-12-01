@@ -270,6 +270,23 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getCarrerasEnInscripcionActualizadas() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onCarrerasEnInscripcionActualizadas(
+						(Collection<CarreraDTO>) args[0]); 
+			}
+		};
+	}
+	
+	public static Evento getMostrarCerrarInscripcion() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onMostrarCerrarInscripcion(); 
+			}
+		};
+	}
+	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
 		return new Evento() {

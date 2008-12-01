@@ -77,4 +77,11 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 		Collection<Carrera> listaCarreras = q.list();
 		return listaCarreras;
 	}
+	
+	@Override
+	public Collection<Carrera> buscarCarrerasEnInscripcion() {
+		Query q = getSession().createQuery("from Carrera c where c.estadoCarrera = :e");
+		q.setString("e", EstadoCarrera.INSCRIPCION_PARTICIPANTES.name());
+		return q.list();
+	}
 }

@@ -106,4 +106,7 @@ public abstract class Vista {
 
 	public void onApuestaLiquidada(Double monto) {}
 
+	public void onCarrerasEnInscripcionActualizadas(Collection<CarreraDTO> lista) {}
+	
+	public void onMostrarCerrarInscripcion() {}
 }

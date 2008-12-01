@@ -234,5 +234,20 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 		}
 		return false;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<CaballoDTO> buscarCarrerasEnInscripcion() {
+		return CollectionUtils.collect(
+				carreraDao.buscarCarrerasEnInscripcion(), 
+				new CarreraTransformerToDTO());
+	}
 
+	public void cerrarInscripcion(CarreraDTO carreraDTO) throws ErrorHipodromoException {
+		Carrera carrera = (Carrera)getTransformerFromDTO().transform(carreraDTO);
+		try {
+			carrera.abrirApuestas();
+		} catch(HipodromoException e) {
+			throw new ErrorHipodromoException(e.getMessage());
+		}
+	}
 }

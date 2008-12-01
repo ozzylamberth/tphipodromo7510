@@ -49,4 +49,7 @@ public interface ServicioCarreras extends RemoteService{
 	
 	public void cargarResultados(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participantesDTO) throws EntidadInexistenteException, ErrorHipodromoException;
 	
+	public void cerrarInscripcion(CarreraDTO carrera) throws ErrorHipodromoException;
+
+	public Collection<CaballoDTO> buscarCarrerasEnInscripcion();
 }
