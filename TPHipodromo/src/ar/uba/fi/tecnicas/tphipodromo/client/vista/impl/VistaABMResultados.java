@@ -100,10 +100,9 @@ public class VistaABMResultados extends VistaDefaultGWT {
 	public void onMostrarABMResultados() {
 	
 		listado.limpiar();
-		//ctrlABMResultados.doActualizarListadoCarrera();
 		ctrlABMResultados.doBuscarCarrerasEnCurso();
-		super.onMostrarABMResultados();
 		this.mostrar();
+		super.onMostrarABMResultados();
 	}
 	
 	public void onBuscarCarrerasEnCurso(Collection<CarreraDTO> lista) {
@@ -120,7 +119,6 @@ public class VistaABMResultados extends VistaDefaultGWT {
 			listaCarreras.addItem(carreraDTO.getNombre(), carreraDTO.getId().toString());
 			carrerasMostradas.put(carreraDTO.getId(), carreraDTO);
 		}
-
 	}
 		
 	private class VerResultadosCarreraListener implements ClickListener {
@@ -178,6 +176,7 @@ public class VistaABMResultados extends VistaDefaultGWT {
 			}
 			
 			ctrlABMResultados.doCargarResultados(carreraDTO, participantes);
+			listado.limpiar();
 		}
 	}
 	
