@@ -103,7 +103,6 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 	public void cargarResultados(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participantesDTO) throws EntidadInexistenteException, ErrorHipodromoException {
 		try {
 			Carrera carrera = this.carreraDao.buscarPorId(carreraDTO.getId());
-			carrera.comenzar();
 			Collection<Participante> participantes = this.asignarResultadosParticipante(participantesDTO);
 			carrera.terminar();
 			this.finalizarParticipantes(participantes);
