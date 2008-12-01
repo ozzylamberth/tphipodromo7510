@@ -37,23 +37,22 @@ public class VistaMenuGWT extends VistaGWT {
 		verticalPanel.setSpacing(3);
 		verticalPanel.add(crearLinkApostar());
 		verticalPanel.add(crearLinkCobrar());
-	    panelMenu.add(verticalPanel, "Apuestas");
+	    panelMenu.add(verticalPanel, mensajes.apuestas());
 	    
 	    VerticalPanel verticalPanelAdmin = new VerticalPanel();
 	    verticalPanelAdmin.setSpacing(3);
 	    verticalPanelAdmin.add(crearLinkCaballosABM());
 	    verticalPanelAdmin.add(crearLinkJockeyABM());
 	    verticalPanelAdmin.add(crearLinkCarrerasABM());
-	    verticalPanelAdmin.add(crearLinkResultadosABM());
 	    verticalPanelAdmin.add(crearLinkCerrarInscripcion());
 	    verticalPanelAdmin.add(crearLinkCerrarApuestas());
-	    verticalPanelAdmin.add(new Label("Administrar Apuestas"));
-	    panelMenu.add(verticalPanelAdmin, "Administracion");
+	    verticalPanelAdmin.add(crearLinkResultadosABM());
+	    panelMenu.add(verticalPanelAdmin, mensajes.administracion());
 		
 	}
 	
 	private Hyperlink crearLinkJockeyABM() {
-		Hyperlink link = new Hyperlink("Administrar Jockeys", "jockey");
+		Hyperlink link = new Hyperlink(mensajes.administrarJockeys(), "jockey");
 		link.addClickListener(new AJockeysABMListener(controlador));
 		return link;
 	}
@@ -63,43 +62,43 @@ public class VistaMenuGWT extends VistaGWT {
 	}
 	
 	private Hyperlink crearLinkCobrar() {
-		Hyperlink link = new Hyperlink("Cobrar Apuesta", "cobrar");
+		Hyperlink link = new Hyperlink(mensajes.liquidar(), "cobrar");
 		link.addClickListener(new ACobrarApuestasListener(controlador));
 		return link;
 	}
 
 	private Hyperlink crearLinkApostar() {
-		Hyperlink link = new Hyperlink("Apostar", "apostar");
+		Hyperlink link = new Hyperlink(mensajes.apostar(), "apostar");
 		link.addClickListener(new ANuevaApuestaListener(controlador));
 		return link;
 	}
 	
 	private Hyperlink crearLinkCaballosABM() {
-		Hyperlink link = new Hyperlink("Administrar Caballos", "caballos");
+		Hyperlink link = new Hyperlink(mensajes.administrarCaballos(), "caballos");
 		link.addClickListener(new ACaballosABMListener(controlador));
 		return link;
 	}
 	
 	private Hyperlink crearLinkCarrerasABM() {
-		Hyperlink link = new Hyperlink("Administrar Carreras", "carreras");
+		Hyperlink link = new Hyperlink(mensajes.administrarCarreras(), "carreras");
 		link.addClickListener(new ACarrerasABMListener(controlador));
 		return link;
 	}
 	
 	private Hyperlink crearLinkResultadosABM() {
-		Hyperlink link = new Hyperlink("Administrar Resultados", "resultados");
+		Hyperlink link = new Hyperlink(mensajes.cargarResultados(), "resultados");
 		link.addClickListener(new AResultadosABMListener(controlador));
 		return link;
 	}
 	
 	private Hyperlink crearLinkCerrarInscripcion() {
-		Hyperlink link = new Hyperlink("Cerrar inscripcion", "cerrarInscripcion");
+		Hyperlink link = new Hyperlink(mensajes.cerrarInscripcion(), "cerrarInscripcion");
 		link.addClickListener(new ACerrarInscripcionListener(controlador));
 		return link;
 	}
 	
 	private Hyperlink crearLinkCerrarApuestas() {
-		Hyperlink link = new Hyperlink("Cerrar apuestas", "cerrarApuestas");
+		Hyperlink link = new Hyperlink(mensajes.cerrarApuestas(), "cerrarApuestas");
 		link.addClickListener(new ACerrarApuestasListener(controlador));
 		return link;
 	}

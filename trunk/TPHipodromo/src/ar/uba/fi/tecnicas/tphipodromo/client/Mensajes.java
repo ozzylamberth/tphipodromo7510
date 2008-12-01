@@ -7,6 +7,42 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
   /**
+   * Translated "Administración".
+   * 
+   * @return translated "Administración"
+   */
+  @DefaultMessage("Administración")
+  @Key("administracion")
+  String administracion();
+
+  /**
+   * Translated "Caballos".
+   * 
+   * @return translated "Caballos"
+   */
+  @DefaultMessage("Caballos")
+  @Key("administrarCaballos")
+  String administrarCaballos();
+
+  /**
+   * Translated "Carreras".
+   * 
+   * @return translated "Carreras"
+   */
+  @DefaultMessage("Carreras")
+  @Key("administrarCarreras")
+  String administrarCarreras();
+
+  /**
+   * Translated "Jockeys".
+   * 
+   * @return translated "Jockeys"
+   */
+  @DefaultMessage("Jockeys")
+  @Key("administrarJockeys")
+  String administrarJockeys();
+
+  /**
    * Translated "Agregar".
    * 
    * @return translated "Agregar"
@@ -50,6 +86,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Apuesta Liquidada Correctamente")
   @Key("apuestaLiquidadaExitosamente")
   String apuestaLiquidadaExitosamente();
+
+  /**
+   * Translated "Apuestas".
+   * 
+   * @return translated "Apuestas"
+   */
+  @DefaultMessage("Apuestas")
+  @Key("apuestas")
+  String apuestas();
 
   /**
    * Translated "Apuestas cerradas para la carrera {0}".
@@ -131,6 +176,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Cargando...")
   @Key("cargando")
   String cargando();
+
+  /**
+   * Translated "Cargar resultados".
+   * 
+   * @return translated "Cargar resultados"
+   */
+  @DefaultMessage("Cargar resultados")
+  @Key("cargarResultados")
+  String cargarResultados();
 
   /**
    * Translated "Carrera".
