@@ -71,7 +71,8 @@ public class ControladorABMApuestas extends Controlador {
 	}
 	
 	public void doBuscarCarrerasPorFecha(Date fecha) {
-		servicioCarreras.buscarPorFecha(fecha, new AsyncCallback<Collection<CarreraDTO>>() {
+		servicioCarreras.buscarCarrerasApostablesPorFecha(fecha, 
+			new AsyncCallback<Collection<CarreraDTO>>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			};
