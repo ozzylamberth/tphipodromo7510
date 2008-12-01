@@ -140,4 +140,10 @@ public class CarreraDaoMockImpl extends DAOGenericoMockImpl<Carrera> implements 
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Collection<Carrera> buscarCarrerasEnCurso() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

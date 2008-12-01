@@ -266,4 +266,11 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 			throw new ErrorHipodromoException(e.getMessage());
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<CaballoDTO> buscarCarrerasEnCurso() {
+		return CollectionUtils.collect(
+				carreraDao.buscarCarrerasEnCurso(), 
+				new CarreraTransformerToDTO());
+	}
 }

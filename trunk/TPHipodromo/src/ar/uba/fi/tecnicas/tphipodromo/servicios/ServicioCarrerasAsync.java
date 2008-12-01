@@ -40,7 +40,9 @@ public interface ServicioCarrerasAsync {
 	
 	public void buscarCarrerasEnInscripcion(AsyncCallback<Collection<CarreraDTO>> callback);
 	
-public void cerrarApuestas(CarreraDTO carrera, AsyncCallback<Void> callback);
+	public void cerrarApuestas(CarreraDTO carrera, AsyncCallback<Void> callback);
 	
 	public void buscarCarrerasApostables(AsyncCallback<Collection<CarreraDTO>> callback);
+	
+	public void buscarCarrerasEnCurso(AsyncCallback<Collection<CarreraDTO>> callback);
 }
