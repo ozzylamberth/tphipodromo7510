@@ -146,7 +146,7 @@ public class VistaNuevaApuestaGWT extends VistaDefaultGWT implements ClickListen
 			
 			for(ParticipanteDTO participante: mapa.get(carrera)) {
 				listBox.addItem(participante.getCaballoDTO().getNombre()
-						+ " - " + participante.getJockeyDTO().getNombre(),
+						+ " - " + participante.getJockeyDTO().getApellido(),
 						participante.getId().toString());
 			}
 			participantes.add(listBox);
