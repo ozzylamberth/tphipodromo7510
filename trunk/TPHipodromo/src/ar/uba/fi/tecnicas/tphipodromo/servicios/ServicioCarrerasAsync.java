@@ -34,4 +34,6 @@ public interface ServicioCarrerasAsync {
 	
 	public void buscarCaballosFueraDeCarrera(CarreraDTO carreraDTO, AsyncCallback<Collection<CaballoDTO>> callback);
 	
+	public void cargarResultados(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participantesDTO, AsyncCallback<Void> callback);
+	
 }

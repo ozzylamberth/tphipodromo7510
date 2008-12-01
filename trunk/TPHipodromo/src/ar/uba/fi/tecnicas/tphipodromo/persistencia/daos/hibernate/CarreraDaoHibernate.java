@@ -70,7 +70,7 @@ public class CarreraDaoHibernate extends HibernateDaoGenerico<Carrera> implement
 		cal.add(Calendar.DATE, 1);
 		fecha1 = cal.getTime();
 		
-		Query q = getSession().createQuery("from Carrera c where c.fechaYHora > :p and c.fechaYHora< :q and c.estadoCarrera = :e");
+		Query q = getSession().createQuery("from Carrera c where c.fechaYHora >= :p and c.fechaYHora< :q and c.estadoCarrera = :e");
 		q.setDate("p",  fecha);
 		q.setDate("q",  fecha1);
 		q.setString("e", EstadoCarrera.ABIERTA_A_APUESTAS.name());
