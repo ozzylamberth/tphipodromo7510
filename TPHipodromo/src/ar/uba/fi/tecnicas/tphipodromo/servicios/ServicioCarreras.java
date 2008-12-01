@@ -56,4 +56,6 @@ public interface ServicioCarreras extends RemoteService{
 	public void cerrarApuestas(CarreraDTO carrera) throws ErrorHipodromoException;
 
 	public Collection<CaballoDTO> buscarCarrerasApostables();
+	
+	public Collection<CaballoDTO> buscarCarrerasEnCurso();
 }
