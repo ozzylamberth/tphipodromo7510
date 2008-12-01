@@ -39,6 +39,7 @@ public class ControladorABMResultados extends Controlador {
 
 			public void onSuccess(Void result) {
 				notifyObservers(EventoFactory.getAsignarParticipantes(), carrera, participantes);
+				doBuscarCarrerasEnCurso();
 			}
 		});
 	}
@@ -52,7 +53,6 @@ public class ControladorABMResultados extends Controlador {
 
 			public void onSuccess(Collection<CarreraDTO> result) {
 				notifyObservers(EventoFactory.getBuscarCarrerasEnCurso(), result);
-				doBuscarCarrerasEnCurso();
 			}
 		});
 	}
