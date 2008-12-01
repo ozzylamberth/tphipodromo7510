@@ -22,7 +22,7 @@ public class ResultadoTransformerFromDTO implements Transformer {
 		Resultado resultado = this.getResultado(resultadoDTO);
 		resultado.setOrdenLlegada(resultadoDTO.getOrdenLlegada());
 		resultado.setTiempo(resultadoDTO.getTiempo());
-		return resultadoDTO;
+		return resultado;
 	}
 	
 	private Resultado getResultado(ResultadoDTO resultadoDTO) {
