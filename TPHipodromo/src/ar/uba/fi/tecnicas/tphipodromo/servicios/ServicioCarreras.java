@@ -47,4 +47,6 @@ public interface ServicioCarreras extends RemoteService{
 	
 	public Collection<CaballoDTO> buscarCaballosFueraDeCarrera(CarreraDTO carreraDTO);
 	
+	public void cargarResultados(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participantesDTO) throws EntidadInexistenteException, ErrorHipodromoException;
+	
 }

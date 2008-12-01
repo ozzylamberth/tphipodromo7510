@@ -248,7 +248,7 @@ public class VistaABMResultados extends VistaDefaultGWT {
 			participantes.clear();
 			participantes.addAll(listaParticipantes);
 			
-			ctrlABMResultados.doAsignarParticipantes(carreraDTO, participantes);
+			ctrlABMResultados.doCargarResultados(carreraDTO, participantes);
 		}
 	}
 	

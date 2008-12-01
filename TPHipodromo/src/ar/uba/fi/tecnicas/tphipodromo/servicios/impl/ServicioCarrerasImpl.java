@@ -18,6 +18,7 @@ import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.JockeyDao;
+import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.ParticipanteDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.excepciones.ObjetoInexistenteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.HibernateDaoFactory;
 import ar.uba.fi.tecnicas.tphipodromo.servicios.ServicioCarreras;
@@ -39,6 +40,7 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 	private CarreraDao carreraDao;
 	private CaballoDao caballoDao;
 	private JockeyDao jockeyDao;
+	private ParticipanteDao participanteDao;
 	private CarreraTransformerFromDTO carreraTransformerFromDTO = new CarreraTransformerFromDTO();
 	private CarreraTransformerToDTO carreraTransformerToDTO = new CarreraTransformerToDTO();
 	
@@ -46,6 +48,7 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 		this.carreraDao = HibernateDaoFactory.getInstance().getCarreraDAO();
 		this.caballoDao = HibernateDaoFactory.getInstance().getCaballoDAO();
 		this.jockeyDao = HibernateDaoFactory.getInstance().getJockeyDAO();
+		this.participanteDao = HibernateDaoFactory.getInstance().getParticipanteDAO();
 	}
 
 	public DAOGenerico<Carrera> getDao() {
@@ -92,6 +95,31 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 			throw new ErrorHipodromoException();
 		} catch (ObjetoInexistenteException e) {
 			throw new EntidadInexistenteException();
+		}
+	}
+	
+	public void cargarResultados(CarreraDTO carreraDTO, Collection<ParticipanteDTO> participantesDTO) throws EntidadInexistenteException, ErrorHipodromoException {
+		try {
+			Carrera carrera = this.carreraDao.buscarPorId(carreraDTO.getId());
+			carrera.comenzar();
+			this.asignarResultadosParticipante(participantesDTO);
+			carrera.terminar();
+			carrera.aprobarResultados();
+			this.carreraDao.guardar(carrera);
+		} catch (ObjetoInexistenteException e) {
+			throw new EntidadInexistenteException();
+		} catch (HipodromoException e) {
+			throw new ErrorHipodromoException(e.getMessage());
+		}
+	}
+	
+	private void asignarResultadosParticipante(Collection<ParticipanteDTO> participantesDTO) {
+		Iterator<ParticipanteDTO> it = participantesDTO.iterator();
+		while (it.hasNext()) {
+			ParticipanteDTO participanteDTO = (ParticipanteDTO) it.next();
+			// el transform ya le asigna el resultado
+			Participante participante = (Participante) new ParticipanteTransformerFromDTO().transform(participanteDTO);
+			this.participanteDao.guardar(participante);
 		}
 	}
 	

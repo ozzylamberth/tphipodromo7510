@@ -67,8 +67,8 @@ public class ControladorABMResultados extends Controlador {
 		});
 	}
 	
-	public void doAsignarParticipantes(final CarreraDTO carrera, final Collection<ParticipanteDTO> participantes) {
-		servicioCarreras.asignarParticipantes(carrera, participantes, new AsyncCallback<Void>() {
+	public void doCargarResultados(final CarreraDTO carrera, final Collection<ParticipanteDTO> participantes) {
+		servicioCarreras.cargarResultados(carrera, participantes, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
