@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	D:/Tomas/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -86,6 +86,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Apuesta Liquidada Correctamente")
   @Key("apuestaLiquidadaExitosamente")
   String apuestaLiquidadaExitosamente();
+
+  /**
+   * Translated "La apuesta fue pagada".
+   * 
+   * @return translated "La apuesta fue pagada"
+   */
+  @DefaultMessage("La apuesta fue pagada")
+  @Key("apuestaPagadaExitosamente")
+  String apuestaPagadaExitosamente();
 
   /**
    * Translated "Apuestas".
@@ -295,6 +304,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String dia();
 
   /**
+   * Translated "D�as para Cobrar".
+   * 
+   * @return translated "D�as para Cobrar"
+   */
+  @DefaultMessage("D�as para Cobrar")
+  @Key("diasCobro")
+  String diasCobro();
+
+  /**
    * Translated "Distancia".
    * 
    * @return translated "Distancia"
@@ -502,6 +520,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String monto();
 
   /**
+   * Translated "Monto a Pagar".
+   * 
+   * @return translated "Monto a Pagar"
+   */
+  @DefaultMessage("Monto a Pagar")
+  @Key("montoAPagar")
+  String montoAPagar();
+
+  /**
    * Translated "No".
    * 
    * @return translated "No"
@@ -563,6 +590,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Padre")
   @Key("padre")
   String padre();
+
+  /**
+   * Translated "Pagada".
+   * 
+   * @return translated "Pagada"
+   */
+  @DefaultMessage("Pagada")
+  @Key("pagada")
+  String pagada();
 
   /**
    * Translated "Participante".

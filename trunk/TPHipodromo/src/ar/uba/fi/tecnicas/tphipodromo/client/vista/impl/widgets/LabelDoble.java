@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 /**
  * No es mas que un panel que tiene:
  * 		variable: valor
- * @author El Tolo
  *
  */
 public class LabelDoble extends SimplePanel {
