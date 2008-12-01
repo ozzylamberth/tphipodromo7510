@@ -11,9 +11,11 @@ import org.apache.commons.collections.Transformer;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Caballo;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoCarrera;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.EstadoParticipante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Jockey;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.Participante;
 import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.HipodromoException;
+import ar.uba.fi.tecnicas.tphipodromo.modelo.excepciones.TransicionInvalidaEstadoParticipanteException;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CaballoDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.CarreraDao;
 import ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.DAOGenerico;
@@ -102,8 +104,9 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 		try {
 			Carrera carrera = this.carreraDao.buscarPorId(carreraDTO.getId());
 			carrera.comenzar();
-			this.asignarResultadosParticipante(participantesDTO);
+			Collection<Participante> participantes = this.asignarResultadosParticipante(participantesDTO);
 			carrera.terminar();
+			this.finalizarParticipantes(participantes);
 			carrera.aprobarResultados();
 			this.carreraDao.guardar(carrera);
 		} catch (ObjetoInexistenteException e) {
@@ -113,12 +116,27 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 		}
 	}
 	
-	private void asignarResultadosParticipante(Collection<ParticipanteDTO> participantesDTO) {
+	private Collection<Participante> asignarResultadosParticipante(Collection<ParticipanteDTO> participantesDTO) {
+		Collection<Participante> result = new ArrayList<Participante>();
 		Iterator<ParticipanteDTO> it = participantesDTO.iterator();
 		while (it.hasNext()) {
 			ParticipanteDTO participanteDTO = (ParticipanteDTO) it.next();
 			// el transform ya le asigna el resultado
 			Participante participante = (Participante) new ParticipanteTransformerFromDTO().transform(participanteDTO);
+			result.add(participante);
+		}
+		return result;
+	}
+	
+	private void finalizarParticipantes(Collection<Participante> participantes) {
+		Iterator<Participante> it = participantes.iterator();
+		while (it.hasNext()) {
+			Participante participante = (Participante) it.next();
+			try {
+				participante.setEstado(EstadoParticipante.FINALIZADO);
+			} catch (TransicionInvalidaEstadoParticipanteException e) {
+				// TODO 
+			}
 			this.participanteDao.guardar(participante);
 		}
 	}
