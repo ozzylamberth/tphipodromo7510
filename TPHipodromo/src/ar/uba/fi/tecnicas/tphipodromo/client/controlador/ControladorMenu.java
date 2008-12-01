@@ -39,6 +39,11 @@ public class ControladorMenu extends Controlador {
 		notifyObservers(EventoFactory.getMostrarCerrarInscripcion());
 	}
 	
+	public void doMostrarCerrarApuestas() {
+		notifyObservers(EventoFactory.getOcultarMensaje());
+		notifyObservers(EventoFactory.getMostrarCerrarApuestas());
+	}
+	
 	public void doABMResultados() {
 		notifyObservers(EventoFactory.getOcultarMensaje());
 		notifyObservers(EventoFactory.getMostrarABMResultados());
