@@ -7,10 +7,10 @@ public enum TipoApuesta {
 	TERCERO("Apuesta Tercero", ApuestaTercero.class),
 	DOBLE("Apuesta Doble", ApuestaDoble.class),
 	TRIPLO("Apuesta Triplo", ApuestaTriplo.class),
-	CUATERNA("Apuesta Cuaterna", ApuestaCuaterna.class),
-	EXACTA("Apuesta Exacta", ApuestaExacta.class),
-	IMPERFECTA("Apuesta Imperfecta", ApuestaImperfecta.class),
-	TRIFECTA("Apuesta Trifecta", ApuestaTrifecta.class);
+	CUATERNA("Apuesta Cuaterna", ApuestaCuaterna.class);
+	//EXACTA("Apuesta Exacta", ApuestaExacta.class),
+	//IMPERFECTA("Apuesta Imperfecta", ApuestaImperfecta.class),
+	//TRIFECTA("Apuesta Trifecta", ApuestaTrifecta.class);
 	
 	private String nombre;
 	@SuppressWarnings("unchecked")

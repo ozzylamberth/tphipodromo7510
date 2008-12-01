@@ -25,6 +25,7 @@
 			</classpath>
 			<arg line="-out &quot;${compileDir}&quot;" />
 			<arg value="${module.package}.${module.name}" />
+			<jvmarg value="-Xmx256m"/>
 		</java>
 	</target>
 	
