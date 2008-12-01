@@ -254,6 +254,14 @@ public class EventoFactory {
 		};
 	}
 	
+	public static Evento getBuscarCarrerasEnCurso() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onBuscarCarrerasEnCurso((Collection<CarreraDTO>)args[0]); 
+			}
+		};
+	}
+	
 	public static Evento getApuestaEncontrada() {
 		return new Evento() {
 			public void resolver(Vista v, Object[] args) { 
