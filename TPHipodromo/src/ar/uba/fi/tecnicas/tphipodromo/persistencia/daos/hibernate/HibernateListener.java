@@ -8,6 +8,10 @@ import javax.servlet.ServletRequestListener;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 
+import com.google.gwt.user.server.rpc.RPC;
+import com.google.gwt.user.server.rpc.RPCServletUtils;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 public class HibernateListener implements ServletContextListener, ServletRequestListener {
 
 	@Override
@@ -39,6 +43,7 @@ public class HibernateListener implements ServletContextListener, ServletRequest
 		} catch(HibernateException e) {
 			HibernateUtil.getCurrentSession().getTransaction().rollback();
 			Logger.getLogger(getClass()).error("Error de persistencia", e);
+			throw e;
 		}
 		HibernateUtil.getCurrentSession().close();
 		Logger.getLogger(getClass()).info("Transacción Hibernate terminada.");

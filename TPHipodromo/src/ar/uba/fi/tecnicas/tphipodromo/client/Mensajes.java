@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	D:/Tomas/workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -304,11 +304,11 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   String dia();
 
   /**
-   * Translated "D�as para Cobrar".
+   * Translated "Días para Cobrar".
    * 
-   * @return translated "D�as para Cobrar"
+   * @return translated "Días para Cobrar"
    */
-  @DefaultMessage("D�as para Cobrar")
+  @DefaultMessage("Días para Cobrar")
   @Key("diasCobro")
   String diasCobro();
 
