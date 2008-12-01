@@ -7,7 +7,6 @@ import javax.servlet.ServletRequestListener;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Transaction;
 
 public class HibernateListener implements ServletContextListener, ServletRequestListener {
 
@@ -29,13 +28,19 @@ public class HibernateListener implements ServletContextListener, ServletRequest
 	
 	@Override
 	public void requestInitialized(ServletRequestEvent arg0) {
-		arg0.getServletRequest().setAttribute("hibernate.transaction", HibernateUtil.getCurrentSession().beginTransaction());
+		HibernateUtil.getCurrentSession().beginTransaction();
 		Logger.getLogger(getClass()).info("Transacción Hibernate comenzada.");
 	}
 	
 	@Override
 	public void requestDestroyed(ServletRequestEvent arg0) {
-		((Transaction)arg0.getServletRequest().getAttribute("hibernate.transaction")).commit();
+		try {
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+		} catch(HibernateException e) {
+			HibernateUtil.getCurrentSession().getTransaction().rollback();
+			Logger.getLogger(getClass()).error("Error de persistencia", e);
+		}
+		HibernateUtil.getCurrentSession().close();
 		Logger.getLogger(getClass()).info("Transacción Hibernate terminada.");
 	}
 
