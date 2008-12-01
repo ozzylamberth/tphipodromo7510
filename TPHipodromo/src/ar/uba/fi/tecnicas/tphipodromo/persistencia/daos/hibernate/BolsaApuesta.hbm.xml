@@ -13,9 +13,16 @@
 		<property name="incrementoPozo" type="big_decimal" />
 		<property name="pozoMinimo" type="big_decimal" />
 		<property name="tipoApuestas" type="class" />
-
-		<!--	protected Set<Carrera> carreras = new HashSet<Carrera>();  -->
-		<!--	protected Set<Apuesta> apuestas = new HashSet<Apuesta>();  -->
+		
+		<set name="carreras" table="carreras_bolsa" cascade="all" lazy="false">
+             <key column="bolsaId"/>
+             <many-to-many column="carreraId" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Carrera"/>
+        </set>
+        
+        <set name="apuestas" table="apuestas_bolsa" cascade="all" lazy="false">
+             <key column="bolsaId"/>
+             <many-to-many column="apuestaId" class="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.Apuesta"/>
+        </set>
 		
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.BolsaApuestasConcreta" discriminator-value="CONCRETA" />
 		

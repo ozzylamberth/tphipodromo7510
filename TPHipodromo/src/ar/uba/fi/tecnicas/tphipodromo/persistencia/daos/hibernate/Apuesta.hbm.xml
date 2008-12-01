@@ -18,7 +18,7 @@
 		<property name="montoAPagar" type="big_decimal" />
 		<many-to-one name="bolsaApuestas" class="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.BolsaApuestasAbstracta" column="bolsaApuestasId" cascade="save-update" />
 		
-		<bag name="lstparticipantes" lazy="false" cascade="none">
+		<bag name="lstparticipantes" table="participantes_Apuesta" lazy="false" cascade="none">
 		      <key column="apuestaId"/>
 		      <many-to-many column="participanteId" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
 		</bag>
