@@ -17,6 +17,6 @@
 		<bag name="lstParticipantes" lazy="false" cascade="all-delete-orphan">
 		      <key column="carreraId"/>
 		      <one-to-many class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
-		  </bag>		
+		</bag>		
 	</class>
 </hibernate-mapping>

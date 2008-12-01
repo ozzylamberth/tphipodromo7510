@@ -10,15 +10,18 @@
 		<discriminator column="BOLSA_TIPO" type="string" force="true" />
 		
 		<property name="tipoApuesta" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoApuesta" />
+		<property name="estadoApuesta" type="ar.uba.fi.tecnicas.tphipodromo.persistencia.daos.hibernate.tipos.TipoEstadoApuesta" />
 		<property name="montoApostado" type="big_decimal" />
 		<property name="nroTicket" type="long" />
 		<property name="fechaCreacion" type="timestamp" />
 		<property name="diasPlazoMaxDeCobro" type="int" />
 		<property name="montoAPagar" type="big_decimal" />
+		<many-to-one name="bolsaApuestas" class="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.BolsaApuestasAbstracta" column="bolsaApuestasId" cascade="save-update" />
 		
-		<!--  private BolsaApuestasAbstracta bolsaApuestas;  -->
-		<!-- private EstadoApuesta estadoApuesta; -->
-		<!-- private Collection<Participante> participantes = new ArrayList<Participante>(); -->
+		<bag name="lstparticipantes" lazy="false" cascade="none">
+		      <key column="apuestaId"/>
+		      <many-to-many column="participanteId" class="ar.uba.fi.tecnicas.tphipodromo.modelo.Participante"/>
+		</bag>
 		
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaGanador" discriminator-value="GANADOR" />
 		<subclass name="ar.uba.fi.tecnicas.tphipodromo.modelo.apuestas.ApuestaSegundo" discriminator-value="SEGUNDO" />

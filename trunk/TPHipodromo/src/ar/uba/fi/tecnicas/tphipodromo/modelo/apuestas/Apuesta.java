@@ -42,7 +42,7 @@ public abstract class Apuesta implements Identificable {
 	private EstadoApuesta estadoApuesta;
 	private BigDecimal montoApostado;
 	private long nroTicket;
-	private Collection<Participante> participantes = new ArrayList<Participante>();
+	private Collection<Participante> lstParticipantes = new ArrayList<Participante>();
 	private Date fechaCreacion;
 	private int diasPlazoMaxDeCobro;
 	private BigDecimal montoAPagar = null;
@@ -169,7 +169,7 @@ public abstract class Apuesta implements Identificable {
 	}
 
 	public Collection<Participante> getParticipantes() {
-		return this.participantes;
+		return this.lstParticipantes;
 	}
 
 	public void validarCarreraCerradaAApuestas(Collection<Participante> participantes)
@@ -189,11 +189,11 @@ public abstract class Apuesta implements Identificable {
 		
 		this.validarCarreraCerradaAApuestas(participantes);
 		this.validarCantidadParticipantes(participantes);
-		this.participantes = participantes;
+		this.lstParticipantes = participantes;
 	}
 
 	public void addParticipante(Participante participante) {
-		this.participantes.add(participante);
+		this.lstParticipantes.add(participante);
 	}
 
 	public Date getFechaCreacion() {
@@ -210,6 +210,18 @@ public abstract class Apuesta implements Identificable {
 
 	protected void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+	// esto es por hibernate
+	@SuppressWarnings("unused")
+	private Collection<Participante> getLstparticipantes() {
+		return this.lstParticipantes;
+	}
+	
+	// esto es por hibernate
+	@SuppressWarnings("unused")
+	private void setLstparticipantes(Collection<Participante> lstparticipantes) {
+		this.lstParticipantes = lstparticipantes;
 	}
 
 	// esto es por hibernate
