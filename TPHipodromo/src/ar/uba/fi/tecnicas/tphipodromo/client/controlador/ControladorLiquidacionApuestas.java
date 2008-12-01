@@ -55,4 +55,17 @@ public class ControladorLiquidacionApuestas extends Controlador {
 
 	}
 
+	public void doPagarApuesta(ApuestaDTO apuesta) {
+		servicioApuestas.pagarApuesta(apuesta, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				notifyObservers(EventoFactory.getErrorRPC(), caught);
+			}
+			public void onSuccess(Void result) {
+				notifyObservers(EventoFactory.getMostrarMensaje(), mensajes.apuestaPagadaExitosamente());
+				notifyObservers(EventoFactory.getApuestaPagada());
+			}
+			
+		});
+	}
+
 }

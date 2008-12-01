@@ -311,6 +311,14 @@ public class EventoFactory {
 			}
 		};
 	}
+
+	public static Evento getApuestaPagada() {
+		return new Evento() {
+			public void resolver(Vista v, Object[] args) { 
+				v.onApuestaPagada(); 
+			}
+		};
+	}
 	
 	/*
 	public static Evento getEventoPedirDatosLogin() {
