@@ -1,6 +1,7 @@
 package ar.uba.fi.tecnicas.tphipodromo.client.vista.impl;
 
 import ar.uba.fi.tecnicas.tphipodromo.client.controlador.ControladorMenu;
+import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACerrarInscripcionListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ANuevaApuestaListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACaballosABMListener;
 import ar.uba.fi.tecnicas.tphipodromo.client.vista.impl.listener.ACarrerasABMListener;
@@ -43,6 +44,7 @@ public class VistaMenuGWT extends VistaGWT {
 	    verticalPanelAdmin.add(crearLinkJockeyABM());
 	    verticalPanelAdmin.add(crearLinkCarrerasABM());
 	    verticalPanelAdmin.add(crearLinkResultadosABM());
+	    verticalPanelAdmin.add(crearLinkCerrarInscripcion());
 	    verticalPanelAdmin.add(new Label("Administrar Apuestas"));
 	    panelMenu.add(verticalPanelAdmin, "Administracion");
 		
@@ -85,6 +87,12 @@ public class VistaMenuGWT extends VistaGWT {
 	private Hyperlink crearLinkResultadosABM() {
 		Hyperlink link = new Hyperlink("Administrar Resultados", "resultados");
 		link.addClickListener(new AResultadosABMListener(controlador));
+		return link;
+	}
+	
+	private Hyperlink crearLinkCerrarInscripcion() {
+		Hyperlink link = new Hyperlink("Cerrar inscripcion", "cerrarInscripcion");
+		link.addClickListener(new ACerrarInscripcionListener(controlador));
 		return link;
 	}
 	

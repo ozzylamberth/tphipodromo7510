@@ -2,7 +2,7 @@ package ar.uba.fi.tecnicas.tphipodromo.client;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	E:/Mis documentos/UBA/Materias/75.10 Tecnicas de Diseño/TP Grupal/Workspace/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
+ * 	C:/Documents and Settings/Juan/Mis documentos/facultad/técnicas de diseño/tp3/repositorio/TPHipodromo/src/ar/uba/fi/tecnicas/tphipodromo/client/Mensajes.properties'.
  */
 public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   
@@ -167,6 +167,15 @@ public interface Mensajes extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Cerrar")
   @Key("cerrar")
   String cerrar();
+
+  /**
+   * Translated "Cerrar inscripción".
+   * 
+   * @return translated "Cerrar inscripción"
+   */
+  @DefaultMessage("Cerrar inscripción")
+  @Key("cerrarInscripcion")
+  String cerrarInscripcion();
 
   /**
    * Translated "Cobrar Apuestas".
