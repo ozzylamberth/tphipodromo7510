@@ -86,9 +86,9 @@ public class ServicioApuestasImpl extends RemoteServiceServlet implements Servic
 			this.apuestaDao.guardar(apuesta);
 			return apuesta.getNroTicket();
 		} catch (ApuestaException e) {
-			throw new ApuestaInvalidaException();
+			throw new ApuestaInvalidaException(e.getMessage());
 		} catch (CarreraException e) {
-			throw new ApuestaInvalidaException();
+			throw new ApuestaInvalidaException(e.getMessage());
 		}
 	}
 	

@@ -94,7 +94,7 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 			}
 			this.carreraDao.guardar(carrera);
 		} catch (HipodromoException e) {
-			throw new ErrorHipodromoException();
+			throw new ErrorHipodromoException(e.getMessage());
 		} catch (ObjetoInexistenteException e) {
 			throw new EntidadInexistenteException();
 		}
@@ -167,7 +167,7 @@ public class ServicioCarrerasImpl extends ServicioIdentificableImpl<Carrera, Car
 			this.cambiarEstadoCarrera(carrera, estado);
 			this.carreraDao.guardar(carrera);
 		} catch (HipodromoException e) {
-			throw new ErrorHipodromoException();
+			throw new ErrorHipodromoException(e.getMessage());
 		}
 	}
 
