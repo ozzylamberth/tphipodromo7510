@@ -29,10 +29,6 @@ public class ControladorABMCarreras extends Controlador {
 	
 	private ServicioParticipantesAsync servicioParticipantes = GWT.create(ServicioParticipantes.class);
 	
-	private ServicioJockeysAsync servicioJockeys = GWT.create(ServicioJockeys.class);
-	
-	private ServicioCaballosAsync servicioCaballos = GWT.create(ServicioCaballos.class);
-	
 	private Collection<ParticipanteDTO> participantesCarreraEditada = new ArrayList<ParticipanteDTO>();
 	
 	public void doActualizarListadoCarrera() {
@@ -94,6 +90,7 @@ public class ControladorABMCarreras extends Controlador {
 	public void doAsignarParticipantes(CarreraDTO carreraDTO) {
 		servicioCarreras.asignarParticipantes(carreraDTO, this.participantesCarreraEditada, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
+				participantesCarreraEditada.clear();
 				notifyObservers(EventoFactory.getErrorRPC(), caught);
 			}
 			
